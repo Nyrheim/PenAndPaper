@@ -1,0 +1,15 @@
+package com.github.liamvii.penandpaper.character.races;
+
+public class MoonElf extends Race {
+
+    public MoonElf() {
+        raceASI.put("STR", 0);
+        raceASI.put("DEX", 2);
+        raceASI.put("CON", 0);
+        raceASI.put("INT", 1);
+        raceASI.put("WIS", 0);
+        raceASI.put("CHA", 0);
+        raceName = "Moon Elf";
+    }
+
+}

@@ -1,0 +1,12 @@
+name: PenandPaper
+version: 1.0
+author: LiamVI
+main: com.github.liamvii.penandpaper.Pen
+api-version: 1.13
+commands:
+  soul:
+    description: Character-related commands.
+    usage: /soul
+  exp:
+    description: exp commands
+    usage: /exp

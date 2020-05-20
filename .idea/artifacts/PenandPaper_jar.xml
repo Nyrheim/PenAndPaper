@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PenandPaper:jar">
+    <output-path>$PROJECT_DIR$/../Paper Server/plugins</output-path>
+    <root id="archive" name="PenandPaper.jar">
+      <element id="module-output" name="Pen and Paper" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Development Tools/mysql-connector-java-5.1.48/mysql-connector-java-5.1.48.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Development Tools/mysql-connector-java-5.1.48/mysql-connector-java-5.1.48-bin.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Development Tools/Spigot-API-1.14.4-94af569-20190911-0820.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
