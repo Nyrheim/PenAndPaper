@@ -4,7 +4,6 @@ import com.github.liamvii.penandpaper.Pen;
 import com.github.liamvii.penandpaper.character.PlayerCharacter;
 import com.github.liamvii.penandpaper.character.jobs.Job;
 import com.github.liamvii.penandpaper.characterholder.CharacterHolder;
-import com.sun.istack.internal.NotNull;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -16,8 +15,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 
-import static com.github.liamvii.penandpaper.utils.Select.selectInt;
-
 public class HolderGUI implements InventoryHolder {
 
     private final Inventory inv;
@@ -27,7 +24,6 @@ public class HolderGUI implements InventoryHolder {
         inv = Bukkit.createInventory(this, 27, "Souls");
     }
 
-    @NotNull
     @Override
     public Inventory getInventory() {
         return inv;

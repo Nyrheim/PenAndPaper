@@ -1,10 +1,9 @@
 package com.github.liamvii.penandpaper.utils;
 
-import com.mysql.jdbc.Statement;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import static com.github.liamvii.penandpaper.Pen.connection;

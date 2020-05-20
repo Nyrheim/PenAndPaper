@@ -1,0 +1,24 @@
+plugins {
+    id "java"
+}
+
+group = "com.github.liamvii.penandpaper"
+version = "0.1.0-SNAPSHOT"
+
+repositories {
+    mavenCentral()
+    maven { url "https://hub.spigotmc.org/nexus/content/groups/public/" }
+}
+
+dependencies {
+    implementation group: "org.bukkit", name: "bukkit", version: "1.15.2-R0.1-SNAPSHOT"
+    implementation group: "mysql", name: "mysql-connector-java", version: "8.0.20"
+}
+
+import org.apache.tools.ant.filters.ReplaceTokens
+
+processResources {
+    filter ReplaceTokens, tokens: [
+            "version": version
+    ]
+}

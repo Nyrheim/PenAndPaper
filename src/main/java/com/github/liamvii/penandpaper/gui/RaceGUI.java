@@ -1,7 +1,6 @@
 package com.github.liamvii.penandpaper.gui;
 
 import com.github.liamvii.penandpaper.Pen;
-import com.sun.istack.internal.NotNull;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -22,7 +21,6 @@ public class RaceGUI implements InventoryHolder {
         inv = Bukkit.createInventory(this, 36, "Race Selection");
     }
 
-    @NotNull
     @Override
     public Inventory getInventory() {
         return inv;
