@@ -1,5 +1,6 @@
 plugins {
     id "java"
+    id "com.github.johnrengelman.shadow" version "5.2.0"
 }
 
 group = "com.github.liamvii.penandpaper"
@@ -22,3 +23,15 @@ processResources {
             "version": version
     ]
 }
+
+shadowJar {
+    dependencies {
+        include(dependency("mysql:mysql-connector-java"))
+        include(dependency("com.google.protobuf:protobuf-java"))
+    }
+    relocate "com.mysql", "com.github.liamvii.penandpaper.shadow.com.mysql"
+    relocate "com.google", "com.github.liamvii.penandpaper.shadow.com.google"
+    relocate "google", "com.github.liamvii.penandpaper.shadow.google"
+}
+
+tasks.build.dependsOn tasks.shadowJar
