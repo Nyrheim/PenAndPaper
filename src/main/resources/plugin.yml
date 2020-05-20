@@ -1,5 +1,5 @@
 name: PenandPaper
-version: 1.0
+version: @version@
 author: LiamVI
 main: com.github.liamvii.penandpaper.Pen
 api-version: 1.13
