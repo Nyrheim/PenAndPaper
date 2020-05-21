@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import static com.github.liamvii.penandpaper.utils.Insert.insertToDB;
-
 public class AbilitySelect extends ValidatingPrompt {
 
     private Pen plugin;
@@ -58,8 +56,6 @@ public class AbilitySelect extends ValidatingPrompt {
             player.sendRawMessage(ChatColor.GOLD + "INT: " + ChatColor.WHITE + scores[3]);
             player.sendRawMessage(ChatColor.GOLD + "WIS: " + ChatColor.WHITE + scores[4]);
             player.sendRawMessage(ChatColor.GOLD + "CHA: " + ChatColor.WHITE + scores[5]);
-            PlayerCharacter character = Pen.getCharacter(Pen.getHolder(player).getActive());
-            character.setFreshAbilityScores(scores);
             return true;
         } else {
             return false;
@@ -83,8 +79,6 @@ public class AbilitySelect extends ValidatingPrompt {
         vals.add("-1");
         vals.add("");
         vals.add("");
-        vals.add(Integer.toString(Pen.getHolder(player).getActive()));
-        insertToDB("UPDATE characters SET firstName = ?, familyName = ?, age = ?, height = ?, weight = ?, appearance = ?, presence = ? WHERE id = ?", vals);
         JobGUI createJobGUI = new JobGUI();
         createJobGUI.initializeItems();
         createJobGUI.openInventory(player);

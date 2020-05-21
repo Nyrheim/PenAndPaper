@@ -17,11 +17,6 @@ package com.github.liamvii.penandpaper.utils;
 // Please contact the author if you need another license.
 // This module is provided "as is", without warranties of any kind.
 
-import org.bukkit.inventory.ItemStack;
-
-import java.io.ByteArrayInputStream;
-import java.math.BigInteger;
-
 /**
  * A Base64 encoder/decoder.
  *
