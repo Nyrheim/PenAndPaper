@@ -1,9 +1,6 @@
 package com.github.liamvii.penandpaper.listener;
 
 import com.github.liamvii.penandpaper.Pen;
-import com.github.liamvii.penandpaper.character.PlayerCharacter;
-import com.github.liamvii.penandpaper.characterholder.CharacterHolder;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

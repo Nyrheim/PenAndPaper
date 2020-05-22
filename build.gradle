@@ -7,6 +7,9 @@ plugins {
 group = "com.github.liamvii.penandpaper"
 version = "0.1.0-SNAPSHOT"
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 repositories {
     mavenCentral()
     maven { url "https://hub.spigotmc.org/nexus/content/groups/public/" }
@@ -17,10 +20,8 @@ dependencies {
     implementation group: "mysql", name: "mysql-connector-java", version: "8.0.20"
     implementation group: "com.zaxxer", name: "HikariCP", version: "3.4.5"
     implementation group: "com.typesafe", name: "config", version: "1.4.0"
-    implementation group: "org.jooq", name: "jooq", version: "3.14.0-SNAPSHOT"
-    implementation group: "org.jooq", name: "jooq-meta", version: "3.14.0-SNAPSHOT"
-    implementation group: "org.jooq", name: "jooq-codegen", version: "3.14.0-SNAPSHOT"
-    jooqRuntime 'mysql:mysql-connector-java:8.0.20'
+    implementation group: "org.jooq", name: "jooq", version: "3.13.2"
+    implementation group: "org.slf4j", name: "slf4j-jdk14", version: "1.7.30"
 }
 import org.apache.tools.ant.filters.ReplaceTokens
 
@@ -30,67 +31,37 @@ processResources {
     ]
 }
 
-jooq {
-    version = '3.13.1'
-    edition = 'OSS'
-    generateSchemaSourceOnCompilation = true
-    PenandPaper(sourceSets.main) {
-        jdbc {
-            driver = 'com.mysql.cj.jdbc.Driver'
-            url = 'jdbc:mysql://localhost:3306/penandpaper'
-            user = 'root'
-            password = 'HelioStaten4@21!'
-        }
-        generator {
-            name = 'org.jooq.codegen.DefaultGenerator'
-            strategy {
-                name = 'org.jooq.codegen.DefaultGeneratorStrategy'
-                // ...
-            }
-            database {
-                name = 'org.jooq.meta.mysql.MySQLDatabase'
-                inputSchema = 'penandpaper'
-                forcedTypes {
-                    forcedType {
-                        name = 'varchar'
-                    }
-                    forcedType {
-                        name = 'varchar'
-                    }
-                }
-                // ...
-            }
-            generate {
-                relations = true
-                deprecated = false
-                records = true
-                immutablePojos = true
-                fluentSetters = true
-                // ...
-            }
-            target {
-                packageName = 'nu.studer.sample'
-                // directory = ...
-            }
-        }
-    }
-}
-
 shadowJar {
     dependencies {
         include(dependency("mysql:mysql-connector-java"))
         include(dependency("com.google.protobuf:protobuf-java"))
-        include(dependency("com.zaxxer:HikariCP:3.4.5"))
-        include(dependency("com.typesafe:config:1.4.0"))
-        include(dependency("org.jooq:jooq:3.14.0-SNAPSHOT"))
-        include(dependency("org.jooq:jooq-meta:3.14.0-SNAPSHOT"))
-        include(dependency("org.jooq:jooq-codegen:3.14.0-SNAPSHOT"))
+
+        include(dependency("com.zaxxer:HikariCP"))
+
+        include(dependency("org.jooq:jooq"))
+        include(dependency("org.reactivestreams:reactive-streams"))
+        include(dependency("javax.xml.bind:jaxb-api"))
+        include(dependency("javax.activation:javax-activation-api"))
+
+        include(dependency("org.slf4j:slf4j-jdk14"))
+        include(dependency("org.slf4j:slf4j-api"))
     }
+
     relocate "com.mysql", "com.github.liamvii.penandpaper.shadow.com.mysql"
     relocate "com.google", "com.github.liamvii.penandpaper.shadow.com.google"
     relocate "google", "com.github.liamvii.penandpaper.shadow.google"
+
     relocate "com.zaxxer", "com.github.liamvii.penandpaper.shadow.com.zaxxer"
-    relocate "com.typesafe", "com.github.liamvii.penandpaper.shadow.com.typesafe"
+
+    relocate "org.jooq", "com.github.liamvii.penandpaper.shadow.org.jooq"
+    relocate "xsd", "com.github.liamvii.penandpaper.shadow.xsd"
+    relocate "migrations", "com.github.liamvii.penandpaper.shadow.migrations"
+    relocate "org.reactivestreams", "com.github.liamvii.penandpaper.shadow.org.reactivestreams"
+    relocate "javax.xml.bind", "com.github.liamvii.penandpaper.shadow.javax.xml.bind"
+    relocate "javax.activation", "com.github.liamvii.penandpaper.shadow.javax.activation"
+
+    relocate "org.slf4j", "com.github.liamvii.penandpaper.shadow.org.slf4j"
+
 }
 
 tasks.build.dependsOn tasks.shadowJar

@@ -1,78 +1,144 @@
 package com.github.liamvii.penandpaper.character;
 
 import com.github.liamvii.penandpaper.Pen;
+import com.github.liamvii.penandpaper.ability.Ability;
+import com.github.liamvii.penandpaper.ability.AbilityModifierLookupTable;
+import com.github.liamvii.penandpaper.clazz.CharacterClass;
+import com.github.liamvii.penandpaper.clazz.DnDClass;
 import com.github.liamvii.penandpaper.conversations.StartCreate;
-import com.github.liamvii.penandpaper.utils.ConnectionManager;
 import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.jooq.DSLContext;
-import org.jooq.Record;
-import org.jooq.Result;
-import org.jooq.impl.DSL;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
-import static com.github.liamvii.penandpaper.utils.BukkitSerialization.itemStackArrayToBase64;
-import static com.github.liamvii.penandpaper.utils.generated.Tables.CHARACTERS;
-import static org.jooq.SQLDialect.MYSQL;
+public final class PlayerCharacter {
 
-public class PlayerCharacter {
+    public static final int MAX_CLASSES = 4;
 
     private Pen plugin;
 
-    int id;
-    String uuid;
-    String playerName;
-    String firstName;
-    String familyName;
-    String height;
-    String weight;
-    String appearance;
-    String presence;
-    int age;
-    int maxHPModLevel = 0;
-    int experience;
-    HashMap<String, Integer> abilityScores = new HashMap<String, Integer>();
-    HashMap<String, Integer> tempScores = new HashMap<>();
-    HashMap<String, Integer> modifiers = new HashMap<String, Integer>();
-    String raceName;
+    private CharacterId id;
+    private final UUID playerUUID;
+    private String firstName;
+    private String familyName;
+    private String height;
+    private String weight;
+    private String appearance;
+    private String presence;
+    private int age;
+    private int experience;
+    private int exhaustion;
+    private final Map<Ability, Integer> abilityScores = new EnumMap<>(Ability.class);
+    private final Map<Ability, Integer> tempScores = new EnumMap<>(Ability.class);
+    private DnDClass firstClass;
+    private final Map<DnDClass, CharacterClass> classes = new HashMap<>();
+    private String race;
+    private ItemStack helmet;
+    private ItemStack chestplate;
+    private ItemStack leggings;
+    private ItemStack boots;
+    private ItemStack[] inventoryContents;
 
-    // Constructs a new character
-    public PlayerCharacter(Player player) {
-        uuid = player.getUniqueId().toString();
-
+    public PlayerCharacter(
+            Pen plugin,
+            CharacterId id,
+            UUID playerUUID,
+            String firstName,
+            String familyName,
+            String height,
+            String weight,
+            String appearance,
+            String presence,
+            int age,
+            int experience,
+            int exhaustion,
+            Map<Ability, Integer> abilityScores,
+            Map<Ability, Integer> tempScores,
+            DnDClass firstClass,
+            List<CharacterClass> classes,
+            String race,
+            ItemStack helmet,
+            ItemStack chestplate,
+            ItemStack leggings,
+            ItemStack boots,
+            ItemStack[] inventoryContents
+    ) {
+        this.id = id;
+        this.plugin = plugin;
+        this.playerUUID = playerUUID;
+        this.firstName = firstName;
+        this.familyName = familyName;
+        this.height = height;
+        this.weight = weight;
+        this.appearance = appearance;
+        this.presence = presence;
+        this.age = age;
+        this.experience = experience;
+        this.exhaustion = exhaustion;
+        this.abilityScores.putAll(abilityScores);
+        this.tempScores.putAll(tempScores);
+        this.firstClass = firstClass;
+        this.classes.putAll(classes.stream()
+                .collect(Collectors.toMap(CharacterClass::getClazz, characterClass -> characterClass)));
+        this.race = race;
+        this.helmet = helmet;
+        this.chestplate = chestplate;
+        this.leggings = leggings;
+        this.boots = boots;
+        this.inventoryContents = inventoryContents;
     }
 
-    // Loads the current active character into memory
-    public PlayerCharacter() {
-        this.deserializeCharacter();
-    }
-
-//
-    private void deserializeCharacter() {
-        DSLContext read = DSL.using(ConnectionManager.getRead(), MYSQL);
-        Result<Record> result = read.select().from(CHARACTERS).where(CHARACTERS.UUID.eq(uuid)).fetch();
-        for (Record r : result) {
-            firstName = r.getValue(CHARACTERS.FIRSTNAME);
-            familyName = r.getValue(CHARACTERS.FAMILYNAME);
-            height = r.getValue(CHARACTERS.HEIGHT);
-            weight = r.getValue(CHARACTERS.WEIGHT);
-            appearance = r.getValue(CHARACTERS.APPEARANCE);
-            presence = r.getValue(CHARACTERS.PRESENCE);
-            age = Integer.parseInt(r.getValue(CHARACTERS.AGE));
-        }
-    }
-
-    public void storeCharacter() {
-
-    }
-
-    public void delChararacter() {
-
+    public PlayerCharacter(
+            Pen plugin,
+            CharacterId id,
+            Player player,
+            String firstName,
+            String familyName,
+            String height,
+            String weight,
+            String appearance,
+            String presence,
+            int age,
+            int experience,
+            int exhaustion,
+            Map<Ability, Integer> abilityScores,
+            Map<Ability, Integer> tempScores,
+            DnDClass firstClass,
+            List<CharacterClass> classes,
+            String race,
+            ItemStack helmet,
+            ItemStack chestplate,
+            ItemStack leggings,
+            ItemStack boots,
+            ItemStack[] inventoryContents
+    ) {
+        this(
+                plugin,
+                id,
+                player.getUniqueId(),
+                firstName,
+                familyName,
+                height,
+                weight,
+                appearance,
+                presence,
+                age,
+                experience,
+                exhaustion,
+                abilityScores,
+                tempScores,
+                firstClass,
+                classes,
+                race,
+                helmet,
+                chestplate,
+                leggings,
+                boots,
+                inventoryContents
+        );
     }
 
     private void createConversation(Player player) {
@@ -81,6 +147,17 @@ public class PlayerCharacter {
         conv.begin();
     }
 
+    public CharacterId getId() {
+        return id;
+    }
+
+    public void setId(CharacterId id) {
+        this.id = id;
+    }
+
+    public UUID getUUID() {
+        return playerUUID;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -110,104 +187,105 @@ public class PlayerCharacter {
         return presence;
     }
 
-    public int getEXP() {
+    public int getExperience() {
         return experience;
     }
 
-    public HashMap<String, Integer> getAbilityScores() {
-        return abilityScores;
+    public int getExhaustion() {
+        return exhaustion;
     }
 
-    public HashMap<String, Integer> getTempScores() {
-        return tempScores;
+    public void setExhaustion(int exhaustion) {
+        this.exhaustion = exhaustion;
     }
 
-    public HashMap<String, Integer> getModifiers() {
-        return modifiers;
+    public int getAbilityScore(Ability ability) {
+        return abilityScores.getOrDefault(ability, 0);
     }
 
-    public String getRaceName() {
-        return raceName;
+    public void setAbilityScore(Ability ability, int score) {
+        abilityScores.put(ability, score);
     }
 
-    // Setters
-
-    public void setFirstName(String fName) {
-        DSLContext write = DSL.using(ConnectionManager.getWrite(), MYSQL);
-        write.update(CHARACTERS).set(CHARACTERS.FIRSTNAME, fName).where(CHARACTERS.UUID.eq(uuid));
-        firstName = fName;
+    public int getTempScore(Ability ability) {
+        return abilityScores.getOrDefault(ability, 0);
     }
 
-    public void setFamilyName(String fName) {
-        DSLContext write = DSL.using(ConnectionManager.getWrite(), MYSQL);
-        write.update(CHARACTERS).set(CHARACTERS.FAMILYNAME, fName).where(CHARACTERS.UUID.eq(uuid));
-        familyName = fName;
+    public void setTempScore(Ability ability, int score) {
+        tempScores.put(ability, score);
     }
 
-    public void setAge(int a) {
-        DSLContext write = DSL.using(ConnectionManager.getWrite(), MYSQL);
-        write.update(CHARACTERS).set(CHARACTERS.AGE, Integer.toString(age)).where(CHARACTERS.UUID.eq(uuid));
-        age = a;
+    public int getModifier(Ability ability) {
+        return AbilityModifierLookupTable.lookupModifier(getAbilityScore(ability) + getTempScore(ability));
     }
 
-    public void setHeight(String h) {
-        DSLContext write = DSL.using(ConnectionManager.getWrite(), MYSQL);
-        write.update(CHARACTERS).set(CHARACTERS.HEIGHT, h).where(CHARACTERS.UUID.eq(uuid));
-        height = h;
+    public String getRace() {
+        return race;
     }
 
-    public void setWeight(String w) {
-        DSLContext write = DSL.using(ConnectionManager.getWrite(), MYSQL);
-        write.update(CHARACTERS).set(CHARACTERS.WEIGHT, w).where(CHARACTERS.UUID.eq(uuid));
-        weight = w;
+    public ItemStack getHelmet() {
+        return helmet;
     }
 
-    public void setAppearance(String app) {
-        DSLContext write = DSL.using(ConnectionManager.getWrite(), MYSQL);
-        write.update(CHARACTERS).set(CHARACTERS.APPEARANCE, app).where(CHARACTERS.UUID.eq(uuid));
-        appearance = app;
+    public void setHelmet(ItemStack helmet) {
+        this.helmet = helmet;
     }
 
-    public void setPresence(String pre) {
-        DSLContext write = DSL.using(ConnectionManager.getWrite(), MYSQL);
-        write.update(CHARACTERS).set(CHARACTERS.PRESENCE, pre).where(CHARACTERS.UUID.eq(uuid));
-        presence = pre;
+    public ItemStack getChestplate() {
+        return chestplate;
     }
 
-
-    public void updateAbilityScore(String score, int update) {
-
+    public void setChestplate(ItemStack chestplate) {
+        this.chestplate = chestplate;
     }
 
-    public void setFreshAbilityScores(int[] pointarray) {
+    public ItemStack getLeggings() {
+        return leggings;
     }
 
-    public void setJob(int jobID) {
-
+    public void setLeggings(ItemStack leggings) {
+        this.leggings = leggings;
     }
 
-    public void serializeInventory(Player player) {
-        Inventory inv = player.getInventory();
-        ItemStack[] stack = inv.getContents();
-        String stackString = itemStackArrayToBase64(stack);
-        ArrayList<String> vals = new ArrayList<>();
-        vals.add(stackString);
-        vals.add(Integer.toString(id));
-     //   insertToDB("UPDATE characters SET inventory = ? WHERE id = ?", vals);
+    public ItemStack getBoots() {
+        return boots;
     }
 
-    /*
-    public void deserializeInventory(Player player) {
-        String val = Integer.toString(id);
-    String stackString = selectString("SELECT inventory FROM characters WHERE id = ?", val);
-        try {
-         ItemStack[] stack = itemStackArrayFromBase64(stackString);
-            player.getInventory().setContents(stack);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void setBoots(ItemStack boots) {
+        this.boots = boots;
+    }
+
+    public ItemStack[] getInventoryContents() {
+        return inventoryContents;
+    }
+
+    public void setInventoryContents(ItemStack[] inventoryContents) {
+        this.inventoryContents = inventoryContents;
+    }
+
+    public List<CharacterClass> classes() {
+        return new ArrayList<>(classes.values());
+    }
+
+    public CharacterClass clazz(DnDClass clazz) {
+        return classes.get(clazz);
+    }
+
+    public DnDClass getFirstClass() {
+        return firstClass;
+    }
+
+    public void addClass(DnDClass clazz) {
+        if (classes.size() < MAX_CLASSES) {
+            if (classes.isEmpty()) {
+                firstClass = clazz;
+            }
+            classes.put(clazz, new CharacterClass(clazz));
         }
     }
 
-     */
+    public void removeClass(DnDClass clazz) {
+        classes.remove(clazz);
+    }
 
 }

@@ -2,18 +2,12 @@ package com.github.liamvii.penandpaper;
 
 import com.github.liamvii.penandpaper.commands.CharacterCommandHandler;
 import com.github.liamvii.penandpaper.commands.EXPCommandHandler;
+import com.github.liamvii.penandpaper.database.Database;
 import com.github.liamvii.penandpaper.listener.InventoryListener;
 import com.github.liamvii.penandpaper.listener.PlayerListener;
-import com.github.liamvii.penandpaper.utils.ConnectionManager;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jooq.DSLContext;
-import org.jooq.SQLDialect;
-import org.jooq.impl.DSL;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -31,30 +25,35 @@ API: Spigot 1.14.4.
 
 public class Pen extends JavaPlugin {
 
-    public FileConfiguration config = this.getConfig();
+    private Database database;
 
     public static Map<Player, LinkedList<String>> answers = new HashMap<>();
 
-    private Pen plugin;
-
     @Override
     public void onEnable() {
-        this.saveDefaultConfig();
+        saveDefaultConfig();
+
+        database = new Database(
+                this,
+                getConfig().getString("database.url"),
+                getConfig().getString("database.username"),
+                getConfig().getString("database.password")
+        );
+
         getServer().getPluginManager().registerEvents(new InventoryListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
-        this.getCommand("soul").setExecutor(new CharacterCommandHandler());
-        this.getCommand("exp").setExecutor(new EXPCommandHandler());
+        getCommand("soul").setExecutor(new CharacterCommandHandler());
+        getCommand("exp").setExecutor(new EXPCommandHandler());
     }
 
-    @Override
-    public void onDisable() {
+    public Database getDatabase() {
+        return database;
     }
 
     public static void addAnswer(Player player, String answer) {
         if (answers.containsKey(player)) {
             answers.get(player).add(answer);
-        }
-        else {
+        } else {
             answers.put(player, new LinkedList<>(Collections.singleton(answer)));
         }
     }
