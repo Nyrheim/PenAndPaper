@@ -4,10 +4,7 @@ import com.github.liamvii.penandpaper.Pen;
 import com.github.liamvii.penandpaper.gui.HolderGUI;
 import com.github.liamvii.penandpaper.gui.JobGUI;
 import com.github.liamvii.penandpaper.gui.RaceGUI;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.conversations.Conversation;
-import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,7 +20,11 @@ public class InventoryListener implements Listener {
     public void onInventoryClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
         ItemStack clickedItem = e.getCurrentItem();
-        if (!(e.getInventory().getHolder() instanceof JobGUI || e.getInventory().getHolder() instanceof HolderGUI || e.getInventory().getHolder() instanceof RaceGUI)) {
+        if (!(
+                e.getInventory().getHolder() instanceof JobGUI
+                    || e.getInventory().getHolder() instanceof HolderGUI
+                    || e.getInventory().getHolder() instanceof RaceGUI
+        )) {
             return;
         }
         if (e.getClick().equals(ClickType.NUMBER_KEY)) {
@@ -35,7 +36,7 @@ public class InventoryListener implements Listener {
             return;
 
         if (e.getInventory().getHolder() instanceof JobGUI) {
-
+            
         }
         if (e.getInventory().getHolder() instanceof RaceGUI) {
 
