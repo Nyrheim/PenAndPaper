@@ -189,6 +189,10 @@ public final class PlayerCharacter {
         return weight;
     }
 
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
     public String getAppearance() {
         return appearance;
     }
