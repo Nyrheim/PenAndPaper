@@ -22,6 +22,7 @@ dependencies {
     implementation group: "com.typesafe", name: "config", version: "1.4.0"
     implementation group: "org.jooq", name: "jooq", version: "3.13.2"
     implementation group: "org.slf4j", name: "slf4j-jdk14", version: "1.7.30"
+    implementation group: "org.ehcache", name: "ehcache", version: "3.8.1"
 }
 import org.apache.tools.ant.filters.ReplaceTokens
 
@@ -45,6 +46,14 @@ shadowJar {
 
         include(dependency("org.slf4j:slf4j-jdk14"))
         include(dependency("org.slf4j:slf4j-api"))
+
+        include(dependency("org.ehcache:ehcache"))
+        include(dependency("org.glassfish.jaxb:jaxb-runtime"))
+        include(dependency("org.glassfish.jaxb:txw2"))
+        include(dependency("com.sun.istack:istack-commons-runtime"))
+        include(dependency("org.jvnet.staxex:stax-ex"))
+        include(dependency("com.sun.xml.fastinfoset:FastInfoSet"))
+        include(dependency("javax.activation:javax.activation-api"))
     }
 
     relocate "com.mysql", "com.github.liamvii.penandpaper.shadow.com.mysql"
@@ -62,6 +71,16 @@ shadowJar {
 
     relocate "org.slf4j", "com.github.liamvii.penandpaper.shadow.org.slf4j"
 
+    relocate "org.ehcache", "com.github.liamvii.penandpaper.shadow.org.ehcache"
+    relocate "org.terracotta", "com.github.liamvii.penandpaper.shadow.org.terracotta"
+    relocate "com.sun.xml.bind", "com.github.liamvii.penandpaper.shadow.com.sun.xml.bind"
+    relocate "com.sun.xml.txw2", "com.github.liamvii.penandpaper.shadow.com.sun.xml.txw2"
+    relocate "com.sun.istack", "com.github.liamvii.penandpaper.shadow.com.sun.istack"
+    relocate "org.jvnet.staxex", "com.github.liamvii.penandpaper.shadow.org.jvnet.staxex"
+    relocate "com.sun.xml.fastinfoset", "com.github.liamvii.penandpaper.shadow.com.sun.xml.fastinfoset"
+    relocate "javax.activation", "com.github.liamvii.penandpaper.shadow.javax.activation"
+
+    mergeServiceFiles()
 }
 
 tasks.build.dependsOn tasks.shadowJar
