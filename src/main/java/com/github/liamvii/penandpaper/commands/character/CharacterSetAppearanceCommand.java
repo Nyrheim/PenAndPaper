@@ -16,11 +16,11 @@ import java.util.Arrays;
 import static org.bukkit.ChatColor.GREEN;
 import static org.bukkit.ChatColor.RED;
 
-public final class CharacterSetWeightCommand implements CommandExecutor {
+public final class CharacterSetAppearanceCommand implements CommandExecutor {
 
     private final Pen plugin;
 
-    public CharacterSetWeightCommand(Pen plugin) {
+    public CharacterSetAppearanceCommand(Pen plugin) {
         this.plugin = plugin;
     }
 
@@ -44,18 +44,15 @@ public final class CharacterSetWeightCommand implements CommandExecutor {
             sender.sendMessage(RED + "You do not currently have an active character.");
             return true;
         }
-        if (args.length < 1) {
-            sender.sendMessage(RED + "You must specify how heavy you wish to become.");
+        String appearance = Arrays.stream(args).reduce((a, b) -> a + " " + b).orElse("");
+        if (appearance.length() > 4096) {
+            sender.sendMessage(RED + "Your appearance may be at most 4096 characters long.");
             return true;
         }
-        String weight = Arrays.stream(args).reduce((a, b) -> a + " " + b).orElse("");
-        if (weight.length() > 16) {
-            sender.sendMessage(RED + "Your weight may be at most 16 characters long.");
-            return true;
-        }
-        character.setWeight(weight);
+        character.setAppearance(appearance);
         characterTable.update(character);
-        sender.sendMessage(GREEN + "Your weight is now " + weight + ".");
+        sender.sendMessage(GREEN + "Your appearance is now \"" + appearance + "\".");
         return true;
     }
+
 }

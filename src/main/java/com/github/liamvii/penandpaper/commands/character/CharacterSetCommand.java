@@ -16,12 +16,14 @@ public final class CharacterSetCommand implements CommandExecutor {
     private final CharacterSetAgeCommand characterSetAgeCommand;
     private final CharacterSetHeightCommand characterSetHeightCommand;
     private final CharacterSetWeightCommand characterSetWeightCommand;
+    private final CharacterSetAppearanceCommand characterSetAppearanceCommand;
 
     public CharacterSetCommand(Pen plugin) {
         this.plugin = plugin;
         this.characterSetAgeCommand = new CharacterSetAgeCommand(plugin);
         this.characterSetHeightCommand = new CharacterSetHeightCommand(plugin);
         this.characterSetWeightCommand = new CharacterSetWeightCommand(plugin);
+        this.characterSetAppearanceCommand = new CharacterSetAppearanceCommand(plugin);
     }
 
     @Override
@@ -49,11 +51,18 @@ public final class CharacterSetCommand implements CommandExecutor {
                             label,
                             Arrays.stream(args).skip(1).toArray(String[]::new)
                     );
+                case "appearance":
+                    return characterSetAppearanceCommand.onCommand(
+                            sender,
+                            command,
+                            label,
+                            Arrays.stream(args).skip(1).toArray(String[]::new)
+                    );
                 default:
-                    sender.sendMessage(RED + "Usage: /" + label + " set [age|height|weight]");
+                    sender.sendMessage(RED + "Usage: /" + label + " set [age|height|weight|appearance]");
             }
         } else {
-            sender.sendMessage(RED + "Usage: /" + label + " set [age|height|weight]");
+            sender.sendMessage(RED + "Usage: /" + label + " set [age|height|weight|appearance]");
         }
         return true;
     }

@@ -197,6 +197,10 @@ public final class PlayerCharacter {
         return appearance;
     }
 
+    public void setAppearance(String appearance) {
+        this.appearance = appearance;
+    }
+
     public String getPresence() {
         return presence;
     }

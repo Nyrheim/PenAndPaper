@@ -11,6 +11,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
+
 import static org.bukkit.ChatColor.GREEN;
 import static org.bukkit.ChatColor.RED;
 
@@ -46,7 +48,7 @@ public final class CharacterSetHeightCommand implements CommandExecutor {
             sender.sendMessage(RED + "You must specify how tall you wish to become.");
             return true;
         }
-        String height = args[0];
+        String height = Arrays.stream(args).reduce((a, b) -> a + " " + b).orElse("");
         if (height.length() > 16) {
             sender.sendMessage(RED + "Your height may be at most 16 characters long.");
             return true;
