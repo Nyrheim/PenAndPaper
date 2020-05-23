@@ -1,7 +1,6 @@
 package com.github.liamvii.penandpaper;
 
-import com.github.liamvii.penandpaper.commands.CharacterCommandHandler;
-import com.github.liamvii.penandpaper.commands.EXPCommandHandler;
+import com.github.liamvii.penandpaper.commands.character.CharacterCommand;
 import com.github.liamvii.penandpaper.database.Database;
 import com.github.liamvii.penandpaper.listener.InventoryListener;
 import com.github.liamvii.penandpaper.listener.PlayerListener;
@@ -42,8 +41,8 @@ public class Pen extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new InventoryListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
-        getCommand("soul").setExecutor(new CharacterCommandHandler());
-        getCommand("exp").setExecutor(new EXPCommandHandler());
+
+        getCommand("char").setExecutor(new CharacterCommand(database));
     }
 
     public Database getDatabase() {

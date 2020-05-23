@@ -6,6 +6,7 @@ import com.github.liamvii.penandpaper.ability.AbilityModifierLookupTable;
 import com.github.liamvii.penandpaper.clazz.CharacterClass;
 import com.github.liamvii.penandpaper.clazz.DnDClass;
 import com.github.liamvii.penandpaper.conversations.StartCreate;
+import com.github.liamvii.penandpaper.player.PlayerId;
 import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.Player;
@@ -21,7 +22,7 @@ public final class PlayerCharacter {
     private Pen plugin;
 
     private CharacterId id;
-    private final UUID playerUUID;
+    private final PlayerId playerUUID;
     private String firstName;
     private String familyName;
     private String height;
@@ -45,7 +46,7 @@ public final class PlayerCharacter {
     public PlayerCharacter(
             Pen plugin,
             CharacterId id,
-            UUID playerUUID,
+            PlayerId playerUUID,
             String firstName,
             String familyName,
             String height,
@@ -118,7 +119,7 @@ public final class PlayerCharacter {
         this(
                 plugin,
                 id,
-                player.getUniqueId(),
+                new PlayerId(player.getUniqueId()),
                 firstName,
                 familyName,
                 height,
@@ -155,7 +156,7 @@ public final class PlayerCharacter {
         this.id = id;
     }
 
-    public UUID getUUID() {
+    public PlayerId getPlayerId() {
         return playerUUID;
     }
 

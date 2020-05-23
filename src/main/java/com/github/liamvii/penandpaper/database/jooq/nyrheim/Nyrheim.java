@@ -5,6 +5,7 @@ package com.github.liamvii.penandpaper.database.jooq.nyrheim;
 
 
 import com.github.liamvii.penandpaper.database.jooq.DefaultCatalog;
+import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.ActiveCharacter;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.Character;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.CharacterAbilityScore;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.CharacterClass;
@@ -24,12 +25,17 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Nyrheim extends SchemaImpl {
 
-    private static final long serialVersionUID = -114147420;
+    private static final long serialVersionUID = 216236175;
 
     /**
      * The reference instance of <code>nyrheim</code>
      */
     public static final Nyrheim NYRHEIM = new Nyrheim();
+
+    /**
+     * The table <code>nyrheim.active_character</code>.
+     */
+    public final ActiveCharacter ACTIVE_CHARACTER = ActiveCharacter.ACTIVE_CHARACTER;
 
     /**
      * The table <code>nyrheim.character</code>.
@@ -67,6 +73,7 @@ public class Nyrheim extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.<Table<?>>asList(
+            ActiveCharacter.ACTIVE_CHARACTER,
             Character.CHARACTER,
             CharacterAbilityScore.CHARACTER_ABILITY_SCORE,
             CharacterClass.CHARACTER_CLASS,

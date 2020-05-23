@@ -6,6 +6,7 @@ import com.github.liamvii.penandpaper.character.PlayerCharacter;
 import com.github.liamvii.penandpaper.clazz.CharacterClass;
 import com.github.liamvii.penandpaper.clazz.DnDClass;
 import com.github.liamvii.penandpaper.database.Database;
+import com.github.liamvii.penandpaper.player.PlayerId;
 import com.github.liamvii.penandpaper.utils.ItemStackUtils;
 import org.bukkit.inventory.ItemStack;
 import org.ehcache.Cache;
@@ -128,7 +129,7 @@ public final class CharacterTable implements Table {
                         CHARACTER.INVENTORY_CONTENTS
                 )
                 .values(
-                        character.getUUID().toString(),
+                        character.getPlayerId().toString(),
                         character.getFirstName(),
                         character.getFamilyName(),
                         character.getHeight(),
@@ -202,7 +203,7 @@ public final class CharacterTable implements Table {
         }
         database.create()
                 .update(CHARACTER)
-                .set(CHARACTER.PLAYER_UUID, character.getUUID().toString())
+                .set(CHARACTER.PLAYER_UUID, character.getPlayerId().toString())
                 .set(CHARACTER.FIRST_NAME, character.getFirstName())
                 .set(CHARACTER.FAMILY_NAME, character.getFamilyName())
                 .set(CHARACTER.HEIGHT, character.getHeight())
@@ -318,7 +319,7 @@ public final class CharacterTable implements Table {
         PlayerCharacter character = new PlayerCharacter(
                 plugin,
                 id,
-                UUID.fromString(result.get(CHARACTER.PLAYER_UUID)),
+                new PlayerId(UUID.fromString(result.get(CHARACTER.PLAYER_UUID))),
                 result.get(CHARACTER.FIRST_NAME),
                 result.get(CHARACTER.FAMILY_NAME),
                 result.get(CHARACTER.HEIGHT),

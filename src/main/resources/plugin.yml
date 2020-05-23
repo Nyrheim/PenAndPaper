@@ -4,6 +4,13 @@ author: LiamVI
 main: com.github.liamvii.penandpaper.Pen
 api-version: 1.13
 commands:
+  character:
+    description: |
+      Character management commands
+      /char - Displays your character card
+    usage: /<command>
+    aliases:
+    - char
   soul:
     description: Character-related commands.
     usage: /soul

@@ -7,7 +7,7 @@ package com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.records;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.CharacterTempAbilityScore;
 
 import org.jooq.Field;
-import org.jooq.Record1;
+import org.jooq.Record2;
 import org.jooq.Record3;
 import org.jooq.Row3;
 import org.jooq.impl.UpdatableRecordImpl;
@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CharacterTempAbilityScoreRecord extends UpdatableRecordImpl<CharacterTempAbilityScoreRecord> implements Record3<Integer, String, Integer> {
 
-    private static final long serialVersionUID = -1667989244;
+    private static final long serialVersionUID = -1182632642;
 
     /**
      * Setter for <code>nyrheim.character_temp_ability_score.character_id</code>.
@@ -68,8 +68,8 @@ public class CharacterTempAbilityScoreRecord extends UpdatableRecordImpl<Charact
     // -------------------------------------------------------------------------
 
     @Override
-    public Record1<Integer> key() {
-        return (Record1) super.key();
+    public Record2<Integer, String> key() {
+        return (Record2) super.key();
     }
 
     // -------------------------------------------------------------------------
