@@ -1,8 +1,10 @@
 package com.github.liamvii.penandpaper.experience;
 
-public final class ExperienceTable {
+public final class ExperienceLookupTable {
 
-    private ExperienceTable() {}
+    private ExperienceLookupTable() {}
+
+    public static final int MAX_EXPERIENCE = 355000;
 
     public static int getExperienceRequiredForLevel(int level) {
         switch (level) {
