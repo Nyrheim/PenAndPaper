@@ -20,11 +20,13 @@ public final class CharacterCommand implements CommandExecutor {
     private final Pen plugin;
     private final CharacterStatsCommand characterStatsCommand;
     private final CharacterSetCommand characterSetCommand;
+    private final CharacterAddCommand characterAddCommand;
 
     public CharacterCommand(Pen plugin) {
         this.plugin = plugin;
         this.characterStatsCommand = new CharacterStatsCommand(plugin);
         this.characterSetCommand = new CharacterSetCommand(plugin);
+        this.characterAddCommand = new CharacterAddCommand(plugin);
     }
 
     @Override
@@ -34,7 +36,7 @@ public final class CharacterCommand implements CommandExecutor {
             target = (Player) sender;
         }
         if (args.length > 0) {
-            switch (args[0]) {
+            switch (args[0].toLowerCase()) {
                 case "stats":
                     return characterStatsCommand.onCommand(
                             sender,
@@ -44,6 +46,13 @@ public final class CharacterCommand implements CommandExecutor {
                     );
                 case "set":
                     return characterSetCommand.onCommand(
+                            sender,
+                            command,
+                            label,
+                            Arrays.stream(args).skip(1).toArray(String[]::new)
+                    );
+                case "add":
+                    return characterAddCommand.onCommand(
                             sender,
                             command,
                             label,
