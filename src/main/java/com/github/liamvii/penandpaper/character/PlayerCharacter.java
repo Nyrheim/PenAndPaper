@@ -6,6 +6,7 @@ import com.github.liamvii.penandpaper.ability.AbilityModifierLookupTable;
 import com.github.liamvii.penandpaper.clazz.CharacterClass;
 import com.github.liamvii.penandpaper.clazz.DnDClass;
 import com.github.liamvii.penandpaper.conversations.StartCreate;
+import com.github.liamvii.penandpaper.experience.ExperienceTable;
 import com.github.liamvii.penandpaper.player.PlayerId;
 import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationFactory;
@@ -190,6 +191,10 @@ public final class PlayerCharacter {
 
     public int getExperience() {
         return experience;
+    }
+
+    public int getLevel() {
+        return ExperienceTable.getLevelAtExperience(getExperience());
     }
 
     public int getExhaustion() {
