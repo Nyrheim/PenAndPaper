@@ -15,7 +15,7 @@ commands:
       /char set weight [weight] - Sets your weight
       /char set appearance [appearance] - Sets your appearance
       /char set presence [presence] - Sets your presence
-      /char set exp [player] [exp] - Sets a player''s active character''s experience
+      /char set exp [player] [exp] - Sets a player's active character's experience
     usage: /<command>
     aliases:
     - char
