@@ -13,6 +13,7 @@ commands:
       /char set age [age] - Sets your age
       /char set height [height] - Sets your height
       /char set weight [weight] - Sets your weight
+      /char set appearance [appearance] - Sets your appearance
     usage: /<command>
     aliases:
     - char
