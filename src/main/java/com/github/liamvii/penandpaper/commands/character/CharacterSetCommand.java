@@ -74,11 +74,11 @@ public final class CharacterSetCommand implements CommandExecutor {
                             Arrays.stream(args).skip(1).toArray(String[]::new)
                     );
                 default:
-                    sender.sendMessage(RED + "Usage: /" + label + " set [age|height|weight|appearance|presence]");
+                    sender.sendMessage(RED + "Usage: /" + label + " set [age|height|weight|appearance|presence|exp]");
                     break;
             }
         } else {
-            sender.sendMessage(RED + "Usage: /" + label + " set [age|height|weight|appearance|presence]");
+            sender.sendMessage(RED + "Usage: /" + label + " set [age|height|weight|appearance|presence|exp]");
         }
         return true;
     }

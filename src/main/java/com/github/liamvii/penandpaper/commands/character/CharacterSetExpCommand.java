@@ -15,7 +15,7 @@ import static com.github.liamvii.penandpaper.experience.ExperienceLookupTable.MA
 import static org.bukkit.ChatColor.GREEN;
 import static org.bukkit.ChatColor.RED;
 
-public class CharacterSetExpCommand implements CommandExecutor {
+public final class CharacterSetExpCommand implements CommandExecutor {
 
     private final Pen plugin;
 
