@@ -62,7 +62,7 @@ public class CharacterTempAbilityScoreTable implements Table {
                 .fetch()
                 .stream()
                 .collect(Collectors.toMap(
-                        result -> Ability.valueOf(result.get(CHARACTER_TEMP_ABILITY_SCORE.ABILITY)),
+                        result -> Ability.getByAbbreviation(result.get(CHARACTER_TEMP_ABILITY_SCORE.ABILITY)),
                         result -> result.get(CHARACTER_TEMP_ABILITY_SCORE.SCORE)
                 ));
         cache.put(characterId.getValue(), abilities);
@@ -83,7 +83,7 @@ public class CharacterTempAbilityScoreTable implements Table {
                 )
                 .values(
                         characterId.getValue(),
-                        ability.name(),
+                        ability.getAbbreviation(),
                         score
                 )
                 .execute();
@@ -98,7 +98,7 @@ public class CharacterTempAbilityScoreTable implements Table {
                 .update(CHARACTER_TEMP_ABILITY_SCORE)
                 .set(CHARACTER_TEMP_ABILITY_SCORE.SCORE, score)
                 .where(CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID.eq(characterId.getValue()))
-                .and(CHARACTER_TEMP_ABILITY_SCORE.ABILITY.eq(ability.name()))
+                .and(CHARACTER_TEMP_ABILITY_SCORE.ABILITY.eq(ability.getAbbreviation()))
                 .execute();
         Map<Ability, Integer> abilityScores = cache.get(characterId.getValue());
         if (abilityScores == null) abilityScores = new EnumMap<>(Ability.class);
@@ -110,7 +110,7 @@ public class CharacterTempAbilityScoreTable implements Table {
         database.create()
                 .deleteFrom(CHARACTER_TEMP_ABILITY_SCORE)
                 .where(CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID.eq(characterId.getValue()))
-                .and(CHARACTER_TEMP_ABILITY_SCORE.ABILITY.eq(ability.name()))
+                .and(CHARACTER_TEMP_ABILITY_SCORE.ABILITY.eq(ability.getAbbreviation()))
                 .execute();
         Map<Ability, Integer> abilities = cache.get(characterId.getValue());
         abilities.remove(ability);

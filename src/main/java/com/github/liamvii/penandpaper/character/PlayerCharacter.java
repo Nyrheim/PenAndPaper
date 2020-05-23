@@ -173,6 +173,10 @@ public final class PlayerCharacter {
         return age;
     }
 
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public String getHeight() {
         return height;
     }
