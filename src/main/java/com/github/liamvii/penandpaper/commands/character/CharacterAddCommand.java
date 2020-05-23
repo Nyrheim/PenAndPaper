@@ -12,9 +12,11 @@ import static org.bukkit.ChatColor.RED;
 public final class CharacterAddCommand implements CommandExecutor {
 
     private final CharacterAddAppearanceCommand characterAddAppearanceCommand;
+    private final CharacterAddPresenceCommand characterAddPresenceCommand;
 
     public CharacterAddCommand(Pen plugin) {
         this.characterAddAppearanceCommand = new CharacterAddAppearanceCommand(plugin);
+        this.characterAddPresenceCommand = new CharacterAddPresenceCommand(plugin);
     }
 
     @Override
@@ -28,12 +30,19 @@ public final class CharacterAddCommand implements CommandExecutor {
                             label,
                             Arrays.stream(args).skip(1).toArray(String[]::new)
                     );
+                case "presence":
+                    return characterAddPresenceCommand.onCommand(
+                            sender,
+                            command,
+                            label,
+                            Arrays.stream(args).skip(1).toArray(String[]::new)
+                    );
                 default:
-                    sender.sendMessage(RED + "Usage: /" + label + " add [appearance]");
+                    sender.sendMessage(RED + "Usage: /" + label + " add [appearance|presence]");
                     break;
             }
         } else {
-            sender.sendMessage(RED + "Usage: /" + label + " add [appearance]");
+            sender.sendMessage(RED + "Usage: /" + label + " add [appearance|presence]");
         }
         return true;
     }
