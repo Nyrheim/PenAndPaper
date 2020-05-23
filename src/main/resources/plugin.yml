@@ -32,6 +32,9 @@ commands:
   soul:
     description: Soul management command
     usage: /<command>
+  levelup:
+    description: Levels up a class
+    usage: /<command>
 permissions:
   penandpaper.command.exp.add:
     description: Allows adding experience to characters

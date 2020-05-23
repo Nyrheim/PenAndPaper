@@ -10,41 +10,30 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.bukkit.ChatColor.*;
+import static org.bukkit.ChatColor.GOLD;
+import static org.bukkit.ChatColor.WHITE;
 import static org.bukkit.Material.*;
 
-public final class SoulGUI implements InventoryHolder {
+public final class SoulGUI extends GUI {
 
-    private final Inventory inv;
     private final Pen plugin;
 
     public SoulGUI(Pen plugin) {
+        super("Souls");
         this.plugin = plugin;
-        inv = Bukkit.createInventory(this, 27, "Souls");
-    }
-
-    @Override
-    public Inventory getInventory() {
-        return inv;
     }
 
     private final Map<Integer, CharacterId> slotCharacters = new HashMap<>();
 
-    // Put the generated ItemStacks into the inventory.
+    @Override
     public void initializeItems(Player player) {
         PlayerId playerId = new PlayerId(player);
         CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
@@ -52,7 +41,7 @@ public final class SoulGUI implements InventoryHolder {
         for (int i = 0; i < 3; i++) {
             if (i < characters.size()) {
                 PlayerCharacter character = characters.get(i);
-                inv.setItem(i, createGuiItem(
+                getInventory().setItem(i, createGuiItem(
                         PLAYER_HEAD,
                         character.getName(),
                         GOLD + character.getRace(),
@@ -64,15 +53,16 @@ public final class SoulGUI implements InventoryHolder {
                 ));
                 slotCharacters.put(i, character.getId());
                 slotCharacters.put(i + 9, character.getId());
-                inv.setItem(i + 9, createGuiItem(CAMPFIRE, "Delete", WHITE + "Permanently deletes this Soul."));
+                getInventory().setItem(i + 9, createGuiItem(CAMPFIRE, "Delete", WHITE + "Permanently deletes this Soul."));
             } else {
-                inv.setItem(i, createGuiItem(WRITABLE_BOOK, "Create", GOLD + "Create a new Soul."));
+                getInventory().setItem(i, createGuiItem(WRITABLE_BOOK, "Create", GOLD + "Create a new Soul."));
             }
         }
     }
 
+    @Override
     public void onClick(Player player, int slot) {
-        ItemStack clickedItem = inv.getItem(slot);
+        ItemStack clickedItem = getInventory().getItem(slot);
         if (clickedItem == null || clickedItem.getType() == Material.AIR || clickedItem.getType() == Material.PAPER) {
             return;
         }
@@ -123,23 +113,5 @@ public final class SoulGUI implements InventoryHolder {
         }
     }
 
-    // Custom method to insert an item into the gui.
-    private ItemStack createGuiItem(Material material, String name, String... lore) {
-        ItemStack item = new ItemStack(material, 1); // Creates the ItemStack.
-        ItemMeta meta = item.getItemMeta(); // Retrieves the item's default metadata.
-        if (meta != null) {
-            meta.setDisplayName(WHITE + name); // The below methods are designed to update the item's name and lore.
-            List<String> metaLore = Arrays.asList(lore);
-            meta.setLore(metaLore);
-            meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        }
-        item.setItemMeta(meta);
-        return item;
-    }
-
-    // You can open the inventory with this
-    public void openInventory(Player p) {
-        p.openInventory(inv);
-    }
 }
 

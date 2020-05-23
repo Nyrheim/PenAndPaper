@@ -63,7 +63,7 @@ public final class CharacterClassTable implements Table {
                 .fetch()
                 .stream()
                 .map(result -> new CharacterClass(
-                        DnDClass.valueOf(result.get(CHARACTER_CLASS.CLASS_NAME)),
+                        DnDClass.getByName(result.get(CHARACTER_CLASS.CLASS_NAME)),
                         result.get(CHARACTER_CLASS.LEVEL)
                 ))
                 .collect(Collectors.toList());

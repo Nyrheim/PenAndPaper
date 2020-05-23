@@ -1,93 +1,85 @@
 package com.github.liamvii.penandpaper.gui;
 
+import com.github.liamvii.penandpaper.clazz.DnDClass;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
-public class GUI {
+import java.util.Arrays;
+import java.util.List;
 
-    public static Material getMaterial(String jobName) {
-        Material mat = Material.PAPER;
-        switch (jobName) {
-            case "Fighter":
-                mat = Material.IRON_SWORD;
-                break;
-            case "Ranger":
-                mat = Material.BOW;
-                break;
-            case "Rogue" :
-                mat = Material.IRON_AXE;
-                break;
-            case "Barbarian":
-                mat = Material.IRON_AXE;
-                break;
-            case "Monk":
-                mat = Material.IRON_SWORD;
-                break;
-            case "Bard":
-                mat = Material.MUSIC_DISC_MALL;
-                break;
-            case "Wizard" :
-                mat = Material.BOOK;
-                break;
-            case "Sorcerer":
-                mat = Material.BOOK;
-                break;
-            case "Warlock":
-                mat = Material.ENDER_EYE;
-                break;
-            case "Druid":
-                mat = Material.SUNFLOWER;
-                break;
-            case "Paladin" :
-                mat = Material.CHAINMAIL_CHESTPLATE;
-                break;
-            case "Cleric":
-                mat = Material.IRON_CHESTPLATE;
-                break;
-        }
-        return mat;
+import static com.github.liamvii.penandpaper.clazz.DnDClass.*;
+import static org.bukkit.ChatColor.WHITE;
+import static org.bukkit.Material.*;
+
+public abstract class GUI implements InventoryHolder {
+
+    private final Inventory inventory;
+
+    public GUI(String title) {
+        this.inventory = Bukkit.createInventory(this, 27, title);
     }
 
-    public static String getJobItemName(String jobName) {
-        String itemName = "default";
-        switch (jobName) {
-            case "Fighter":
-                itemName = "Longsword";
-                break;
-            case "Ranger":
-                itemName = "Short Bow";
-                break;
-            case "Rogue":
-                itemName = "Hunting Knife";
-                break;
-            case "Barbarian":
-                itemName = "Twoheaded Waraxe";
-                break;
-            case "Monk":
-                itemName = "Handsaw";
-                break;
-            case "Bard":
-                itemName = "Lute";
-                break;
-            case "Wizard":
-                itemName = "Tome of Manaflow";
-                break;
-            case "Sorcerer":
-                itemName = "Tome of Fire";
-                break;
-            case "Warlock":
-                itemName = "Patron's Mark";
-                break;
-            case "Druid":
-                itemName = "Nature's Blessing";
-                break;
-            case "Cleric":
-                itemName = "Basic Chainmail";
-                break;
-            case "Paladin":
-                itemName = "English Knight";
-                break;
-        }
-        return itemName;
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
+    protected Material getMaterial(DnDClass clazz) {
+        if (clazz == FIGHTER) return IRON_SWORD;
+        if (clazz == RANGER) return BOW;
+        if (clazz == ROGUE) return IRON_AXE;
+        if (clazz == BARBARIAN) return IRON_AXE;
+        if (clazz == MONK) return IRON_SWORD;
+        if (clazz == BARD) return MUSIC_DISC_MALL;
+        if (clazz == WIZARD) return BOOK;
+        if (clazz == SORCERER) return BOOK;
+        if (clazz == WARLOCK) return ENDER_EYE;
+        if (clazz == DRUID) return SUNFLOWER;
+        if (clazz == PALADIN) return CHAINMAIL_CHESTPLATE;
+        if (clazz == CLERIC) return IRON_CHESTPLATE;
+        return PAPER;
+    }
+
+    protected String getItemNameForClass(DnDClass clazz) {
+        if (clazz == FIGHTER) return "Longsword";
+        if (clazz == RANGER) return "Short Bow";
+        if (clazz == ROGUE) return "Hunting Knife";
+        if (clazz == BARBARIAN) return "Twoheaded Waraxe";
+        if (clazz == MONK) return "Handsaw";
+        if (clazz == BARD) return "Lute";
+        if (clazz == WIZARD) return "Tome of Manaflow";
+        if (clazz == SORCERER) return "Tome of Fire";
+        if (clazz == WARLOCK) return "Patron's Mark";
+        if (clazz == DRUID) return "Nature's Blessing";
+        if (clazz == CLERIC) return "Basic Chainmail";
+        if (clazz == PALADIN) return "English Knight";
+        return null;
+    }
+
+    public abstract void initializeItems(Player player);
+
+    public abstract void onClick(Player player, int slot);
+
+    protected ItemStack createGuiItem(Material material, String name, String... lore) {
+        ItemStack item = new ItemStack(material, 1);
+        ItemMeta meta = item.getItemMeta();
+        if (meta != null) {
+            meta.setDisplayName(WHITE + name);
+            List<String> metaLore = Arrays.asList(lore);
+            meta.setLore(metaLore);
+            meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        }
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    public void openInventory(Player player) {
+        player.openInventory(getInventory());
+    }
 }

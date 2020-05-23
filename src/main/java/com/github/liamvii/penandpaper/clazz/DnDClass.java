@@ -296,6 +296,30 @@ public final class DnDClass {
         }
     }
 
+    public static DnDClass getByName(String name) {
+        return Arrays.stream(values())
+                .filter(clazz -> clazz.getName().equals(name))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public static DnDClass[] values() {
+        return new DnDClass[] {
+                BARBARIAN,
+                BARD,
+                CLERIC,
+                DRUID,
+                FIGHTER,
+                MONK,
+                PALADIN,
+                RANGER,
+                ROGUE,
+                SORCERER,
+                WARLOCK,
+                WIZARD
+        };
+    }
+
     private final String name;
     private final String description;
     private final Roll hitDie;
