@@ -4,16 +4,19 @@
 package com.github.liamvii.penandpaper.database.jooq.nyrheim;
 
 
+import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.ActiveCharacter;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.Character;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.CharacterAbilityScore;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.CharacterClass;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.CharacterTempAbilityScore;
+import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.records.ActiveCharacterRecord;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.records.CharacterAbilityScoreRecord;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.records.CharacterClassRecord;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.records.CharacterRecord;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.records.CharacterTempAbilityScoreRecord;
 
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.TableField;
 import org.jooq.UniqueKey;
 import org.jooq.impl.Internal;
@@ -30,11 +33,13 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
+    public static final Identity<CharacterRecord, Integer> IDENTITY_CHARACTER = Identities0.IDENTITY_CHARACTER;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<ActiveCharacterRecord> KEY_ACTIVE_CHARACTER_PRIMARY = UniqueKeys0.KEY_ACTIVE_CHARACTER_PRIMARY;
     public static final UniqueKey<CharacterRecord> KEY_CHARACTER_PRIMARY = UniqueKeys0.KEY_CHARACTER_PRIMARY;
     public static final UniqueKey<CharacterAbilityScoreRecord> KEY_CHARACTER_ABILITY_SCORE_PRIMARY = UniqueKeys0.KEY_CHARACTER_ABILITY_SCORE_PRIMARY;
     public static final UniqueKey<CharacterClassRecord> KEY_CHARACTER_CLASS_PRIMARY = UniqueKeys0.KEY_CHARACTER_CLASS_PRIMARY;
@@ -44,22 +49,31 @@ public class Keys {
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<ActiveCharacterRecord, CharacterRecord> ACTIVE_CHARACTER_CHARACTER_ID_FK = ForeignKeys0.ACTIVE_CHARACTER_CHARACTER_ID_FK;
     public static final ForeignKey<CharacterAbilityScoreRecord, CharacterRecord> CHARACTER_ABILITY_SCORE_CHARACTER_ID_FK = ForeignKeys0.CHARACTER_ABILITY_SCORE_CHARACTER_ID_FK;
+    public static final ForeignKey<CharacterClassRecord, CharacterRecord> CHARACTER_CLASS_CHARACTER_ID_FK = ForeignKeys0.CHARACTER_CLASS_CHARACTER_ID_FK;
     public static final ForeignKey<CharacterTempAbilityScoreRecord, CharacterRecord> CHARACTER_TEMP_ABILITY_SCORE_CHARACTER_ID_FK = ForeignKeys0.CHARACTER_TEMP_ABILITY_SCORE_CHARACTER_ID_FK;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
 
+    private static class Identities0 {
+        public static Identity<CharacterRecord, Integer> IDENTITY_CHARACTER = Internal.createIdentity(Character.CHARACTER, Character.CHARACTER.ID);
+    }
+
     private static class UniqueKeys0 {
+        public static final UniqueKey<ActiveCharacterRecord> KEY_ACTIVE_CHARACTER_PRIMARY = Internal.createUniqueKey(ActiveCharacter.ACTIVE_CHARACTER, "KEY_active_character_PRIMARY", new TableField[] { ActiveCharacter.ACTIVE_CHARACTER.PLAYER_UUID }, true);
         public static final UniqueKey<CharacterRecord> KEY_CHARACTER_PRIMARY = Internal.createUniqueKey(Character.CHARACTER, "KEY_character_PRIMARY", new TableField[] { Character.CHARACTER.ID }, true);
-        public static final UniqueKey<CharacterAbilityScoreRecord> KEY_CHARACTER_ABILITY_SCORE_PRIMARY = Internal.createUniqueKey(CharacterAbilityScore.CHARACTER_ABILITY_SCORE, "KEY_character_ability_score_PRIMARY", new TableField[] { CharacterAbilityScore.CHARACTER_ABILITY_SCORE.CHARACTER_ID }, true);
+        public static final UniqueKey<CharacterAbilityScoreRecord> KEY_CHARACTER_ABILITY_SCORE_PRIMARY = Internal.createUniqueKey(CharacterAbilityScore.CHARACTER_ABILITY_SCORE, "KEY_character_ability_score_PRIMARY", new TableField[] { CharacterAbilityScore.CHARACTER_ABILITY_SCORE.CHARACTER_ID, CharacterAbilityScore.CHARACTER_ABILITY_SCORE.ABILITY }, true);
         public static final UniqueKey<CharacterClassRecord> KEY_CHARACTER_CLASS_PRIMARY = Internal.createUniqueKey(CharacterClass.CHARACTER_CLASS, "KEY_character_class_PRIMARY", new TableField[] { CharacterClass.CHARACTER_CLASS.CHARACTER_ID, CharacterClass.CHARACTER_CLASS.CLASS_NAME }, true);
-        public static final UniqueKey<CharacterTempAbilityScoreRecord> KEY_CHARACTER_TEMP_ABILITY_SCORE_PRIMARY = Internal.createUniqueKey(CharacterTempAbilityScore.CHARACTER_TEMP_ABILITY_SCORE, "KEY_character_temp_ability_score_PRIMARY", new TableField[] { CharacterTempAbilityScore.CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID }, true);
+        public static final UniqueKey<CharacterTempAbilityScoreRecord> KEY_CHARACTER_TEMP_ABILITY_SCORE_PRIMARY = Internal.createUniqueKey(CharacterTempAbilityScore.CHARACTER_TEMP_ABILITY_SCORE, "KEY_character_temp_ability_score_PRIMARY", new TableField[] { CharacterTempAbilityScore.CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID, CharacterTempAbilityScore.CHARACTER_TEMP_ABILITY_SCORE.ABILITY }, true);
     }
 
     private static class ForeignKeys0 {
+        public static final ForeignKey<ActiveCharacterRecord, CharacterRecord> ACTIVE_CHARACTER_CHARACTER_ID_FK = Internal.createForeignKey(Keys.KEY_CHARACTER_PRIMARY, ActiveCharacter.ACTIVE_CHARACTER, "active_character_character_id_fk", new TableField[] { ActiveCharacter.ACTIVE_CHARACTER.CHARACTER_ID }, true);
         public static final ForeignKey<CharacterAbilityScoreRecord, CharacterRecord> CHARACTER_ABILITY_SCORE_CHARACTER_ID_FK = Internal.createForeignKey(Keys.KEY_CHARACTER_PRIMARY, CharacterAbilityScore.CHARACTER_ABILITY_SCORE, "character_ability_score_character_id_fk", new TableField[] { CharacterAbilityScore.CHARACTER_ABILITY_SCORE.CHARACTER_ID }, true);
+        public static final ForeignKey<CharacterClassRecord, CharacterRecord> CHARACTER_CLASS_CHARACTER_ID_FK = Internal.createForeignKey(Keys.KEY_CHARACTER_PRIMARY, CharacterClass.CHARACTER_CLASS, "character_class_character_id_fk", new TableField[] { CharacterClass.CHARACTER_CLASS.CHARACTER_ID }, true);
         public static final ForeignKey<CharacterTempAbilityScoreRecord, CharacterRecord> CHARACTER_TEMP_ABILITY_SCORE_CHARACTER_ID_FK = Internal.createForeignKey(Keys.KEY_CHARACTER_PRIMARY, CharacterTempAbilityScore.CHARACTER_TEMP_ABILITY_SCORE, "character_temp_ability_score_character_id_fk", new TableField[] { CharacterTempAbilityScore.CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID }, true);
     }
 }

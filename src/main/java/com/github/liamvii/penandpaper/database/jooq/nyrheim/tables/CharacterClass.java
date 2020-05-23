@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CharacterClass extends TableImpl<CharacterClassRecord> {
 
-    private static final long serialVersionUID = 1806748108;
+    private static final long serialVersionUID = 1809350535;
 
     /**
      * The reference instance of <code>nyrheim.character_class</code>
@@ -107,6 +107,15 @@ public class CharacterClass extends TableImpl<CharacterClassRecord> {
     @Override
     public List<UniqueKey<CharacterClassRecord>> getKeys() {
         return Arrays.<UniqueKey<CharacterClassRecord>>asList(Keys.KEY_CHARACTER_CLASS_PRIMARY);
+    }
+
+    @Override
+    public List<ForeignKey<CharacterClassRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<CharacterClassRecord, ?>>asList(Keys.CHARACTER_CLASS_CHARACTER_ID_FK);
+    }
+
+    public Character character() {
+        return new Character(this, Keys.CHARACTER_CLASS_CHARACTER_ID_FK);
     }
 
     @Override

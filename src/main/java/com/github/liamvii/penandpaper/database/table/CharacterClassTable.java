@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.github.liamvii.penandpaper.database.jooq.nyrheim.Tables.CHARACTER;
 import static com.github.liamvii.penandpaper.database.jooq.nyrheim.Tables.CHARACTER_CLASS;
 import static org.jooq.impl.DSL.constraint;
 
@@ -40,7 +41,10 @@ public final class CharacterClassTable implements Table {
                         constraint("character_class_pk").primaryKey(
                                 CHARACTER_CLASS.CHARACTER_ID,
                                 CHARACTER_CLASS.CLASS_NAME
-                        )
+                        ),
+                        constraint("character_class_character_id_fk")
+                                .foreignKey(CHARACTER_CLASS.CHARACTER_ID)
+                                .references(CHARACTER, CHARACTER.ID)
                 )
                 .execute();
     }

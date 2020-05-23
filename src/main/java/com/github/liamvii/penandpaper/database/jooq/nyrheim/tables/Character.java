@@ -7,22 +7,12 @@ package com.github.liamvii.penandpaper.database.jooq.nyrheim.tables;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.Keys;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.Nyrheim;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.records.CharacterRecord;
+import org.jooq.*;
+import org.jooq.impl.DSL;
+import org.jooq.impl.TableImpl;
 
 import java.util.Arrays;
 import java.util.List;
-
-import org.jooq.Field;
-import org.jooq.ForeignKey;
-import org.jooq.Name;
-import org.jooq.Record;
-import org.jooq.Row17;
-import org.jooq.Schema;
-import org.jooq.Table;
-import org.jooq.TableField;
-import org.jooq.TableOptions;
-import org.jooq.UniqueKey;
-import org.jooq.impl.DSL;
-import org.jooq.impl.TableImpl;
 
 
 /**
@@ -31,7 +21,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Character extends TableImpl<CharacterRecord> {
 
-    private static final long serialVersionUID = -1354521475;
+    private static final long serialVersionUID = -18637782;
 
     /**
      * The reference instance of <code>nyrheim.character</code>
@@ -49,7 +39,7 @@ public class Character extends TableImpl<CharacterRecord> {
     /**
      * The column <code>nyrheim.character.id</code>.
      */
-    public final TableField<CharacterRecord, Integer> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<CharacterRecord, Integer> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>nyrheim.character.player_uuid</code>.
@@ -167,6 +157,11 @@ public class Character extends TableImpl<CharacterRecord> {
     @Override
     public Schema getSchema() {
         return Nyrheim.NYRHEIM;
+    }
+
+    @Override
+    public Identity<CharacterRecord, Integer> getIdentity() {
+        return Keys.IDENTITY_CHARACTER;
     }
 
     @Override

@@ -4,6 +4,7 @@
 package com.github.liamvii.penandpaper.database.jooq.nyrheim;
 
 
+import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.ActiveCharacter;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.Character;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.CharacterAbilityScore;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.CharacterClass;
@@ -15,6 +16,11 @@ import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.CharacterTemp
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
+
+    /**
+     * The table <code>nyrheim.active_character</code>.
+     */
+    public static final ActiveCharacter ACTIVE_CHARACTER = ActiveCharacter.ACTIVE_CHARACTER;
 
     /**
      * The table <code>nyrheim.character</code>.
