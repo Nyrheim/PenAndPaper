@@ -42,7 +42,7 @@ public class Pen extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new InventoryListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
 
-        getCommand("char").setExecutor(new CharacterCommand(database));
+        getCommand("char").setExecutor(new CharacterCommand(this));
     }
 
     public Database getDatabase() {
