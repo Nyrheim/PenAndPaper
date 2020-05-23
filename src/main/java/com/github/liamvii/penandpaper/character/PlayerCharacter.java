@@ -6,7 +6,7 @@ import com.github.liamvii.penandpaper.ability.AbilityModifierLookupTable;
 import com.github.liamvii.penandpaper.clazz.CharacterClass;
 import com.github.liamvii.penandpaper.clazz.DnDClass;
 import com.github.liamvii.penandpaper.conversations.StartCreate;
-import com.github.liamvii.penandpaper.experience.ExperienceTable;
+import com.github.liamvii.penandpaper.experience.ExperienceLookupTable;
 import com.github.liamvii.penandpaper.player.PlayerId;
 import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationFactory;
@@ -169,6 +169,10 @@ public final class PlayerCharacter {
         return familyName;
     }
 
+    public String getName() {
+        return getFirstName() + " " + getFamilyName();
+    }
+
     public int getAge() {
         return age;
     }
@@ -213,8 +217,12 @@ public final class PlayerCharacter {
         return experience;
     }
 
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
     public int getLevel() {
-        return ExperienceTable.getLevelAtExperience(getExperience());
+        return ExperienceLookupTable.getLevelAtExperience(getExperience());
     }
 
     public int getExhaustion() {

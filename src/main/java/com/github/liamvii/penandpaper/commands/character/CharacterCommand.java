@@ -75,7 +75,7 @@ public final class CharacterCommand implements CommandExecutor {
             sender.sendMessage(RED + (target == sender ? "You do" : (target.getName() + " does")) + " not currently have an active character.");
             return true;
         }
-        sender.sendMessage(GOLD + character.getFirstName() + " " + character.getFamilyName());
+        sender.sendMessage(GOLD + character.getName());
         sender.sendMessage(AQUA + "Age: " + WHITE + (character.getAge() < 0 ? "Empty" : character.getAge()));
         sender.sendMessage(AQUA + "Height: " + WHITE + (character.getHeight().isEmpty() ? "Empty" : character.getHeight()));
         sender.sendMessage(AQUA + "Weight: " + WHITE + (character.getWeight().isEmpty() ? "Empty" : character.getWeight()));
