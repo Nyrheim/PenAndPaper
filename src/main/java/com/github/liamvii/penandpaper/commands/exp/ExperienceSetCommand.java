@@ -1,4 +1,4 @@
-package com.github.liamvii.penandpaper.commands.character;
+package com.github.liamvii.penandpaper.commands.exp;
 
 import com.github.liamvii.penandpaper.Pen;
 import com.github.liamvii.penandpaper.character.CharacterId;
@@ -15,17 +15,17 @@ import static com.github.liamvii.penandpaper.experience.ExperienceLookupTable.MA
 import static org.bukkit.ChatColor.GREEN;
 import static org.bukkit.ChatColor.RED;
 
-public final class CharacterSetExpCommand implements CommandExecutor {
+public final class ExperienceSetCommand implements CommandExecutor {
 
     private final Pen plugin;
 
-    public CharacterSetExpCommand(Pen plugin) {
+    public ExperienceSetCommand(Pen plugin) {
         this.plugin = plugin;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission("penandpaper.command.character.set.exp")) {
+        if (!sender.hasPermission("penandpaper.command.experience.set")) {
             sender.sendMessage(RED + "You do not have permission.");
             return true;
         }

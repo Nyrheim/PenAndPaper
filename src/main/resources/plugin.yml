@@ -15,24 +15,29 @@ commands:
       /char set weight [weight] - Sets your weight
       /char set appearance [appearance] - Sets your appearance
       /char set presence [presence] - Sets your presence
-      /char set exp [player] [exp] - Sets a player's active character's experience
       /char add appearance [appearance] - Appends information to your appearance
       /char add presence [presence] - Appends information to your presence
     usage: /<command>
     aliases:
     - char
-  soul:
-    description: Character-related commands.
-    usage: /soul
-  exp:
-    description: exp commands
-    usage: /exp
+  experience:
+    description: |
+      Experience management commands
+      /exp add [player] [experience] - Gives the player's active character the given amount of experience
+      /exp set [player] [experience] - Sets the player's active character's experience to the given value
+    usage: /<command>
+    aliases:
+    - exp
 permissions:
-  penandpaper.command.character.set.exp:
+  penandpaper.command.exp.add:
+    description: Allows adding experience to characters
+    default: op
+  penandpaper.command.exp.set:
     description: Allows setting experience for characters
     default: op
   penandpaper.admin:
     description: Allows all admin functionality
     default: op
     children:
-    - penandpaper.command.character.set.exp
+    - penandpaper.command.exp.add
+    - penandpaper.command.exp.set
