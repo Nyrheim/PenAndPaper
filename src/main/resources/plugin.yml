@@ -16,7 +16,8 @@ commands:
       /char set appearance [appearance] - Sets your appearance
       /char set presence [presence] - Sets your presence
       /char set exp [player] [exp] - Sets a player's active character's experience
-      /char add appearance [appearance] Appends information to your appearance
+      /char add appearance [appearance] - Appends information to your appearance
+      /char add presence [presence] - Appends information to your presence
     usage: /<command>
     aliases:
     - char
