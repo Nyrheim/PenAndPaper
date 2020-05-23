@@ -1,8 +1,8 @@
 package com.github.liamvii.penandpaper.commands.character;
 
+import com.github.liamvii.penandpaper.Pen;
 import com.github.liamvii.penandpaper.character.CharacterId;
 import com.github.liamvii.penandpaper.character.PlayerCharacter;
-import com.github.liamvii.penandpaper.database.Database;
 import com.github.liamvii.penandpaper.database.table.ActiveCharacterTable;
 import com.github.liamvii.penandpaper.database.table.CharacterTable;
 import com.github.liamvii.penandpaper.player.PlayerId;
@@ -15,38 +15,49 @@ import static org.bukkit.ChatColor.*;
 
 public final class CharacterCommand implements CommandExecutor {
 
-    private final Database database;
+    private final Pen plugin;
 
-    public CharacterCommand(Database database) {
-        this.database = database;
+    public CharacterCommand(Pen plugin) {
+        this.plugin = plugin;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(RED + "You must be a player to perform this command.");
+        Player target = null;
+        if (sender instanceof Player) {
+            target = (Player) sender;
+        }
+        if (args.length > 0) {
+            target = plugin.getServer().getPlayer(args[0]);
+            if (target == null) {
+                sender.sendMessage(RED + "There is no player online by that name.");
+                return true;
+            }
+        }
+        if (target == null) {
+            sender.sendMessage(RED + "You must specify a player when running this command from console.");
             return true;
         }
-        Player player = (Player) sender;
-        PlayerId playerId = new PlayerId(player);
-        ActiveCharacterTable activeCharacterTable = database.getTable(ActiveCharacterTable.class);
-        CharacterTable characterTable = database.getTable(CharacterTable.class);
+        PlayerId playerId = new PlayerId(target);
+        ActiveCharacterTable activeCharacterTable = plugin.getDatabase().getTable(ActiveCharacterTable.class);
+        CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
         CharacterId activeCharacterId = activeCharacterTable.get(playerId);
         if (activeCharacterId == null) {
-            sender.sendMessage(RED + "You do not currently have an active character.");
+            sender.sendMessage(RED + (target == sender ? "You do" : (target.getName() + " does")) + " not currently have an active character.");
             return true;
         }
         PlayerCharacter character = characterTable.get(activeCharacterId);
         if (character == null) {
-            sender.sendMessage(RED + "You do not currently have an active character.");
+            sender.sendMessage(RED + (target == sender ? "You do" : (target.getName() + " does")) + " not currently have an active character.");
             return true;
         }
-        sender.sendMessage(GOLD + character.getFirstName() + character.getFamilyName());
+        sender.sendMessage(GOLD + character.getFirstName() + " " + character.getFamilyName());
         sender.sendMessage(AQUA + "Age: " + WHITE + (character.getAge() == -1 ? "Empty" : character.getAge()));
         sender.sendMessage(AQUA + "Height: " + WHITE + (character.getHeight().isEmpty() ? "Empty" : character.getHeight()));
         sender.sendMessage(AQUA + "Weight: " + WHITE + (character.getWeight().isEmpty() ? "Empty" : character.getWeight()));
         sender.sendMessage(AQUA + "Appearance: " + WHITE + (character.getAppearance().isEmpty() ? "Empty" : character.getAppearance()));
         sender.sendMessage(AQUA + "Presence: " + WHITE + (character.getPresence().isEmpty() ? "Empty" : character.getPresence()));
+        sender.sendMessage(AQUA + "Player: " + WHITE + target.getName());
         return true;
     }
 }
