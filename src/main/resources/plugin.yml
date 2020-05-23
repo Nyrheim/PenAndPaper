@@ -8,6 +8,7 @@ commands:
     description: |
       Character management commands
       /char - Displays your character card
+      /char [player] - Displays the character card of the specified player
     usage: /<command>
     aliases:
     - char
