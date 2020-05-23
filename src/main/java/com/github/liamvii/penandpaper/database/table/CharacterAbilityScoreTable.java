@@ -62,7 +62,7 @@ public final class CharacterAbilityScoreTable implements Table {
                 .fetch()
                 .stream()
                 .collect(Collectors.toMap(
-                        result -> Ability.valueOf(result.get(CHARACTER_ABILITY_SCORE.ABILITY)),
+                        result -> Ability.getByAbbreviation(result.get(CHARACTER_ABILITY_SCORE.ABILITY)),
                         result -> result.get(CHARACTER_ABILITY_SCORE.SCORE)
                 ));
         cache.put(characterId.getValue(), abilities);

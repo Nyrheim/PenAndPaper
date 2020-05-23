@@ -203,7 +203,7 @@ public final class CharacterTable implements Table {
         }
         database.create()
                 .update(CHARACTER)
-                .set(CHARACTER.PLAYER_UUID, character.getPlayerId().toString())
+                .set(CHARACTER.PLAYER_UUID, character.getPlayerId().getValue().toString())
                 .set(CHARACTER.FIRST_NAME, character.getFirstName())
                 .set(CHARACTER.FAMILY_NAME, character.getFamilyName())
                 .set(CHARACTER.HEIGHT, character.getHeight())

@@ -1,5 +1,7 @@
 package com.github.liamvii.penandpaper.ability;
 
+import java.util.Arrays;
+
 public enum Ability {
 
     STRENGTH("Strength", "Measuring physical power", "STR"),
@@ -17,6 +19,13 @@ public enum Ability {
         this.name = name;
         this.description = description;
         this.abbreviation = abbreviation;
+    }
+
+    public static Ability getByAbbreviation(String abbreviation) {
+        return Arrays.stream(values())
+                .filter(ability -> ability.getAbbreviation().equalsIgnoreCase(abbreviation))
+                .findFirst()
+                .orElse(null);
     }
 
     public String getName() {

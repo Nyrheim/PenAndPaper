@@ -19,10 +19,12 @@ public final class CharacterCommand implements CommandExecutor {
 
     private final Pen plugin;
     private final CharacterStatsCommand characterStatsCommand;
+    private final CharacterSetCommand characterSetCommand;
 
     public CharacterCommand(Pen plugin) {
         this.plugin = plugin;
         this.characterStatsCommand = new CharacterStatsCommand(plugin);
+        this.characterSetCommand = new CharacterSetCommand(plugin);
     }
 
     @Override
@@ -35,6 +37,13 @@ public final class CharacterCommand implements CommandExecutor {
             switch (args[0]) {
                 case "stats":
                     return characterStatsCommand.onCommand(
+                            sender,
+                            command,
+                            label,
+                            Arrays.stream(args).skip(1).toArray(String[]::new)
+                    );
+                case "set":
+                    return characterSetCommand.onCommand(
                             sender,
                             command,
                             label,
@@ -67,7 +76,7 @@ public final class CharacterCommand implements CommandExecutor {
             return true;
         }
         sender.sendMessage(GOLD + character.getFirstName() + " " + character.getFamilyName());
-        sender.sendMessage(AQUA + "Age: " + WHITE + (character.getAge() == -1 ? "Empty" : character.getAge()));
+        sender.sendMessage(AQUA + "Age: " + WHITE + (character.getAge() < 0 ? "Empty" : character.getAge()));
         sender.sendMessage(AQUA + "Height: " + WHITE + (character.getHeight().isEmpty() ? "Empty" : character.getHeight()));
         sender.sendMessage(AQUA + "Weight: " + WHITE + (character.getWeight().isEmpty() ? "Empty" : character.getWeight()));
         sender.sendMessage(AQUA + "Appearance: " + WHITE + (character.getAppearance().isEmpty() ? "Empty" : character.getAppearance()));
