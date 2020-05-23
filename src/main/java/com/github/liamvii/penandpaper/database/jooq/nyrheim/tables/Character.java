@@ -7,12 +7,22 @@ package com.github.liamvii.penandpaper.database.jooq.nyrheim.tables;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.Keys;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.Nyrheim;
 import com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.records.CharacterRecord;
-import org.jooq.*;
-import org.jooq.impl.DSL;
-import org.jooq.impl.TableImpl;
 
 import java.util.Arrays;
 import java.util.List;
+
+import org.jooq.Field;
+import org.jooq.ForeignKey;
+import org.jooq.Identity;
+import org.jooq.Name;
+import org.jooq.Record;
+import org.jooq.Schema;
+import org.jooq.Table;
+import org.jooq.TableField;
+import org.jooq.TableOptions;
+import org.jooq.UniqueKey;
+import org.jooq.impl.DSL;
+import org.jooq.impl.TableImpl;
 
 
 /**
@@ -21,7 +31,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Character extends TableImpl<CharacterRecord> {
 
-    private static final long serialVersionUID = -18637782;
+    private static final long serialVersionUID = -1054232676;
 
     /**
      * The reference instance of <code>nyrheim.character</code>
@@ -122,6 +132,56 @@ public class Character extends TableImpl<CharacterRecord> {
     public final TableField<CharacterRecord, byte[]> INVENTORY_CONTENTS = createField(DSL.name("inventory_contents"), org.jooq.impl.SQLDataType.BLOB, this, "");
 
     /**
+     * The column <code>nyrheim.character.health</code>.
+     */
+    public final TableField<CharacterRecord, Double> HEALTH = createField(DSL.name("health"), org.jooq.impl.SQLDataType.DOUBLE.nullable(false), this, "");
+
+    /**
+     * The column <code>nyrheim.character.food_level</code>.
+     */
+    public final TableField<CharacterRecord, Integer> FOOD_LEVEL = createField(DSL.name("food_level"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+
+    /**
+     * The column <code>nyrheim.character.saturation</code>.
+     */
+    public final TableField<CharacterRecord, Double> SATURATION = createField(DSL.name("saturation"), org.jooq.impl.SQLDataType.DOUBLE.nullable(false), this, "");
+
+    /**
+     * The column <code>nyrheim.character.food_exhaustion</code>.
+     */
+    public final TableField<CharacterRecord, Double> FOOD_EXHAUSTION = createField(DSL.name("food_exhaustion"), org.jooq.impl.SQLDataType.DOUBLE.nullable(false), this, "");
+
+    /**
+     * The column <code>nyrheim.character.world</code>.
+     */
+    public final TableField<CharacterRecord, String> WORLD = createField(DSL.name("world"), org.jooq.impl.SQLDataType.VARCHAR(256).nullable(false), this, "");
+
+    /**
+     * The column <code>nyrheim.character.x</code>.
+     */
+    public final TableField<CharacterRecord, Double> X = createField(DSL.name("x"), org.jooq.impl.SQLDataType.DOUBLE.nullable(false), this, "");
+
+    /**
+     * The column <code>nyrheim.character.y</code>.
+     */
+    public final TableField<CharacterRecord, Double> Y = createField(DSL.name("y"), org.jooq.impl.SQLDataType.DOUBLE.nullable(false), this, "");
+
+    /**
+     * The column <code>nyrheim.character.z</code>.
+     */
+    public final TableField<CharacterRecord, Double> Z = createField(DSL.name("z"), org.jooq.impl.SQLDataType.DOUBLE, this, "");
+
+    /**
+     * The column <code>nyrheim.character.pitch</code>.
+     */
+    public final TableField<CharacterRecord, Double> PITCH = createField(DSL.name("pitch"), org.jooq.impl.SQLDataType.DOUBLE.nullable(false), this, "");
+
+    /**
+     * The column <code>nyrheim.character.yaw</code>.
+     */
+    public final TableField<CharacterRecord, Double> YAW = createField(DSL.name("yaw"), org.jooq.impl.SQLDataType.DOUBLE.nullable(false), this, "");
+
+    /**
      * Create a <code>nyrheim.character</code> table reference
      */
     public Character() {
@@ -198,14 +258,5 @@ public class Character extends TableImpl<CharacterRecord> {
     @Override
     public Character rename(Name name) {
         return new Character(name, null);
-    }
-
-    // -------------------------------------------------------------------------
-    // Row17 type methods
-    // -------------------------------------------------------------------------
-
-    @Override
-    public Row17<Integer, String, String, String, String, String, String, String, Integer, Integer, Integer, String, byte[], byte[], byte[], byte[], byte[]> fieldsRow() {
-        return (Row17) super.fieldsRow();
     }
 }

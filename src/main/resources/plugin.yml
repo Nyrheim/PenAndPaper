@@ -17,6 +17,7 @@ commands:
       /char set presence [presence] - Sets your presence
       /char add appearance [appearance] - Appends information to your appearance
       /char add presence [presence] - Appends information to your presence
+      /char delete [id] - Deletes a character
     usage: /<command>
     aliases:
     - char
@@ -28,6 +29,9 @@ commands:
     usage: /<command>
     aliases:
     - exp
+  soul:
+    description: Soul management command
+    usage: /<command>
 permissions:
   penandpaper.command.exp.add:
     description: Allows adding experience to characters
