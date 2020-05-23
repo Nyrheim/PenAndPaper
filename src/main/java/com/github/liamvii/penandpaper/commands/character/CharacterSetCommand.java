@@ -14,10 +14,12 @@ public final class CharacterSetCommand implements CommandExecutor {
     private final Pen plugin;
 
     private final CharacterSetAgeCommand characterSetAgeCommand;
+    private final CharacterSetHeightCommand characterSetHeightCommand;
 
     public CharacterSetCommand(Pen plugin) {
         this.plugin = plugin;
         this.characterSetAgeCommand = new CharacterSetAgeCommand(plugin);
+        this.characterSetHeightCommand = new CharacterSetHeightCommand(plugin);
     }
 
     @Override
@@ -26,6 +28,13 @@ public final class CharacterSetCommand implements CommandExecutor {
             switch (args[0].toLowerCase()) {
                 case "age":
                     return characterSetAgeCommand.onCommand(
+                            sender,
+                            command,
+                            label,
+                            Arrays.stream(args).skip(1).toArray(String[]::new)
+                    );
+                case "height":
+                    return characterSetHeightCommand.onCommand(
                             sender,
                             command,
                             label,

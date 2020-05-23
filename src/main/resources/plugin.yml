@@ -10,6 +10,8 @@ commands:
       /char - Displays your character card
       /char [player] - Displays the character card of the specified player
       /char stats - Displays your stats
+      /char set age [age] - Sets your age
+      /char set height [height] - Sets your height
     usage: /<command>
     aliases:
     - char
