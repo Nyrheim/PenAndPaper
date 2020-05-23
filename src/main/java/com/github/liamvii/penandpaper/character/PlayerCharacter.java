@@ -205,6 +205,10 @@ public final class PlayerCharacter {
         return presence;
     }
 
+    public void setPresence(String presence) {
+        this.presence = presence;
+    }
+
     public int getExperience() {
         return experience;
     }
