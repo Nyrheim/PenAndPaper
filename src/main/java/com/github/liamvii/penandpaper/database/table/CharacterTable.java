@@ -8,6 +8,9 @@ import com.github.liamvii.penandpaper.clazz.DnDClass;
 import com.github.liamvii.penandpaper.database.Database;
 import com.github.liamvii.penandpaper.utils.ItemStackUtils;
 import org.bukkit.inventory.ItemStack;
+import org.ehcache.Cache;
+import org.ehcache.config.builders.CacheConfigurationBuilder;
+import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.jooq.Record;
 
 import java.io.IOException;
@@ -23,9 +26,14 @@ public final class CharacterTable implements Table {
     private final Pen plugin;
     private final Database database;
 
+    private final Cache<Integer, PlayerCharacter> cache;
+
     public CharacterTable(Pen plugin, Database database) {
         this.plugin = plugin;
         this.database = database;
+        cache = database.getCacheManager().createCache("penandpaper.character.id",
+                CacheConfigurationBuilder.newCacheConfigurationBuilder(Integer.class, PlayerCharacter.class,
+                        ResourcePoolsBuilder.heap(25)));
     }
 
     @Override
@@ -144,6 +152,8 @@ public final class CharacterTable implements Table {
         database.getTable(CharacterAbilityScoreTable.class).insertOrUpdateAbilityScores(character);
         database.getTable(CharacterTempAbilityScoreTable.class).insertOrUpdateAbilityScores(character);
         database.getTable(CharacterClassTable.class).insertOrUpdateClasses(character);
+
+        cache.put(id, character);
     }
 
     public void update(PlayerCharacter character) {
@@ -214,6 +224,8 @@ public final class CharacterTable implements Table {
         database.getTable(CharacterAbilityScoreTable.class).insertOrUpdateAbilityScores(character);
         database.getTable(CharacterTempAbilityScoreTable.class).insertOrUpdateAbilityScores(character);
         database.getTable(CharacterClassTable.class).insertOrUpdateClasses(character);
+
+        cache.put(character.getId().getValue(), character);
     }
 
     public void delete(PlayerCharacter character) {
@@ -230,9 +242,14 @@ public final class CharacterTable implements Table {
                 .deleteFrom(CHARACTER)
                 .where(CHARACTER.ID.eq(character.getId().getValue()))
                 .execute();
+
+        cache.remove(character.getId().getValue());
     }
 
     public PlayerCharacter get(CharacterId id) {
+        if (cache.containsKey(id.getValue())) {
+            return cache.get(id.getValue());
+        }
         Record result = database.create()
                 .select(
                         CHARACTER.PLAYER_UUID,
@@ -298,7 +315,7 @@ public final class CharacterTable implements Table {
                 plugin.getLogger().log(SEVERE, "Failed to deserialize inventory contents", exception);
             }
         }
-        return new PlayerCharacter(
+        PlayerCharacter character = new PlayerCharacter(
                 plugin,
                 id,
                 UUID.fromString(result.get(CHARACTER.PLAYER_UUID)),
@@ -322,6 +339,8 @@ public final class CharacterTable implements Table {
                 boots,
                 inventoryContents
         );
+        cache.put(id.getValue(), character);
+        return character;
     }
 
 }

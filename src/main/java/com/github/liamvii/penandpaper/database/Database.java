@@ -4,6 +4,8 @@ import com.github.liamvii.penandpaper.Pen;
 import com.github.liamvii.penandpaper.database.table.*;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.ehcache.CacheManager;
+import org.ehcache.config.builders.CacheManagerBuilder;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 
@@ -18,6 +20,7 @@ public class Database {
     private final Pen plugin;
 
     private final DataSource dataSource;
+    private final CacheManager cacheManager;
 
     private final Map<Class<? extends Table>, Table> tables;
 
@@ -30,12 +33,18 @@ public class Database {
         hikariConfig.setPassword(password);
         dataSource = new HikariDataSource(hikariConfig);
 
+        cacheManager = CacheManagerBuilder.newCacheManagerBuilder().build(true);
+
         tables = new HashMap<>();
 
         addTable(new CharacterTable(plugin, this));
         addTable(new CharacterAbilityScoreTable(this));
         addTable(new CharacterTempAbilityScoreTable(this));
         addTable(new CharacterClassTable(this));
+    }
+
+    public CacheManager getCacheManager() {
+        return cacheManager;
     }
 
     public DSLContext create() {
