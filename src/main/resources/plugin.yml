@@ -12,6 +12,7 @@ commands:
       /char stats - Displays your stats
       /char set age [age] - Sets your age
       /char set height [height] - Sets your height
+      /char set weight [weight] - Sets your weight
     usage: /<command>
     aliases:
     - char
