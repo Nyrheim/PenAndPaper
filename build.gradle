@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation group: "org.bukkit", name: "bukkit", version: "1.15.2-R0.1-SNAPSHOT"
+    implementation group: "org.spigotmc", name: "spigot-api", version: "1.15.2-R0.1-SNAPSHOT"
     implementation group: "mysql", name: "mysql-connector-java", version: "8.0.20"
     implementation group: "com.zaxxer", name: "HikariCP", version: "3.4.5"
     implementation group: "com.typesafe", name: "config", version: "1.4.0"

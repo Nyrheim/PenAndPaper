@@ -8,6 +8,7 @@ import com.github.liamvii.penandpaper.clazz.DnDClass;
 import com.github.liamvii.penandpaper.conversations.StartCreate;
 import com.github.liamvii.penandpaper.experience.ExperienceLookupTable;
 import com.github.liamvii.penandpaper.player.PlayerId;
+import org.bukkit.Location;
 import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.Player;
@@ -43,6 +44,11 @@ public final class PlayerCharacter {
     private ItemStack leggings;
     private ItemStack boots;
     private ItemStack[] inventoryContents;
+    private double health;
+    private int foodLevel;
+    private float saturation;
+    private float foodExhaustion;
+    private Location location;
 
     public PlayerCharacter(
             Pen plugin,
@@ -66,7 +72,12 @@ public final class PlayerCharacter {
             ItemStack chestplate,
             ItemStack leggings,
             ItemStack boots,
-            ItemStack[] inventoryContents
+            ItemStack[] inventoryContents,
+            double health,
+            int foodLevel,
+            float saturation,
+            float foodExhaustion,
+            Location location
     ) {
         this.id = id;
         this.plugin = plugin;
@@ -91,6 +102,11 @@ public final class PlayerCharacter {
         this.leggings = leggings;
         this.boots = boots;
         this.inventoryContents = inventoryContents;
+        this.health = health;
+        this.foodLevel = foodLevel;
+        this.saturation = saturation;
+        this.foodExhaustion = foodExhaustion;
+        this.location = location;
     }
 
     public PlayerCharacter(
@@ -115,7 +131,12 @@ public final class PlayerCharacter {
             ItemStack chestplate,
             ItemStack leggings,
             ItemStack boots,
-            ItemStack[] inventoryContents
+            ItemStack[] inventoryContents,
+            double health,
+            int foodLevel,
+            float saturation,
+            float foodExhaustion,
+            Location location
     ) {
         this(
                 plugin,
@@ -139,7 +160,47 @@ public final class PlayerCharacter {
                 chestplate,
                 leggings,
                 boots,
-                inventoryContents
+                inventoryContents,
+                health,
+                foodLevel,
+                saturation,
+                foodExhaustion,
+                location
+        );
+    }
+
+    public PlayerCharacter(
+            Pen plugin,
+            Player player
+    ) {
+        this(
+                plugin,
+                new CharacterId(-1),
+                new PlayerId(player),
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                20,
+                0,
+                0,
+                new EnumMap<>(Ability.class),
+                new EnumMap<>(Ability.class),
+                null,
+                new ArrayList<>(),
+                "",
+                null,
+                null,
+                null,
+                null,
+                new ItemStack[36],
+                20,
+                20,
+                5,
+                0,
+                plugin.getServer().getWorlds().get(0).getSpawnLocation()
         );
     }
 
@@ -322,4 +383,43 @@ public final class PlayerCharacter {
         classes.remove(clazz);
     }
 
+    public double getHealth() {
+        return health;
+    }
+
+    public void setHealth(double health) {
+        this.health = health;
+    }
+
+    public int getFoodLevel() {
+        return foodLevel;
+    }
+
+    public void setFoodLevel(int foodLevel) {
+        this.foodLevel = foodLevel;
+    }
+
+    public float getSaturation() {
+        return saturation;
+    }
+
+    public void setSaturation(float saturation) {
+        this.saturation = saturation;
+    }
+
+    public float getFoodExhaustion() {
+        return foodExhaustion;
+    }
+
+    public void setFoodExhaustion(float foodExhaustion) {
+        this.foodExhaustion = foodExhaustion;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 }

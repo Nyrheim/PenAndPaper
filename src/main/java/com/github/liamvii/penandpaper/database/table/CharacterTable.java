@@ -8,6 +8,7 @@ import com.github.liamvii.penandpaper.clazz.DnDClass;
 import com.github.liamvii.penandpaper.database.Database;
 import com.github.liamvii.penandpaper.player.PlayerId;
 import com.github.liamvii.penandpaper.utils.ItemStackUtils;
+import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 import org.ehcache.Cache;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
@@ -17,6 +18,7 @@ import org.jooq.Record;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static com.github.liamvii.penandpaper.database.jooq.nyrheim.Tables.CHARACTER;
 import static java.util.logging.Level.SEVERE;
@@ -58,6 +60,16 @@ public final class CharacterTable implements Table {
                 .column(CHARACTER.LEGGINGS)
                 .column(CHARACTER.BOOTS)
                 .column(CHARACTER.INVENTORY_CONTENTS)
+                .column(CHARACTER.HEALTH)
+                .column(CHARACTER.FOOD_LEVEL)
+                .column(CHARACTER.SATURATION)
+                .column(CHARACTER.FOOD_EXHAUSTION)
+                .column(CHARACTER.WORLD)
+                .column(CHARACTER.X)
+                .column(CHARACTER.Y)
+                .column(CHARACTER.Z)
+                .column(CHARACTER.PITCH)
+                .column(CHARACTER.YAW)
                 .constraints(
                         constraint("character_pk").primaryKey(CHARACTER.ID)
                 )
@@ -126,10 +138,20 @@ public final class CharacterTable implements Table {
                         CHARACTER.CHESTPLATE,
                         CHARACTER.LEGGINGS,
                         CHARACTER.BOOTS,
-                        CHARACTER.INVENTORY_CONTENTS
+                        CHARACTER.INVENTORY_CONTENTS,
+                        CHARACTER.HEALTH,
+                        CHARACTER.FOOD_LEVEL,
+                        CHARACTER.SATURATION,
+                        CHARACTER.FOOD_EXHAUSTION,
+                        CHARACTER.WORLD,
+                        CHARACTER.X,
+                        CHARACTER.Y,
+                        CHARACTER.Z,
+                        CHARACTER.PITCH,
+                        CHARACTER.YAW
                 )
                 .values(
-                        character.getPlayerId().toString(),
+                        character.getPlayerId().getValue().toString(),
                         character.getFirstName(),
                         character.getFamilyName(),
                         character.getHeight(),
@@ -144,7 +166,17 @@ public final class CharacterTable implements Table {
                         serializedChestplate,
                         serializedLeggings,
                         serializedBoots,
-                        serializedInventory
+                        serializedInventory,
+                        character.getHealth(),
+                        character.getFoodLevel(),
+                        (double) character.getSaturation(),
+                        (double) character.getFoodExhaustion(),
+                        character.getLocation().getWorld().getName(),
+                        character.getLocation().getX(),
+                        character.getLocation().getY(),
+                        character.getLocation().getZ(),
+                        character.getLocation().getPitch(),
+                        character.getLocation().getYaw()
                 )
                 .execute();
         int id = database.create().lastID().intValue();
@@ -219,6 +251,16 @@ public final class CharacterTable implements Table {
                 .set(CHARACTER.LEGGINGS, serializedLeggings)
                 .set(CHARACTER.BOOTS, serializedBoots)
                 .set(CHARACTER.INVENTORY_CONTENTS, serializedInventory)
+                .set(CHARACTER.HEALTH, character.getHealth())
+                .set(CHARACTER.FOOD_LEVEL, character.getFoodLevel())
+                .set(CHARACTER.SATURATION, (double) character.getSaturation())
+                .set(CHARACTER.FOOD_EXHAUSTION, (double) character.getFoodExhaustion())
+                .set(CHARACTER.WORLD, character.getLocation().getWorld().getName())
+                .set(CHARACTER.X, character.getLocation().getX())
+                .set(CHARACTER.Y, character.getLocation().getY())
+                .set(CHARACTER.Z, character.getLocation().getZ())
+                .set(CHARACTER.PITCH, (double) character.getLocation().getPitch())
+                .set(CHARACTER.YAW, (double) character.getLocation().getYaw())
                 .where(CHARACTER.ID.eq(character.getId().getValue()))
                 .execute();
 
@@ -268,7 +310,17 @@ public final class CharacterTable implements Table {
                         CHARACTER.CHESTPLATE,
                         CHARACTER.LEGGINGS,
                         CHARACTER.BOOTS,
-                        CHARACTER.INVENTORY_CONTENTS
+                        CHARACTER.INVENTORY_CONTENTS,
+                        CHARACTER.HEALTH,
+                        CHARACTER.FOOD_LEVEL,
+                        CHARACTER.SATURATION,
+                        CHARACTER.FOOD_EXHAUSTION,
+                        CHARACTER.WORLD,
+                        CHARACTER.X,
+                        CHARACTER.Y,
+                        CHARACTER.Z,
+                        CHARACTER.YAW,
+                        CHARACTER.PITCH
                 )
                 .from(CHARACTER)
                 .where(CHARACTER.ID.eq(id.getValue()))
@@ -338,10 +390,33 @@ public final class CharacterTable implements Table {
                 chestplate,
                 leggings,
                 boots,
-                inventoryContents
+                inventoryContents,
+                result.get(CHARACTER.HEALTH),
+                result.get(CHARACTER.FOOD_LEVEL),
+                (float) (double) result.get(CHARACTER.SATURATION),
+                (float) (double) result.get(CHARACTER.FOOD_EXHAUSTION),
+                new Location(
+                        plugin.getServer().getWorld(result.get(CHARACTER.WORLD)),
+                        result.get(CHARACTER.X),
+                        result.get(CHARACTER.Y),
+                        result.get(CHARACTER.Z),
+                        (float) (double) result.get(CHARACTER.PITCH),
+                        (float) (double) result.get(CHARACTER.YAW)
+                )
         );
         cache.put(id.getValue(), character);
         return character;
+    }
+
+    public List<PlayerCharacter> get(PlayerId playerId) {
+        List<? extends Record> results = database.create()
+                .select(CHARACTER.ID)
+                .from(CHARACTER)
+                .where(CHARACTER.PLAYER_UUID.eq(playerId.getValue().toString()))
+                .fetch();
+        return results.stream()
+                .map(result -> get(new CharacterId(result.get(CHARACTER.ID))))
+                .collect(Collectors.toList());
     }
 
 }

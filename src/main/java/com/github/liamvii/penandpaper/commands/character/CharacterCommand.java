@@ -21,12 +21,14 @@ public final class CharacterCommand implements CommandExecutor {
     private final CharacterStatsCommand characterStatsCommand;
     private final CharacterSetCommand characterSetCommand;
     private final CharacterAddCommand characterAddCommand;
+    private final CharacterDeleteCommand characterDeleteCommand;
 
     public CharacterCommand(Pen plugin) {
         this.plugin = plugin;
         this.characterStatsCommand = new CharacterStatsCommand(plugin);
         this.characterSetCommand = new CharacterSetCommand(plugin);
         this.characterAddCommand = new CharacterAddCommand(plugin);
+        this.characterDeleteCommand = new CharacterDeleteCommand(plugin);
     }
 
     @Override
@@ -53,6 +55,13 @@ public final class CharacterCommand implements CommandExecutor {
                     );
                 case "add":
                     return characterAddCommand.onCommand(
+                            sender,
+                            command,
+                            label,
+                            Arrays.stream(args).skip(1).toArray(String[]::new)
+                    );
+                case "delete":
+                    return characterDeleteCommand.onCommand(
                             sender,
                             command,
                             label,

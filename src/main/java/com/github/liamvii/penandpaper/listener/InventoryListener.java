@@ -1,44 +1,50 @@
 package com.github.liamvii.penandpaper.listener;
 
 import com.github.liamvii.penandpaper.Pen;
-import com.github.liamvii.penandpaper.gui.HolderGUI;
 import com.github.liamvii.penandpaper.gui.JobGUI;
 import com.github.liamvii.penandpaper.gui.RaceGUI;
-import org.bukkit.Material;
+import com.github.liamvii.penandpaper.gui.SoulGUI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
 
-public class InventoryListener implements Listener {
+public final class InventoryListener implements Listener {
 
-    private Pen plugin;
+    private final Pen plugin;
+
+    public InventoryListener(Pen plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent e) {
-        Player player = (Player) e.getWhoClicked();
-        ItemStack clickedItem = e.getCurrentItem();
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (!(event.getWhoClicked() instanceof Player)) {
+            return;
+        }
+        Player player = (Player) event.getWhoClicked();
         if (!(
-                e.getInventory().getHolder() instanceof JobGUI
-                    || e.getInventory().getHolder() instanceof HolderGUI
-                    || e.getInventory().getHolder() instanceof RaceGUI
+                event.getInventory().getHolder() instanceof JobGUI
+                    || event.getInventory().getHolder() instanceof SoulGUI
+                    || event.getInventory().getHolder() instanceof RaceGUI
         )) {
             return;
         }
-        if (e.getClick().equals(ClickType.NUMBER_KEY)) {
-            e.setCancelled(true);
+        if (event.getClick().equals(ClickType.NUMBER_KEY)) {
+            event.setCancelled(true);
         }
-        e.setCancelled(true);
-        // verify current item is not null
-        if (clickedItem == null || clickedItem.getType() == Material.AIR || clickedItem.getType() == Material.PAPER)
-            return;
+        event.setCancelled(true);
 
-        if (e.getInventory().getHolder() instanceof JobGUI) {
+        if (event.getInventory().getHolder() instanceof SoulGUI) {
+            SoulGUI gui = (SoulGUI) event.getInventory().getHolder();
+            gui.onClick(player, event.getSlot());
+        }
+
+        if (event.getInventory().getHolder() instanceof JobGUI) {
             
         }
-        if (e.getInventory().getHolder() instanceof RaceGUI) {
+        if (event.getInventory().getHolder() instanceof RaceGUI) {
 
         }
     }
