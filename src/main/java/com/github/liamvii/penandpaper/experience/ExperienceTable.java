@@ -30,4 +30,11 @@ public final class ExperienceTable {
         }
     }
 
+    public static int getLevelAtExperience(int experience) {
+        int level = 1;
+        while (getExperienceRequiredForLevel(level + 1) <= experience) {
+            level++;
+        }
+        return level;
+    }
 }

@@ -11,14 +11,18 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
+
 import static org.bukkit.ChatColor.*;
 
 public final class CharacterCommand implements CommandExecutor {
 
     private final Pen plugin;
+    private final CharacterStatsCommand characterStatsCommand;
 
     public CharacterCommand(Pen plugin) {
         this.plugin = plugin;
+        this.characterStatsCommand = new CharacterStatsCommand(plugin);
     }
 
     @Override
@@ -28,10 +32,21 @@ public final class CharacterCommand implements CommandExecutor {
             target = (Player) sender;
         }
         if (args.length > 0) {
-            target = plugin.getServer().getPlayer(args[0]);
-            if (target == null) {
-                sender.sendMessage(RED + "There is no player online by that name.");
-                return true;
+            switch (args[0]) {
+                case "stats":
+                    return characterStatsCommand.onCommand(
+                            sender,
+                            command,
+                            label,
+                            Arrays.stream(args).skip(1).toArray(String[]::new)
+                    );
+                default:
+                    target = plugin.getServer().getPlayer(args[0]);
+                    if (target == null) {
+                        sender.sendMessage(RED + "There is no player online by that name.");
+                        return true;
+                    }
+                    break;
             }
         }
         if (target == null) {

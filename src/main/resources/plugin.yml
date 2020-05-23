@@ -9,6 +9,7 @@ commands:
       Character management commands
       /char - Displays your character card
       /char [player] - Displays the character card of the specified player
+      /char stats - Displays your stats
     usage: /<command>
     aliases:
     - char
