@@ -181,6 +181,10 @@ public final class PlayerCharacter {
         return height;
     }
 
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
     public String getWeight() {
         return weight;
     }
