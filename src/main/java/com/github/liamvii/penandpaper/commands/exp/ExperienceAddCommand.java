@@ -6,6 +6,10 @@ import com.github.liamvii.penandpaper.character.PlayerCharacter;
 import com.github.liamvii.penandpaper.database.table.ActiveCharacterTable;
 import com.github.liamvii.penandpaper.database.table.CharacterTable;
 import com.github.liamvii.penandpaper.player.PlayerId;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -70,10 +74,25 @@ public class ExperienceAddCommand implements CommandExecutor {
             sender.sendMessage(RED + "You may not add negative experience.");
             return true;
         }
+        int oldLevel = character.getLevel();
         character.setExperience(character.getExperience() + experience);
+        int newLevel = character.getLevel();
         characterTable.update(character);
         sender.sendMessage(GREEN + character.getName() + "'s experience was set to " + character.getExperience() + ".");
         target.sendMessage(GREEN + "Your experience increased.");
+        if (newLevel > oldLevel) {
+            target.sendMessage(GREEN + "Your level increased to " + newLevel + "!");
+            TextComponent levelUpButton = new TextComponent("Click here");
+            levelUpButton.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/levelup"));
+            levelUpButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                    new ComponentBuilder().append("Click here to choose which class to level up").create()));
+            target.spigot().sendMessage(new ComponentBuilder()
+                    .append("Choose which class to level up: ")
+                    .color(net.md_5.bungee.api.ChatColor.GREEN)
+                    .append(levelUpButton)
+                    .color(net.md_5.bungee.api.ChatColor.YELLOW)
+                    .create());
+        }
         return true;
     }
 }
