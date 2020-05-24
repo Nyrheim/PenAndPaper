@@ -40,6 +40,7 @@ public class Database {
         addTable(new CharacterTable(plugin, this));
         addTable(new CharacterAbilityScoreTable(this));
         addTable(new CharacterTempAbilityScoreTable(this));
+        addTable(new CharacterAbilityScoreChoiceTable(this));
         addTable(new CharacterClassTable(this));
         addTable(new ActiveCharacterTable(this));
     }

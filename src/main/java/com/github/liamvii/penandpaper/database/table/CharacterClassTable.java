@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.github.liamvii.penandpaper.database.jooq.nyrheim.Tables.CHARACTER;
-import static com.github.liamvii.penandpaper.database.jooq.nyrheim.Tables.CHARACTER_CLASS;
+import static com.github.liamvii.penandpaper.database.jooq.Tables.CHARACTER;
+import static com.github.liamvii.penandpaper.database.jooq.Tables.CHARACTER_CLASS;
 import static org.jooq.impl.DSL.constraint;
 
 public final class CharacterClassTable implements Table {

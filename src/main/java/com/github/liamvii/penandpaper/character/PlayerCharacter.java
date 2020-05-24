@@ -36,6 +36,7 @@ public final class PlayerCharacter {
     private int exhaustion;
     private final Map<Ability, Integer> abilityScores = new EnumMap<>(Ability.class);
     private final Map<Ability, Integer> tempScores = new EnumMap<>(Ability.class);
+    private final Map<Ability, Integer> abilityScoreChoices = new EnumMap<>(Ability.class);
     private DnDClass firstClass;
     private final Map<DnDClass, CharacterClass> classes = new HashMap<>();
     private String race;
@@ -65,6 +66,7 @@ public final class PlayerCharacter {
             int exhaustion,
             Map<Ability, Integer> abilityScores,
             Map<Ability, Integer> tempScores,
+            Map<Ability, Integer> abilityScoreChoices,
             DnDClass firstClass,
             List<CharacterClass> classes,
             String race,
@@ -93,6 +95,7 @@ public final class PlayerCharacter {
         this.exhaustion = exhaustion;
         this.abilityScores.putAll(abilityScores);
         this.tempScores.putAll(tempScores);
+        this.abilityScoreChoices.putAll(abilityScoreChoices);
         this.firstClass = firstClass;
         this.classes.putAll(classes.stream()
                 .collect(Collectors.toMap(CharacterClass::getClazz, characterClass -> characterClass)));
@@ -124,6 +127,7 @@ public final class PlayerCharacter {
             int exhaustion,
             Map<Ability, Integer> abilityScores,
             Map<Ability, Integer> tempScores,
+            Map<Ability, Integer> abilityScoreChoices,
             DnDClass firstClass,
             List<CharacterClass> classes,
             String race,
@@ -153,6 +157,7 @@ public final class PlayerCharacter {
                 exhaustion,
                 abilityScores,
                 tempScores,
+                abilityScoreChoices,
                 firstClass,
                 classes,
                 race,
@@ -186,6 +191,7 @@ public final class PlayerCharacter {
                 20,
                 0,
                 0,
+                new EnumMap<>(Ability.class),
                 new EnumMap<>(Ability.class),
                 new EnumMap<>(Ability.class),
                 null,
@@ -316,6 +322,14 @@ public final class PlayerCharacter {
 
     public void setTempScore(Ability ability, int score) {
         tempScores.put(ability, score);
+    }
+
+    public int getAbilityScoreChoice(Ability ability) {
+        return abilityScoreChoices.getOrDefault(ability, 0);
+    }
+
+    public void setAbilityScoreChoice(Ability ability, int score) {
+        abilityScoreChoices.put(ability, score);
     }
 
     public int getModifier(Ability ability) {

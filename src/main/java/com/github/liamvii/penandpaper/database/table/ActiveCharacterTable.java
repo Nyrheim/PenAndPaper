@@ -8,8 +8,8 @@ import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.jooq.Record;
 
-import static com.github.liamvii.penandpaper.database.jooq.nyrheim.Tables.ACTIVE_CHARACTER;
-import static com.github.liamvii.penandpaper.database.jooq.nyrheim.Tables.CHARACTER;
+import static com.github.liamvii.penandpaper.database.jooq.Tables.ACTIVE_CHARACTER;
+import static com.github.liamvii.penandpaper.database.jooq.Tables.CHARACTER;
 import static org.jooq.impl.DSL.constraint;
 
 public final class ActiveCharacterTable implements Table {

@@ -12,9 +12,11 @@ import static org.bukkit.ChatColor.RED;
 public final class AbilityCommand implements CommandExecutor {
 
     private final AbilitySetCommand abilitySetCommand;
+    private final AbilityChoiceCommand abilityChoiceCommand;
 
     public AbilityCommand(Pen plugin) {
         this.abilitySetCommand = new AbilitySetCommand(plugin);
+        this.abilityChoiceCommand = new AbilityChoiceCommand(plugin);
     }
 
     @Override
@@ -28,11 +30,18 @@ public final class AbilityCommand implements CommandExecutor {
                             label,
                             Arrays.stream(args).skip(1).toArray(String[]::new)
                     );
+                case "choice":
+                    return abilityChoiceCommand.onCommand(
+                            sender,
+                            command,
+                            label,
+                            Arrays.stream(args).skip(1).toArray(String[]::new)
+                    );
                 default:
-                    sender.sendMessage(RED + "Usage: /" + label + " [set]");
+                    sender.sendMessage(RED + "Usage: /" + label + " [set|choice]");
             }
         } else {
-            sender.sendMessage(RED + "Usage: /" + label + " [set]");
+            sender.sendMessage(RED + "Usage: /" + label + " [set|choice]");
         }
         return true;
     }
