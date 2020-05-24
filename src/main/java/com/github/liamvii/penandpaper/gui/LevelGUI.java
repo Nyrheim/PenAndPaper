@@ -5,6 +5,7 @@ import com.github.liamvii.penandpaper.character.CharacterId;
 import com.github.liamvii.penandpaper.character.PlayerCharacter;
 import com.github.liamvii.penandpaper.clazz.CharacterClass;
 import com.github.liamvii.penandpaper.clazz.DnDClass;
+import com.github.liamvii.penandpaper.clazz.MulticlassingRequirement;
 import com.github.liamvii.penandpaper.database.table.ActiveCharacterTable;
 import com.github.liamvii.penandpaper.database.table.CharacterClassTable;
 import com.github.liamvii.penandpaper.database.table.CharacterTable;
@@ -12,6 +13,7 @@ import com.github.liamvii.penandpaper.player.PlayerId;
 import net.md_5.bungee.api.chat.*;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,6 +95,29 @@ public final class LevelGUI extends GUI {
                         character.addClass(clazz);
                         characterClass = character.clazz(clazz);
                     } else {
+                        if (!character.classes().stream().allMatch(requirementsClass ->
+                                requirementsClass.getClazz().getMulticlassingRequirement().meets(character))
+                                    || !clazz.getMulticlassingRequirement().meets(character)) {
+                            player.closeInventory();
+                            player.sendMessage(RED + "You do not meet the following requirements to multiclass: ");
+                            character.classes().stream()
+                                    .filter(requirementsClass ->
+                                            !requirementsClass.getClazz().getMulticlassingRequirement().meets(character))
+                                    .forEach(requirementsClass -> {
+                                        MulticlassingRequirement requirement = requirementsClass.getClazz().getMulticlassingRequirement();
+                                        player.sendMessage(RED + "== " + requirementsClass.getClazz().getName() + " ==");
+                                        player.sendMessage(Arrays.stream(requirement.printRequirements())
+                                                .map(line -> RED + line).toArray(String[]::new));
+                                    });
+                            if (!clazz.getMulticlassingRequirement().meets(character)) {
+                                MulticlassingRequirement requirement = clazz.getMulticlassingRequirement();
+                                player.sendMessage(RED + "== " + clazz.getName() + " ==");
+                                player.sendMessage(Arrays.stream(requirement.printRequirements())
+                                        .map(line -> RED + line).toArray(String[]::new));
+                            }
+                            return;
+                        }
+
                         TextComponent approveButton = new TextComponent("Approve");
                         approveButton.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/class approve " + player.getName() + " " + clazz.getName()));
                         approveButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
