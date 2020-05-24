@@ -12,6 +12,7 @@ import static org.bukkit.ChatColor.RED;
 public final class CharacterSetCommand implements CommandExecutor {
 
     private final CharacterSetFirstNameCommand characterSetFirstNameCommand;
+    private final CharacterSetFamilyNameCommand characterSetFamilyNameCommand;
     private final CharacterSetAgeCommand characterSetAgeCommand;
     private final CharacterSetHeightCommand characterSetHeightCommand;
     private final CharacterSetWeightCommand characterSetWeightCommand;
@@ -19,7 +20,8 @@ public final class CharacterSetCommand implements CommandExecutor {
     private final CharacterSetPresenceCommand characterSetPresenceCommand;
 
     public CharacterSetCommand(Pen plugin) {
-        characterSetFirstNameCommand = new CharacterSetFirstNameCommand(plugin);
+        this.characterSetFirstNameCommand = new CharacterSetFirstNameCommand(plugin);
+        this.characterSetFamilyNameCommand = new CharacterSetFamilyNameCommand(plugin);
         this.characterSetAgeCommand = new CharacterSetAgeCommand(plugin);
         this.characterSetHeightCommand = new CharacterSetHeightCommand(plugin);
         this.characterSetWeightCommand = new CharacterSetWeightCommand(plugin);
@@ -33,6 +35,13 @@ public final class CharacterSetCommand implements CommandExecutor {
             switch (args[0].toLowerCase()) {
                 case "firstname":
                     return characterSetFirstNameCommand.onCommand(
+                            sender,
+                            command,
+                            label,
+                            Arrays.stream(args).skip(1).toArray(String[]::new)
+                    );
+                case "familyname":
+                    return characterSetFamilyNameCommand.onCommand(
                             sender,
                             command,
                             label,
