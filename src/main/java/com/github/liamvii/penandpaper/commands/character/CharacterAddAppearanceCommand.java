@@ -26,32 +26,51 @@ public final class CharacterAddAppearanceCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(RED + "You must be a player to perform this command.");
+        Player target = null;
+        if (sender instanceof Player) {
+            target = (Player) sender;
+        }
+        int argOffset = 0;
+        if (args.length > 1) {
+            if (sender.hasPermission("penandpaper.command.character.add.appearance.other")) {
+                target = plugin.getServer().getPlayer(args[0]);
+                if (target != null) {
+                    argOffset = 1;
+                } else {
+                    if (sender instanceof Player) {
+                        target = (Player) sender;
+                    }
+                }
+            }
+        }
+        if (target == null) {
+            sender.sendMessage(RED + "You must specify a player when running this command from console.");
             return true;
         }
-        Player target = (Player) sender;
         ActiveCharacterTable activeCharacterTable = plugin.getDatabase().getTable(ActiveCharacterTable.class);
         CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
         PlayerId playerId = new PlayerId(target);
         CharacterId activeCharacterId = activeCharacterTable.get(playerId);
         if (activeCharacterId == null) {
-            sender.sendMessage(RED + "You do not currently have an active character.");
+            sender.sendMessage(RED + (target == sender ? "You do" : target.getName() + " does") + " not currently have an active character.");
             return true;
         }
         PlayerCharacter character = characterTable.get(activeCharacterId);
         if (character == null) {
-            sender.sendMessage(RED + "You do not currently have an active character.");
+            sender.sendMessage(RED + (target == sender ? "You do" : target.getName() + " does") + " not currently have an active character.");
             return true;
         }
-        String appearance = character.getAppearance() + " " + Arrays.stream(args).reduce((a, b) -> a + " " + b).orElse("");
+        String appearance = character.getAppearance() + " " + Arrays.stream(args).skip(argOffset).reduce((a, b) -> a + " " + b).orElse("");
         if (appearance.length() > 4096) {
-            sender.sendMessage(RED + "Your appearance may be at most 4096 characters long.");
+            sender.sendMessage(RED + (sender == target ? "Your" : (character.getName() + "'s")) + " appearance may be at most 4096 characters long.");
             return true;
         }
         character.setAppearance(appearance);
         characterTable.update(character);
-        sender.sendMessage(GREEN + "Your appearance is now \"" + appearance + "\".");
+        sender.sendMessage(GREEN + (sender == target ? "Your" : (character.getName() + "'s")) + " appearance is now \"" + appearance + "\".");
+        if (sender != target) {
+            sender.sendMessage(GREEN + "Your appearance is now \"" + appearance + "\".");
+        }
         return true;
     }
 
