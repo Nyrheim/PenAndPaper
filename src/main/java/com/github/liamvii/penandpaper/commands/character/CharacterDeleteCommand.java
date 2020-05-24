@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 import static org.bukkit.ChatColor.GREEN;
 import static org.bukkit.ChatColor.RED;
 
-public class CharacterDeleteCommand implements CommandExecutor {
+public final class CharacterDeleteCommand implements CommandExecutor {
 
     private final Pen plugin;
 
