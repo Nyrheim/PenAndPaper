@@ -32,11 +32,15 @@ public final class CharacterSetHeightCommand implements CommandExecutor {
         }
         int argOffset = 0;
         if (args.length > 1) {
-            target = plugin.getServer().getPlayer(args[0]);
-            argOffset = 1;
-            if (target == null) {
-                sender.sendMessage(RED + "There is no player online by that name.");
-                return true;
+            if (sender.hasPermission("penandpaper.command.character.set.height.other")) {
+                target = plugin.getServer().getPlayer(args[0]);
+                if (target != null) {
+                    argOffset = 1;
+                } else {
+                    if (sender instanceof Player) {
+                        target = (Player) sender;
+                    }
+                }
             }
         }
         if (target == null) {

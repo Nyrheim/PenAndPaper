@@ -30,11 +30,15 @@ public final class CharacterSetAgeCommand implements CommandExecutor {
         }
         int argOffset = 0;
         if (args.length > 1) {
-            target = plugin.getServer().getPlayer(args[0]);
-            argOffset = 1;
-            if (target == null) {
-                sender.sendMessage(RED + "There is no player online by that name.");
-                return true;
+            if (sender.hasPermission("penandpaper.command.character.set.age.other")) {
+                target = plugin.getServer().getPlayer(args[0]);
+                argOffset = 1;
+                if (target == null) {
+                    sender.sendMessage(RED + "There is no player online by that name.");
+                    return true;
+                }
+            } else {
+                sender.sendMessage(RED + "You do not have permission to set the age of other players' characters.");
             }
         }
         if (target == null) {
