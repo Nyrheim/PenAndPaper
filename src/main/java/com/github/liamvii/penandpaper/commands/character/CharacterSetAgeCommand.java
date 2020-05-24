@@ -24,22 +24,34 @@ public final class CharacterSetAgeCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(RED + "You must be a player to perform this command.");
+        Player target = null;
+        if (sender instanceof Player) {
+            target = (Player) sender;
+        }
+        int argOffset = 0;
+        if (args.length > 1) {
+            target = plugin.getServer().getPlayer(args[0]);
+            argOffset = 1;
+            if (target == null) {
+                sender.sendMessage(RED + "There is no player online by that name.");
+                return true;
+            }
+        }
+        if (target == null) {
+            sender.sendMessage(RED + "You must specify a player when running this command from console.");
             return true;
         }
-        Player target = (Player) sender;
         ActiveCharacterTable activeCharacterTable = plugin.getDatabase().getTable(ActiveCharacterTable.class);
         CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
         PlayerId playerId = new PlayerId(target);
         CharacterId activeCharacterId = activeCharacterTable.get(playerId);
         if (activeCharacterId == null) {
-            sender.sendMessage(RED + "You do not currently have an active character.");
+            sender.sendMessage(RED + (target == sender ? "You do" : target.getName() + " does") + " not currently have an active character.");
             return true;
         }
         PlayerCharacter character = characterTable.get(activeCharacterId);
         if (character == null) {
-            sender.sendMessage(RED + "You do not currently have an active character.");
+            sender.sendMessage(RED + (target == sender ? "You do" : target.getName() + " does") + " not currently have an active character.");
             return true;
         }
         if (args.length < 1) {
@@ -48,27 +60,28 @@ public final class CharacterSetAgeCommand implements CommandExecutor {
         }
         int age;
         try {
-            age = Integer.parseInt(args[0]);
+            age = Integer.parseInt(args[argOffset]);
         } catch (NumberFormatException exception) {
             sender.sendMessage(RED + "Age must be an integer.");
             return true;
         }
         if (age < 0) {
             character.setAge(-1);
-            sender.sendMessage(RED + "Your age is now unknown.");
+            sender.sendMessage(RED + (sender == target ? "Your" : (character.getName() + "'s")) + " age is now unknown.");
             return true;
         }
         if (age < 16) {
-            sender.sendMessage(RED + "You may not be a child.");
+            sender.sendMessage(RED + (sender == target ? "You" : character.getName()) + " may not be a child.");
             return true;
         }
         if (age > 2000) {
-            sender.sendMessage(RED + "You may not be over 2000 years old.");
+            sender.sendMessage(RED + (sender == target ? "You" : character.getName()) + " may not be over 2000 years old.");
             return true;
         }
         character.setAge(age);
         characterTable.update(character);
-        sender.sendMessage(GREEN + "Your age is now " + age + ".");
+        sender.sendMessage(GREEN + (sender == target ? "Your" : (character.getName() + "'s")) + " age is now " + age + ".");
+        target.sendMessage(GREEN + "Your age is now " + age + ".");
         return true;
     }
 }
