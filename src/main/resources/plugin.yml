@@ -39,6 +39,12 @@ commands:
     description: |
       Ability management commands
       /ability set [player] [ability] [score] - Sets the player's active character's ability score
+    usage: /<command>
+  class:
+    description: |
+      Class management commands
+      /class approve [player] [class] - Approves a player's attempt to multiclass into the given class
+    usage: /<command>
 permissions:
   penandpaper.command.exp.add:
     description: Allows adding experience to characters
@@ -70,6 +76,12 @@ permissions:
   penandpaper.command.ability.set:
     description: Allows setting ability scores
     default: op
+  penandpaper.multiclassapproval:
+    description: Allows viewing multiclass approval notifications
+    default: op
+  penandpaper.command.class.approve:
+    description: Allows approving multiclass combinations
+    default: op
   penandpaper.admin:
     description: Allows all admin functionality
     default: op
@@ -84,3 +96,5 @@ permissions:
     - penandpaper.command.character.add.appearance.other
     - penandpaper.command.character.add.presence.other
     - penandpaper.command.ability.set
+    - penandpaper.multiclassapproval
+    - penandpaper.command.class.approve

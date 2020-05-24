@@ -9,14 +9,16 @@ import com.github.liamvii.penandpaper.database.table.ActiveCharacterTable;
 import com.github.liamvii.penandpaper.database.table.CharacterClassTable;
 import com.github.liamvii.penandpaper.database.table.CharacterTable;
 import com.github.liamvii.penandpaper.player.PlayerId;
+import net.md_5.bungee.api.chat.*;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.github.liamvii.penandpaper.character.PlayerCharacter.MAX_CLASSES;
-import static org.bukkit.ChatColor.GREEN;
-import static org.bukkit.ChatColor.RED;
+import static org.bukkit.ChatColor.*;
 
 public final class LevelGUI extends GUI {
 
@@ -87,8 +89,42 @@ public final class LevelGUI extends GUI {
             CharacterClass characterClass = character.clazz(clazz);
             if (characterClass == null) {
                 if (character.classes().size() < MAX_CLASSES) {
-                    character.addClass(clazz);
-                    characterClass = character.clazz(clazz);
+                    if (character.classes().isEmpty()) {
+                        character.addClass(clazz);
+                        characterClass = character.clazz(clazz);
+                    } else {
+                        TextComponent approveButton = new TextComponent("Approve");
+                        approveButton.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/class approve " + player.getName() + " " + clazz.getName()));
+                        approveButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                                new ComponentBuilder().append("Click here to approve multiclassing combination").create()));
+                        BaseComponent[] approvalMessage = new ComponentBuilder()
+                                .append(approveButton)
+                                .color(net.md_5.bungee.api.ChatColor.GREEN)
+                                .create();
+                        List<Player> approvers = plugin.getServer().getOnlinePlayers()
+                                .stream()
+                                .filter(staff -> staff.hasPermission("penandpaper.multiclassapproval"))
+                                .collect(Collectors.toList());
+                        if (approvers.isEmpty()) {
+                            player.sendMessage(RED + "Your multiclassing combination requires staff approval, but no staff members with the requisite permissions are online right now.");
+                            player.sendMessage(RED + "Please try again later when there are staff members online.");
+                        } else {
+                            approvers
+                                    .forEach(staff -> {
+                                        staff.sendMessage(GOLD + player.getName() + " wishes to adopt the new class " + clazz.getName());
+                                        staff.sendMessage(GOLD + "Their current classes are: "
+                                                + character.classes().stream()
+                                                .map(characterClassListItem ->
+                                                        characterClassListItem.getClazz().getName()
+                                                                + " " + characterClassListItem.getLevel())
+                                                .reduce((a, b) -> a + "/" + b)
+                                                .orElse("None")
+                                        );
+                                        staff.spigot().sendMessage(approvalMessage);
+                                    });
+                            player.sendMessage(GREEN + "Your multiclassing combination has been sent to online staff for approval.");
+                        }
+                    }
                 } else {
                     player.sendMessage(RED + "You have the maximum amount of classes.");
                 }

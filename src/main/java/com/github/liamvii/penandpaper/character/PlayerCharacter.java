@@ -303,7 +303,7 @@ public final class PlayerCharacter {
     }
 
     public int getTempScore(Ability ability) {
-        return abilityScores.getOrDefault(ability, 0);
+        return tempScores.getOrDefault(ability, 0);
     }
 
     public void setTempScore(Ability ability, int score) {
