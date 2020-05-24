@@ -1,4 +1,4 @@
-package com.github.liamvii.penandpaper.commands.stat;
+package com.github.liamvii.penandpaper.commands.clazz;
 
 import com.github.liamvii.penandpaper.Pen;
 import org.bukkit.command.Command;
@@ -9,30 +9,31 @@ import java.util.Arrays;
 
 import static org.bukkit.ChatColor.RED;
 
-public final class AbilityCommand implements CommandExecutor {
+public final class ClassCommand implements CommandExecutor {
 
-    private final AbilitySetCommand abilitySetCommand;
+    private final ClassApproveCommand classApproveCommand;
 
-    public AbilityCommand(Pen plugin) {
-        this.abilitySetCommand = new AbilitySetCommand(plugin);
+    public ClassCommand(Pen plugin) {
+        this.classApproveCommand = new ClassApproveCommand(plugin);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length > 0) {
-            switch (args[0].toLowerCase()) {
-                case "set":
-                    return abilitySetCommand.onCommand(
+            switch (args[0]) {
+                case "approve":
+                    return classApproveCommand.onCommand(
                             sender,
                             command,
                             label,
                             Arrays.stream(args).skip(1).toArray(String[]::new)
                     );
                 default:
-                    sender.sendMessage(RED + "Usage: /" + label + " [set]");
+                    sender.sendMessage(RED + "Usage: /" + label + " [approve]");
+                    break;
             }
         } else {
-            sender.sendMessage(RED + "Usage: /" + label + " [set]");
+            sender.sendMessage(RED + "Usage: /" + label + " [approve]");
         }
         return true;
     }

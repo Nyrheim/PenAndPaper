@@ -12,7 +12,6 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.github.liamvii.penandpaper.database.jooq.nyrheim.Tables.CHARACTER_ABILITY_SCORE;
 import static com.github.liamvii.penandpaper.database.jooq.nyrheim.Tables.CHARACTER_TEMP_ABILITY_SCORE;
 import static com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.Character.CHARACTER;
 import static org.jooq.impl.DSL.constraint;
@@ -38,11 +37,11 @@ public class CharacterTempAbilityScoreTable implements Table {
                 .column(CHARACTER_TEMP_ABILITY_SCORE.SCORE)
                 .constraints(
                         constraint("character_temp_ability_score_pk").primaryKey(
-                                CHARACTER_ABILITY_SCORE.CHARACTER_ID,
-                                CHARACTER_ABILITY_SCORE.ABILITY
+                                CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID,
+                                CHARACTER_TEMP_ABILITY_SCORE.ABILITY
                         ),
                         constraint("character_temp_ability_score_character_id_fk")
-                                .foreignKey(CHARACTER_ABILITY_SCORE.CHARACTER_ID)
+                                .foreignKey(CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID)
                                 .references(CHARACTER, CHARACTER.ID)
                 )
                 .execute();

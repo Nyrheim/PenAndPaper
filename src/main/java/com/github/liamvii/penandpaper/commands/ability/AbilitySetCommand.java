@@ -1,4 +1,4 @@
-package com.github.liamvii.penandpaper.commands.stat;
+package com.github.liamvii.penandpaper.commands.ability;
 
 import com.github.liamvii.penandpaper.Pen;
 import com.github.liamvii.penandpaper.ability.Ability;
