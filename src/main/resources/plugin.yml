@@ -51,6 +51,9 @@ permissions:
   penandpaper.command.character.set.weight.other:
     description: Allows setting the weight of other players'' characters
     default: op
+  penandpaper.command.character.set.appearance.other:
+    description: Allows setting the appearance of other player''s characters
+    default: op
   penandpaper.admin:
     description: Allows all admin functionality
     default: op
@@ -60,3 +63,4 @@ permissions:
     - penandpaper.command.character.set.age.other
     - penandpaper.command.character.set.height.other
     - penandpaper.command.character.set.weight.other
+    - penandpaper.command.character.set.appearance.other
