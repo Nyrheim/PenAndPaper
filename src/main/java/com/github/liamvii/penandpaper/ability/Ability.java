@@ -5,7 +5,7 @@ import java.util.Arrays;
 public enum Ability {
 
     STRENGTH("Strength", "Measuring physical power", "STR"),
-    DEXTERITY("Dexterity", "Measuring agility", "AGI"),
+    DEXTERITY("Dexterity", "Measuring agility", "DEX"),
     CONSTITUTION("Constitution", "Measuring endurance", "CON"),
     INTELLIGENCE("Intelligence", "Measuring reasonining and memory", "INT"),
     WISDOM("Wisdom", "Measuring perception and insight", "WIS"),

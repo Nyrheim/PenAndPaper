@@ -4,6 +4,7 @@ import com.github.liamvii.penandpaper.commands.character.CharacterCommand;
 import com.github.liamvii.penandpaper.commands.exp.ExperienceCommand;
 import com.github.liamvii.penandpaper.commands.levelup.LevelUpCommand;
 import com.github.liamvii.penandpaper.commands.soul.SoulCommand;
+import com.github.liamvii.penandpaper.commands.stat.AbilityCommand;
 import com.github.liamvii.penandpaper.database.Database;
 import com.github.liamvii.penandpaper.listener.InventoryClickListener;
 import com.github.liamvii.penandpaper.listener.PlayerListener;
@@ -49,6 +50,7 @@ public class Pen extends JavaPlugin {
         getCommand("experience").setExecutor(new ExperienceCommand(this));
         getCommand("soul").setExecutor(new SoulCommand(this));
         getCommand("levelup").setExecutor(new LevelUpCommand(this));
+        getCommand("ability").setExecutor(new AbilityCommand(this));
     }
 
     public Database getDatabase() {
