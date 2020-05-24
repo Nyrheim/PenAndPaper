@@ -36,7 +36,8 @@ public final class DnDClass {
                     .collect(Collectors.toList()),
             Arrays.asList(WeaponType.values()),
             12,
-            7
+            7,
+            new MulticlassingRequirement.AbilityRequirement(STRENGTH, 13)
     );
 
     public static final DnDClass BARD = new DnDClass(
@@ -61,7 +62,8 @@ public final class DnDClass {
                     )
                     .collect(Collectors.toList()),
             8,
-            5
+            5,
+            new MulticlassingRequirement.AbilityRequirement(CHARISMA, 13)
     );
 
     public static final DnDClass CLERIC = new DnDClass(
@@ -83,7 +85,8 @@ public final class DnDClass {
                     .filter(weaponType -> weaponType.getCategory().isSimple())
                     .collect(Collectors.toList()),
             8,
-            5
+            5,
+            new MulticlassingRequirement.AbilityRequirement(WISDOM, 13)
     );
 
     public static final DnDClass DRUID = new DnDClass(
@@ -116,7 +119,8 @@ public final class DnDClass {
                     SPEAR
             ),
             8,
-            5
+            5,
+            new MulticlassingRequirement.AbilityRequirement(WISDOM, 13)
     );
 
     public static final DnDClass FIGHTER = new DnDClass(
@@ -131,7 +135,11 @@ public final class DnDClass {
             Arrays.asList(ArmorType.values()),
             Arrays.asList(WeaponType.values()),
             10,
-            6
+            6,
+            new MulticlassingRequirement.AnyRequirement(
+                    new MulticlassingRequirement.AbilityRequirement(STRENGTH, 13),
+                    new MulticlassingRequirement.AbilityRequirement(DEXTERITY, 13)
+            )
     );
 
     public static final DnDClass MONK = new DnDClass(
@@ -152,7 +160,11 @@ public final class DnDClass {
                     )
                     .collect(Collectors.toList()),
             8,
-            5
+            5,
+            new MulticlassingRequirement.AllRequirement(
+                    new MulticlassingRequirement.AbilityRequirement(DEXTERITY, 13),
+                    new MulticlassingRequirement.AbilityRequirement(WISDOM, 13)
+            )
     );
 
     public static final DnDClass PALADIN = new DnDClass(
@@ -167,7 +179,11 @@ public final class DnDClass {
             Arrays.asList(ArmorType.values()),
             Arrays.asList(WeaponType.values()),
             10,
-            6
+            6,
+            new MulticlassingRequirement.AllRequirement(
+                    new MulticlassingRequirement.AbilityRequirement(STRENGTH, 13),
+                    new MulticlassingRequirement.AbilityRequirement(CHARISMA, 13)
+            )
     );
 
     public static final DnDClass RANGER = new DnDClass(
@@ -189,7 +205,11 @@ public final class DnDClass {
                     .collect(Collectors.toList()),
             Arrays.asList(WeaponType.values()),
             10,
-            6
+            6,
+            new MulticlassingRequirement.AllRequirement(
+                    new MulticlassingRequirement.AbilityRequirement(DEXTERITY, 13),
+                    new MulticlassingRequirement.AbilityRequirement(WISDOM, 13)
+            )
     );
 
     public static final DnDClass ROGUE = new DnDClass(
@@ -214,7 +234,8 @@ public final class DnDClass {
                     )
                     .collect(Collectors.toList()),
             8,
-            5
+            5,
+            new MulticlassingRequirement.AbilityRequirement(DEXTERITY, 13)
     );
 
     public static final DnDClass SORCERER = new DnDClass(
@@ -235,7 +256,8 @@ public final class DnDClass {
                     LIGHT_CROSSBOW
             ),
             6,
-            4
+            4,
+            new MulticlassingRequirement.AbilityRequirement(CHARISMA, 13)
     );
 
     public static final DnDClass WARLOCK = new DnDClass(
@@ -254,7 +276,8 @@ public final class DnDClass {
                     .filter(weaponType -> weaponType.getCategory().isSimple())
                     .collect(Collectors.toList()),
             8,
-            5
+            5,
+            new MulticlassingRequirement.AbilityRequirement(CHARISMA, 13)
     );
 
     public static final DnDClass WIZARD = new DnDClass(
@@ -275,7 +298,8 @@ public final class DnDClass {
                     LIGHT_CROSSBOW
             ),
             6,
-            4
+            4,
+            new MulticlassingRequirement.AbilityRequirement(INTELLIGENCE, 13)
     );
 
     public static DnDClass valueOf(String name) {
@@ -329,6 +353,7 @@ public final class DnDClass {
     private final List<WeaponType> weaponProficiencies;
     private final int baseHP;
     private final int levelHP;
+    private final MulticlassingRequirement multiclassingRequirement;
 
     private DnDClass(
             String name,
@@ -339,7 +364,8 @@ public final class DnDClass {
             List<ArmorType> armorProficiencies,
             List<WeaponType> weaponProficiencies,
             int baseHP,
-            int levelHP
+            int levelHP,
+            MulticlassingRequirement multiclassingRequirement
     ) {
         this.name = name;
         this.description = description;
@@ -350,6 +376,7 @@ public final class DnDClass {
         this.weaponProficiencies = weaponProficiencies;
         this.baseHP = baseHP;
         this.levelHP = levelHP;
+        this.multiclassingRequirement = multiclassingRequirement;
     }
 
     public String getName() {
@@ -392,4 +419,7 @@ public final class DnDClass {
         return baseHP + ((level - (level == 1 ? 0 : 1)) * constMod) + (level * levelHP);
     }
 
+    public MulticlassingRequirement getMulticlassingRequirement() {
+        return multiclassingRequirement;
+    }
 }

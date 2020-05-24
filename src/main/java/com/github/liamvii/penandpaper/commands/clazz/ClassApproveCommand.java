@@ -5,6 +5,7 @@ import com.github.liamvii.penandpaper.character.CharacterId;
 import com.github.liamvii.penandpaper.character.PlayerCharacter;
 import com.github.liamvii.penandpaper.clazz.CharacterClass;
 import com.github.liamvii.penandpaper.clazz.DnDClass;
+import com.github.liamvii.penandpaper.clazz.MulticlassingRequirement;
 import com.github.liamvii.penandpaper.database.table.ActiveCharacterTable;
 import com.github.liamvii.penandpaper.database.table.CharacterTable;
 import com.github.liamvii.penandpaper.player.PlayerId;
@@ -12,6 +13,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Arrays;
 
 import static com.github.liamvii.penandpaper.character.PlayerCharacter.MAX_CLASSES;
 import static org.bukkit.ChatColor.GREEN;
@@ -70,6 +73,27 @@ public final class ClassApproveCommand implements CommandExecutor {
                 .map(CharacterClass::getLevel)
                 .reduce(0, Integer::sum) >= character.getLevel()) {
             sender.sendMessage(RED + "That player does not have enough levels to level up another class.");
+            return true;
+        }
+        if (!character.classes().stream().allMatch(requirementsClass ->
+                requirementsClass.getClazz().getMulticlassingRequirement().meets(character))
+                || !clazz.getMulticlassingRequirement().meets(character)) {
+            sender.sendMessage(RED + character.getName() + " does not meet the following requirements to multiclass: ");
+            character.classes().stream()
+                    .filter(requirementsClass ->
+                            !requirementsClass.getClazz().getMulticlassingRequirement().meets(character))
+                    .forEach(requirementsClass -> {
+                        MulticlassingRequirement requirement = requirementsClass.getClazz().getMulticlassingRequirement();
+                        sender.sendMessage(RED + "== " + requirementsClass.getClazz().getName() + " ==");
+                        sender.sendMessage(Arrays.stream(requirement.printRequirements())
+                                .map(line -> RED + line).toArray(String[]::new));
+                    });
+            if (!clazz.getMulticlassingRequirement().meets(character)) {
+                MulticlassingRequirement requirement = clazz.getMulticlassingRequirement();
+                sender.sendMessage(RED + "== " + clazz.getName() + " ==");
+                sender.sendMessage(Arrays.stream(requirement.printRequirements())
+                        .map(line -> RED + line).toArray(String[]::new));
+            }
             return true;
         }
         character.addClass(clazz);
