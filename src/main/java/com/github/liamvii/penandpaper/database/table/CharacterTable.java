@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static com.github.liamvii.penandpaper.database.jooq.nyrheim.Tables.CHARACTER;
+import static com.github.liamvii.penandpaper.database.jooq.Tables.CHARACTER;
 import static java.util.logging.Level.SEVERE;
 import static org.jooq.impl.DSL.constraint;
 
@@ -184,6 +184,7 @@ public final class CharacterTable implements Table {
 
         database.getTable(CharacterAbilityScoreTable.class).insertOrUpdateAbilityScores(character);
         database.getTable(CharacterTempAbilityScoreTable.class).insertOrUpdateAbilityScores(character);
+        database.getTable(CharacterAbilityScoreChoiceTable.class).insertOrUpdateAbilityScores(character);
         database.getTable(CharacterClassTable.class).insertOrUpdateClasses(character);
 
         cache.put(id, character);
@@ -266,6 +267,7 @@ public final class CharacterTable implements Table {
 
         database.getTable(CharacterAbilityScoreTable.class).insertOrUpdateAbilityScores(character);
         database.getTable(CharacterTempAbilityScoreTable.class).insertOrUpdateAbilityScores(character);
+        database.getTable(CharacterAbilityScoreChoiceTable.class).insertOrUpdateAbilityScores(character);
         database.getTable(CharacterClassTable.class).insertOrUpdateClasses(character);
 
         cache.put(character.getId().getValue(), character);
@@ -383,6 +385,7 @@ public final class CharacterTable implements Table {
                 result.get(CHARACTER.EXHAUSTION),
                 database.getTable(CharacterAbilityScoreTable.class).get(id),
                 database.getTable(CharacterTempAbilityScoreTable.class).get(id),
+                database.getTable(CharacterAbilityScoreChoiceTable.class).get(id),
                 firstClass,
                 classes,
                 result.get(CHARACTER.RACE),

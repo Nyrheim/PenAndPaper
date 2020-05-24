@@ -39,6 +39,7 @@ commands:
     description: |
       Ability management commands
       /ability set [player] [ability] [score] - Sets the player's active character's ability score
+      /ability choice - Views your ability choices
     usage: /<command>
   class:
     description: |

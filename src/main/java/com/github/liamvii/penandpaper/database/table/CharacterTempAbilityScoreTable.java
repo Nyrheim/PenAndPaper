@@ -12,11 +12,11 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.github.liamvii.penandpaper.database.jooq.nyrheim.Tables.CHARACTER_TEMP_ABILITY_SCORE;
-import static com.github.liamvii.penandpaper.database.jooq.nyrheim.tables.Character.CHARACTER;
+import static com.github.liamvii.penandpaper.database.jooq.Tables.CHARACTER_TEMP_ABILITY_SCORE;
+import static com.github.liamvii.penandpaper.database.jooq.tables.Character.CHARACTER;
 import static org.jooq.impl.DSL.constraint;
 
-public class CharacterTempAbilityScoreTable implements Table {
+public final class CharacterTempAbilityScoreTable implements Table {
 
     private final Database database;
 

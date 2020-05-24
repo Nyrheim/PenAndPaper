@@ -4,8 +4,6 @@
 package com.github.liamvii.penandpaper.database.jooq;
 
 
-import com.github.liamvii.penandpaper.database.jooq.nyrheim.Nyrheim;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,7 +17,7 @@ import org.jooq.impl.CatalogImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DefaultCatalog extends CatalogImpl {
 
-    private static final long serialVersionUID = -50943343;
+    private static final long serialVersionUID = 78377890;
 
     /**
      * The reference instance of <code>DEFAULT_CATALOG</code>

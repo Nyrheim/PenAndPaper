@@ -7,7 +7,7 @@ public enum Ability {
     STRENGTH("Strength", "Measuring physical power", "STR"),
     DEXTERITY("Dexterity", "Measuring agility", "DEX"),
     CONSTITUTION("Constitution", "Measuring endurance", "CON"),
-    INTELLIGENCE("Intelligence", "Measuring reasonining and memory", "INT"),
+    INTELLIGENCE("Intelligence", "Measuring reasoning and memory", "INT"),
     WISDOM("Wisdom", "Measuring perception and insight", "WIS"),
     CHARISMA("Charisma", "Measuring force of personality", "CHA");
 
