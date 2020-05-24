@@ -26,25 +26,38 @@ public final class CharacterStatsCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(RED + "You must be a player to perform this command.");
+        Player target = null;
+        if (sender instanceof Player) {
+            target = (Player) sender;
+        }
+        if (args.length > 1) {
+            if (sender.hasPermission("penandpaper.command.character.stats.other")) {
+                target = plugin.getServer().getPlayer(args[0]);
+                if (target == null) {
+                    if (sender instanceof Player) {
+                        target = (Player) sender;
+                    }
+                }
+            }
+        }
+        if (target == null) {
+            sender.sendMessage(RED + "You must specify a player when running this command from console.");
             return true;
         }
-        Player target = (Player) sender;
         ActiveCharacterTable activeCharacterTable = plugin.getDatabase().getTable(ActiveCharacterTable.class);
         CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
         PlayerId playerId = new PlayerId(target);
         CharacterId activeCharacterId = activeCharacterTable.get(playerId);
         if (activeCharacterId == null) {
-            sender.sendMessage(RED + "You do not currently have an active character.");
+            sender.sendMessage(RED + (target == sender ? "You do" : target.getName() + " does") + " not currently have an active character.");
             return true;
         }
         PlayerCharacter character = characterTable.get(activeCharacterId);
         if (character == null) {
-            sender.sendMessage(RED + "You do not currently have an active character.");
+            sender.sendMessage(RED + (target == sender ? "You do" : target.getName() + " does") + " not currently have an active character.");
             return true;
         }
-        sender.sendMessage(GOLD + "Your stats");
+        sender.sendMessage(GOLD + (target == sender ? "Your" : character.getName() + "'s") + " stats");
         sender.sendMessage(GOLD + character.classes().stream()
                 .map(characterClass -> characterClass.getClazz().getName() + " " + characterClass.getLevel())
                 .reduce((a, b) -> a + "/" + b)

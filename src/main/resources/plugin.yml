@@ -82,6 +82,9 @@ permissions:
   penandpaper.command.class.approve:
     description: Allows approving multiclass combinations
     default: op
+  penandpaper.command.character.stats.other:
+    description: Allows viewing stats of other players'' characters
+    default: op
   penandpaper.admin:
     description: Allows all admin functionality
     default: op
@@ -98,3 +101,4 @@ permissions:
     - penandpaper.command.ability.set
     - penandpaper.multiclassapproval
     - penandpaper.command.class.approve
+    - penandpaper.command.character.stats.other
