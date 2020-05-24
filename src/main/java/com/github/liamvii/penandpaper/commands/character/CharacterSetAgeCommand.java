@@ -81,7 +81,9 @@ public final class CharacterSetAgeCommand implements CommandExecutor {
         character.setAge(age);
         characterTable.update(character);
         sender.sendMessage(GREEN + (sender == target ? "Your" : (character.getName() + "'s")) + " age is now " + age + ".");
-        target.sendMessage(GREEN + "Your age is now " + age + ".");
+        if (sender != target) {
+            target.sendMessage(GREEN + "Your age is now " + age + ".");
+        }
         return true;
     }
 }
