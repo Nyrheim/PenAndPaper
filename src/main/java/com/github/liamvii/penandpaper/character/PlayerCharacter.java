@@ -238,6 +238,14 @@ public final class PlayerCharacter {
         return age;
     }
 
+    public void setFirstName(String fName) {
+        this.firstName = fName;
+    }
+
+    public void setFamilyName(String fName) {
+        this.familyName = fName;
+    }
+
     public void setAge(int age) {
         this.age = age;
     }
