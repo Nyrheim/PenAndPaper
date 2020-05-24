@@ -42,9 +42,21 @@ permissions:
   penandpaper.command.exp.set:
     description: Allows setting experience for characters
     default: op
+  penandpaper.command.character.set.age.other:
+    description: Allows setting the age of other players'' characters
+    default: op
+  penandpaper.command.character.set.height.other:
+    description: Allows setting the height of other players'' characters
+    default: op
+  penandpaper.command.character.set.weight.other:
+    description: Allows setting the weight of other players'' characters
+    default: op
   penandpaper.admin:
     description: Allows all admin functionality
     default: op
     children:
     - penandpaper.command.exp.add
     - penandpaper.command.exp.set
+    - penandpaper.command.character.set.age.other
+    - penandpaper.command.character.set.height.other
+    - penandpaper.command.character.set.weight.other
