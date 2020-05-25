@@ -92,7 +92,12 @@ public final class SoulGUI extends GUI {
             if (slotCharacters.containsKey(slot)) {
                 CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
                 PlayerCharacter character = characterTable.get(slotCharacters.get(slot));
-                PenPlayer penPlayer = new PenPlayer(plugin, player);
+                PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
+                PenPlayer penPlayer = playerTable.get(new PlayerUUID(player));
+                if (penPlayer == null) {
+                    penPlayer = new PenPlayer(plugin, player);
+                    playerTable.insert(penPlayer);
+                }
                 penPlayer.switchCharacter(character);
             }
         } else if (clickedItem.getType() == CAMPFIRE) {
