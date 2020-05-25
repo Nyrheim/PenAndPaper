@@ -17,7 +17,6 @@ import org.jooq.Record;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.github.liamvii.penandpaper.database.jooq.Tables.CHARACTER;
@@ -44,7 +43,7 @@ public final class CharacterTable implements Table {
         database.create()
                 .createTableIfNotExists(CHARACTER)
                 .column(CHARACTER.ID)
-                .column(CHARACTER.PLAYER_UUID)
+                .column(CHARACTER.PLAYER_ID)
                 .column(CHARACTER.FIRST_NAME)
                 .column(CHARACTER.FAMILY_NAME)
                 .column(CHARACTER.HEIGHT)
@@ -113,7 +112,7 @@ public final class CharacterTable implements Table {
                 return;
             }
         }
-        byte[] serializedInventory = null;
+        byte[] serializedInventory;
         try {
             serializedInventory = ItemStackUtils.serializeItemStackArray(character.getInventoryContents());
         } catch (IOException exception) {
@@ -123,7 +122,7 @@ public final class CharacterTable implements Table {
         database.create()
                 .insertInto(
                         CHARACTER,
-                        CHARACTER.PLAYER_UUID,
+                        CHARACTER.PLAYER_ID,
                         CHARACTER.FIRST_NAME,
                         CHARACTER.FAMILY_NAME,
                         CHARACTER.HEIGHT,
@@ -151,7 +150,7 @@ public final class CharacterTable implements Table {
                         CHARACTER.YAW
                 )
                 .values(
-                        character.getPlayerId().getValue().toString(),
+                        character.getPlayerId().getValue(),
                         character.getFirstName(),
                         character.getFamilyName(),
                         character.getHeight(),
@@ -227,7 +226,7 @@ public final class CharacterTable implements Table {
                 return;
             }
         }
-        byte[] serializedInventory = null;
+        byte[] serializedInventory;
         try {
             serializedInventory = ItemStackUtils.serializeItemStackArray(character.getInventoryContents());
         } catch (IOException exception) {
@@ -236,7 +235,7 @@ public final class CharacterTable implements Table {
         }
         database.create()
                 .update(CHARACTER)
-                .set(CHARACTER.PLAYER_UUID, character.getPlayerId().getValue().toString())
+                .set(CHARACTER.PLAYER_ID, character.getPlayerId().getValue())
                 .set(CHARACTER.FIRST_NAME, character.getFirstName())
                 .set(CHARACTER.FAMILY_NAME, character.getFamilyName())
                 .set(CHARACTER.HEIGHT, character.getHeight())
@@ -297,7 +296,7 @@ public final class CharacterTable implements Table {
         }
         Record result = database.create()
                 .select(
-                        CHARACTER.PLAYER_UUID,
+                        CHARACTER.PLAYER_ID,
                         CHARACTER.FIRST_NAME,
                         CHARACTER.FAMILY_NAME,
                         CHARACTER.HEIGHT,
@@ -373,7 +372,7 @@ public final class CharacterTable implements Table {
         PlayerCharacter character = new PlayerCharacter(
                 plugin,
                 id,
-                new PlayerId(UUID.fromString(result.get(CHARACTER.PLAYER_UUID))),
+                new PlayerId(result.get(CHARACTER.PLAYER_ID)),
                 result.get(CHARACTER.FIRST_NAME),
                 result.get(CHARACTER.FAMILY_NAME),
                 result.get(CHARACTER.HEIGHT),
@@ -415,7 +414,7 @@ public final class CharacterTable implements Table {
         List<? extends Record> results = database.create()
                 .select(CHARACTER.ID)
                 .from(CHARACTER)
-                .where(CHARACTER.PLAYER_UUID.eq(playerId.getValue().toString()))
+                .where(CHARACTER.PLAYER_ID.eq(playerId.getValue()))
                 .fetch();
         return results.stream()
                 .map(result -> get(new CharacterId(result.get(CHARACTER.ID))))

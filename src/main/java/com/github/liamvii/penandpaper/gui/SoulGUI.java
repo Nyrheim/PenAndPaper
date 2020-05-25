@@ -4,8 +4,9 @@ import com.github.liamvii.penandpaper.Pen;
 import com.github.liamvii.penandpaper.character.CharacterId;
 import com.github.liamvii.penandpaper.character.PlayerCharacter;
 import com.github.liamvii.penandpaper.database.table.CharacterTable;
+import com.github.liamvii.penandpaper.database.table.PlayerTable;
 import com.github.liamvii.penandpaper.player.PenPlayer;
-import com.github.liamvii.penandpaper.player.PlayerId;
+import com.github.liamvii.penandpaper.player.PlayerUUID;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -35,9 +36,14 @@ public final class SoulGUI extends GUI {
 
     @Override
     public void initializeItems(Player player) {
-        PlayerId playerId = new PlayerId(player);
+        PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
+        PenPlayer penPlayer = playerTable.get(new PlayerUUID(player));
+        if (penPlayer == null) {
+            penPlayer = new PenPlayer(plugin, player);
+            playerTable.insert(penPlayer);
+        }
         CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
-        List<PlayerCharacter> characters = characterTable.get(playerId);
+        List<PlayerCharacter> characters = characterTable.get(penPlayer.getPlayerId());
         for (int i = 0; i < 3; i++) {
             if (i < characters.size()) {
                 PlayerCharacter character = characters.get(i);
@@ -69,13 +75,17 @@ public final class SoulGUI extends GUI {
 
         if (clickedItem.getType() == WRITABLE_BOOK) {
             player.closeInventory();
+            PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
+            PenPlayer penPlayer = playerTable.get(new PlayerUUID(player));
+            if (penPlayer == null) {
+                penPlayer = new PenPlayer(plugin, player);
+                playerTable.insert(penPlayer);
+            }
             PlayerCharacter character = new PlayerCharacter(
                     plugin,
-                    player
+                    penPlayer.getPlayerId()
             );
             plugin.getDatabase().getTable(CharacterTable.class).insert(character);
-            PlayerId playerId = new PlayerId(player);
-            PenPlayer penPlayer = new PenPlayer(plugin, playerId);
             penPlayer.switchCharacter(character);
         } else if (clickedItem.getType() == PLAYER_HEAD) {
             player.closeInventory();

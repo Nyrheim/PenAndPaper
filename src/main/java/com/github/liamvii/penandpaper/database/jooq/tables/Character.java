@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Character extends TableImpl<CharacterRecord> {
 
-    private static final long serialVersionUID = 1148974416;
+    private static final long serialVersionUID = -1328893509;
 
     /**
      * The reference instance of <code>nyrheim.character</code>
@@ -52,9 +52,9 @@ public class Character extends TableImpl<CharacterRecord> {
     public final TableField<CharacterRecord, Integer> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>nyrheim.character.player_uuid</code>.
+     * The column <code>nyrheim.character.player_id</code>.
      */
-    public final TableField<CharacterRecord, String> PLAYER_UUID = createField(DSL.name("player_uuid"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<CharacterRecord, Integer> PLAYER_ID = createField(DSL.name("player_id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>nyrheim.character.first_name</code>.
@@ -232,6 +232,15 @@ public class Character extends TableImpl<CharacterRecord> {
     @Override
     public List<UniqueKey<CharacterRecord>> getKeys() {
         return Arrays.<UniqueKey<CharacterRecord>>asList(Keys.KEY_CHARACTER_PRIMARY);
+    }
+
+    @Override
+    public List<ForeignKey<CharacterRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<CharacterRecord, ?>>asList(Keys.CHARACTER_PLAYER_ID_FK);
+    }
+
+    public Player player() {
+        return new Player(this, Keys.CHARACTER_PLAYER_ID_FK);
     }
 
     @Override
