@@ -5,8 +5,8 @@ import com.github.liamvii.penandpaper.character.CharacterId;
 import com.github.liamvii.penandpaper.character.PlayerCharacter;
 import com.github.liamvii.penandpaper.database.table.ActiveCharacterTable;
 import com.github.liamvii.penandpaper.database.table.CharacterTable;
+import com.github.liamvii.penandpaper.database.table.PlayerTable;
 import com.github.liamvii.penandpaper.player.PenPlayer;
-import com.github.liamvii.penandpaper.player.PlayerId;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -49,13 +49,17 @@ public final class CharacterDeleteCommand implements CommandExecutor {
             sender.sendMessage(RED + "There is no character by that ID.");
             return true;
         }
-        if (!character.getPlayerId().getValue().equals(player.getUniqueId())) {
+        PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
+        PenPlayer penPlayer = playerTable.get(character.getPlayerId());
+        if (penPlayer == null) {
+            penPlayer = new PenPlayer(plugin, player);
+            playerTable.insert(penPlayer);
+        }
+        if (!penPlayer.getPlayerUUID().getValue().equals(player.getUniqueId())) {
             sender.sendMessage(RED + "You do not own that character.");
             return true;
         }
-        PlayerId playerId = new PlayerId(player);
-        if (characterId.equals(activeCharacterTable.get(playerId))) {
-            PenPlayer penPlayer = new PenPlayer(plugin, playerId);
+        if (characterId.equals(activeCharacterTable.get(penPlayer.getPlayerId()))) {
             penPlayer.switchCharacter(null);
         }
         characterTable.delete(character);

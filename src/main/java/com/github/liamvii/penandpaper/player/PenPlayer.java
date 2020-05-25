@@ -5,6 +5,7 @@ import com.github.liamvii.penandpaper.character.CharacterId;
 import com.github.liamvii.penandpaper.character.PlayerCharacter;
 import com.github.liamvii.penandpaper.database.table.ActiveCharacterTable;
 import com.github.liamvii.penandpaper.database.table.CharacterTable;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
@@ -12,23 +13,45 @@ import org.bukkit.entity.Player;
 public final class PenPlayer {
 
     private final Pen plugin;
-    private final PlayerId playerId;
+    private PlayerId playerId;
+    private final PlayerUUID playerUUID;
 
-    public PenPlayer(Pen plugin, PlayerId playerId) {
+    public PenPlayer(Pen plugin, PlayerId playerId, PlayerUUID playerUUID) {
         this.plugin = plugin;
         this.playerId = playerId;
+        this.playerUUID = playerUUID;
     }
 
-    public PenPlayer(Pen plugin, Player player) {
-        this(plugin, new PlayerId(player.getUniqueId()));
+    public PenPlayer(Pen plugin, PlayerId playerId, OfflinePlayer player) {
+        this(plugin, playerId, new PlayerUUID(player.getUniqueId()));
+    }
+
+    public PenPlayer(Pen plugin, OfflinePlayer player) {
+        this(plugin, new PlayerId(0), player);
+    }
+
+    public PenPlayer(Pen plugin, PlayerUUID playerUUID) {
+        this(plugin, new PlayerId(0), playerUUID);
     }
 
     public PlayerId getPlayerId() {
         return playerId;
     }
 
+    public void setPlayerId(PlayerId playerId) {
+        this.playerId = playerId;
+    }
+
+    public PlayerUUID getPlayerUUID() {
+        return playerUUID;
+    }
+
+    public OfflinePlayer getPlayer() {
+        return plugin.getServer().getOfflinePlayer(getPlayerUUID().getValue());
+    }
+
     public boolean switchCharacter(PlayerCharacter newCharacter) {
-        Player player = plugin.getServer().getPlayer(getPlayerId().getValue());
+        Player player = plugin.getServer().getPlayer(getPlayerUUID().getValue());
         if (player == null) {
             return false;
         }

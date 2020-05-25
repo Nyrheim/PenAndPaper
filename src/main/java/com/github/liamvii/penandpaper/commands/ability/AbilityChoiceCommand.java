@@ -6,7 +6,9 @@ import com.github.liamvii.penandpaper.character.CharacterId;
 import com.github.liamvii.penandpaper.character.PlayerCharacter;
 import com.github.liamvii.penandpaper.database.table.ActiveCharacterTable;
 import com.github.liamvii.penandpaper.database.table.CharacterTable;
-import com.github.liamvii.penandpaper.player.PlayerId;
+import com.github.liamvii.penandpaper.database.table.PlayerTable;
+import com.github.liamvii.penandpaper.player.PenPlayer;
+import com.github.liamvii.penandpaper.player.PlayerUUID;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -63,10 +65,15 @@ public final class AbilityChoiceCommand implements CommandExecutor {
                 return true;
             }
             Player player = (Player) sender;
-            PlayerId playerId = new PlayerId(player);
+            PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
+            PenPlayer penPlayer = playerTable.get(new PlayerUUID(player.getUniqueId()));
+            if (penPlayer == null) {
+                penPlayer = new PenPlayer(plugin, player);
+                playerTable.insert(penPlayer);
+            }
             CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
             ActiveCharacterTable activeCharacterTable = plugin.getDatabase().getTable(ActiveCharacterTable.class);
-            CharacterId activeCharacterId = activeCharacterTable.get(playerId);
+            CharacterId activeCharacterId = activeCharacterTable.get(penPlayer.getPlayerId());
             if (activeCharacterId == null) {
                 sender.sendMessage(RED + "You do not currently have an active character.");
                 return true;

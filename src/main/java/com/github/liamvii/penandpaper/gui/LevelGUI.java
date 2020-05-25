@@ -9,7 +9,9 @@ import com.github.liamvii.penandpaper.clazz.MulticlassingRequirement;
 import com.github.liamvii.penandpaper.database.table.ActiveCharacterTable;
 import com.github.liamvii.penandpaper.database.table.CharacterClassTable;
 import com.github.liamvii.penandpaper.database.table.CharacterTable;
-import com.github.liamvii.penandpaper.player.PlayerId;
+import com.github.liamvii.penandpaper.database.table.PlayerTable;
+import com.github.liamvii.penandpaper.player.PenPlayer;
+import com.github.liamvii.penandpaper.player.PlayerUUID;
 import net.md_5.bungee.api.chat.*;
 import org.bukkit.entity.Player;
 
@@ -37,8 +39,13 @@ public final class LevelGUI extends GUI {
     public void initializeItems(Player player) {
         CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
         ActiveCharacterTable activeCharacterTable = plugin.getDatabase().getTable(ActiveCharacterTable.class);
-        PlayerId playerId = new PlayerId(player);
-        CharacterId characterId = activeCharacterTable.get(playerId);
+        PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
+        PenPlayer penPlayer = playerTable.get(new PlayerUUID(player));
+        if (penPlayer == null) {
+            penPlayer = new PenPlayer(plugin, player);
+            playerTable.insert(penPlayer);
+        }
+        CharacterId characterId = activeCharacterTable.get(penPlayer.getPlayerId());
         if (characterId == null) return;
         PlayerCharacter character = characterTable.get(characterId);
         if (character == null) return;
@@ -74,8 +81,13 @@ public final class LevelGUI extends GUI {
         CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
         ActiveCharacterTable activeCharacterTable = plugin.getDatabase().getTable(ActiveCharacterTable.class);
         CharacterClassTable characterClassTable = plugin.getDatabase().getTable(CharacterClassTable.class);
-        PlayerId playerId = new PlayerId(player);
-        CharacterId characterId = activeCharacterTable.get(playerId);
+        PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
+        PenPlayer penPlayer = playerTable.get(new PlayerUUID(player));
+        if (penPlayer == null) {
+            penPlayer = new PenPlayer(plugin, player);
+            playerTable.insert(penPlayer);
+        }
+        CharacterId characterId = activeCharacterTable.get(penPlayer.getPlayerId());
         if (characterId == null) return;
         PlayerCharacter character = characterTable.get(characterId);
         if (character == null) return;

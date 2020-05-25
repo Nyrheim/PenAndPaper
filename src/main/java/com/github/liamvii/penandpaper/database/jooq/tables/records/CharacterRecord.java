@@ -16,7 +16,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CharacterRecord extends UpdatableRecordImpl<CharacterRecord> {
 
-    private static final long serialVersionUID = -810035329;
+    private static final long serialVersionUID = -584950311;
 
     /**
      * Setter for <code>nyrheim.character.id</code>.
@@ -33,17 +33,17 @@ public class CharacterRecord extends UpdatableRecordImpl<CharacterRecord> {
     }
 
     /**
-     * Setter for <code>nyrheim.character.player_uuid</code>.
+     * Setter for <code>nyrheim.character.player_id</code>.
      */
-    public void setPlayerUuid(String value) {
+    public void setPlayerId(Integer value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>nyrheim.character.player_uuid</code>.
+     * Getter for <code>nyrheim.character.player_id</code>.
      */
-    public String getPlayerUuid() {
-        return (String) get(1);
+    public Integer getPlayerId() {
+        return (Integer) get(1);
     }
 
     /**
@@ -419,11 +419,11 @@ public class CharacterRecord extends UpdatableRecordImpl<CharacterRecord> {
     /**
      * Create a detached, initialised CharacterRecord
      */
-    public CharacterRecord(Integer id, String playerUuid, String firstName, String familyName, String height, String weight, String appearance, String presence, Integer age, Integer experience, Integer exhaustion, String race, byte[] helmet, byte[] chestplate, byte[] leggings, byte[] boots, byte[] inventoryContents, Double health, Integer foodLevel, Double saturation, Double foodExhaustion, String world, Double x, Double y, Double z, Double pitch, Double yaw) {
+    public CharacterRecord(Integer id, Integer playerId, String firstName, String familyName, String height, String weight, String appearance, String presence, Integer age, Integer experience, Integer exhaustion, String race, byte[] helmet, byte[] chestplate, byte[] leggings, byte[] boots, byte[] inventoryContents, Double health, Integer foodLevel, Double saturation, Double foodExhaustion, String world, Double x, Double y, Double z, Double pitch, Double yaw) {
         super(Character.CHARACTER);
 
         set(0, id);
-        set(1, playerUuid);
+        set(1, playerId);
         set(2, firstName);
         set(3, familyName);
         set(4, height);

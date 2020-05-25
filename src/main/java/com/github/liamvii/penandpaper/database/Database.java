@@ -43,6 +43,7 @@ public class Database {
         addTable(new CharacterAbilityScoreChoiceTable(this));
         addTable(new CharacterClassTable(this));
         addTable(new ActiveCharacterTable(this));
+        addTable(new PlayerTable(plugin, this));
     }
 
     public CacheManager getCacheManager() {

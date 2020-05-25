@@ -44,6 +44,8 @@ public final class CharacterAbilityScoreChoiceTable implements Table {
                         constraint("character_ability_score_choice_character_id_fk")
                                 .foreignKey(CHARACTER_ABILITY_SCORE_CHOICE.CHARACTER_ID)
                                 .references(CHARACTER, CHARACTER.ID)
+                                .onDeleteCascade()
+                                .onUpdateCascade()
                 )
                 .execute();
     }

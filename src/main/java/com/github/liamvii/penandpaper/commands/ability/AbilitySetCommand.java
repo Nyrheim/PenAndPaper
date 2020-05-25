@@ -7,14 +7,16 @@ import com.github.liamvii.penandpaper.character.PlayerCharacter;
 import com.github.liamvii.penandpaper.database.table.ActiveCharacterTable;
 import com.github.liamvii.penandpaper.database.table.CharacterAbilityScoreTable;
 import com.github.liamvii.penandpaper.database.table.CharacterTable;
-import com.github.liamvii.penandpaper.player.PlayerId;
+import com.github.liamvii.penandpaper.database.table.PlayerTable;
+import com.github.liamvii.penandpaper.player.PenPlayer;
+import com.github.liamvii.penandpaper.player.PlayerUUID;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import static org.bukkit.ChatColor.RED;
 import static org.bukkit.ChatColor.GREEN;
+import static org.bukkit.ChatColor.RED;
 
 public final class AbilitySetCommand implements CommandExecutor {
 
@@ -39,10 +41,15 @@ public final class AbilitySetCommand implements CommandExecutor {
             sender.sendMessage(RED + "There is no player by that name online.");
             return true;
         }
-        PlayerId playerId = new PlayerId(target);
+        PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
+        PenPlayer penPlayer = playerTable.get(new PlayerUUID(target));
+        if (penPlayer == null) {
+            penPlayer = new PenPlayer(plugin, target);
+            playerTable.insert(penPlayer);
+        }
         ActiveCharacterTable activeCharacterTable = plugin.getDatabase().getTable(ActiveCharacterTable.class);
         CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
-        CharacterId activeCharacterId = activeCharacterTable.get(playerId);
+        CharacterId activeCharacterId = activeCharacterTable.get(penPlayer.getPlayerId());
         if (activeCharacterId == null) {
             sender.sendMessage(RED + target.getName() + " does not have an active character.");
             return true;

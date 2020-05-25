@@ -43,6 +43,8 @@ public final class CharacterTempAbilityScoreTable implements Table {
                         constraint("character_temp_ability_score_character_id_fk")
                                 .foreignKey(CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID)
                                 .references(CHARACTER, CHARACTER.ID)
+                                .onDeleteCascade()
+                                .onUpdateCascade()
                 )
                 .execute();
     }

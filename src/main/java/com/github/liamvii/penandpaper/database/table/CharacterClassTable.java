@@ -45,6 +45,8 @@ public final class CharacterClassTable implements Table {
                         constraint("character_class_character_id_fk")
                                 .foreignKey(CHARACTER_CLASS.CHARACTER_ID)
                                 .references(CHARACTER, CHARACTER.ID)
+                                .onDeleteCascade()
+                                .onUpdateCascade()
                 )
                 .execute();
     }

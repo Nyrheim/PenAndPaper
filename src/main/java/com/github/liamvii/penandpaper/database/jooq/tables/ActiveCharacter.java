@@ -7,12 +7,22 @@ package com.github.liamvii.penandpaper.database.jooq.tables;
 import com.github.liamvii.penandpaper.database.jooq.Keys;
 import com.github.liamvii.penandpaper.database.jooq.Nyrheim;
 import com.github.liamvii.penandpaper.database.jooq.tables.records.ActiveCharacterRecord;
-import org.jooq.*;
-import org.jooq.impl.DSL;
-import org.jooq.impl.TableImpl;
 
 import java.util.Arrays;
 import java.util.List;
+
+import org.jooq.Field;
+import org.jooq.ForeignKey;
+import org.jooq.Name;
+import org.jooq.Record;
+import org.jooq.Row2;
+import org.jooq.Schema;
+import org.jooq.Table;
+import org.jooq.TableField;
+import org.jooq.TableOptions;
+import org.jooq.UniqueKey;
+import org.jooq.impl.DSL;
+import org.jooq.impl.TableImpl;
 
 
 /**
@@ -21,7 +31,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ActiveCharacter extends TableImpl<ActiveCharacterRecord> {
 
-    private static final long serialVersionUID = -2110620862;
+    private static final long serialVersionUID = -1555109902;
 
     /**
      * The reference instance of <code>nyrheim.active_character</code>
@@ -37,9 +47,9 @@ public class ActiveCharacter extends TableImpl<ActiveCharacterRecord> {
     }
 
     /**
-     * The column <code>nyrheim.active_character.player_uuid</code>.
+     * The column <code>nyrheim.active_character.player_id</code>.
      */
-    public final TableField<ActiveCharacterRecord, String> PLAYER_UUID = createField(DSL.name("player_uuid"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<ActiveCharacterRecord, Integer> PLAYER_ID = createField(DSL.name("player_id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>nyrheim.active_character.character_id</code>.
@@ -96,7 +106,11 @@ public class ActiveCharacter extends TableImpl<ActiveCharacterRecord> {
 
     @Override
     public List<ForeignKey<ActiveCharacterRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<ActiveCharacterRecord, ?>>asList(Keys.ACTIVE_CHARACTER_CHARACTER_ID_FK);
+        return Arrays.<ForeignKey<ActiveCharacterRecord, ?>>asList(Keys.ACTIVE_CHARACTER_PLAYER_ID_FK, Keys.ACTIVE_CHARACTER_CHARACTER_ID_FK);
+    }
+
+    public Player player() {
+        return new Player(this, Keys.ACTIVE_CHARACTER_PLAYER_ID_FK);
     }
 
     public Character character() {
@@ -134,7 +148,7 @@ public class ActiveCharacter extends TableImpl<ActiveCharacterRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row2<String, Integer> fieldsRow() {
+    public Row2<Integer, Integer> fieldsRow() {
         return (Row2) super.fieldsRow();
     }
 }

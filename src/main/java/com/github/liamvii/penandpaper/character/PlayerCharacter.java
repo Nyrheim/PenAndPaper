@@ -24,7 +24,7 @@ public final class PlayerCharacter {
     private Pen plugin;
 
     private CharacterId id;
-    private final PlayerId playerUUID;
+    private final PlayerId playerId;
     private String firstName;
     private String familyName;
     private String height;
@@ -54,7 +54,7 @@ public final class PlayerCharacter {
     public PlayerCharacter(
             Pen plugin,
             CharacterId id,
-            PlayerId playerUUID,
+            PlayerId playerId,
             String firstName,
             String familyName,
             String height,
@@ -83,7 +83,7 @@ public final class PlayerCharacter {
     ) {
         this.id = id;
         this.plugin = plugin;
-        this.playerUUID = playerUUID;
+        this.playerId = playerId;
         this.firstName = firstName;
         this.familyName = familyName;
         this.height = height;
@@ -114,74 +114,12 @@ public final class PlayerCharacter {
 
     public PlayerCharacter(
             Pen plugin,
-            CharacterId id,
-            Player player,
-            String firstName,
-            String familyName,
-            String height,
-            String weight,
-            String appearance,
-            String presence,
-            int age,
-            int experience,
-            int exhaustion,
-            Map<Ability, Integer> abilityScores,
-            Map<Ability, Integer> tempScores,
-            Map<Ability, Integer> abilityScoreChoices,
-            DnDClass firstClass,
-            List<CharacterClass> classes,
-            String race,
-            ItemStack helmet,
-            ItemStack chestplate,
-            ItemStack leggings,
-            ItemStack boots,
-            ItemStack[] inventoryContents,
-            double health,
-            int foodLevel,
-            float saturation,
-            float foodExhaustion,
-            Location location
-    ) {
-        this(
-                plugin,
-                id,
-                new PlayerId(player.getUniqueId()),
-                firstName,
-                familyName,
-                height,
-                weight,
-                appearance,
-                presence,
-                age,
-                experience,
-                exhaustion,
-                abilityScores,
-                tempScores,
-                abilityScoreChoices,
-                firstClass,
-                classes,
-                race,
-                helmet,
-                chestplate,
-                leggings,
-                boots,
-                inventoryContents,
-                health,
-                foodLevel,
-                saturation,
-                foodExhaustion,
-                location
-        );
-    }
-
-    public PlayerCharacter(
-            Pen plugin,
-            Player player
+            PlayerId playerId
     ) {
         this(
                 plugin,
                 new CharacterId(-1),
-                new PlayerId(player),
+                playerId,
                 "",
                 "",
                 "",
@@ -225,7 +163,7 @@ public final class PlayerCharacter {
     }
 
     public PlayerId getPlayerId() {
-        return playerUUID;
+        return playerId;
     }
 
     public String getFirstName() {

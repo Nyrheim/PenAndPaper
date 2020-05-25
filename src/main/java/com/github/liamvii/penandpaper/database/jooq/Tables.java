@@ -10,6 +10,7 @@ import com.github.liamvii.penandpaper.database.jooq.tables.CharacterAbilityScore
 import com.github.liamvii.penandpaper.database.jooq.tables.CharacterAbilityScoreChoice;
 import com.github.liamvii.penandpaper.database.jooq.tables.CharacterClass;
 import com.github.liamvii.penandpaper.database.jooq.tables.CharacterTempAbilityScore;
+import com.github.liamvii.penandpaper.database.jooq.tables.Player;
 
 
 /**
@@ -47,4 +48,9 @@ public class Tables {
      * The table <code>nyrheim.character_temp_ability_score</code>.
      */
     public static final CharacterTempAbilityScore CHARACTER_TEMP_ABILITY_SCORE = CharacterTempAbilityScore.CHARACTER_TEMP_ABILITY_SCORE;
+
+    /**
+     * The table <code>nyrheim.player</code>.
+     */
+    public static final Player PLAYER = Player.PLAYER;
 }

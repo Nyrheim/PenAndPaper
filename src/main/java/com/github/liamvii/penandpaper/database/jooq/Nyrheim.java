@@ -4,14 +4,20 @@
 package com.github.liamvii.penandpaper.database.jooq;
 
 
+import com.github.liamvii.penandpaper.database.jooq.tables.ActiveCharacter;
 import com.github.liamvii.penandpaper.database.jooq.tables.Character;
-import com.github.liamvii.penandpaper.database.jooq.tables.*;
-import org.jooq.Catalog;
-import org.jooq.Table;
-import org.jooq.impl.SchemaImpl;
+import com.github.liamvii.penandpaper.database.jooq.tables.CharacterAbilityScore;
+import com.github.liamvii.penandpaper.database.jooq.tables.CharacterAbilityScoreChoice;
+import com.github.liamvii.penandpaper.database.jooq.tables.CharacterClass;
+import com.github.liamvii.penandpaper.database.jooq.tables.CharacterTempAbilityScore;
+import com.github.liamvii.penandpaper.database.jooq.tables.Player;
 
 import java.util.Arrays;
 import java.util.List;
+
+import org.jooq.Catalog;
+import org.jooq.Table;
+import org.jooq.impl.SchemaImpl;
 
 
 /**
@@ -20,7 +26,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Nyrheim extends SchemaImpl {
 
-    private static final long serialVersionUID = 811672705;
+    private static final long serialVersionUID = 1112699970;
 
     /**
      * The reference instance of <code>nyrheim</code>
@@ -58,6 +64,11 @@ public class Nyrheim extends SchemaImpl {
     public final CharacterTempAbilityScore CHARACTER_TEMP_ABILITY_SCORE = CharacterTempAbilityScore.CHARACTER_TEMP_ABILITY_SCORE;
 
     /**
+     * The table <code>nyrheim.player</code>.
+     */
+    public final Player PLAYER = Player.PLAYER;
+
+    /**
      * No further instances allowed
      */
     private Nyrheim() {
@@ -78,6 +89,7 @@ public class Nyrheim extends SchemaImpl {
             CharacterAbilityScore.CHARACTER_ABILITY_SCORE,
             CharacterAbilityScoreChoice.CHARACTER_ABILITY_SCORE_CHOICE,
             CharacterClass.CHARACTER_CLASS,
-            CharacterTempAbilityScore.CHARACTER_TEMP_ABILITY_SCORE);
+            CharacterTempAbilityScore.CHARACTER_TEMP_ABILITY_SCORE,
+            Player.PLAYER);
     }
 }

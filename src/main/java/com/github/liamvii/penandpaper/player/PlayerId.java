@@ -1,23 +1,16 @@
 package com.github.liamvii.penandpaper.player;
 
-import org.bukkit.OfflinePlayer;
-
 import java.util.Objects;
-import java.util.UUID;
 
 public final class PlayerId {
 
-    private final UUID value;
+    private final int value;
 
-    public PlayerId(UUID value) {
+    public PlayerId(int value) {
         this.value = value;
     }
 
-    public PlayerId(OfflinePlayer player) {
-        this(player.getUniqueId());
-    }
-
-    public UUID getValue() {
+    public int getValue() {
         return value;
     }
 

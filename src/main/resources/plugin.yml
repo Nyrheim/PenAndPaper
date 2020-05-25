@@ -3,6 +3,15 @@ version: @version@
 author: LiamVI
 main: com.github.liamvii.penandpaper.Pen
 api-version: 1.13
+depend:
+- rpk-core-bukkit
+- rpk-player-lib-bukkit
+- rpk-character-lib-bukkit
+- rpk-skill-lib-bukkit
+- rpk-class-lib-bukkit
+- rpk-experience-lib-bukkit
+- rpk-economy-lib-bukkit
+- rpk-stat-lib-bukkit
 commands:
   character:
     description: |
