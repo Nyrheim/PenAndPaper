@@ -1,6 +1,6 @@
 package com.github.liamvii.penandpaper.gui;
 
-import com.github.liamvii.penandpaper.clazz.DnDClass;
+import com.github.liamvii.penandpaper.clazz.PenClass;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -13,7 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.github.liamvii.penandpaper.clazz.DnDClass.*;
+import static com.github.liamvii.penandpaper.clazz.PenClass.*;
 import static org.bukkit.ChatColor.WHITE;
 import static org.bukkit.Material.*;
 
@@ -30,7 +30,7 @@ public abstract class GUI implements InventoryHolder {
         return inventory;
     }
 
-    protected Material getMaterial(DnDClass clazz) {
+    protected Material getMaterial(PenClass clazz) {
         if (clazz == FIGHTER) return IRON_SWORD;
         if (clazz == RANGER) return BOW;
         if (clazz == ROGUE) return IRON_AXE;
@@ -46,7 +46,7 @@ public abstract class GUI implements InventoryHolder {
         return PAPER;
     }
 
-    protected String getItemNameForClass(DnDClass clazz) {
+    protected String getItemNameForClass(PenClass clazz) {
         if (clazz == FIGHTER) return "Longsword";
         if (clazz == RANGER) return "Short Bow";
         if (clazz == ROGUE) return "Hunting Knife";

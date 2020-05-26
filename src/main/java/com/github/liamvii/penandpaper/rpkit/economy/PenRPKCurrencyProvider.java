@@ -11,23 +11,23 @@ import java.util.List;
 
 import static com.github.liamvii.penandpaper.money.Currency.*;
 
-public final class PnPCurrencyProvider implements RPKCurrencyProvider {
+public final class PenRPKCurrencyProvider implements RPKCurrencyProvider {
     @NotNull
     @Override
     public Collection<RPKCurrency> getCurrencies() {
         List<RPKCurrency> currencies = new ArrayList<>();
-        currencies.add(new PnPCurrencyWrapper(PP));
-        currencies.add(new PnPCurrencyWrapper(GP));
-        currencies.add(new PnPCurrencyWrapper(EP));
-        currencies.add(new PnPCurrencyWrapper(SP));
-        currencies.add(new PnPCurrencyWrapper(CP));
+        currencies.add(new PenRPKCurrencyWrapper(PP));
+        currencies.add(new PenRPKCurrencyWrapper(GP));
+        currencies.add(new PenRPKCurrencyWrapper(EP));
+        currencies.add(new PenRPKCurrencyWrapper(SP));
+        currencies.add(new PenRPKCurrencyWrapper(CP));
         return currencies;
     }
 
     @Nullable
     @Override
     public RPKCurrency getDefaultCurrency() {
-        return new PnPCurrencyWrapper(GP);
+        return new PenRPKCurrencyWrapper(GP);
     }
 
     @Override
@@ -39,11 +39,11 @@ public final class PnPCurrencyProvider implements RPKCurrencyProvider {
     @Override
     public RPKCurrency getCurrency(int id) {
         switch (id) {
-            case 1: return new PnPCurrencyWrapper(PP);
-            case 2: return new PnPCurrencyWrapper(GP);
-            case 3: return new PnPCurrencyWrapper(EP);
-            case 4: return new PnPCurrencyWrapper(SP);
-            case 5: return new PnPCurrencyWrapper(CP);
+            case 1: return new PenRPKCurrencyWrapper(PP);
+            case 2: return new PenRPKCurrencyWrapper(GP);
+            case 3: return new PenRPKCurrencyWrapper(EP);
+            case 4: return new PenRPKCurrencyWrapper(SP);
+            case 5: return new PenRPKCurrencyWrapper(CP);
         }
         return null;
     }
@@ -52,11 +52,11 @@ public final class PnPCurrencyProvider implements RPKCurrencyProvider {
     @Override
     public RPKCurrency getCurrency(@NotNull String name) {
         switch (name.toLowerCase()) {
-            case "pp": return new PnPCurrencyWrapper(PP);
-            case "gp": return new PnPCurrencyWrapper(GP);
-            case "ep": return new PnPCurrencyWrapper(EP);
-            case "sp": return new PnPCurrencyWrapper(SP);
-            case "cp": return new PnPCurrencyWrapper(CP);
+            case "pp": return new PenRPKCurrencyWrapper(PP);
+            case "gp": return new PenRPKCurrencyWrapper(GP);
+            case "ep": return new PenRPKCurrencyWrapper(EP);
+            case "sp": return new PenRPKCurrencyWrapper(SP);
+            case "cp": return new PenRPKCurrencyWrapper(CP);
         }
         return null;
     }

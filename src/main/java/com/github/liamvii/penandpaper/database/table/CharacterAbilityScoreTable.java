@@ -2,7 +2,7 @@ package com.github.liamvii.penandpaper.database.table;
 
 import com.github.liamvii.penandpaper.ability.Ability;
 import com.github.liamvii.penandpaper.character.CharacterId;
-import com.github.liamvii.penandpaper.character.PlayerCharacter;
+import com.github.liamvii.penandpaper.character.PenCharacter;
 import com.github.liamvii.penandpaper.database.Database;
 import org.ehcache.Cache;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
@@ -127,7 +127,7 @@ public final class CharacterAbilityScoreTable implements Table {
         cache.remove(characterId.getValue());
     }
 
-    public void insertOrUpdateAbilityScores(PlayerCharacter character) {
+    public void insertOrUpdateAbilityScores(PenCharacter character) {
         for (Ability ability : Ability.values()) {
             if (get(character.getId(), ability) == null) {
                 insert(character.getId(), ability, character.getAbilityScore(ability));

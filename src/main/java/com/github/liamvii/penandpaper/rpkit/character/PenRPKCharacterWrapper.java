@@ -2,13 +2,13 @@ package com.github.liamvii.penandpaper.rpkit.character;
 
 import com.github.liamvii.penandpaper.Pen;
 import com.github.liamvii.penandpaper.character.CharacterId;
-import com.github.liamvii.penandpaper.character.PlayerCharacter;
-import com.github.liamvii.penandpaper.database.table.PlayerTable;
+import com.github.liamvii.penandpaper.character.PenCharacter;
 import com.github.liamvii.penandpaper.player.PenPlayer;
-import com.github.liamvii.penandpaper.rpkit.player.PnPPlayerWrapper;
-import com.github.liamvii.penandpaper.rpkit.profile.PnPMinecraftProfileWrapper;
-import com.github.liamvii.penandpaper.rpkit.profile.PnPProfileWrapper;
-import com.github.liamvii.penandpaper.rpkit.race.PnPRaceWrapper;
+import com.github.liamvii.penandpaper.player.PenPlayerService;
+import com.github.liamvii.penandpaper.rpkit.player.PenRPKPlayerWrapper;
+import com.github.liamvii.penandpaper.rpkit.profile.PenRPKMinecraftProfileWrapper;
+import com.github.liamvii.penandpaper.rpkit.profile.PenRPKProfileWrapper;
+import com.github.liamvii.penandpaper.rpkit.race.PenRPKRaceWrapper;
 import com.rpkit.characters.bukkit.character.RPKCharacter;
 import com.rpkit.characters.bukkit.gender.RPKGender;
 import com.rpkit.characters.bukkit.race.RPKRace;
@@ -20,17 +20,17 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public final class PnPCharacterWrapper implements RPKCharacter {
+public final class PenRPKCharacterWrapper implements RPKCharacter {
 
     private final Pen plugin;
-    private final PlayerCharacter pnpCharacter;
+    private final PenCharacter pnpCharacter;
 
-    public PnPCharacterWrapper(Pen plugin, PlayerCharacter pnpCharacter) {
+    public PenRPKCharacterWrapper(Pen plugin, PenCharacter pnpCharacter) {
         this.plugin = plugin;
         this.pnpCharacter = pnpCharacter;
     }
 
-    public PlayerCharacter getPnPCharacter() {
+    public PenCharacter getPnPCharacter() {
         return pnpCharacter;
     }
 
@@ -265,9 +265,9 @@ public final class PnPCharacterWrapper implements RPKCharacter {
     @Nullable
     @Override
     public RPKMinecraftProfile getMinecraftProfile() {
-        PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
-        PenPlayer penPlayer = playerTable.get(pnpCharacter.getPlayerId());
-        return new PnPMinecraftProfileWrapper(plugin, penPlayer);
+        PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
+        PenPlayer penPlayer = playerService.getPlayer(pnpCharacter.getPlayerId());
+        return new PenRPKMinecraftProfileWrapper(plugin, penPlayer);
     }
 
     @Override
@@ -295,9 +295,9 @@ public final class PnPCharacterWrapper implements RPKCharacter {
     @Nullable
     @Override
     public RPKPlayer getPlayer() {
-        PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
-        PenPlayer penPlayer = playerTable.get(pnpCharacter.getPlayerId());
-        return new PnPPlayerWrapper(plugin, penPlayer);
+        PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
+        PenPlayer penPlayer = playerService.getPlayer(pnpCharacter.getPlayerId());
+        return new PenRPKPlayerWrapper(plugin, penPlayer);
     }
 
     @Override
@@ -308,9 +308,9 @@ public final class PnPCharacterWrapper implements RPKCharacter {
     @Nullable
     @Override
     public RPKProfile getProfile() {
-        PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
-        PenPlayer penPlayer = playerTable.get(pnpCharacter.getPlayerId());
-        return new PnPProfileWrapper(plugin, penPlayer);
+        PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
+        PenPlayer penPlayer = playerService.getPlayer(pnpCharacter.getPlayerId());
+        return new PenRPKProfileWrapper(plugin, penPlayer);
     }
 
     @Override
@@ -321,7 +321,7 @@ public final class PnPCharacterWrapper implements RPKCharacter {
     @Nullable
     @Override
     public RPKRace getRace() {
-        return new PnPRaceWrapper(pnpCharacter.getRace());
+        return new PenRPKRaceWrapper(pnpCharacter.getRace());
     }
 
     @Override

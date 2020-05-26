@@ -1,7 +1,6 @@
 package com.github.liamvii.penandpaper.conversations;
 
 import com.github.liamvii.penandpaper.Pen;
-import com.github.liamvii.penandpaper.character.PlayerCharacter;
 import com.github.liamvii.penandpaper.gui.JobGUI;
 import org.bukkit.ChatColor;
 import org.bukkit.conversations.ConversationContext;

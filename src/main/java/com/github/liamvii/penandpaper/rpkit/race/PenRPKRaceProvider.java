@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public final class PnPRaceProvider implements RPKRaceProvider {
+public final class PenRPKRaceProvider implements RPKRaceProvider {
     @NotNull
     @Override
     public Collection<RPKRace> getRaces() {
@@ -29,7 +29,7 @@ public final class PnPRaceProvider implements RPKRaceProvider {
     @Nullable
     @Override
     public RPKRace getRace(@NotNull String name) {
-        return new PnPRaceWrapper(name);
+        return new PenRPKRaceWrapper(name);
     }
 
     @Override

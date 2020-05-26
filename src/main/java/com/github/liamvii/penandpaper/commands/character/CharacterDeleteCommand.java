@@ -2,11 +2,10 @@ package com.github.liamvii.penandpaper.commands.character;
 
 import com.github.liamvii.penandpaper.Pen;
 import com.github.liamvii.penandpaper.character.CharacterId;
-import com.github.liamvii.penandpaper.character.PlayerCharacter;
-import com.github.liamvii.penandpaper.database.table.ActiveCharacterTable;
-import com.github.liamvii.penandpaper.database.table.CharacterTable;
-import com.github.liamvii.penandpaper.database.table.PlayerTable;
+import com.github.liamvii.penandpaper.character.PenCharacter;
+import com.github.liamvii.penandpaper.character.PenCharacterService;
 import com.github.liamvii.penandpaper.player.PenPlayer;
+import com.github.liamvii.penandpaper.player.PenPlayerService;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -42,27 +41,25 @@ public final class CharacterDeleteCommand implements CommandExecutor {
             return true;
         }
         CharacterId characterId = new CharacterId(characterIdInt);
-        ActiveCharacterTable activeCharacterTable = plugin.getDatabase().getTable(ActiveCharacterTable.class);
-        CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
-        PlayerCharacter character = characterTable.get(characterId);
+        PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
+        PenCharacter character = characterService.getCharacter(characterId);
         if (character == null) {
             sender.sendMessage(RED + "There is no character by that ID.");
             return true;
         }
-        PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
-        PenPlayer penPlayer = playerTable.get(character.getPlayerId());
-        if (penPlayer == null) {
-            penPlayer = new PenPlayer(plugin, player);
-            playerTable.insert(penPlayer);
-        }
+        PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
+        PenPlayer penPlayer = playerService.getPlayer(character.getPlayerId());
         if (!penPlayer.getPlayerUUID().getValue().equals(player.getUniqueId())) {
             sender.sendMessage(RED + "You do not own that character.");
             return true;
         }
-        if (characterId.equals(activeCharacterTable.get(penPlayer.getPlayerId()))) {
-            penPlayer.switchCharacter(null);
+        PenCharacter activeCharacter = characterService.getActiveCharacter(penPlayer);
+        if (activeCharacter != null) {
+            if (characterId.equals(activeCharacter.getId())) {
+                characterService.setActiveCharacter(penPlayer, null);
+            }
         }
-        characterTable.delete(character);
+        characterService.deleteCharacter(character);
         sender.sendMessage(GREEN + character.getName() + " successfully deleted.");
         return true;
     }

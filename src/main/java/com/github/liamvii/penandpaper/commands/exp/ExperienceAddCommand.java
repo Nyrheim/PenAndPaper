@@ -1,13 +1,10 @@
 package com.github.liamvii.penandpaper.commands.exp;
 
 import com.github.liamvii.penandpaper.Pen;
-import com.github.liamvii.penandpaper.character.CharacterId;
-import com.github.liamvii.penandpaper.character.PlayerCharacter;
-import com.github.liamvii.penandpaper.database.table.ActiveCharacterTable;
-import com.github.liamvii.penandpaper.database.table.CharacterTable;
-import com.github.liamvii.penandpaper.database.table.PlayerTable;
+import com.github.liamvii.penandpaper.character.PenCharacter;
+import com.github.liamvii.penandpaper.character.PenCharacterService;
 import com.github.liamvii.penandpaper.player.PenPlayer;
-import com.github.liamvii.penandpaper.player.PlayerUUID;
+import com.github.liamvii.penandpaper.player.PenPlayerService;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -44,20 +41,10 @@ public class ExperienceAddCommand implements CommandExecutor {
             sender.sendMessage(RED + "There is no player online by that name.");
             return true;
         }
-        PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
-        PenPlayer penPlayer = playerTable.get(new PlayerUUID(target));
-        if (penPlayer == null) {
-            penPlayer = new PenPlayer(plugin, target);
-            playerTable.insert(penPlayer);
-        }
-        ActiveCharacterTable activeCharacterTable = plugin.getDatabase().getTable(ActiveCharacterTable.class);
-        CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
-        CharacterId activeCharacterId = activeCharacterTable.get(penPlayer.getPlayerId());
-        if (activeCharacterId == null) {
-            sender.sendMessage(RED + (target == sender ? "You do" : (target.getName() + " does")) + " not currently have an active character.");
-            return true;
-        }
-        PlayerCharacter character = characterTable.get(activeCharacterId);
+        PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
+        PenPlayer penPlayer = playerService.getPlayer(target);
+        PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
+        PenCharacter character = characterService.getActiveCharacter(penPlayer);
         if (character == null) {
             sender.sendMessage(RED + (target == sender ? "You do" : (target.getName() + " does")) + " not currently have an active character.");
             return true;
@@ -84,7 +71,7 @@ public class ExperienceAddCommand implements CommandExecutor {
         int oldLevel = character.getLevel();
         character.setExperience(character.getExperience() + experience);
         int newLevel = character.getLevel();
-        characterTable.update(character);
+        characterService.updateCharacter(character);
         sender.sendMessage(GREEN + character.getName() + "'s experience was set to " + character.getExperience() + ".");
         target.sendMessage(GREEN + "Your experience increased.");
         if (newLevel > oldLevel) {

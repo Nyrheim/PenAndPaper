@@ -2,14 +2,10 @@ package com.github.liamvii.penandpaper.commands.ability;
 
 import com.github.liamvii.penandpaper.Pen;
 import com.github.liamvii.penandpaper.ability.Ability;
-import com.github.liamvii.penandpaper.character.CharacterId;
-import com.github.liamvii.penandpaper.character.PlayerCharacter;
-import com.github.liamvii.penandpaper.database.table.ActiveCharacterTable;
-import com.github.liamvii.penandpaper.database.table.CharacterAbilityScoreTable;
-import com.github.liamvii.penandpaper.database.table.CharacterTable;
-import com.github.liamvii.penandpaper.database.table.PlayerTable;
+import com.github.liamvii.penandpaper.character.PenCharacter;
+import com.github.liamvii.penandpaper.character.PenCharacterService;
 import com.github.liamvii.penandpaper.player.PenPlayer;
-import com.github.liamvii.penandpaper.player.PlayerUUID;
+import com.github.liamvii.penandpaper.player.PenPlayerService;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -41,20 +37,10 @@ public final class AbilitySetCommand implements CommandExecutor {
             sender.sendMessage(RED + "There is no player by that name online.");
             return true;
         }
-        PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
-        PenPlayer penPlayer = playerTable.get(new PlayerUUID(target));
-        if (penPlayer == null) {
-            penPlayer = new PenPlayer(plugin, target);
-            playerTable.insert(penPlayer);
-        }
-        ActiveCharacterTable activeCharacterTable = plugin.getDatabase().getTable(ActiveCharacterTable.class);
-        CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
-        CharacterId activeCharacterId = activeCharacterTable.get(penPlayer.getPlayerId());
-        if (activeCharacterId == null) {
-            sender.sendMessage(RED + target.getName() + " does not have an active character.");
-            return true;
-        }
-        PlayerCharacter character = characterTable.get(activeCharacterId);
+        PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
+        PenPlayer penPlayer = playerService.getPlayer(target);
+        PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
+        PenCharacter character = characterService.getActiveCharacter(penPlayer);
         if (character == null) {
             sender.sendMessage(RED + target.getName() + " does not have an active character.");
             return true;
@@ -77,8 +63,7 @@ public final class AbilitySetCommand implements CommandExecutor {
             return true;
         }
         character.setAbilityScore(ability, score);
-        CharacterAbilityScoreTable characterAbilityScoreTable = plugin.getDatabase().getTable(CharacterAbilityScoreTable.class);
-        characterAbilityScoreTable.insertOrUpdateAbilityScores(character);
+        characterService.updateAbilityScores(character);
         sender.sendMessage(GREEN + (sender == target ? "Your " : character.getName() + "'s ") + ability.getName() + " score was set to " + score + ".");
         if (sender != target) {
             target.sendMessage(GREEN + "Your " + ability.getName() + " score was set to " + score + ".");

@@ -1,10 +1,9 @@
 package com.github.liamvii.penandpaper.rpkit.profile;
 
 import com.github.liamvii.penandpaper.Pen;
-import com.github.liamvii.penandpaper.database.table.PlayerTable;
 import com.github.liamvii.penandpaper.player.PenPlayer;
+import com.github.liamvii.penandpaper.player.PenPlayerService;
 import com.github.liamvii.penandpaper.player.PlayerId;
-import com.github.liamvii.penandpaper.player.PlayerUUID;
 import com.rpkit.players.bukkit.profile.RPKProfile;
 import com.rpkit.players.bukkit.profile.RPKProfileProvider;
 import org.bukkit.OfflinePlayer;
@@ -13,11 +12,11 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.servlet.http.HttpServletRequest;
 
-public final class PnPProfileProvider implements RPKProfileProvider {
+public final class PenRPKProfileProvider implements RPKProfileProvider {
 
     private final Pen plugin;
 
-    public PnPProfileProvider(Pen plugin) {
+    public PenRPKProfileProvider(Pen plugin) {
         this.plugin = plugin;
     }
 
@@ -35,23 +34,19 @@ public final class PnPProfileProvider implements RPKProfileProvider {
     @Nullable
     @Override
     public RPKProfile getProfile(int id) {
-        PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
-        PenPlayer penPlayer = playerTable.get(new PlayerId(id));
+        PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
+        PenPlayer penPlayer = playerService.getPlayer(new PlayerId(id));
         if (penPlayer == null) return null;
-        return new PnPProfileWrapper(plugin, penPlayer);
+        return new PenRPKProfileWrapper(plugin, penPlayer);
     }
 
     @Nullable
     @Override
     public RPKProfile getProfile(@NotNull String name) {
         OfflinePlayer bukkitPlayer = plugin.getServer().getOfflinePlayer(name);
-        PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
-        PenPlayer penPlayer = playerTable.get(new PlayerUUID(bukkitPlayer.getUniqueId()));
-        if (penPlayer == null) {
-            penPlayer = new PenPlayer(plugin, bukkitPlayer);
-            playerTable.insert(penPlayer);
-        }
-        return new PnPProfileWrapper(plugin, penPlayer);
+        PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
+        PenPlayer penPlayer = playerService.getPlayer(bukkitPlayer);
+        return new PenRPKProfileWrapper(plugin, penPlayer);
     }
 
     @Override
