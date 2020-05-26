@@ -1,17 +1,13 @@
 package com.github.liamvii.penandpaper.gui;
 
 import com.github.liamvii.penandpaper.Pen;
-import com.github.liamvii.penandpaper.character.CharacterId;
-import com.github.liamvii.penandpaper.character.PlayerCharacter;
+import com.github.liamvii.penandpaper.character.PenCharacter;
+import com.github.liamvii.penandpaper.character.PenCharacterService;
 import com.github.liamvii.penandpaper.clazz.CharacterClass;
-import com.github.liamvii.penandpaper.clazz.DnDClass;
 import com.github.liamvii.penandpaper.clazz.MulticlassingRequirement;
-import com.github.liamvii.penandpaper.database.table.ActiveCharacterTable;
-import com.github.liamvii.penandpaper.database.table.CharacterClassTable;
-import com.github.liamvii.penandpaper.database.table.CharacterTable;
-import com.github.liamvii.penandpaper.database.table.PlayerTable;
+import com.github.liamvii.penandpaper.clazz.PenClass;
 import com.github.liamvii.penandpaper.player.PenPlayer;
-import com.github.liamvii.penandpaper.player.PlayerUUID;
+import com.github.liamvii.penandpaper.player.PenPlayerService;
 import net.md_5.bungee.api.chat.*;
 import org.bukkit.entity.Player;
 
@@ -21,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.github.liamvii.penandpaper.character.PlayerCharacter.MAX_CLASSES;
+import static com.github.liamvii.penandpaper.character.PenCharacter.MAX_CLASSES;
 import static org.bukkit.ChatColor.*;
 
 public final class LevelGUI extends GUI {
@@ -33,24 +29,17 @@ public final class LevelGUI extends GUI {
         this.plugin = plugin;
     }
 
-    private final Map<Integer, DnDClass> slotClasses = new HashMap<>();
+    private final Map<Integer, PenClass> slotClasses = new HashMap<>();
 
     @Override
     public void initializeItems(Player player) {
-        CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
-        ActiveCharacterTable activeCharacterTable = plugin.getDatabase().getTable(ActiveCharacterTable.class);
-        PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
-        PenPlayer penPlayer = playerTable.get(new PlayerUUID(player));
-        if (penPlayer == null) {
-            penPlayer = new PenPlayer(plugin, player);
-            playerTable.insert(penPlayer);
-        }
-        CharacterId characterId = activeCharacterTable.get(penPlayer.getPlayerId());
-        if (characterId == null) return;
-        PlayerCharacter character = characterTable.get(characterId);
+        PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
+        PenPlayer penPlayer = playerService.getPlayer(player);
+        PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
+        PenCharacter character = characterService.getActiveCharacter(penPlayer);
         if (character == null) return;
         int i = 0;
-        for (DnDClass clazz : DnDClass.values()) {
+        for (PenClass clazz : PenClass.values()) {
             CharacterClass characterClass = character.clazz(clazz);
             if (characterClass != null) {
                 getInventory().setItem(
@@ -78,18 +67,10 @@ public final class LevelGUI extends GUI {
 
     @Override
     public void onClick(Player player, int slot) {
-        CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
-        ActiveCharacterTable activeCharacterTable = plugin.getDatabase().getTable(ActiveCharacterTable.class);
-        CharacterClassTable characterClassTable = plugin.getDatabase().getTable(CharacterClassTable.class);
-        PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
-        PenPlayer penPlayer = playerTable.get(new PlayerUUID(player));
-        if (penPlayer == null) {
-            penPlayer = new PenPlayer(plugin, player);
-            playerTable.insert(penPlayer);
-        }
-        CharacterId characterId = activeCharacterTable.get(penPlayer.getPlayerId());
-        if (characterId == null) return;
-        PlayerCharacter character = characterTable.get(characterId);
+        PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
+        PenPlayer penPlayer = playerService.getPlayer(player);
+        PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
+        PenCharacter character = characterService.getActiveCharacter(penPlayer);
         if (character == null) return;
         if (character.classes().stream()
                 .map(CharacterClass::getLevel)
@@ -99,7 +80,7 @@ public final class LevelGUI extends GUI {
             return;
         }
         if (slotClasses.containsKey(slot)) {
-            DnDClass clazz = slotClasses.get(slot);
+            PenClass clazz = slotClasses.get(slot);
             CharacterClass characterClass = character.clazz(clazz);
             if (characterClass == null) {
                 if (character.classes().size() < MAX_CLASSES) {
@@ -168,7 +149,7 @@ public final class LevelGUI extends GUI {
             } else {
                 characterClass.setLevel(characterClass.getLevel() + 1);
             }
-            characterClassTable.insertOrUpdateClasses(character);
+            characterService.updateClasses(character);
             player.closeInventory();
             if (characterClass != null) {
                 player.sendMessage(GREEN + "Levelled up " + clazz.getName() + " to lv" + characterClass.getLevel());

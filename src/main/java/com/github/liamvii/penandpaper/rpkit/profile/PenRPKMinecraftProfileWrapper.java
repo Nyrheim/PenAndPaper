@@ -12,12 +12,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public final class PnPMinecraftProfileWrapper implements RPKMinecraftProfile {
+public final class PenRPKMinecraftProfileWrapper implements RPKMinecraftProfile {
 
     private final Pen plugin;
     private final PenPlayer pnpPlayer;
 
-    public PnPMinecraftProfileWrapper(Pen plugin, PenPlayer pnpPlayer) {
+    public PenRPKMinecraftProfileWrapper(Pen plugin, PenPlayer pnpPlayer) {
         this.plugin = plugin;
         this.pnpPlayer = pnpPlayer;
     }
@@ -46,7 +46,7 @@ public final class PnPMinecraftProfileWrapper implements RPKMinecraftProfile {
     @Nullable
     @Override
     public RPKProfile getProfile() {
-        return new PnPProfileWrapper(plugin, pnpPlayer);
+        return new PenRPKProfileWrapper(plugin, pnpPlayer);
     }
 
     @Override

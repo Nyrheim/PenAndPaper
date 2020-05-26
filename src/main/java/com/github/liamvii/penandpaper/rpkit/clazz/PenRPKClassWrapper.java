@@ -1,8 +1,8 @@
 package com.github.liamvii.penandpaper.rpkit.clazz;
 
-import com.github.liamvii.penandpaper.character.PlayerCharacter;
-import com.github.liamvii.penandpaper.clazz.DnDClass;
-import com.github.liamvii.penandpaper.rpkit.character.PnPCharacterWrapper;
+import com.github.liamvii.penandpaper.character.PenCharacter;
+import com.github.liamvii.penandpaper.clazz.PenClass;
+import com.github.liamvii.penandpaper.rpkit.character.PenRPKCharacterWrapper;
 import com.rpkit.characters.bukkit.character.RPKCharacter;
 import com.rpkit.classes.bukkit.classes.RPKClass;
 import com.rpkit.skills.bukkit.skills.RPKSkillType;
@@ -11,15 +11,15 @@ import org.jetbrains.annotations.NotNull;
 import static com.github.liamvii.penandpaper.experience.ExperienceLookupTable.MAX_EXPERIENCE;
 import static com.github.liamvii.penandpaper.experience.ExperienceLookupTable.getLevelAtExperience;
 
-public final class PnPClassWrapper implements RPKClass {
+public final class PenRPKClassWrapper implements RPKClass {
 
-    private final DnDClass pnpClass;
+    private final PenClass pnpClass;
 
-    public PnPClassWrapper(DnDClass pnpClass) {
+    public PenRPKClassWrapper(PenClass pnpClass) {
         this.pnpClass = pnpClass;
     }
 
-    public DnDClass getPnPClass() {
+    public PenClass getPnPClass() {
         return pnpClass;
     }
 
@@ -41,9 +41,9 @@ public final class PnPClassWrapper implements RPKClass {
 
     @Override
     public boolean hasPrerequisites(@NotNull RPKCharacter character) {
-        if (character instanceof PnPCharacterWrapper) {
-            PnPCharacterWrapper wrapper = (PnPCharacterWrapper) character;
-            PlayerCharacter pnpCharacter = wrapper.getPnPCharacter();
+        if (character instanceof PenRPKCharacterWrapper) {
+            PenRPKCharacterWrapper wrapper = (PenRPKCharacterWrapper) character;
+            PenCharacter pnpCharacter = wrapper.getPnPCharacter();
             return pnpCharacter.classes().stream().allMatch(requirementsClass ->
                     requirementsClass.getClazz().getMulticlassingRequirement().meets(pnpCharacter))
                     && pnpClass.getMulticlassingRequirement().meets(pnpCharacter);

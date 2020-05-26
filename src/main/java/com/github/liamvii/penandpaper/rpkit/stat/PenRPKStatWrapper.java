@@ -1,8 +1,8 @@
 package com.github.liamvii.penandpaper.rpkit.stat;
 
 import com.github.liamvii.penandpaper.ability.Ability;
-import com.github.liamvii.penandpaper.character.PlayerCharacter;
-import com.github.liamvii.penandpaper.rpkit.character.PnPCharacterWrapper;
+import com.github.liamvii.penandpaper.character.PenCharacter;
+import com.github.liamvii.penandpaper.rpkit.character.PenRPKCharacterWrapper;
 import com.rpkit.characters.bukkit.character.RPKCharacter;
 import com.rpkit.stats.bukkit.stat.RPKStat;
 import com.rpkit.stats.bukkit.stat.RPKStatVariable;
@@ -10,11 +10,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public final class PnPStatWrapper implements RPKStat {
+public final class PenRPKStatWrapper implements RPKStat {
 
     private final Ability ability;
 
-    public PnPStatWrapper(Ability ability) {
+    public PenRPKStatWrapper(Ability ability) {
         this.ability = ability;
     }
 
@@ -32,9 +32,9 @@ public final class PnPStatWrapper implements RPKStat {
 
     @Override
     public int get(@NotNull RPKCharacter character, @NotNull List<? extends RPKStatVariable> statVariables) {
-        if (character instanceof PnPCharacterWrapper) {
-            PnPCharacterWrapper characterWrapper = (PnPCharacterWrapper) character;
-            PlayerCharacter pnpCharacter = characterWrapper.getPnPCharacter();
+        if (character instanceof PenRPKCharacterWrapper) {
+            PenRPKCharacterWrapper characterWrapper = (PenRPKCharacterWrapper) character;
+            PenCharacter pnpCharacter = characterWrapper.getPnPCharacter();
             return pnpCharacter.getAbilityScore(ability);
         }
         return 0;

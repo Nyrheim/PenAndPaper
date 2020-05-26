@@ -1,7 +1,7 @@
 package com.github.liamvii.penandpaper.armorclass;
 
 import com.github.liamvii.penandpaper.ability.Ability;
-import com.github.liamvii.penandpaper.character.PlayerCharacter;
+import com.github.liamvii.penandpaper.character.PenCharacter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +15,7 @@ public final class ArmorClassCalculation {
     }
 
     public interface Component {
-        public int calculateValue(PlayerCharacter character);
+        public int calculateValue(PenCharacter character);
     }
 
     public static final class BaseArmorClassComponent implements Component {
@@ -27,7 +27,7 @@ public final class ArmorClassCalculation {
         }
 
         @Override
-        public int calculateValue(PlayerCharacter character) {
+        public int calculateValue(PenCharacter character) {
             return value;
         }
 
@@ -42,7 +42,7 @@ public final class ArmorClassCalculation {
         }
 
         @Override
-        public int calculateValue(PlayerCharacter character) {
+        public int calculateValue(PenCharacter character) {
             return character.getModifier(ability);
         }
 
@@ -59,13 +59,13 @@ public final class ArmorClassCalculation {
         }
 
         @Override
-        public int calculateValue(PlayerCharacter character) {
+        public int calculateValue(PenCharacter character) {
             return Math.min(cap, character.getModifier(ability));
         }
 
     }
 
-    public ArmorClass calculate(PlayerCharacter character) {
+    public ArmorClass calculate(PenCharacter character) {
         return new ArmorClass(components.stream()
                 .map(component -> component.calculateValue(character))
                 .reduce(0, Integer::sum));

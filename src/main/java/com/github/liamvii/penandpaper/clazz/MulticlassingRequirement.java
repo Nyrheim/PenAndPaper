@@ -1,7 +1,7 @@
 package com.github.liamvii.penandpaper.clazz;
 
 import com.github.liamvii.penandpaper.ability.Ability;
-import com.github.liamvii.penandpaper.character.PlayerCharacter;
+import com.github.liamvii.penandpaper.character.PenCharacter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +41,7 @@ public interface MulticlassingRequirement {
         }
 
         @Override
-        public boolean meets(PlayerCharacter character) {
+        public boolean meets(PenCharacter character) {
             return requirements.stream().anyMatch(requirement -> requirement.meets(character));
         }
 
@@ -79,7 +79,7 @@ public interface MulticlassingRequirement {
         }
 
         @Override
-        public boolean meets(PlayerCharacter character) {
+        public boolean meets(PenCharacter character) {
             return requirements.stream().allMatch(requirement -> requirement.meets(character));
         }
 
@@ -110,13 +110,13 @@ public interface MulticlassingRequirement {
         }
 
         @Override
-        public boolean meets(PlayerCharacter character) {
+        public boolean meets(PenCharacter character) {
             return character.getAbilityScore(ability) >= minimum;
         }
 
     }
 
-    boolean meets(PlayerCharacter character);
+    boolean meets(PenCharacter character);
     String[] printRequirements();
     String[] printRequirements(int deep);
 

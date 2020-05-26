@@ -1,10 +1,9 @@
 package com.github.liamvii.penandpaper.rpkit.profile;
 
 import com.github.liamvii.penandpaper.Pen;
-import com.github.liamvii.penandpaper.database.table.PlayerTable;
 import com.github.liamvii.penandpaper.player.PenPlayer;
+import com.github.liamvii.penandpaper.player.PenPlayerService;
 import com.github.liamvii.penandpaper.player.PlayerId;
-import com.github.liamvii.penandpaper.player.PlayerUUID;
 import com.rpkit.players.bukkit.profile.*;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
@@ -14,11 +13,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public final class PnPMinecraftProfileProvider implements RPKMinecraftProfileProvider {
+public final class PenRPKMinecraftProfileProvider implements RPKMinecraftProfileProvider {
 
     private final Pen plugin;
 
-    public PnPMinecraftProfileProvider(Pen plugin) {
+    public PenRPKMinecraftProfileProvider(Pen plugin) {
         this.plugin = plugin;
     }
 
@@ -40,22 +39,18 @@ public final class PnPMinecraftProfileProvider implements RPKMinecraftProfilePro
     @Nullable
     @Override
     public RPKMinecraftProfile getMinecraftProfile(int id) {
-        PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
-        PenPlayer pnpPlayer = playerTable.get(new PlayerId(id));
-        if (pnpPlayer == null) return null;
-        return new PnPMinecraftProfileWrapper(plugin, pnpPlayer);
+        PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
+        PenPlayer penPlayer = playerService.getPlayer(new PlayerId(id));
+        if (penPlayer == null) return null;
+        return new PenRPKMinecraftProfileWrapper(plugin, penPlayer);
     }
 
     @Nullable
     @Override
     public RPKMinecraftProfile getMinecraftProfile(@NotNull OfflinePlayer player) {
-        PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
-        PenPlayer penPlayer = playerTable.get(new PlayerUUID(player.getUniqueId()));
-        if (penPlayer == null) {
-            penPlayer = new PenPlayer(plugin, player);
-            playerTable.insert(penPlayer);
-        }
-        return new PnPMinecraftProfileWrapper(plugin, penPlayer);
+        PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
+        PenPlayer penPlayer = playerService.getPlayer(player);
+        return new PenRPKMinecraftProfileWrapper(plugin, penPlayer);
     }
 
     @NotNull
@@ -79,11 +74,11 @@ public final class PnPMinecraftProfileProvider implements RPKMinecraftProfilePro
     @NotNull
     @Override
     public List<RPKMinecraftProfile> getMinecraftProfiles(@NotNull RPKProfile profile) {
-        if (profile instanceof PnPProfileWrapper) {
-            PnPProfileWrapper profileWrapper = (PnPProfileWrapper) profile;
+        if (profile instanceof PenRPKProfileWrapper) {
+            PenRPKProfileWrapper profileWrapper = (PenRPKProfileWrapper) profile;
             PenPlayer pnpPlayer = profileWrapper.getPnPPlayer();
             return Collections.singletonList(
-                    new PnPMinecraftProfileWrapper(plugin, pnpPlayer)
+                    new PenRPKMinecraftProfileWrapper(plugin, pnpPlayer)
             );
         }
         return new ArrayList<>();

@@ -10,12 +10,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class PnPStatProvider implements RPKStatProvider {
+public final class PenRPKStatProvider implements RPKStatProvider {
     @NotNull
     @Override
     public List<RPKStat> getStats() {
         return Arrays.stream(Ability.values())
-                .map(PnPStatWrapper::new)
+                .map(PenRPKStatWrapper::new)
                 .collect(Collectors.toList());
     }
 
@@ -29,7 +29,7 @@ public final class PnPStatProvider implements RPKStatProvider {
     public RPKStat getStat(@NotNull String name) {
         try {
             Ability ability = Ability.valueOf(name.toUpperCase());
-            return new PnPStatWrapper(ability);
+            return new PenRPKStatWrapper(ability);
         } catch (IllegalArgumentException exception) {
             return null;
         }

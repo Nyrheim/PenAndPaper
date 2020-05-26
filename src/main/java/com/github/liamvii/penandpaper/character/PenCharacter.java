@@ -4,7 +4,7 @@ import com.github.liamvii.penandpaper.Pen;
 import com.github.liamvii.penandpaper.ability.Ability;
 import com.github.liamvii.penandpaper.ability.AbilityModifierLookupTable;
 import com.github.liamvii.penandpaper.clazz.CharacterClass;
-import com.github.liamvii.penandpaper.clazz.DnDClass;
+import com.github.liamvii.penandpaper.clazz.PenClass;
 import com.github.liamvii.penandpaper.conversations.StartCreate;
 import com.github.liamvii.penandpaper.experience.ExperienceLookupTable;
 import com.github.liamvii.penandpaper.player.PlayerId;
@@ -17,7 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public final class PlayerCharacter {
+public final class PenCharacter {
 
     public static final int MAX_CLASSES = 4;
 
@@ -37,8 +37,8 @@ public final class PlayerCharacter {
     private final Map<Ability, Integer> abilityScores = new EnumMap<>(Ability.class);
     private final Map<Ability, Integer> tempScores = new EnumMap<>(Ability.class);
     private final Map<Ability, Integer> abilityScoreChoices = new EnumMap<>(Ability.class);
-    private DnDClass firstClass;
-    private final Map<DnDClass, CharacterClass> classes = new HashMap<>();
+    private PenClass firstClass;
+    private final Map<PenClass, CharacterClass> classes = new HashMap<>();
     private String race;
     private ItemStack helmet;
     private ItemStack chestplate;
@@ -51,7 +51,7 @@ public final class PlayerCharacter {
     private float foodExhaustion;
     private Location location;
 
-    public PlayerCharacter(
+    public PenCharacter(
             Pen plugin,
             CharacterId id,
             PlayerId playerId,
@@ -67,7 +67,7 @@ public final class PlayerCharacter {
             Map<Ability, Integer> abilityScores,
             Map<Ability, Integer> tempScores,
             Map<Ability, Integer> abilityScoreChoices,
-            DnDClass firstClass,
+            PenClass firstClass,
             List<CharacterClass> classes,
             String race,
             ItemStack helmet,
@@ -112,7 +112,7 @@ public final class PlayerCharacter {
         this.location = location;
     }
 
-    public PlayerCharacter(
+    public PenCharacter(
             Pen plugin,
             PlayerId playerId
     ) {
@@ -322,15 +322,15 @@ public final class PlayerCharacter {
         return new ArrayList<>(classes.values());
     }
 
-    public CharacterClass clazz(DnDClass clazz) {
+    public CharacterClass clazz(PenClass clazz) {
         return classes.get(clazz);
     }
 
-    public DnDClass getFirstClass() {
+    public PenClass getFirstClass() {
         return firstClass;
     }
 
-    public void addClass(DnDClass clazz) {
+    public void addClass(PenClass clazz) {
         if (classes.size() < MAX_CLASSES) {
             if (classes.isEmpty()) {
                 firstClass = clazz;
@@ -339,7 +339,7 @@ public final class PlayerCharacter {
         }
     }
 
-    public void removeClass(DnDClass clazz) {
+    public void removeClass(PenClass clazz) {
         classes.remove(clazz);
     }
 

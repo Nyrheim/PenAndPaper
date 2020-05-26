@@ -2,9 +2,9 @@ package com.github.liamvii.penandpaper.database.table;
 
 import com.github.liamvii.penandpaper.Pen;
 import com.github.liamvii.penandpaper.character.CharacterId;
-import com.github.liamvii.penandpaper.character.PlayerCharacter;
+import com.github.liamvii.penandpaper.character.PenCharacter;
 import com.github.liamvii.penandpaper.clazz.CharacterClass;
-import com.github.liamvii.penandpaper.clazz.DnDClass;
+import com.github.liamvii.penandpaper.clazz.PenClass;
 import com.github.liamvii.penandpaper.database.Database;
 import com.github.liamvii.penandpaper.player.PlayerId;
 import com.github.liamvii.penandpaper.utils.ItemStackUtils;
@@ -28,13 +28,13 @@ public final class CharacterTable implements Table {
     private final Pen plugin;
     private final Database database;
 
-    private final Cache<Integer, PlayerCharacter> cache;
+    private final Cache<Integer, PenCharacter> cache;
 
     public CharacterTable(Pen plugin, Database database) {
         this.plugin = plugin;
         this.database = database;
         cache = database.getCacheManager().createCache("penandpaper.character.id",
-                CacheConfigurationBuilder.newCacheConfigurationBuilder(Integer.class, PlayerCharacter.class,
+                CacheConfigurationBuilder.newCacheConfigurationBuilder(Integer.class, PenCharacter.class,
                         ResourcePoolsBuilder.heap(25)));
     }
 
@@ -75,7 +75,7 @@ public final class CharacterTable implements Table {
                 .execute();
     }
 
-    public void insert(PlayerCharacter character) {
+    public void insert(PenCharacter character) {
         byte[] serializedHelmet = null;
         if (character.getHelmet() != null) {
             try {
@@ -189,7 +189,7 @@ public final class CharacterTable implements Table {
         cache.put(id, character);
     }
 
-    public void update(PlayerCharacter character) {
+    public void update(PenCharacter character) {
         byte[] serializedHelmet = null;
         if (character.getHelmet() != null) {
             try {
@@ -272,7 +272,7 @@ public final class CharacterTable implements Table {
         cache.put(character.getId().getValue(), character);
     }
 
-    public void delete(PlayerCharacter character) {
+    public void delete(PenCharacter character) {
         database.getTable(CharacterAbilityScoreTable.class)
                 .delete(character.getId());
 
@@ -290,7 +290,7 @@ public final class CharacterTable implements Table {
         cache.remove(character.getId().getValue());
     }
 
-    public PlayerCharacter get(CharacterId id) {
+    public PenCharacter get(CharacterId id) {
         if (cache.containsKey(id.getValue())) {
             return cache.get(id.getValue());
         }
@@ -328,7 +328,7 @@ public final class CharacterTable implements Table {
                 .fetchOne();
         if (result == null) return null;
         List<CharacterClass> classes = database.getTable(CharacterClassTable.class).get(id);
-        DnDClass firstClass = classes.size() > 0 ? classes.get(0).getClazz() : null;
+        PenClass firstClass = classes.size() > 0 ? classes.get(0).getClazz() : null;
         ItemStack helmet = null;
         if (result.get(CHARACTER.HELMET) != null) {
             try {
@@ -369,7 +369,7 @@ public final class CharacterTable implements Table {
                 plugin.getLogger().log(SEVERE, "Failed to deserialize inventory contents", exception);
             }
         }
-        PlayerCharacter character = new PlayerCharacter(
+        PenCharacter character = new PenCharacter(
                 plugin,
                 id,
                 new PlayerId(result.get(CHARACTER.PLAYER_ID)),
@@ -410,7 +410,7 @@ public final class CharacterTable implements Table {
         return character;
     }
 
-    public List<PlayerCharacter> get(PlayerId playerId) {
+    public List<PenCharacter> get(PlayerId playerId) {
         List<? extends Record> results = database.create()
                 .select(CHARACTER.ID)
                 .from(CHARACTER)

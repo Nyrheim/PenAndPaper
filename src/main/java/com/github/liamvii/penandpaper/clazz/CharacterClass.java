@@ -2,19 +2,19 @@ package com.github.liamvii.penandpaper.clazz;
 
 public final class CharacterClass {
 
-    private final DnDClass clazz;
+    private final PenClass clazz;
     private int level;
 
-    public CharacterClass(DnDClass clazz, int level) {
+    public CharacterClass(PenClass clazz, int level) {
         this.clazz = clazz;
         this.level = level;
     }
 
-    public CharacterClass(DnDClass clazz) {
+    public CharacterClass(PenClass clazz) {
         this(clazz, 1);
     }
 
-    public DnDClass getClazz() {
+    public PenClass getClazz() {
         return clazz;
     }
 

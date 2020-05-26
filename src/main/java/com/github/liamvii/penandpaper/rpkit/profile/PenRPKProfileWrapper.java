@@ -5,12 +5,12 @@ import com.github.liamvii.penandpaper.player.PenPlayer;
 import com.rpkit.players.bukkit.profile.RPKProfile;
 import org.jetbrains.annotations.NotNull;
 
-public final class PnPProfileWrapper implements RPKProfile {
+public final class PenRPKProfileWrapper implements RPKProfile {
 
     private final Pen plugin;
     private final PenPlayer pnpPlayer;
 
-    public PnPProfileWrapper(Pen plugin, PenPlayer pnpPlayer) {
+    public PenRPKProfileWrapper(Pen plugin, PenPlayer pnpPlayer) {
         this.plugin = plugin;
         this.pnpPlayer = pnpPlayer;
     }

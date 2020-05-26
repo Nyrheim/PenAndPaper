@@ -2,13 +2,10 @@ package com.github.liamvii.penandpaper.commands.ability;
 
 import com.github.liamvii.penandpaper.Pen;
 import com.github.liamvii.penandpaper.ability.Ability;
-import com.github.liamvii.penandpaper.character.CharacterId;
-import com.github.liamvii.penandpaper.character.PlayerCharacter;
-import com.github.liamvii.penandpaper.database.table.ActiveCharacterTable;
-import com.github.liamvii.penandpaper.database.table.CharacterTable;
-import com.github.liamvii.penandpaper.database.table.PlayerTable;
+import com.github.liamvii.penandpaper.character.PenCharacter;
+import com.github.liamvii.penandpaper.character.PenCharacterService;
 import com.github.liamvii.penandpaper.player.PenPlayer;
-import com.github.liamvii.penandpaper.player.PlayerUUID;
+import com.github.liamvii.penandpaper.player.PenPlayerService;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -65,20 +62,10 @@ public final class AbilityChoiceCommand implements CommandExecutor {
                 return true;
             }
             Player player = (Player) sender;
-            PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
-            PenPlayer penPlayer = playerTable.get(new PlayerUUID(player.getUniqueId()));
-            if (penPlayer == null) {
-                penPlayer = new PenPlayer(plugin, player);
-                playerTable.insert(penPlayer);
-            }
-            CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
-            ActiveCharacterTable activeCharacterTable = plugin.getDatabase().getTable(ActiveCharacterTable.class);
-            CharacterId activeCharacterId = activeCharacterTable.get(penPlayer.getPlayerId());
-            if (activeCharacterId == null) {
-                sender.sendMessage(RED + "You do not currently have an active character.");
-                return true;
-            }
-            PlayerCharacter character = characterTable.get(activeCharacterId);
+            PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
+            PenPlayer penPlayer = playerService.getPlayer(player);
+            PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
+            PenCharacter character = characterService.getActiveCharacter(penPlayer);
             if (character == null) {
                 sender.sendMessage(RED + "You do not currently have an active character.");
                 return true;
@@ -92,7 +79,7 @@ public final class AbilityChoiceCommand implements CommandExecutor {
         return true;
     }
 
-    public void sendAbilityChoices(CommandSender sender, PlayerCharacter character) {
+    public void sendAbilityChoices(CommandSender sender, PenCharacter character) {
         for (Ability ability : Ability.values()) {
             ComponentBuilder abilityLineBuilder = new ComponentBuilder()
                     .append(ability.getAbbreviation())

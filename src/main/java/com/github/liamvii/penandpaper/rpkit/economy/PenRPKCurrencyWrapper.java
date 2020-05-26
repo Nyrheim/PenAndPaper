@@ -7,11 +7,11 @@ import org.jetbrains.annotations.NotNull;
 
 import static com.github.liamvii.penandpaper.money.Currency.*;
 
-public final class PnPCurrencyWrapper implements RPKCurrency {
+public final class PenRPKCurrencyWrapper implements RPKCurrency {
 
     private final Currency pnpCurrency;
 
-    public PnPCurrencyWrapper(Currency pnpCurrency) {
+    public PenRPKCurrencyWrapper(Currency pnpCurrency) {
         this.pnpCurrency = pnpCurrency;
     }
 

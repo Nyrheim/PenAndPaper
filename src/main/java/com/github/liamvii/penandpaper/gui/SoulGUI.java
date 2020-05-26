@@ -2,11 +2,10 @@ package com.github.liamvii.penandpaper.gui;
 
 import com.github.liamvii.penandpaper.Pen;
 import com.github.liamvii.penandpaper.character.CharacterId;
-import com.github.liamvii.penandpaper.character.PlayerCharacter;
-import com.github.liamvii.penandpaper.database.table.CharacterTable;
-import com.github.liamvii.penandpaper.database.table.PlayerTable;
+import com.github.liamvii.penandpaper.character.PenCharacter;
+import com.github.liamvii.penandpaper.character.PenCharacterService;
 import com.github.liamvii.penandpaper.player.PenPlayer;
-import com.github.liamvii.penandpaper.player.PlayerUUID;
+import com.github.liamvii.penandpaper.player.PenPlayerService;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -36,17 +35,13 @@ public final class SoulGUI extends GUI {
 
     @Override
     public void initializeItems(Player player) {
-        PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
-        PenPlayer penPlayer = playerTable.get(new PlayerUUID(player));
-        if (penPlayer == null) {
-            penPlayer = new PenPlayer(plugin, player);
-            playerTable.insert(penPlayer);
-        }
-        CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
-        List<PlayerCharacter> characters = characterTable.get(penPlayer.getPlayerId());
+        PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
+        PenPlayer penPlayer = playerService.getPlayer(player);
+        PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
+        List<PenCharacter> characters = characterService.getCharacters(penPlayer);
         for (int i = 0; i < 3; i++) {
             if (i < characters.size()) {
-                PlayerCharacter character = characters.get(i);
+                PenCharacter character = characters.get(i);
                 getInventory().setItem(i, createGuiItem(
                         PLAYER_HEAD,
                         character.getName(),
@@ -75,36 +70,29 @@ public final class SoulGUI extends GUI {
 
         if (clickedItem.getType() == WRITABLE_BOOK) {
             player.closeInventory();
-            PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
-            PenPlayer penPlayer = playerTable.get(new PlayerUUID(player));
-            if (penPlayer == null) {
-                penPlayer = new PenPlayer(plugin, player);
-                playerTable.insert(penPlayer);
-            }
-            PlayerCharacter character = new PlayerCharacter(
+            PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
+            PenPlayer penPlayer = playerService.getPlayer(player);
+            PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
+            PenCharacter character = new PenCharacter(
                     plugin,
                     penPlayer.getPlayerId()
             );
-            plugin.getDatabase().getTable(CharacterTable.class).insert(character);
-            penPlayer.switchCharacter(character);
+            characterService.addCharacter(character);
+            characterService.setActiveCharacter(penPlayer, character);
         } else if (clickedItem.getType() == PLAYER_HEAD) {
             player.closeInventory();
             if (slotCharacters.containsKey(slot)) {
-                CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
-                PlayerCharacter character = characterTable.get(slotCharacters.get(slot));
-                PlayerTable playerTable = plugin.getDatabase().getTable(PlayerTable.class);
-                PenPlayer penPlayer = playerTable.get(new PlayerUUID(player));
-                if (penPlayer == null) {
-                    penPlayer = new PenPlayer(plugin, player);
-                    playerTable.insert(penPlayer);
-                }
-                penPlayer.switchCharacter(character);
+                PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
+                PenCharacter character = characterService.getCharacter(slotCharacters.get(slot));
+                PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
+                PenPlayer penPlayer = playerService.getPlayer(player);
+                characterService.setActiveCharacter(penPlayer, character);
             }
         } else if (clickedItem.getType() == CAMPFIRE) {
             player.closeInventory();
             if (slotCharacters.containsKey(slot)) {
-                CharacterTable characterTable = plugin.getDatabase().getTable(CharacterTable.class);
-                PlayerCharacter character = characterTable.get(slotCharacters.get(slot));
+                PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
+                PenCharacter character = characterService.getCharacter(slotCharacters.get(slot));
                 if (character != null) {
                     player.sendMessage("You are about to permanently delete " + character.getName() + ".");
                     TextComponent deleteButton = new TextComponent("Delete " + character.getName());

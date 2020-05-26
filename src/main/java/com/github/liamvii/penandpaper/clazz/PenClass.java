@@ -16,9 +16,9 @@ import static com.github.liamvii.penandpaper.ability.Ability.*;
 import static com.github.liamvii.penandpaper.item.armor.ArmorCategory.*;
 import static com.github.liamvii.penandpaper.item.weapon.WeaponType.*;
 
-public final class DnDClass {
+public final class PenClass {
 
-    public static final DnDClass BARBARIAN = new DnDClass(
+    public static final PenClass BARBARIAN = new PenClass(
             "Barbarian",
             "A fierce warrior of primitive background who can enter a battle rage",
             new Roll(new Die(1, 12)),
@@ -40,7 +40,7 @@ public final class DnDClass {
             new MulticlassingRequirement.AbilityRequirement(STRENGTH, 13)
     );
 
-    public static final DnDClass BARD = new DnDClass(
+    public static final PenClass BARD = new PenClass(
             "Bard",
             "An inspiring magician whose power echoes the music of creation",
             new Roll(new Die(1, 8)),
@@ -66,7 +66,7 @@ public final class DnDClass {
             new MulticlassingRequirement.AbilityRequirement(CHARISMA, 13)
     );
 
-    public static final DnDClass CLERIC = new DnDClass(
+    public static final PenClass CLERIC = new PenClass(
             "Cleric",
             "A priestly champion who wields divine magic in service of a higher power",
             new Roll(new Die(1, 8)),
@@ -89,7 +89,7 @@ public final class DnDClass {
             new MulticlassingRequirement.AbilityRequirement(WISDOM, 13)
     );
 
-    public static final DnDClass DRUID = new DnDClass(
+    public static final PenClass DRUID = new PenClass(
             "Druid",
             "A priest of the Old Faith, wielding the powers of nature - moonlight and plant growth, fire and lightning - and adopting animal forms",
             new Roll(new Die(1, 8)),
@@ -123,7 +123,7 @@ public final class DnDClass {
             new MulticlassingRequirement.AbilityRequirement(WISDOM, 13)
     );
 
-    public static final DnDClass FIGHTER = new DnDClass(
+    public static final PenClass FIGHTER = new PenClass(
             "Fighter",
             "A master of martial combat, skilled with a variety of weapons and armor",
             new Roll(new Die(1, 10)),
@@ -142,7 +142,7 @@ public final class DnDClass {
             )
     );
 
-    public static final DnDClass MONK = new DnDClass(
+    public static final PenClass MONK = new PenClass(
             "Monk",
             "A master of martial arts, harnessing the power of the body in pursuit of physical and " +
                     "spiritual perfection",
@@ -167,7 +167,7 @@ public final class DnDClass {
             )
     );
 
-    public static final DnDClass PALADIN = new DnDClass(
+    public static final PenClass PALADIN = new PenClass(
             "Paladin",
             "A holy warrior bound to a sacred oath",
             new Roll(new Die(1, 10)),
@@ -186,7 +186,7 @@ public final class DnDClass {
             )
     );
 
-    public static final DnDClass RANGER = new DnDClass(
+    public static final PenClass RANGER = new PenClass(
             "Ranger",
             "A warrior who uses martial prowess and the nature magic to combat threats on the edges of " +
                     "civilization",
@@ -212,7 +212,7 @@ public final class DnDClass {
             )
     );
 
-    public static final DnDClass ROGUE = new DnDClass(
+    public static final PenClass ROGUE = new PenClass(
             "Rogue",
             "A scoundrel who uses stealth and trickery to overcome obstacles and enemies",
             new Roll(new Die(1, 8)),
@@ -238,7 +238,7 @@ public final class DnDClass {
             new MulticlassingRequirement.AbilityRequirement(DEXTERITY, 13)
     );
 
-    public static final DnDClass SORCERER = new DnDClass(
+    public static final PenClass SORCERER = new PenClass(
             "Sorcerer",
             "A spellcaster who draws on inherent magic from a gift or bloodline",
             new Roll(new Die(1, 6)),
@@ -260,7 +260,7 @@ public final class DnDClass {
             new MulticlassingRequirement.AbilityRequirement(CHARISMA, 13)
     );
 
-    public static final DnDClass WARLOCK = new DnDClass(
+    public static final PenClass WARLOCK = new PenClass(
             "Warlock",
             "A wielder of magic that is derived from a bargain with an extraplanar entity",
             new Roll(new Die(1, 8)),
@@ -280,7 +280,7 @@ public final class DnDClass {
             new MulticlassingRequirement.AbilityRequirement(CHARISMA, 13)
     );
 
-    public static final DnDClass WIZARD = new DnDClass(
+    public static final PenClass WIZARD = new PenClass(
             "Wizard",
             "A scholarly magic-user capable of manipulating the structures of reality",
             new Roll(new Die(1, 6)),
@@ -302,7 +302,7 @@ public final class DnDClass {
             new MulticlassingRequirement.AbilityRequirement(INTELLIGENCE, 13)
     );
 
-    public static DnDClass valueOf(String name) {
+    public static PenClass valueOf(String name) {
         switch (name) {
             case "BARBARIAN": return BARBARIAN;
             case "BARD": return BARD;
@@ -320,15 +320,15 @@ public final class DnDClass {
         }
     }
 
-    public static DnDClass getByName(String name) {
+    public static PenClass getByName(String name) {
         return Arrays.stream(values())
                 .filter(clazz -> clazz.getName().equals(name))
                 .findFirst()
                 .orElse(null);
     }
 
-    public static DnDClass[] values() {
-        return new DnDClass[] {
+    public static PenClass[] values() {
+        return new PenClass[] {
                 BARBARIAN,
                 BARD,
                 CLERIC,
@@ -355,7 +355,7 @@ public final class DnDClass {
     private final int levelHP;
     private final MulticlassingRequirement multiclassingRequirement;
 
-    private DnDClass(
+    private PenClass(
             String name,
             String description,
             Roll hitDie,

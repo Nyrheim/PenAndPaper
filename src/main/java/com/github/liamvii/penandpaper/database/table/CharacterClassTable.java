@@ -1,9 +1,9 @@
 package com.github.liamvii.penandpaper.database.table;
 
 import com.github.liamvii.penandpaper.character.CharacterId;
-import com.github.liamvii.penandpaper.character.PlayerCharacter;
+import com.github.liamvii.penandpaper.character.PenCharacter;
 import com.github.liamvii.penandpaper.clazz.CharacterClass;
-import com.github.liamvii.penandpaper.clazz.DnDClass;
+import com.github.liamvii.penandpaper.clazz.PenClass;
 import com.github.liamvii.penandpaper.database.Database;
 import org.ehcache.Cache;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
@@ -65,7 +65,7 @@ public final class CharacterClassTable implements Table {
                 .fetch()
                 .stream()
                 .map(result -> new CharacterClass(
-                        DnDClass.getByName(result.get(CHARACTER_CLASS.CLASS_NAME)),
+                        PenClass.getByName(result.get(CHARACTER_CLASS.CLASS_NAME)),
                         result.get(CHARACTER_CLASS.LEVEL)
                 ))
                 .collect(Collectors.toList());
@@ -73,7 +73,7 @@ public final class CharacterClassTable implements Table {
         return classes;
     }
 
-    public CharacterClass get(CharacterId characterId, DnDClass clazz) {
+    public CharacterClass get(CharacterId characterId, PenClass clazz) {
         return get(characterId).stream()
                 .filter(characterClass -> characterClass.getClazz() == clazz)
                 .findFirst()
@@ -142,7 +142,7 @@ public final class CharacterClassTable implements Table {
         cache.remove(characterId.getValue());
     }
 
-    public void insertOrUpdateClasses(PlayerCharacter character) {
+    public void insertOrUpdateClasses(PenCharacter character) {
         character.classes().forEach(characterClass -> {
             if (get(character.getId(), characterClass.getClazz()) == null) {
                 insert(character.getId(), characterClass);

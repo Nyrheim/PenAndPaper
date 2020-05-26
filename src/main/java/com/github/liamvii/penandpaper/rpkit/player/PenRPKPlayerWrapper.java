@@ -7,12 +7,12 @@ import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public final class PnPPlayerWrapper implements RPKPlayer {
+public final class PenRPKPlayerWrapper implements RPKPlayer {
 
     private final Pen plugin;
     private final PenPlayer pnpPlayer;
 
-    public PnPPlayerWrapper(Pen plugin, PenPlayer pnpPlayer) {
+    public PenRPKPlayerWrapper(Pen plugin, PenPlayer pnpPlayer) {
         this.plugin = plugin;
         this.pnpPlayer = pnpPlayer;
     }

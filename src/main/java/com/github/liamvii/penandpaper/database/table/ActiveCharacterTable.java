@@ -15,12 +15,16 @@ import static org.jooq.impl.DSL.constraint;
 public final class ActiveCharacterTable implements Table {
 
     private final Database database;
-    private final Cache<Integer, CharacterId> cache;
+    private final Cache<Integer, CharacterId> playerIdCache;
+    private final Cache<Integer, PlayerId> characterIdCache;
 
     public ActiveCharacterTable(Database database) {
         this.database = database;
-        this.cache = database.getCacheManager().createCache("penandpaper.active_character.player_id",
+        this.playerIdCache = database.getCacheManager().createCache("penandpaper.active_character.player_id",
                 CacheConfigurationBuilder.newCacheConfigurationBuilder(Integer.class, CharacterId.class,
+                        ResourcePoolsBuilder.heap(25)));
+        this.characterIdCache = database.getCacheManager().createCache("penandpaper.active_character.character_id",
+                CacheConfigurationBuilder.newCacheConfigurationBuilder(Integer.class, PlayerId.class,
                         ResourcePoolsBuilder.heap(25)));
     }
 
@@ -42,8 +46,8 @@ public final class ActiveCharacterTable implements Table {
     }
 
     public CharacterId get(PlayerId playerId) {
-        if (cache.containsKey(playerId.getValue())) {
-            return cache.get(playerId.getValue());
+        if (playerIdCache.containsKey(playerId.getValue())) {
+            return playerIdCache.get(playerId.getValue());
         }
         Record result = database.create()
                 .select(ACTIVE_CHARACTER.CHARACTER_ID)
@@ -52,8 +56,25 @@ public final class ActiveCharacterTable implements Table {
                 .fetchOne();
         if (result == null) return null;
         CharacterId characterId = new CharacterId(result.get(ACTIVE_CHARACTER.CHARACTER_ID));
-        cache.put(playerId.getValue(), characterId);
+        playerIdCache.put(playerId.getValue(), characterId);
+        characterIdCache.put(characterId.getValue(), playerId);
         return characterId;
+    }
+
+    public PlayerId get(CharacterId characterId) {
+        if (characterIdCache.containsKey(characterId.getValue())) {
+            return characterIdCache.get(characterId.getValue());
+        }
+        Record result = database.create()
+                .select(ACTIVE_CHARACTER.PLAYER_ID)
+                .from(ACTIVE_CHARACTER)
+                .where(ACTIVE_CHARACTER.CHARACTER_ID.eq(characterId.getValue()))
+                .fetchOne();
+        if (result == null) return null;
+        PlayerId playerId = new PlayerId(result.get(ACTIVE_CHARACTER.PLAYER_ID));
+        playerIdCache.put(playerId.getValue(), characterId);
+        characterIdCache.put(characterId.getValue(), playerId);
+        return playerId;
     }
 
     public void insert(PlayerId playerId, CharacterId characterId) {
@@ -69,7 +90,8 @@ public final class ActiveCharacterTable implements Table {
                 )
                 .execute();
 
-        cache.put(playerId.getValue(), characterId);
+        playerIdCache.put(playerId.getValue(), characterId);
+        characterIdCache.put(characterId.getValue(), playerId);
     }
 
     public void update(PlayerId playerId, CharacterId characterId) {
@@ -79,7 +101,8 @@ public final class ActiveCharacterTable implements Table {
                 .where(ACTIVE_CHARACTER.PLAYER_ID.eq(playerId.getValue()))
                 .execute();
 
-        cache.put(playerId.getValue(), characterId);
+        playerIdCache.put(playerId.getValue(), characterId);
+        characterIdCache.put(characterId.getValue(), playerId);
     }
 
     public void delete(PlayerId playerId) {
@@ -88,7 +111,8 @@ public final class ActiveCharacterTable implements Table {
                 .where(ACTIVE_CHARACTER.PLAYER_ID.eq(playerId.getValue()))
                 .execute();
 
-        cache.remove(playerId.getValue());
+        playerIdCache.remove(playerId.getValue());
+        characterIdCache.remove(playerId.getValue());
     }
 
     public void insertOrUpdate(PlayerId playerId, CharacterId characterId) {

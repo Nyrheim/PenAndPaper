@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class PnPEconomyProvider implements RPKEconomyProvider {
+public final class PenRPKEconomyProvider implements RPKEconomyProvider {
 
     @Override
     public int getBalance(@NotNull RPKCharacter character, @NotNull RPKCurrency currency) {
