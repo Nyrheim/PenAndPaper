@@ -43,7 +43,9 @@ public final class PenCharacterService {
         if (oldCharacterId == null) {
             oldCharacter = null;
         } else {
-            if (oldCharacterId.getValue() == character.getId().getValue()) return true;
+            if (character != null) {
+                if (oldCharacterId.getValue() == character.getId().getValue()) return true;
+            }
             oldCharacter = characterTable.get(oldCharacterId);
         }
         if (oldCharacter != null) {

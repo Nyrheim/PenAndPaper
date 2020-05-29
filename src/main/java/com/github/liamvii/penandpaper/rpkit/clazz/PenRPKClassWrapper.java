@@ -6,6 +6,7 @@ import com.github.liamvii.penandpaper.rpkit.character.PenRPKCharacterWrapper;
 import com.rpkit.characters.bukkit.character.RPKCharacter;
 import com.rpkit.classes.bukkit.classes.RPKClass;
 import com.rpkit.skills.bukkit.skills.RPKSkillType;
+import com.rpkit.stats.bukkit.stat.RPKStatVariable;
 import org.jetbrains.annotations.NotNull;
 
 import static com.github.liamvii.penandpaper.experience.ExperienceLookupTable.MAX_EXPERIENCE;
@@ -50,4 +51,10 @@ public final class PenRPKClassWrapper implements RPKClass {
         }
         return false;
     }
+
+    @Override
+    public int getStatVariableValue(@NotNull RPKStatVariable statVariable, int level) {
+        return 0;
+    }
+
 }

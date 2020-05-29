@@ -4,6 +4,7 @@ import com.github.liamvii.penandpaper.Pen;
 import com.github.liamvii.penandpaper.player.PenPlayer;
 import com.rpkit.players.bukkit.profile.RPKMinecraftProfile;
 import com.rpkit.players.bukkit.profile.RPKProfile;
+import com.rpkit.players.bukkit.profile.RPKThinProfile;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -50,7 +51,7 @@ public final class PenRPKMinecraftProfileWrapper implements RPKMinecraftProfile 
     }
 
     @Override
-    public void setProfile(@Nullable RPKProfile profile) {
+    public void setProfile(@NotNull RPKThinProfile profile) {
 
     }
 
