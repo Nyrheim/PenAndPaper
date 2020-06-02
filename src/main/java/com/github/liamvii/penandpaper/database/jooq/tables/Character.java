@@ -7,22 +7,12 @@ package com.github.liamvii.penandpaper.database.jooq.tables;
 import com.github.liamvii.penandpaper.database.jooq.Keys;
 import com.github.liamvii.penandpaper.database.jooq.Nyrheim;
 import com.github.liamvii.penandpaper.database.jooq.tables.records.CharacterRecord;
+import org.jooq.*;
+import org.jooq.impl.DSL;
+import org.jooq.impl.TableImpl;
 
 import java.util.Arrays;
 import java.util.List;
-
-import org.jooq.Field;
-import org.jooq.ForeignKey;
-import org.jooq.Identity;
-import org.jooq.Name;
-import org.jooq.Record;
-import org.jooq.Schema;
-import org.jooq.Table;
-import org.jooq.TableField;
-import org.jooq.TableOptions;
-import org.jooq.UniqueKey;
-import org.jooq.impl.DSL;
-import org.jooq.impl.TableImpl;
 
 
 /**
@@ -31,7 +21,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Character extends TableImpl<CharacterRecord> {
 
-    private static final long serialVersionUID = -1328893509;
+    private static final long serialVersionUID = -1678173583;
 
     /**
      * The reference instance of <code>nyrheim.character</code>
@@ -104,7 +94,7 @@ public class Character extends TableImpl<CharacterRecord> {
     /**
      * The column <code>nyrheim.character.race</code>.
      */
-    public final TableField<CharacterRecord, String> RACE = createField(DSL.name("race"), org.jooq.impl.SQLDataType.VARCHAR(64).nullable(false), this, "");
+    public final TableField<CharacterRecord, String> RACE = createField(DSL.name("race"), org.jooq.impl.SQLDataType.VARCHAR(64), this, "");
 
     /**
      * The column <code>nyrheim.character.helmet</code>.
@@ -232,15 +222,6 @@ public class Character extends TableImpl<CharacterRecord> {
     @Override
     public List<UniqueKey<CharacterRecord>> getKeys() {
         return Arrays.<UniqueKey<CharacterRecord>>asList(Keys.KEY_CHARACTER_PRIMARY);
-    }
-
-    @Override
-    public List<ForeignKey<CharacterRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<CharacterRecord, ?>>asList(Keys.CHARACTER_PLAYER_ID_FK);
-    }
-
-    public Player player() {
-        return new Player(this, Keys.CHARACTER_PLAYER_ID_FK);
     }
 
     @Override

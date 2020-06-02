@@ -11,6 +11,7 @@ import com.github.liamvii.penandpaper.database.Database;
 import com.github.liamvii.penandpaper.listener.InventoryClickListener;
 import com.github.liamvii.penandpaper.listener.PlayerListener;
 import com.github.liamvii.penandpaper.player.PenPlayerService;
+import com.github.liamvii.penandpaper.race.PenRaceService;
 import com.github.liamvii.penandpaper.rpkit.character.PenRPKCharacterProvider;
 import com.github.liamvii.penandpaper.rpkit.clazz.PenRPKClassProvider;
 import com.github.liamvii.penandpaper.rpkit.economy.PenRPKCurrencyProvider;
@@ -19,11 +20,17 @@ import com.github.liamvii.penandpaper.rpkit.experience.PenRPKExperienceProvider;
 import com.github.liamvii.penandpaper.rpkit.player.PenRPKPlayerProvider;
 import com.github.liamvii.penandpaper.rpkit.profile.PenRPKMinecraftProfileProvider;
 import com.github.liamvii.penandpaper.rpkit.profile.PenRPKProfileProvider;
+import com.github.liamvii.penandpaper.rpkit.race.PenRPKRaceProvider;
 import com.github.liamvii.penandpaper.rpkit.stat.PenRPKStatProvider;
 import com.github.liamvii.penandpaper.service.Services;
+import com.rpkit.core.bukkit.event.provider.RPKBukkitServiceProviderReadyEvent;
 import com.rpkit.core.bukkit.plugin.RPKBukkitPlugin;
+import com.rpkit.core.exception.UnregisteredServiceException;
 import com.rpkit.core.service.ServiceProvider;
+import com.rpkit.languages.bukkit.language.RPKLanguageProvider;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -40,7 +47,7 @@ API: Spigot 1.14.4.
 // The default 'Active' character for a player is -2, denoting no active character. This largely applies to new players, or those
 // who have deleted their only character.
 
-public class Pen extends RPKBukkitPlugin {
+public class Pen extends RPKBukkitPlugin implements Listener {
 
     private Database database;
     private Services services;
@@ -61,6 +68,7 @@ public class Pen extends RPKBukkitPlugin {
         services = new Services(this);
         services.register(PenPlayerService.class, new PenPlayerService(this));
         services.register(PenCharacterService.class, new PenCharacterService(this));
+        services.register(PenRaceService.class, new PenRaceService(this));
 
         setServiceProviders(new ServiceProvider[] {
                 new PenRPKCharacterProvider(this),
@@ -71,15 +79,39 @@ public class Pen extends RPKBukkitPlugin {
                 new PenRPKPlayerProvider(this),
                 new PenRPKMinecraftProfileProvider(this),
                 new PenRPKProfileProvider(this),
+                new PenRPKRaceProvider(this),
                 new PenRPKStatProvider()
         });
+    }
+
+    private boolean racesInitialized = false;
+
+    @Override
+    public void onPostEnable() {
+        if (racesInitialized) return;
+        attemptRaceInitialization();
+    }
+
+    @EventHandler
+    public void onServiceReady(RPKBukkitServiceProviderReadyEvent event) {
+        if (racesInitialized) return;
+        attemptRaceInitialization();
+    }
+
+    private void attemptRaceInitialization() {
+        try {
+            core.getServiceManager().getServiceProvider(RPKLanguageProvider.class);
+            getServices().get(PenRaceService.class).initializeRaces();
+            racesInitialized = true;
+        } catch (UnregisteredServiceException ignored) {}
     }
 
     @Override
     public void registerListeners() {
         registerListeners(
                 new InventoryClickListener(this),
-                new PlayerListener()
+                new PlayerListener(),
+                this
         );
     }
 

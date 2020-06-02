@@ -45,7 +45,7 @@ public final class SoulGUI extends GUI {
                 getInventory().setItem(i, createGuiItem(
                         PLAYER_HEAD,
                         character.getName(),
-                        GOLD + character.getRace(),
+                        GOLD + (character.getRace() != null ? character.getRace().getName() : "Race not set"),
                         GOLD + character.classes().stream()
                                 .map(characterClass -> characterClass.getClazz().getName() + " "
                                         + characterClass.getLevel())

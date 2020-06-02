@@ -1,6 +1,10 @@
 package com.github.liamvii.penandpaper.weight;
 
-public final class Weight {
+import org.jetbrains.annotations.NotNull;
+
+import static java.lang.Math.round;
+
+public final class Weight implements Comparable<Weight> {
 
     private final double value;
     private final WeightUnit unit;
@@ -16,6 +20,15 @@ public final class Weight {
 
     public WeightUnit getUnit() {
         return unit;
+    }
+
+    public Weight to(WeightUnit unit) {
+        return new Weight((int) round((getValue() / getUnit().getScaleFactor()) * unit.getScaleFactor()), unit);
+    }
+
+    @Override
+    public int compareTo(@NotNull Weight weight) {
+        return (int) round((getValue() / getUnit().getScaleFactor()) - (weight.getValue() / weight.getUnit().getScaleFactor()));
     }
 
 }
