@@ -12,6 +12,7 @@ depend:
 - rpk-experience-lib-bukkit
 - rpk-economy-lib-bukkit
 - rpk-stat-lib-bukkit
+- rpk-language-lib-bukkit
 commands:
   character:
     description: |

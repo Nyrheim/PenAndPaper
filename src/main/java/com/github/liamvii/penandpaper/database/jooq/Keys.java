@@ -56,11 +56,9 @@ public class Keys {
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final ForeignKey<ActiveCharacterRecord, PlayerRecord> ACTIVE_CHARACTER_PLAYER_ID_FK = ForeignKeys0.ACTIVE_CHARACTER_PLAYER_ID_FK;
     public static final ForeignKey<ActiveCharacterRecord, CharacterRecord> ACTIVE_CHARACTER_CHARACTER_ID_FK = ForeignKeys0.ACTIVE_CHARACTER_CHARACTER_ID_FK;
-    public static final ForeignKey<CharacterRecord, PlayerRecord> CHARACTER_PLAYER_ID_FK = ForeignKeys0.CHARACTER_PLAYER_ID_FK;
     public static final ForeignKey<CharacterAbilityScoreRecord, CharacterRecord> CHARACTER_ABILITY_SCORE_CHARACTER_ID_FK = ForeignKeys0.CHARACTER_ABILITY_SCORE_CHARACTER_ID_FK;
-    public static final ForeignKey<CharacterAbilityScoreChoiceRecord, CharacterRecord> CHARACTER_ABILITY_CHOICE_CHARACTER_ID_FK = ForeignKeys0.CHARACTER_ABILITY_CHOICE_CHARACTER_ID_FK;
+    public static final ForeignKey<CharacterAbilityScoreChoiceRecord, CharacterRecord> CHARACTER_ABILITY_SCORE_CHOICE_CHARACTER_ID_FK = ForeignKeys0.CHARACTER_ABILITY_SCORE_CHOICE_CHARACTER_ID_FK;
     public static final ForeignKey<CharacterClassRecord, CharacterRecord> CHARACTER_CLASS_CHARACTER_ID_FK = ForeignKeys0.CHARACTER_CLASS_CHARACTER_ID_FK;
     public static final ForeignKey<CharacterTempAbilityScoreRecord, CharacterRecord> CHARACTER_TEMP_ABILITY_SCORE_CHARACTER_ID_FK = ForeignKeys0.CHARACTER_TEMP_ABILITY_SCORE_CHARACTER_ID_FK;
 
@@ -84,11 +82,9 @@ public class Keys {
     }
 
     private static class ForeignKeys0 {
-        public static final ForeignKey<ActiveCharacterRecord, PlayerRecord> ACTIVE_CHARACTER_PLAYER_ID_FK = Internal.createForeignKey(Keys.KEY_PLAYER_PRIMARY, ActiveCharacter.ACTIVE_CHARACTER, "active_character_player_id_fk", new TableField[] { ActiveCharacter.ACTIVE_CHARACTER.PLAYER_ID }, true);
         public static final ForeignKey<ActiveCharacterRecord, CharacterRecord> ACTIVE_CHARACTER_CHARACTER_ID_FK = Internal.createForeignKey(Keys.KEY_CHARACTER_PRIMARY, ActiveCharacter.ACTIVE_CHARACTER, "active_character_character_id_fk", new TableField[] { ActiveCharacter.ACTIVE_CHARACTER.CHARACTER_ID }, true);
-        public static final ForeignKey<CharacterRecord, PlayerRecord> CHARACTER_PLAYER_ID_FK = Internal.createForeignKey(Keys.KEY_PLAYER_PRIMARY, Character.CHARACTER, "character_player_id_fk", new TableField[] { Character.CHARACTER.PLAYER_ID }, true);
         public static final ForeignKey<CharacterAbilityScoreRecord, CharacterRecord> CHARACTER_ABILITY_SCORE_CHARACTER_ID_FK = Internal.createForeignKey(Keys.KEY_CHARACTER_PRIMARY, CharacterAbilityScore.CHARACTER_ABILITY_SCORE, "character_ability_score_character_id_fk", new TableField[] { CharacterAbilityScore.CHARACTER_ABILITY_SCORE.CHARACTER_ID }, true);
-        public static final ForeignKey<CharacterAbilityScoreChoiceRecord, CharacterRecord> CHARACTER_ABILITY_CHOICE_CHARACTER_ID_FK = Internal.createForeignKey(Keys.KEY_CHARACTER_PRIMARY, CharacterAbilityScoreChoice.CHARACTER_ABILITY_SCORE_CHOICE, "character_ability_choice_character_id_fk", new TableField[] { CharacterAbilityScoreChoice.CHARACTER_ABILITY_SCORE_CHOICE.CHARACTER_ID }, true);
+        public static final ForeignKey<CharacterAbilityScoreChoiceRecord, CharacterRecord> CHARACTER_ABILITY_SCORE_CHOICE_CHARACTER_ID_FK = Internal.createForeignKey(Keys.KEY_CHARACTER_PRIMARY, CharacterAbilityScoreChoice.CHARACTER_ABILITY_SCORE_CHOICE, "character_ability_score_choice_character_id_fk", new TableField[] { CharacterAbilityScoreChoice.CHARACTER_ABILITY_SCORE_CHOICE.CHARACTER_ID }, true);
         public static final ForeignKey<CharacterClassRecord, CharacterRecord> CHARACTER_CLASS_CHARACTER_ID_FK = Internal.createForeignKey(Keys.KEY_CHARACTER_PRIMARY, CharacterClass.CHARACTER_CLASS, "character_class_character_id_fk", new TableField[] { CharacterClass.CHARACTER_CLASS.CHARACTER_ID }, true);
         public static final ForeignKey<CharacterTempAbilityScoreRecord, CharacterRecord> CHARACTER_TEMP_ABILITY_SCORE_CHARACTER_ID_FK = Internal.createForeignKey(Keys.KEY_CHARACTER_PRIMARY, CharacterTempAbilityScore.CHARACTER_TEMP_ABILITY_SCORE, "character_temp_ability_score_character_id_fk", new TableField[] { CharacterTempAbilityScore.CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID }, true);
     }

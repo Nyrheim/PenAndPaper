@@ -89,6 +89,7 @@ public final class CharacterCommand implements CommandExecutor {
         }
         sender.sendMessage(GOLD + character.getName());
         sender.sendMessage(AQUA + "Age: " + WHITE + (character.getAge() < 0 ? "Empty" : character.getAge()));
+        sender.sendMessage(AQUA + "Race: " + WHITE + (character.getRace() == null ? "Empty" : character.getRace().getName()));
         sender.sendMessage(AQUA + "Height: " + WHITE + (character.getHeight().isEmpty() ? "Empty" : character.getHeight()));
         sender.sendMessage(AQUA + "Weight: " + WHITE + (character.getWeight().isEmpty() ? "Empty" : character.getWeight()));
         sender.sendMessage(AQUA + "Appearance: " + WHITE + (character.getAppearance().isEmpty() ? "Empty" : character.getAppearance()));

@@ -8,6 +8,7 @@ import com.github.liamvii.penandpaper.clazz.PenClass;
 import com.github.liamvii.penandpaper.conversations.StartCreate;
 import com.github.liamvii.penandpaper.experience.ExperienceLookupTable;
 import com.github.liamvii.penandpaper.player.PlayerId;
+import com.github.liamvii.penandpaper.race.Race;
 import org.bukkit.Location;
 import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationFactory;
@@ -39,7 +40,7 @@ public final class PenCharacter {
     private final Map<Ability, Integer> abilityScoreChoices = new EnumMap<>(Ability.class);
     private PenClass firstClass;
     private final Map<PenClass, CharacterClass> classes = new HashMap<>();
-    private String race;
+    private Race race;
     private ItemStack helmet;
     private ItemStack chestplate;
     private ItemStack leggings;
@@ -69,7 +70,7 @@ public final class PenCharacter {
             Map<Ability, Integer> abilityScoreChoices,
             PenClass firstClass,
             List<CharacterClass> classes,
-            String race,
+            Race race,
             ItemStack helmet,
             ItemStack chestplate,
             ItemStack leggings,
@@ -134,7 +135,7 @@ public final class PenCharacter {
                 new EnumMap<>(Ability.class),
                 null,
                 new ArrayList<>(),
-                "",
+                null,
                 null,
                 null,
                 null,
@@ -274,8 +275,12 @@ public final class PenCharacter {
         return AbilityModifierLookupTable.lookupModifier(getAbilityScore(ability) + getTempScore(ability));
     }
 
-    public String getRace() {
+    public Race getRace() {
         return race;
+    }
+
+    public void setRace(Race race) {
+        this.race = race;
     }
 
     public ItemStack getHelmet() {

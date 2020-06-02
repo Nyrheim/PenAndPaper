@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ActiveCharacter extends TableImpl<ActiveCharacterRecord> {
 
-    private static final long serialVersionUID = -1555109902;
+    private static final long serialVersionUID = 2093859213;
 
     /**
      * The reference instance of <code>nyrheim.active_character</code>
@@ -106,11 +106,7 @@ public class ActiveCharacter extends TableImpl<ActiveCharacterRecord> {
 
     @Override
     public List<ForeignKey<ActiveCharacterRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<ActiveCharacterRecord, ?>>asList(Keys.ACTIVE_CHARACTER_PLAYER_ID_FK, Keys.ACTIVE_CHARACTER_CHARACTER_ID_FK);
-    }
-
-    public Player player() {
-        return new Player(this, Keys.ACTIVE_CHARACTER_PLAYER_ID_FK);
+        return Arrays.<ForeignKey<ActiveCharacterRecord, ?>>asList(Keys.ACTIVE_CHARACTER_CHARACTER_ID_FK);
     }
 
     public Character character() {

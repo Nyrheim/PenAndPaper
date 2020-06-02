@@ -7,6 +7,8 @@ import com.github.liamvii.penandpaper.clazz.CharacterClass;
 import com.github.liamvii.penandpaper.clazz.PenClass;
 import com.github.liamvii.penandpaper.database.Database;
 import com.github.liamvii.penandpaper.player.PlayerId;
+import com.github.liamvii.penandpaper.race.PenRaceService;
+import com.github.liamvii.penandpaper.race.Race;
 import com.github.liamvii.penandpaper.utils.ItemStackUtils;
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
@@ -160,7 +162,7 @@ public final class CharacterTable implements Table {
                         character.getAge(),
                         character.getExperience(),
                         character.getExhaustion(),
-                        character.getRace(),
+                        character.getRace() == null ? null : character.getRace().getName(),
                         serializedHelmet,
                         serializedChestplate,
                         serializedLeggings,
@@ -245,7 +247,7 @@ public final class CharacterTable implements Table {
                 .set(CHARACTER.AGE, character.getAge())
                 .set(CHARACTER.EXPERIENCE, character.getExperience())
                 .set(CHARACTER.EXHAUSTION, character.getExhaustion())
-                .set(CHARACTER.RACE, character.getRace())
+                .set(CHARACTER.RACE, character.getRace() == null ? null : character.getRace().getName())
                 .set(CHARACTER.HELMET, serializedHelmet)
                 .set(CHARACTER.CHESTPLATE, serializedChestplate)
                 .set(CHARACTER.LEGGINGS, serializedLeggings)
@@ -369,6 +371,9 @@ public final class CharacterTable implements Table {
                 plugin.getLogger().log(SEVERE, "Failed to deserialize inventory contents", exception);
             }
         }
+        PenRaceService raceService = plugin.getServices().get(PenRaceService.class);
+        String raceName = result.get(CHARACTER.RACE);
+        Race race = raceName == null ? null : raceService.getRace(raceName);
         PenCharacter character = new PenCharacter(
                 plugin,
                 id,
@@ -387,7 +392,7 @@ public final class CharacterTable implements Table {
                 database.getTable(CharacterAbilityScoreChoiceTable.class).get(id),
                 firstClass,
                 classes,
-                result.get(CHARACTER.RACE),
+                race,
                 helmet,
                 chestplate,
                 leggings,

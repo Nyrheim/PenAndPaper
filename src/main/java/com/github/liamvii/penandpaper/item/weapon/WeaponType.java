@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.github.liamvii.penandpaper.damage.DamageType.*;
-import static com.github.liamvii.penandpaper.distance.DistanceUnit.FT;
+import static com.github.liamvii.penandpaper.distance.DistanceUnit.FEET;
 import static com.github.liamvii.penandpaper.item.weapon.WeaponCategory.*;
 import static com.github.liamvii.penandpaper.money.Currency.*;
 import static com.github.liamvii.penandpaper.weight.WeightUnit.LB;
@@ -43,8 +43,8 @@ public enum WeaponType {
             new WeaponProperty.Light(),
             new WeaponProperty.Thrown(),
             new WeaponProperty.Range(
-                    new Distance(20, FT),
-                    new Distance(60, FT)
+                    new Distance(20, FEET),
+                    new Distance(60, FEET)
             )
     ),
     GREATCLUB(
@@ -70,8 +70,8 @@ public enum WeaponType {
             new WeaponProperty.Light(),
             new WeaponProperty.Thrown(),
             new WeaponProperty.Range(
-                    new Distance(20, FT),
-                    new Distance(60, FT)
+                    new Distance(20, FEET),
+                    new Distance(60, FEET)
             )
     ),
     JAVELIN(
@@ -85,8 +85,8 @@ public enum WeaponType {
             new Weight(2, LB),
             new WeaponProperty.Thrown(),
             new WeaponProperty.Range(
-                    new Distance(30, FT),
-                    new Distance(120, FT)
+                    new Distance(30, FEET),
+                    new Distance(120, FEET)
             )
     ),
     LIGHT_HAMMER(
@@ -101,8 +101,8 @@ public enum WeaponType {
             new WeaponProperty.Light(),
             new WeaponProperty.Thrown(),
             new WeaponProperty.Range(
-                    new Distance(20, FT),
-                    new Distance(60, FT)
+                    new Distance(20, FEET),
+                    new Distance(60, FEET)
             )
     ),
     MACE(
@@ -148,8 +148,8 @@ public enum WeaponType {
             new Weight(3, LB),
             new WeaponProperty.Thrown(),
             new WeaponProperty.Range(
-                    new Distance(20, FT),
-                    new Distance(60, FT)
+                    new Distance(20, FEET),
+                    new Distance(60, FEET)
             ),
             new WeaponProperty.Versatile(new Roll(new Die(1, 8)))
     ),
@@ -164,8 +164,8 @@ public enum WeaponType {
             new Weight(5, LB),
             new WeaponProperty.Ammunition(),
             new WeaponProperty.Range(
-                    new Distance(80, FT),
-                    new Distance(320, FT)
+                    new Distance(80, FEET),
+                    new Distance(320, FEET)
             ),
             new WeaponProperty.Loading(),
             new WeaponProperty.TwoHanded()
@@ -182,8 +182,8 @@ public enum WeaponType {
             new WeaponProperty.Finesse(),
             new WeaponProperty.Thrown(),
             new WeaponProperty.Range(
-                    new Distance(20, FT),
-                    new Distance(60, FT)
+                    new Distance(20, FEET),
+                    new Distance(60, FEET)
             )
     ),
     SHORTBOW(
@@ -197,8 +197,8 @@ public enum WeaponType {
             new Weight(2, LB),
             new WeaponProperty.Ammunition(),
             new WeaponProperty.Range(
-                    new Distance(80, FT),
-                    new Distance(320, FT)
+                    new Distance(80, FEET),
+                    new Distance(320, FEET)
             ),
             new WeaponProperty.TwoHanded()
     ),
@@ -213,8 +213,8 @@ public enum WeaponType {
             new Weight(0, LB),
             new WeaponProperty.Ammunition(),
             new WeaponProperty.Range(
-                    new Distance(30, FT),
-                    new Distance(120, FT)
+                    new Distance(30, FEET),
+                    new Distance(120, FEET)
             )
     ),
     BATTLEAXE(
@@ -393,8 +393,8 @@ public enum WeaponType {
             new Weight(4, LB),
             new WeaponProperty.Thrown(),
             new WeaponProperty.Range(
-                    new Distance(20, FT),
-                    new Distance(60, FT)
+                    new Distance(20, FEET),
+                    new Distance(60, FEET)
             ),
             new WeaponProperty.Versatile(new Roll(new Die(1, 8)))
     ),
@@ -442,8 +442,8 @@ public enum WeaponType {
             new Weight(1, LB),
             new WeaponProperty.Ammunition(),
             new WeaponProperty.Range(
-                    new Distance(25, FT),
-                    new Distance(100, FT)
+                    new Distance(25, FEET),
+                    new Distance(100, FEET)
             ),
             new WeaponProperty.Loading()
     ),
@@ -458,8 +458,8 @@ public enum WeaponType {
             new Weight(3, LB),
             new WeaponProperty.Ammunition(),
             new WeaponProperty.Range(
-                    new Distance(30, FT),
-                    new Distance(120, FT)
+                    new Distance(30, FEET),
+                    new Distance(120, FEET)
             ),
             new WeaponProperty.Light(),
             new WeaponProperty.Loading()
@@ -475,8 +475,8 @@ public enum WeaponType {
             new Weight(18, LB),
             new WeaponProperty.Ammunition(),
             new WeaponProperty.Range(
-                    new Distance(100, FT),
-                    new Distance(400, FT)
+                    new Distance(100, FEET),
+                    new Distance(400, FEET)
             ),
             new WeaponProperty.Heavy(),
             new WeaponProperty.Loading(),
@@ -493,8 +493,8 @@ public enum WeaponType {
             new Weight(2, LB),
             new WeaponProperty.Ammunition(),
             new WeaponProperty.Range(
-                    new Distance(150, FT),
-                    new Distance(600, FT)
+                    new Distance(150, FEET),
+                    new Distance(600, FEET)
             ),
             new WeaponProperty.Heavy(),
             new WeaponProperty.TwoHanded()

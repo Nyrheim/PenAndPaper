@@ -18,6 +18,7 @@ public final class CharacterSetCommand implements CommandExecutor {
     private final CharacterSetWeightCommand characterSetWeightCommand;
     private final CharacterSetAppearanceCommand characterSetAppearanceCommand;
     private final CharacterSetPresenceCommand characterSetPresenceCommand;
+    private final CharacterSetRaceCommand characterSetRaceCommand;
 
     public CharacterSetCommand(Pen plugin) {
         this.characterSetFirstNameCommand = new CharacterSetFirstNameCommand(plugin);
@@ -27,6 +28,7 @@ public final class CharacterSetCommand implements CommandExecutor {
         this.characterSetWeightCommand = new CharacterSetWeightCommand(plugin);
         this.characterSetAppearanceCommand = new CharacterSetAppearanceCommand(plugin);
         this.characterSetPresenceCommand = new CharacterSetPresenceCommand(plugin);
+        this.characterSetRaceCommand = new CharacterSetRaceCommand(plugin);
     }
 
     @Override
@@ -77,6 +79,13 @@ public final class CharacterSetCommand implements CommandExecutor {
                     );
                 case "presence":
                     return characterSetPresenceCommand.onCommand(
+                            sender,
+                            command,
+                            label,
+                            Arrays.stream(args).skip(1).toArray(String[]::new)
+                    );
+                case "race":
+                    return characterSetRaceCommand.onCommand(
                             sender,
                             command,
                             label,

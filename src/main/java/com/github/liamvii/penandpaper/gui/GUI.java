@@ -3,12 +3,13 @@ package com.github.liamvii.penandpaper.gui;
 import com.github.liamvii.penandpaper.clazz.PenClass;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 import static com.github.liamvii.penandpaper.clazz.PenClass.*;
 import static org.bukkit.ChatColor.WHITE;
 import static org.bukkit.Material.*;
+import static org.bukkit.inventory.ItemFlag.HIDE_ATTRIBUTES;
 
 public abstract class GUI implements InventoryHolder {
 
@@ -67,13 +69,32 @@ public abstract class GUI implements InventoryHolder {
     public abstract void onClick(Player player, int slot);
 
     protected ItemStack createGuiItem(Material material, String name, String... lore) {
-        ItemStack item = new ItemStack(material, 1);
-        ItemMeta meta = item.getItemMeta();
-        if (meta != null) {
+        return createGuiItem(material, (meta) -> {
             meta.setDisplayName(WHITE + name);
             List<String> metaLore = Arrays.asList(lore);
             meta.setLore(metaLore);
-            meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+            return meta;
+        });
+    }
+
+    protected ItemStack stealFaceForGuiItem(OfflinePlayer faceToSteal, String name, String... lore) {
+        return createGuiItem(PLAYER_HEAD, (meta) -> {
+            meta.setDisplayName(name);
+            meta.setLore(Arrays.asList(lore));
+            if (meta instanceof SkullMeta) {
+                SkullMeta skullMeta = (SkullMeta) meta;
+                skullMeta.setOwningPlayer(faceToSteal);
+            }
+            return meta;
+        });
+    }
+
+    protected ItemStack createGuiItem(Material material, ItemMetaInitializer initializer) {
+        ItemStack item = new ItemStack(material);
+        ItemMeta meta = item.getItemMeta();
+        if (meta != null) {
+            meta = initializer.invoke(meta);
+            meta.addItemFlags(HIDE_ATTRIBUTES);
         }
         item.setItemMeta(meta);
         return item;
