@@ -114,3 +114,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Private build properties
+github.properties
