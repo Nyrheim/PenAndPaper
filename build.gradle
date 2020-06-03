@@ -1,10 +1,11 @@
 plugins {
     id "java"
     id "com.github.johnrengelman.shadow" version "5.2.0"
+    id "maven-publish"
 }
 
 group = "com.github.liamvii.penandpaper"
-version = "0.1.0-SNAPSHOT"
+version = "0.1.0"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -103,3 +104,30 @@ shadowJar {
 
 tasks.build.dependsOn tasks.shadowJar
 
+def githubUsername = ""
+def githubToken = ""
+def githubPropertiesFile = new File(project.projectDir, "github.properties")
+if (githubPropertiesFile.exists()) {
+    def githubProperties = new Properties()
+    githubProperties.load(new FileInputStream(githubPropertiesFile))
+    githubUsername = githubProperties.get("github-username")
+    githubToken = githubProperties.get("github-token")
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/Nyrheim/PnP")
+            credentials {
+                username = githubUsername
+                password = githubToken
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
