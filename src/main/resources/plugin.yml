@@ -1,7 +1,9 @@
-name: PenandPaper
+name: PenAndPaper
 version: @version@
-author: LiamVI
-main: com.github.liamvii.penandpaper.Pen
+authors:
+- LiamVI
+- alyphen
+main: net.nyrheim.penandpaper.PenAndPaper
 api-version: 1.13
 depend:
 - rpk-core-bukkit

@@ -4,7 +4,7 @@ plugins {
     id "maven-publish"
 }
 
-group = "com.github.liamvii.penandpaper"
+group = "net.nyrheim"
 version = "0.2.0-SNAPSHOT"
 
 sourceCompatibility = 1.8
@@ -118,7 +118,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/Nyrheim/PnP")
+            url = uri("https://maven.pkg.github.com/Nyrheim/PenAndPaper")
             credentials {
                 username = githubUsername
                 password = githubToken
