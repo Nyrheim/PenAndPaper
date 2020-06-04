@@ -1,7 +1,6 @@
 package net.nyrheim.penandpaper.database;
 
 import net.nyrheim.penandpaper.PenAndPaper;
-import com.github.liamvii.penandpaper.database.table.*;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import net.nyrheim.penandpaper.database.table.*;

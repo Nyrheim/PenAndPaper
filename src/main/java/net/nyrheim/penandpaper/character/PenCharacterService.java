@@ -1,7 +1,6 @@
 package net.nyrheim.penandpaper.character;
 
 import net.nyrheim.penandpaper.PenAndPaper;
-import com.github.liamvii.penandpaper.database.table.*;
 import net.nyrheim.penandpaper.database.table.*;
 import net.nyrheim.penandpaper.player.PenPlayer;
 import net.nyrheim.penandpaper.player.PlayerId;
