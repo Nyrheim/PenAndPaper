@@ -109,8 +109,12 @@ public final class Roll {
 
     @Override
     public String toString() {
-        return parts.stream()
+        String roll = parts.stream()
                 .map(RollPart::toString)
                 .reduce("", (a, b) -> a + b);
+        if (roll.startsWith("+"))
+            return roll.substring(1);
+        else
+            return roll;
     }
 }

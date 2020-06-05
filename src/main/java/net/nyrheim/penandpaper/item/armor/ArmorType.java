@@ -1,16 +1,26 @@
 package net.nyrheim.penandpaper.item.armor;
 
+import net.nyrheim.penandpaper.ability.Ability;
 import net.nyrheim.penandpaper.ability.StrengthRequirement;
 import net.nyrheim.penandpaper.armorclass.ArmorClassCalculation;
+import net.nyrheim.penandpaper.item.ItemStackInitializer;
+import net.nyrheim.penandpaper.item.ItemType;
+import net.nyrheim.penandpaper.money.Currency;
 import net.nyrheim.penandpaper.money.Money;
 import net.nyrheim.penandpaper.weight.Weight;
-import net.nyrheim.penandpaper.ability.Ability;
-import net.nyrheim.penandpaper.money.Currency;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static net.nyrheim.penandpaper.item.armor.ArmorCategory.*;
 import static net.nyrheim.penandpaper.weight.WeightUnit.LB;
+import static org.bukkit.ChatColor.WHITE;
+import static org.bukkit.Material.*;
 
-public enum ArmorType {
+public enum ArmorType implements ItemType {
 
     PADDED(
             "Padded",
@@ -23,7 +33,8 @@ public enum ArmorType {
             null,
             true,
             new Weight(8, LB),
-            false
+            false,
+            LEATHER_CHESTPLATE
     ),
     LEATHER(
             "Leather",
@@ -36,7 +47,8 @@ public enum ArmorType {
             null,
             false,
             new Weight(10, LB),
-            false
+            false,
+            LEATHER_CHESTPLATE
     ),
     STUDDED_LEATHER(
             "Studded leather",
@@ -49,7 +61,8 @@ public enum ArmorType {
             null,
             false,
             new Weight(13, LB),
-            false
+            false,
+            LEATHER_CHESTPLATE
     ),
     HIDE(
             "Hide",
@@ -62,7 +75,8 @@ public enum ArmorType {
             null,
             false,
             new Weight(12, LB),
-            false
+            false,
+            LEATHER_CHESTPLATE
     ),
     CHAIN_SHIRT(
             "Chain shirt",
@@ -75,7 +89,8 @@ public enum ArmorType {
             null,
             false,
             new Weight(20, LB),
-            true
+            true,
+            CHAINMAIL_CHESTPLATE
     ),
     SCALE_MAIL(
             "Scale mail",
@@ -88,7 +103,8 @@ public enum ArmorType {
             null,
             true,
             new Weight(45, LB),
-            true
+            true,
+            IRON_CHESTPLATE
     ),
     BREASTPLATE(
             "Breastplate",
@@ -101,7 +117,8 @@ public enum ArmorType {
             null,
             false,
             new Weight(20, LB),
-            true
+            true,
+            IRON_CHESTPLATE
     ),
     HALF_PLATE(
             "Half plate",
@@ -114,7 +131,8 @@ public enum ArmorType {
             null,
             true,
             new Weight(40, LB),
-            true
+            true,
+            IRON_CHESTPLATE
     ),
     RING_MAIL(
             "Ring mail",
@@ -126,7 +144,8 @@ public enum ArmorType {
             null,
             true,
             new Weight(40, LB),
-            false
+            false,
+            CHAINMAIL_CHESTPLATE
     ),
     CHAIN_MAIL(
             "Chain mail",
@@ -138,7 +157,8 @@ public enum ArmorType {
             new StrengthRequirement(13),
             true,
             new Weight(55, LB),
-            true
+            true,
+            CHAINMAIL_CHESTPLATE
     ),
     SPLINT(
             "Splint",
@@ -150,7 +170,8 @@ public enum ArmorType {
             new StrengthRequirement(15),
             true,
             new Weight(60, LB),
-            true
+            true,
+            CHAINMAIL_CHESTPLATE
     ),
     PLATE(
             "Plate",
@@ -162,7 +183,8 @@ public enum ArmorType {
             new StrengthRequirement(15),
             true,
             new Weight(65, LB),
-            true
+            true,
+            IRON_CHESTPLATE
     ),
     SHIELD(
             "Shield",
@@ -174,7 +196,8 @@ public enum ArmorType {
             null,
             false,
             new Weight(6, LB),
-            false
+            false,
+            Material.SHIELD
     );
 
     private final String name;
@@ -185,6 +208,7 @@ public enum ArmorType {
     private final boolean disadvantageToStealthChecks;
     private final Weight weight;
     private final boolean isMetal;
+    private final ItemStackInitializer itemStackInitializer;
 
     ArmorType(
             String name,
@@ -194,7 +218,8 @@ public enum ArmorType {
             StrengthRequirement strengthRequirement,
             boolean disadvantageToStealthChecks,
             Weight weight,
-            boolean isMetal
+            boolean isMetal,
+            ItemStackInitializer itemStackInitializer
     ) {
         this.name = name;
         this.category = category;
@@ -204,8 +229,32 @@ public enum ArmorType {
         this.disadvantageToStealthChecks = disadvantageToStealthChecks;
         this.weight = weight;
         this.isMetal = isMetal;
+        this.itemStackInitializer = itemStackInitializer;
     }
 
+    ArmorType(String name,
+              ArmorCategory category,
+              Money cost,
+              ArmorClassCalculation armorClass,
+              StrengthRequirement strengthRequirement,
+              boolean disadvantageToStealthChecks,
+              Weight weight,
+              boolean isMetal,
+              Material minecraftType) {
+        this(
+                name,
+                category,
+                cost,
+                armorClass,
+                strengthRequirement,
+                disadvantageToStealthChecks,
+                weight,
+                isMetal,
+                (amount) -> new ItemStack(minecraftType, amount)
+        );
+    }
+
+    @Override
     public String getName() {
         return name;
     }
@@ -214,6 +263,7 @@ public enum ArmorType {
         return category;
     }
 
+    @Override
     public Money getCost() {
         return cost;
     }
@@ -230,12 +280,38 @@ public enum ArmorType {
         return disadvantageToStealthChecks;
     }
 
+    @Override
     public Weight getWeight() {
         return weight;
     }
 
     public boolean isMetal() {
         return isMetal;
+    }
+
+    @Override
+    public ItemStack createItemStack(int amount) {
+        return itemStackInitializer.invoke(amount);
+    }
+
+    @Override
+    public List<String> createLore() {
+        List<String> lore = new ArrayList<>();
+        lore.add(WHITE + "Weight: " + getWeight().toString());
+        lore.add(WHITE + "Category: " + getCategory().getName());
+        if (getStrengthRequirement() != null) {
+            lore.add(WHITE + "Strength requirement: " + getStrengthRequirement().toString());
+        }
+        lore.add(WHITE + "Disadvantage to stealth checks: " + (isDisadvantageToStealthChecks() ? "Yes" : "No"));
+        lore.add(WHITE + "Is metal: " + (isMetal() ? "Yes" : "No"));
+        return lore;
+    }
+
+    public static ArmorType getByName(String name) {
+        return Arrays.stream(ArmorType.values())
+                .filter(type -> type.getName().equals(name))
+                .findFirst()
+                .orElse(null);
     }
 
 }

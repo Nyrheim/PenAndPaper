@@ -1,13 +1,20 @@
 package net.nyrheim.penandpaper;
 
+import com.rpkit.core.bukkit.event.provider.RPKBukkitServiceProviderReadyEvent;
+import com.rpkit.core.bukkit.plugin.RPKBukkitPlugin;
+import com.rpkit.core.exception.UnregisteredServiceException;
+import com.rpkit.core.service.ServiceProvider;
+import com.rpkit.languages.bukkit.language.RPKLanguageProvider;
 import net.nyrheim.penandpaper.character.PenCharacterService;
 import net.nyrheim.penandpaper.commands.ability.AbilityCommand;
 import net.nyrheim.penandpaper.commands.character.CharacterCommand;
 import net.nyrheim.penandpaper.commands.clazz.ClassCommand;
 import net.nyrheim.penandpaper.commands.exp.ExperienceCommand;
+import net.nyrheim.penandpaper.commands.item.ItemCommand;
 import net.nyrheim.penandpaper.commands.levelup.LevelUpCommand;
 import net.nyrheim.penandpaper.commands.soul.SoulCommand;
 import net.nyrheim.penandpaper.database.Database;
+import net.nyrheim.penandpaper.item.PenRecipeService;
 import net.nyrheim.penandpaper.listener.InventoryClickListener;
 import net.nyrheim.penandpaper.listener.PlayerListener;
 import net.nyrheim.penandpaper.player.PenPlayerService;
@@ -23,11 +30,6 @@ import net.nyrheim.penandpaper.rpkit.profile.PenRPKProfileProvider;
 import net.nyrheim.penandpaper.rpkit.race.PenRPKRaceProvider;
 import net.nyrheim.penandpaper.rpkit.stat.PenRPKStatProvider;
 import net.nyrheim.penandpaper.service.Services;
-import com.rpkit.core.bukkit.event.provider.RPKBukkitServiceProviderReadyEvent;
-import com.rpkit.core.bukkit.plugin.RPKBukkitPlugin;
-import com.rpkit.core.exception.UnregisteredServiceException;
-import com.rpkit.core.service.ServiceProvider;
-import com.rpkit.languages.bukkit.language.RPKLanguageProvider;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -69,6 +71,7 @@ public class PenAndPaper extends RPKBukkitPlugin implements Listener {
         services.register(PenPlayerService.class, new PenPlayerService(this));
         services.register(PenCharacterService.class, new PenCharacterService(this));
         services.register(PenRaceService.class, new PenRaceService(this));
+        services.register(PenRecipeService.class, new PenRecipeService(this));
 
         setServiceProviders(new ServiceProvider[] {
                 new PenRPKCharacterProvider(this),
@@ -123,6 +126,7 @@ public class PenAndPaper extends RPKBukkitPlugin implements Listener {
         getCommand("levelup").setExecutor(new LevelUpCommand(this));
         getCommand("ability").setExecutor(new AbilityCommand(this));
         getCommand("class").setExecutor(new ClassCommand(this));
+        getCommand("item").setExecutor(new ItemCommand());
     }
 
     public Database getDatabase() {

@@ -58,6 +58,11 @@ commands:
       Class management commands
       /class approve [player] [class] - Approves a player's attempt to multiclass into the given class
     usage: /<command>
+  item:
+    description: Gives you an item
+    usage: /<command> [type] (amount)
+    aliases:
+    - i
 permissions:
   penandpaper.command.exp.add:
     description: Allows adding experience to characters
@@ -98,6 +103,9 @@ permissions:
   penandpaper.command.character.stats.other:
     description: Allows viewing stats of other players'' characters
     default: op
+  penandpaper.command.item:
+    description: Allows giving yourself items
+    default: op
   penandpaper.admin:
     description: Allows all admin functionality
     default: op
@@ -115,3 +123,4 @@ permissions:
     - penandpaper.multiclassapproval
     - penandpaper.command.class.approve
     - penandpaper.command.character.stats.other
+    - penandpaper.command.item

@@ -23,7 +23,11 @@ public final class Weight implements Comparable<Weight> {
     }
 
     public Weight to(WeightUnit unit) {
-        return new Weight((int) round((getValue() / getUnit().getScaleFactor()) * unit.getScaleFactor()), unit);
+        return new Weight((getValue() / getUnit().getScaleFactor()) * unit.getScaleFactor(), unit);
+    }
+
+    public Weight multiply(int amount) {
+        return new Weight(getValue() * amount, getUnit());
     }
 
     @Override
@@ -31,4 +35,12 @@ public final class Weight implements Comparable<Weight> {
         return (int) round((getValue() / getUnit().getScaleFactor()) - (weight.getValue() / weight.getUnit().getScaleFactor()));
     }
 
+    @Override
+    public String toString() {
+        if (getValue() == (long) getValue()) {
+            return String.format("%.0f%s", getValue(), getUnit().getName());
+        } else {
+            return String.format("%s%s", getValue(), getUnit().getName());
+        }
+    }
 }
