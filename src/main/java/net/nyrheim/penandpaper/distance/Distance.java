@@ -23,11 +23,16 @@ public final class Distance implements Comparable<Distance> {
     }
 
     public Distance to(DistanceUnit unit) {
-        return new Distance((int) round((getValue() / getUnit().getScaleFactor()) * unit.getScaleFactor()), unit);
+        return new Distance((getValue() / getUnit().getScaleFactor()) * unit.getScaleFactor(), unit);
     }
 
     @Override
     public int compareTo(@NotNull Distance distance) {
         return (int) round((getValue() / getUnit().getScaleFactor()) - (distance.getValue() / distance.getUnit().getScaleFactor()));
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%.2f%s", getValue(), getUnit().getName());
     }
 }

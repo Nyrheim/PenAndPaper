@@ -18,4 +18,8 @@ public class AbilityRequirement {
         return minimum;
     }
 
+    @Override
+    public String toString() {
+        return ">" + getMinimum() + " " + getAbility().getName();
+    }
 }
