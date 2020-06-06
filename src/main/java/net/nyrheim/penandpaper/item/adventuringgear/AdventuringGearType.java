@@ -212,7 +212,7 @@ public enum AdventuringGearType implements ItemType {
             "Chain (10 feet)",
             new Money(5, GP),
             new Weight(10, LB),
-            STRING
+            Material.STRING
     ),
     CHALK(
             "Chalk (1 piece)",
@@ -230,7 +230,7 @@ public enum AdventuringGearType implements ItemType {
             "Climber's kit",
             new Money(25, GP),
             new Weight(12, LB),
-            STRING
+            Material.STRING
     ),
     COMMON_CLOTHES(
             "Clothes, common",
@@ -432,25 +432,25 @@ public enum AdventuringGearType implements ItemType {
             "Lock",
             new Money(1, GP),
             new Weight(1, LB),
-            IRON_INGOT
+            Material.IRON_INGOT
     ),
     MAGNIFYING_GLASS(
             "Magnifying glass",
             new Money(100, GP),
             new Weight(0, LB),
-            IRON_INGOT
+            Material.IRON_INGOT
     ),
     MANACLES(
             "Manacles",
             new Money(2, GP),
             new Weight(6, LB),
-            IRON_INGOT
+            Material.IRON_INGOT
     ),
     MESS_KIT(
             "Mess kit",
             new Money(2, SP),
             new Weight(1, LB),
-            IRON_INGOT
+            Material.IRON_INGOT
     ),
     STEEL_MIRROR(
             "Mirror, steel",
@@ -574,13 +574,13 @@ public enum AdventuringGearType implements ItemType {
             "Rope, hempen (50 feet)",
             new Money(1, GP),
             new Weight(10, LB),
-            STRING
+            Material.STRING
     ),
     SILK_ROPE(
             "Rope, silk (50 feet)",
             new Money(10, GP),
             new Weight(5, LB),
-            STRING
+            Material.STRING
     ),
     SACK(
             "Sack",
@@ -610,7 +610,7 @@ public enum AdventuringGearType implements ItemType {
             "Signal whistle",
             new Money(5, CP),
             new Weight(0, LB),
-            IRON_INGOT
+            Material.IRON_INGOT
     ),
     SIGNET_RING(
             "Signet ring",
@@ -634,13 +634,13 @@ public enum AdventuringGearType implements ItemType {
             "Spike, iron",
             new Money(1, SP),
             new Weight(0.5, LB),
-            IRON_INGOT
+            Material.IRON_INGOT
     ),
     SPYGLASS(
             "Spyglass",
             new Money(1000, GP),
             new Weight(1, LB),
-            IRON_INGOT
+            Material.IRON_INGOT
     ),
     TENT(
             "Tent, two-person",
@@ -689,28 +689,28 @@ public enum AdventuringGearType implements ItemType {
             "Blade",
             new Money(0, CP),
             new Weight(0, LB),
-            IRON_INGOT
+            Material.IRON_INGOT
     ),
     SPEARHEAD(
             "Spearhead",
             new Money(0, CP),
             new Weight(0, LB),
-            IRON_INGOT
+            Material.IRON_INGOT
     ),
     AXEHEAD(
             "Axehead",
             new Money(0, CP),
             new Weight(0, LB),
-            IRON_INGOT
+            Material.IRON_INGOT
     ),
     HAMMER_HEAD(
             "Hammer head",
             new Money(0, CP),
             new Weight(0, LB),
-            IRON_INGOT
+            Material.IRON_INGOT
     ),
     CBOW_MECHANISM(
-            "CBow Mechanism",
+            "CBow mechanism",
             new Money(0, CP),
             new Weight(0, LB),
             FLINT_AND_STEEL
@@ -719,7 +719,7 @@ public enum AdventuringGearType implements ItemType {
             "Pommel",
             new Money(0, CP),
             new Weight(0, LB),
-            IRON_INGOT
+            Material.IRON_INGOT
     ),
     ARROW_HEAD(
             "Arrow head",
@@ -740,7 +740,7 @@ public enum AdventuringGearType implements ItemType {
             LEVER
     ),
     ARROW_BODY(
-            "Arrow Body",
+            "Arrow body",
             new Money(0, CP),
             new Weight(0, LB),
             STICK
@@ -788,10 +788,52 @@ public enum AdventuringGearType implements ItemType {
             BRICK
     ),
     FISHING_ROD(
-            "Fishing Rod",
+            "Fishing rod",
             new Money(0, CP),
             new Weight(0, LB),
             Material.FISHING_ROD
+    ),
+    STRING(
+            "String",
+            new Money(0, CP),
+            new Weight(0, LB),
+            Material.STRING
+    ),
+    IRON_INGOT(
+            "Iron ingot",
+            new Money(0, CP),
+            new Weight(0, LB),
+            Material.IRON_INGOT
+    ),
+    LUMBER(
+            "Lumber",
+            new Money(0, CP),
+            new Weight(0, LB),
+            OAK_LOG
+    ),
+    LEATHER_STRAP(
+            "Leather strap",
+            new Money(0, CP),
+            new Weight(0, LB),
+            LEATHER
+    ),
+    LONGERBOW(
+            "Longerbow",
+            new Money(0, CP),
+            new Weight(0, LB),
+            BOW
+    ),
+    GLUE(
+            "Glue",
+            new Money(0, CP),
+            new Weight(0, LB),
+            SLIME_BALL
+    ),
+    GLASS(
+            "Glass",
+            new Money(0, CP),
+            new Weight(0, LB),
+            Material.GLASS
     ),
     SMITHS_TOOLS(
             "Smith's Tools",
