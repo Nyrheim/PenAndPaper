@@ -33,6 +33,10 @@ public final class Distance implements Comparable<Distance> {
 
     @Override
     public String toString() {
-        return String.format("%.2f%s", getValue(), getUnit().getName());
+        if (getValue() == (long) getValue()) {
+            return String.format("%.0f%s", getValue(), getUnit().getName());
+        } else {
+            return String.format("%s%s", getValue(), getUnit().getName());
+        }
     }
 }
