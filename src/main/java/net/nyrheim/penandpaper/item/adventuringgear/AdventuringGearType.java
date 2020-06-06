@@ -28,6 +28,7 @@ import static org.bukkit.potion.PotionEffectType.POISON;
 
 public enum AdventuringGearType implements ItemType {
 
+    // 5e Player's Handbook Items
     ABACUS(
             "Abacus",
             new Money(2, GP),
@@ -295,7 +296,7 @@ public enum AdventuringGearType implements ItemType {
             "Fishing tackle",
             new Money(1, GP),
             new Weight(4, LB),
-            FISHING_ROD
+            Material.FISHING_ROD
     ),
     FLASK_OR_TANKARD(
             "Flask or tankard",
@@ -676,6 +677,199 @@ public enum AdventuringGearType implements ItemType {
             new Money(1, CP),
             new Weight(1, LB),
             STONE_BUTTON
+    ),
+    // Crafting components
+    GUARD(
+            "Guard",
+            new Money(0, CP),
+            new Weight(0, LB),
+            STICK
+    ),
+    BLADE(
+            "Blade",
+            new Money(0, CP),
+            new Weight(0, LB),
+            IRON_INGOT
+    ),
+    SPEARHEAD(
+            "Spearhead",
+            new Money(0, CP),
+            new Weight(0, LB),
+            IRON_INGOT
+    ),
+    AXEHEAD(
+            "Axehead",
+            new Money(0, CP),
+            new Weight(0, LB),
+            IRON_INGOT
+    ),
+    HAMMER_HEAD(
+            "Hammer head",
+            new Money(0, CP),
+            new Weight(0, LB),
+            IRON_INGOT
+    ),
+    CBOW_MECHANISM(
+            "CBow Mechanism",
+            new Money(0, CP),
+            new Weight(0, LB),
+            FLINT_AND_STEEL
+    ),
+    POMMEL(
+            "Pommel",
+            new Money(0, CP),
+            new Weight(0, LB),
+            IRON_INGOT
+    ),
+    ARROW_HEAD(
+            "Arrow head",
+            new Money(0, CP),
+            new Weight(0, LB),
+            FLINT
+    ),
+    NAILS(
+            "Nails",
+            new Money(0, CP),
+            new Weight(0, LB),
+            IRON_NUGGET
+    ),
+    HANDLE(
+            "Handle",
+            new Money(0, CP),
+            new Weight(0, LB),
+            LEVER
+    ),
+    ARROW_BODY(
+            "Arrow Body",
+            new Money(0, CP),
+            new Weight(0, LB),
+            STICK
+    ),
+    BEAM(
+            "\u0062\u00e9\u00e2\u006d",
+            new Money(0, CP),
+            new Weight(0, LB),
+            STICK
+    ),
+    STORAGE(
+            "Storage",
+            new Money(0, CP),
+            new Weight(0, LB),
+            Material.CHEST
+    ),
+    DOOR(
+            "Door",
+            new Money(0, CP),
+            new Weight(0, LB),
+            OAK_DOOR
+    ),
+    SMALL_FURNITURE(
+            "Furniture, small",
+            new Money(0, CP),
+            new Weight(0, LB),
+            JUNGLE_STAIRS
+    ),
+    MEDIUM_FURNITURE(
+            "Furniture, medium",
+            new Money(0, CP),
+            new Weight(0, LB),
+            SPRUCE_STAIRS
+    ),
+    LARGE_FURNITURE(
+            "Furniture, large",
+            new Money(0, CP),
+            new Weight(0, LB),
+            BIRCH_STAIRS
+    ),
+    TRINKET(
+            "Trinket",
+            new Money(0, CP),
+            new Weight(0, LB),
+            BRICK
+    ),
+    FISHING_ROD(
+            "Fishing Rod",
+            new Money(0, CP),
+            new Weight(0, LB),
+            Material.FISHING_ROD
+    ),
+    SMITHS_TOOLS(
+            "Smith's Tools",
+            new Money(0, CP),
+            new Weight(10, LB),
+            ANVIL
+    ),
+    CARPENTERS_TOOLS(
+            "Carpenter's Tools",
+            new Money(0, CP),
+            new Weight(10, LB),
+            CRAFTING_TABLE
+    ),
+    ARCHITECTS_TOOLS(
+            "Architect's Tools",
+            new Money(0, CP),
+            new Weight(10, LB),
+            STONECUTTER
+    ),
+    LEATHERWORKERS_TOOLS(
+            "Leatherworker's Tools",
+            new Money(0, CP),
+            new Weight(10, LB),
+            STONE_SWORD
+    ),
+    MINERS_TOOLS(
+            "Miner's Tools",
+            new Money(0, CP),
+            new Weight(10, LB),
+            IRON_PICKAXE
+    ),
+    WOODCUTTERS_TOOLS(
+            "Woodcutter's Tools",
+            new Money(0, CP),
+            new Weight(10, LB),
+            IRON_AXE
+    ),
+    FARMERS_TOOLS(
+            "Farmer's Tools",
+            new Money(0, CP),
+            new Weight(10, LB),
+            IRON_HOE
+    ),
+    ALCHEMISTS_TOOLS(
+            "Alchemist's Tools",
+            new Money(0, CP),
+            new Weight(10, LB),
+            BREWING_STAND
+    ),
+    HERBALISTS_TOOLS(
+            "Herbalist's Tools",
+            new Money(0, CP),
+            new Weight(10, LB),
+            SHEARS
+    ),
+    HUNTERS_TOOLS(
+            "Hunter's Tools",
+            new Money(0, CP),
+            new Weight(10, LB),
+            BOW
+    ),
+    FISHERMANS_TOOLS(
+            "Fisherman's Tools",
+            new Money(0, CP),
+            new Weight(10, LB),
+            Material.FISHING_ROD
+    ),
+    SCAFFOLDING_KIT(
+            "Scaffolding Kit",
+            new Money(0, CP),
+            new Weight(10, LB),
+            SCAFFOLDING
+    ),
+    DIVING_TOOLS(
+            "Diving Tools",
+            new Money(0, CP),
+            new Weight(10, LB),
+            COD_BUCKET
     );
 
     private final String name;
