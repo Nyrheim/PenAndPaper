@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CharacterAbilityScoreRecord extends UpdatableRecordImpl<CharacterAbilityScoreRecord> implements Record3<Integer, String, Integer> {
 
-    private static final long serialVersionUID = -1734401761;
+    private static final long serialVersionUID = -1272846433;
 
     /**
      * Setter for <code>nyrheim.character_ability_score.character_id</code>.

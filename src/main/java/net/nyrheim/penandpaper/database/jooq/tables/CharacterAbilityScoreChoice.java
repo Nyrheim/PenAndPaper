@@ -4,15 +4,25 @@
 package net.nyrheim.penandpaper.database.jooq.tables;
 
 
+import java.util.Arrays;
+import java.util.List;
+
 import net.nyrheim.penandpaper.database.jooq.Keys;
 import net.nyrheim.penandpaper.database.jooq.Nyrheim;
 import net.nyrheim.penandpaper.database.jooq.tables.records.CharacterAbilityScoreChoiceRecord;
-import org.jooq.*;
+
+import org.jooq.Field;
+import org.jooq.ForeignKey;
+import org.jooq.Name;
+import org.jooq.Record;
+import org.jooq.Row3;
+import org.jooq.Schema;
+import org.jooq.Table;
+import org.jooq.TableField;
+import org.jooq.TableOptions;
+import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.TableImpl;
-
-import java.util.Arrays;
-import java.util.List;
 
 
 /**
@@ -21,7 +31,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CharacterAbilityScoreChoice extends TableImpl<CharacterAbilityScoreChoiceRecord> {
 
-    private static final long serialVersionUID = -1457990595;
+    private static final long serialVersionUID = -574362031;
 
     /**
      * The reference instance of <code>nyrheim.character_ability_score_choice</code>

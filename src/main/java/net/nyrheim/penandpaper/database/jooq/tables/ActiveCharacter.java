@@ -4,12 +4,12 @@
 package net.nyrheim.penandpaper.database.jooq.tables;
 
 
+import java.util.Arrays;
+import java.util.List;
+
 import net.nyrheim.penandpaper.database.jooq.Keys;
 import net.nyrheim.penandpaper.database.jooq.Nyrheim;
 import net.nyrheim.penandpaper.database.jooq.tables.records.ActiveCharacterRecord;
-
-import java.util.Arrays;
-import java.util.List;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ActiveCharacter extends TableImpl<ActiveCharacterRecord> {
 
-    private static final long serialVersionUID = 2093859213;
+    private static final long serialVersionUID = -2021953929;
 
     /**
      * The reference instance of <code>nyrheim.active_character</code>
