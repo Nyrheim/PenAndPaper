@@ -4,12 +4,12 @@
 package net.nyrheim.penandpaper.database.jooq.tables;
 
 
+import java.util.Arrays;
+import java.util.List;
+
 import net.nyrheim.penandpaper.database.jooq.Keys;
 import net.nyrheim.penandpaper.database.jooq.Nyrheim;
 import net.nyrheim.penandpaper.database.jooq.tables.records.CharacterTempAbilityScoreRecord;
-
-import java.util.Arrays;
-import java.util.List;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CharacterTempAbilityScore extends TableImpl<CharacterTempAbilityScoreRecord> {
 
-    private static final long serialVersionUID = -1401595273;
+    private static final long serialVersionUID = -1374569071;
 
     /**
      * The reference instance of <code>nyrheim.character_temp_ability_score</code>

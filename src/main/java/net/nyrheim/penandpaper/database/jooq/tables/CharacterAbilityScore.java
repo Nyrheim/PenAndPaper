@@ -4,12 +4,12 @@
 package net.nyrheim.penandpaper.database.jooq.tables;
 
 
+import java.util.Arrays;
+import java.util.List;
+
 import net.nyrheim.penandpaper.database.jooq.Keys;
 import net.nyrheim.penandpaper.database.jooq.Nyrheim;
 import net.nyrheim.penandpaper.database.jooq.tables.records.CharacterAbilityScoreRecord;
-
-import java.util.Arrays;
-import java.util.List;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CharacterAbilityScore extends TableImpl<CharacterAbilityScoreRecord> {
 
-    private static final long serialVersionUID = -424568615;
+    private static final long serialVersionUID = 1365035403;
 
     /**
      * The reference instance of <code>nyrheim.character_ability_score</code>

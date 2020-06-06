@@ -4,6 +4,9 @@
 package net.nyrheim.penandpaper.database.jooq;
 
 
+import java.util.Arrays;
+import java.util.List;
+
 import net.nyrheim.penandpaper.database.jooq.tables.ActiveCharacter;
 import net.nyrheim.penandpaper.database.jooq.tables.Character;
 import net.nyrheim.penandpaper.database.jooq.tables.CharacterAbilityScore;
@@ -11,9 +14,6 @@ import net.nyrheim.penandpaper.database.jooq.tables.CharacterAbilityScoreChoice;
 import net.nyrheim.penandpaper.database.jooq.tables.CharacterClass;
 import net.nyrheim.penandpaper.database.jooq.tables.CharacterTempAbilityScore;
 import net.nyrheim.penandpaper.database.jooq.tables.Player;
-
-import java.util.Arrays;
-import java.util.List;
 
 import org.jooq.Catalog;
 import org.jooq.Table;
@@ -26,7 +26,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Nyrheim extends SchemaImpl {
 
-    private static final long serialVersionUID = 1112699970;
+    private static final long serialVersionUID = -698806424;
 
     /**
      * The reference instance of <code>nyrheim</code>

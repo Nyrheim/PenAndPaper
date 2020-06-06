@@ -4,15 +4,25 @@
 package net.nyrheim.penandpaper.database.jooq.tables;
 
 
+import java.util.Arrays;
+import java.util.List;
+
 import net.nyrheim.penandpaper.database.jooq.Keys;
 import net.nyrheim.penandpaper.database.jooq.Nyrheim;
 import net.nyrheim.penandpaper.database.jooq.tables.records.CharacterRecord;
-import org.jooq.*;
+
+import org.jooq.Field;
+import org.jooq.ForeignKey;
+import org.jooq.Identity;
+import org.jooq.Name;
+import org.jooq.Record;
+import org.jooq.Schema;
+import org.jooq.Table;
+import org.jooq.TableField;
+import org.jooq.TableOptions;
+import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.TableImpl;
-
-import java.util.Arrays;
-import java.util.List;
 
 
 /**
@@ -21,7 +31,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Character extends TableImpl<CharacterRecord> {
 
-    private static final long serialVersionUID = -1678173583;
+    private static final long serialVersionUID = -625211441;
 
     /**
      * The reference instance of <code>nyrheim.character</code>
