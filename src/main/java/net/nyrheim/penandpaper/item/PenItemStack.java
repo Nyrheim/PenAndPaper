@@ -42,6 +42,8 @@ public final class PenItemStack {
     public static PenItemStack fromItemStack(ItemStack itemStack) {
         ItemMeta meta = itemStack.getItemMeta();
         if (meta != null) {
+            if (!meta.hasDisplayName()) return null;
+            if (meta.getDisplayName().length() < 2) return null;
             String displayName = meta.getDisplayName().substring(2);
             ItemType itemType = ItemType.getByName(displayName);
             return new PenItemStack(itemType, itemStack.getAmount());
