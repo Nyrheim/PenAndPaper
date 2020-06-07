@@ -74,6 +74,9 @@ commands:
     usage: /<command> [health]
     aliases:
     - ahp
+  sethp:
+    description: Sets your HP
+    usage: /<command> [health]
 permissions:
   penandpaper.command.exp.add:
     description: Allows adding experience to characters
@@ -117,6 +120,15 @@ permissions:
   penandpaper.command.item:
     description: Allows giving yourself items
     default: op
+  penandpaper.command.dhp.other:
+    description: Allows decreasing other player''s HP
+    default: op
+  penandpaper.command.ihp.other:
+    description: Allows increasing other player''s HP
+    default: op
+  penandpaper.command.sethp.other:
+    description: Allows setting other player''s HP
+    default: op
   penandpaper.admin:
     description: Allows all admin functionality
     default: op
@@ -135,3 +147,6 @@ permissions:
     - penandpaper.command.class.approve
     - penandpaper.command.character.stats.other
     - penandpaper.command.item
+    - penandpaper.command.dhp.other
+    - penandpaper.command.ihp.other
+    - penandpaper.command.sethp.other

@@ -27,37 +27,56 @@ public final class DHPCommand implements CommandExecutor {
                              @NotNull Command command,
                              @NotNull String label,
                              @NotNull String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(RED + "You must be a player to perform this command.");
+        Player target = null;
+        if (sender instanceof Player) {
+            target = (Player) sender;
+        }
+        int argOffset = 0;
+        if (args.length > 1) {
+            if (sender.hasPermission("penandpaper.command.dhp.other")) {
+                target = plugin.getServer().getPlayer(args[0]);
+                if (target != null) {
+                    argOffset = 1;
+                } else {
+                    if (sender instanceof Player) {
+                        target = (Player) sender;
+                    }
+                }
+            }
+        }
+        if (target == null) {
+            sender.sendMessage(RED + "You must specify a player when running this command from console.");
             return true;
         }
-        Player player = (Player) sender;
-        if (args.length < 1) {
+        if (args.length < argOffset + 1) {
             sender.sendMessage(RED + "You must specify how many HP points to take as damage.");
             return true;
         }
         int damage;
         try {
-            damage = Integer.parseInt(args[0]);
+            damage = Integer.parseInt(args[argOffset]);
         } catch (NumberFormatException exception) {
             sender.sendMessage(RED + "The amount of HP points to remove must be an integer.");
             return true;
         }
         if (damage <= 0) {
-            sender.sendMessage(RED + "You may not damage yourself with negative damage.");
+            sender.sendMessage(RED + "You may not " + (sender == target ? "damage yourself with" : "deal") + " negative damage.");
             return true;
         }
         PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
-        PenPlayer penPlayer = playerService.getPlayer(player);
+        PenPlayer penPlayer = playerService.getPlayer(target);
         PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
         PenCharacter character = characterService.getActiveCharacter(penPlayer);
         if (character == null) {
-            sender.sendMessage(RED + "You do not currently have an active character.");
+            sender.sendMessage(RED + (target == sender ? "You do" : target.getName() + " does") + " not currently have an active character.");
             return true;
         }
         character.setHP(character.getHP() - damage);
         characterService.updateCharacter(character);
-        sender.sendMessage(GREEN + "Took " + damage + " damage.");
+        target.sendMessage(GREEN + "Took " + damage + " damage.");
+        if (target != sender) {
+            sender.sendMessage(GREEN + "Dealt " + damage + " damage to " + character.getName() + ".");
+        }
         return true;
     }
 }
