@@ -63,6 +63,9 @@ commands:
     usage: /<command> [type] (amount)
     aliases:
     - i
+  hp:
+    description: Shows your current and maximum hit points
+    usage: /<command>
 permissions:
   penandpaper.command.exp.add:
     description: Allows adding experience to characters
