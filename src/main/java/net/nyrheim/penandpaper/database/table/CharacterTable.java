@@ -10,7 +10,6 @@ import net.nyrheim.penandpaper.player.PlayerId;
 import net.nyrheim.penandpaper.race.PenRaceService;
 import net.nyrheim.penandpaper.race.Race;
 import net.nyrheim.penandpaper.utils.ItemStackUtils;
-import net.nyrheim.penandpaper.database.jooq.Tables;
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 import org.ehcache.Cache;
@@ -23,7 +22,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.logging.Level.SEVERE;
-import static org.jooq.impl.DSL.constraint;
+import static net.nyrheim.penandpaper.database.jooq.Tables.CHARACTER;
+import static org.jooq.impl.DSL.*;
 
 public final class CharacterTable implements Table {
 
@@ -43,36 +43,36 @@ public final class CharacterTable implements Table {
     @Override
     public void create() {
         database.create()
-                .createTableIfNotExists(Tables.CHARACTER)
-                .column(Tables.CHARACTER.ID)
-                .column(Tables.CHARACTER.PLAYER_ID)
-                .column(Tables.CHARACTER.FIRST_NAME)
-                .column(Tables.CHARACTER.FAMILY_NAME)
-                .column(Tables.CHARACTER.HEIGHT)
-                .column(Tables.CHARACTER.WEIGHT)
-                .column(Tables.CHARACTER.APPEARANCE)
-                .column(Tables.CHARACTER.PRESENCE)
-                .column(Tables.CHARACTER.AGE)
-                .column(Tables.CHARACTER.EXPERIENCE)
-                .column(Tables.CHARACTER.EXHAUSTION)
-                .column(Tables.CHARACTER.RACE)
-                .column(Tables.CHARACTER.HELMET)
-                .column(Tables.CHARACTER.CHESTPLATE)
-                .column(Tables.CHARACTER.LEGGINGS)
-                .column(Tables.CHARACTER.BOOTS)
-                .column(Tables.CHARACTER.INVENTORY_CONTENTS)
-                .column(Tables.CHARACTER.HEALTH)
-                .column(Tables.CHARACTER.FOOD_LEVEL)
-                .column(Tables.CHARACTER.SATURATION)
-                .column(Tables.CHARACTER.FOOD_EXHAUSTION)
-                .column(Tables.CHARACTER.WORLD)
-                .column(Tables.CHARACTER.X)
-                .column(Tables.CHARACTER.Y)
-                .column(Tables.CHARACTER.Z)
-                .column(Tables.CHARACTER.PITCH)
-                .column(Tables.CHARACTER.YAW)
+                .createTableIfNotExists(CHARACTER)
+                .column(CHARACTER.ID)
+                .column(CHARACTER.PLAYER_ID)
+                .column(CHARACTER.FIRST_NAME)
+                .column(CHARACTER.FAMILY_NAME)
+                .column(CHARACTER.HEIGHT)
+                .column(CHARACTER.WEIGHT)
+                .column(CHARACTER.APPEARANCE)
+                .column(CHARACTER.PRESENCE)
+                .column(CHARACTER.AGE)
+                .column(CHARACTER.EXPERIENCE)
+                .column(CHARACTER.EXHAUSTION)
+                .column(CHARACTER.RACE)
+                .column(CHARACTER.HELMET)
+                .column(CHARACTER.CHESTPLATE)
+                .column(CHARACTER.LEGGINGS)
+                .column(CHARACTER.BOOTS)
+                .column(CHARACTER.INVENTORY_CONTENTS)
+                .column(CHARACTER.HEALTH)
+                .column(CHARACTER.FOOD_LEVEL)
+                .column(CHARACTER.SATURATION)
+                .column(CHARACTER.FOOD_EXHAUSTION)
+                .column(CHARACTER.WORLD)
+                .column(CHARACTER.X)
+                .column(CHARACTER.Y)
+                .column(CHARACTER.Z)
+                .column(CHARACTER.PITCH)
+                .column(CHARACTER.YAW)
                 .constraints(
-                        constraint("character_pk").primaryKey(Tables.CHARACTER.ID)
+                        constraint("character_pk").primaryKey(CHARACTER.ID)
                 )
                 .execute();
     }
@@ -123,33 +123,33 @@ public final class CharacterTable implements Table {
         }
         database.create()
                 .insertInto(
-                        Tables.CHARACTER,
-                        Tables.CHARACTER.PLAYER_ID,
-                        Tables.CHARACTER.FIRST_NAME,
-                        Tables.CHARACTER.FAMILY_NAME,
-                        Tables.CHARACTER.HEIGHT,
-                        Tables.CHARACTER.WEIGHT,
-                        Tables.CHARACTER.APPEARANCE,
-                        Tables.CHARACTER.PRESENCE,
-                        Tables.CHARACTER.AGE,
-                        Tables.CHARACTER.EXPERIENCE,
-                        Tables.CHARACTER.EXHAUSTION,
-                        Tables.CHARACTER.RACE,
-                        Tables.CHARACTER.HELMET,
-                        Tables.CHARACTER.CHESTPLATE,
-                        Tables.CHARACTER.LEGGINGS,
-                        Tables.CHARACTER.BOOTS,
-                        Tables.CHARACTER.INVENTORY_CONTENTS,
-                        Tables.CHARACTER.HEALTH,
-                        Tables.CHARACTER.FOOD_LEVEL,
-                        Tables.CHARACTER.SATURATION,
-                        Tables.CHARACTER.FOOD_EXHAUSTION,
-                        Tables.CHARACTER.WORLD,
-                        Tables.CHARACTER.X,
-                        Tables.CHARACTER.Y,
-                        Tables.CHARACTER.Z,
-                        Tables.CHARACTER.PITCH,
-                        Tables.CHARACTER.YAW
+                        CHARACTER,
+                        CHARACTER.PLAYER_ID,
+                        CHARACTER.FIRST_NAME,
+                        CHARACTER.FAMILY_NAME,
+                        CHARACTER.HEIGHT,
+                        CHARACTER.WEIGHT,
+                        CHARACTER.APPEARANCE,
+                        CHARACTER.PRESENCE,
+                        CHARACTER.AGE,
+                        CHARACTER.EXPERIENCE,
+                        CHARACTER.EXHAUSTION,
+                        CHARACTER.RACE,
+                        CHARACTER.HELMET,
+                        CHARACTER.CHESTPLATE,
+                        CHARACTER.LEGGINGS,
+                        CHARACTER.BOOTS,
+                        CHARACTER.INVENTORY_CONTENTS,
+                        CHARACTER.HEALTH,
+                        CHARACTER.FOOD_LEVEL,
+                        CHARACTER.SATURATION,
+                        CHARACTER.FOOD_EXHAUSTION,
+                        CHARACTER.WORLD,
+                        CHARACTER.X,
+                        CHARACTER.Y,
+                        CHARACTER.Z,
+                        CHARACTER.PITCH,
+                        CHARACTER.YAW
                 )
                 .values(
                         character.getPlayerId().getValue(),
@@ -236,34 +236,34 @@ public final class CharacterTable implements Table {
             return;
         }
         database.create()
-                .update(Tables.CHARACTER)
-                .set(Tables.CHARACTER.PLAYER_ID, character.getPlayerId().getValue())
-                .set(Tables.CHARACTER.FIRST_NAME, character.getFirstName())
-                .set(Tables.CHARACTER.FAMILY_NAME, character.getFamilyName())
-                .set(Tables.CHARACTER.HEIGHT, character.getHeight())
-                .set(Tables.CHARACTER.WEIGHT, character.getWeight())
-                .set(Tables.CHARACTER.APPEARANCE, character.getAppearance())
-                .set(Tables.CHARACTER.PRESENCE, character.getPresence())
-                .set(Tables.CHARACTER.AGE, character.getAge())
-                .set(Tables.CHARACTER.EXPERIENCE, character.getExperience())
-                .set(Tables.CHARACTER.EXHAUSTION, character.getExhaustion())
-                .set(Tables.CHARACTER.RACE, character.getRace() == null ? null : character.getRace().getName())
-                .set(Tables.CHARACTER.HELMET, serializedHelmet)
-                .set(Tables.CHARACTER.CHESTPLATE, serializedChestplate)
-                .set(Tables.CHARACTER.LEGGINGS, serializedLeggings)
-                .set(Tables.CHARACTER.BOOTS, serializedBoots)
-                .set(Tables.CHARACTER.INVENTORY_CONTENTS, serializedInventory)
-                .set(Tables.CHARACTER.HEALTH, character.getHealth())
-                .set(Tables.CHARACTER.FOOD_LEVEL, character.getFoodLevel())
-                .set(Tables.CHARACTER.SATURATION, (double) character.getSaturation())
-                .set(Tables.CHARACTER.FOOD_EXHAUSTION, (double) character.getFoodExhaustion())
-                .set(Tables.CHARACTER.WORLD, character.getLocation().getWorld().getName())
-                .set(Tables.CHARACTER.X, character.getLocation().getX())
-                .set(Tables.CHARACTER.Y, character.getLocation().getY())
-                .set(Tables.CHARACTER.Z, character.getLocation().getZ())
-                .set(Tables.CHARACTER.PITCH, (double) character.getLocation().getPitch())
-                .set(Tables.CHARACTER.YAW, (double) character.getLocation().getYaw())
-                .where(Tables.CHARACTER.ID.eq(character.getId().getValue()))
+                .update(CHARACTER)
+                .set(CHARACTER.PLAYER_ID, character.getPlayerId().getValue())
+                .set(CHARACTER.FIRST_NAME, character.getFirstName())
+                .set(CHARACTER.FAMILY_NAME, character.getFamilyName())
+                .set(CHARACTER.HEIGHT, character.getHeight())
+                .set(CHARACTER.WEIGHT, character.getWeight())
+                .set(CHARACTER.APPEARANCE, character.getAppearance())
+                .set(CHARACTER.PRESENCE, character.getPresence())
+                .set(CHARACTER.AGE, character.getAge())
+                .set(CHARACTER.EXPERIENCE, character.getExperience())
+                .set(CHARACTER.EXHAUSTION, character.getExhaustion())
+                .set(CHARACTER.RACE, character.getRace() == null ? null : character.getRace().getName())
+                .set(CHARACTER.HELMET, serializedHelmet)
+                .set(CHARACTER.CHESTPLATE, serializedChestplate)
+                .set(CHARACTER.LEGGINGS, serializedLeggings)
+                .set(CHARACTER.BOOTS, serializedBoots)
+                .set(CHARACTER.INVENTORY_CONTENTS, serializedInventory)
+                .set(CHARACTER.HEALTH, character.getHealth())
+                .set(CHARACTER.FOOD_LEVEL, character.getFoodLevel())
+                .set(CHARACTER.SATURATION, (double) character.getSaturation())
+                .set(CHARACTER.FOOD_EXHAUSTION, (double) character.getFoodExhaustion())
+                .set(CHARACTER.WORLD, character.getLocation().getWorld().getName())
+                .set(CHARACTER.X, character.getLocation().getX())
+                .set(CHARACTER.Y, character.getLocation().getY())
+                .set(CHARACTER.Z, character.getLocation().getZ())
+                .set(CHARACTER.PITCH, (double) character.getLocation().getPitch())
+                .set(CHARACTER.YAW, (double) character.getLocation().getYaw())
+                .where(CHARACTER.ID.eq(character.getId().getValue()))
                 .execute();
 
         database.getTable(CharacterAbilityScoreTable.class).insertOrUpdateAbilityScores(character);
@@ -285,8 +285,8 @@ public final class CharacterTable implements Table {
                 .delete(character.getId());
 
         database.create()
-                .deleteFrom(Tables.CHARACTER)
-                .where(Tables.CHARACTER.ID.eq(character.getId().getValue()))
+                .deleteFrom(CHARACTER)
+                .where(CHARACTER.ID.eq(character.getId().getValue()))
                 .execute();
 
         cache.remove(character.getId().getValue());
@@ -298,95 +298,95 @@ public final class CharacterTable implements Table {
         }
         Record result = database.create()
                 .select(
-                        Tables.CHARACTER.PLAYER_ID,
-                        Tables.CHARACTER.FIRST_NAME,
-                        Tables.CHARACTER.FAMILY_NAME,
-                        Tables.CHARACTER.HEIGHT,
-                        Tables.CHARACTER.WEIGHT,
-                        Tables.CHARACTER.APPEARANCE,
-                        Tables.CHARACTER.PRESENCE,
-                        Tables.CHARACTER.AGE,
-                        Tables.CHARACTER.EXPERIENCE,
-                        Tables.CHARACTER.EXHAUSTION,
-                        Tables.CHARACTER.RACE,
-                        Tables.CHARACTER.HELMET,
-                        Tables.CHARACTER.CHESTPLATE,
-                        Tables.CHARACTER.LEGGINGS,
-                        Tables.CHARACTER.BOOTS,
-                        Tables.CHARACTER.INVENTORY_CONTENTS,
-                        Tables.CHARACTER.HEALTH,
-                        Tables.CHARACTER.FOOD_LEVEL,
-                        Tables.CHARACTER.SATURATION,
-                        Tables.CHARACTER.FOOD_EXHAUSTION,
-                        Tables.CHARACTER.WORLD,
-                        Tables.CHARACTER.X,
-                        Tables.CHARACTER.Y,
-                        Tables.CHARACTER.Z,
-                        Tables.CHARACTER.YAW,
-                        Tables.CHARACTER.PITCH
+                        CHARACTER.PLAYER_ID,
+                        CHARACTER.FIRST_NAME,
+                        CHARACTER.FAMILY_NAME,
+                        CHARACTER.HEIGHT,
+                        CHARACTER.WEIGHT,
+                        CHARACTER.APPEARANCE,
+                        CHARACTER.PRESENCE,
+                        CHARACTER.AGE,
+                        CHARACTER.EXPERIENCE,
+                        CHARACTER.EXHAUSTION,
+                        CHARACTER.RACE,
+                        CHARACTER.HELMET,
+                        CHARACTER.CHESTPLATE,
+                        CHARACTER.LEGGINGS,
+                        CHARACTER.BOOTS,
+                        CHARACTER.INVENTORY_CONTENTS,
+                        CHARACTER.HEALTH,
+                        CHARACTER.FOOD_LEVEL,
+                        CHARACTER.SATURATION,
+                        CHARACTER.FOOD_EXHAUSTION,
+                        CHARACTER.WORLD,
+                        CHARACTER.X,
+                        CHARACTER.Y,
+                        CHARACTER.Z,
+                        CHARACTER.YAW,
+                        CHARACTER.PITCH
                 )
-                .from(Tables.CHARACTER)
-                .where(Tables.CHARACTER.ID.eq(id.getValue()))
+                .from(CHARACTER)
+                .where(CHARACTER.ID.eq(id.getValue()))
                 .fetchOne();
         if (result == null) return null;
         List<CharacterClass> classes = database.getTable(CharacterClassTable.class).get(id);
         PenClass firstClass = classes.size() > 0 ? classes.get(0).getClazz() : null;
         ItemStack helmet = null;
-        if (result.get(Tables.CHARACTER.HELMET) != null) {
+        if (result.get(CHARACTER.HELMET) != null) {
             try {
-                helmet = ItemStackUtils.deserializeItemStack(result.get(Tables.CHARACTER.HELMET));
+                helmet = ItemStackUtils.deserializeItemStack(result.get(CHARACTER.HELMET));
             } catch (IOException | ClassNotFoundException exception) {
                 plugin.getLogger().log(SEVERE, "Failed to deserialize helmet", exception);
             }
         }
         ItemStack chestplate = null;
-        if (result.get(Tables.CHARACTER.CHESTPLATE) != null) {
+        if (result.get(CHARACTER.CHESTPLATE) != null) {
             try {
-                chestplate = ItemStackUtils.deserializeItemStack(result.get(Tables.CHARACTER.CHESTPLATE));
+                chestplate = ItemStackUtils.deserializeItemStack(result.get(CHARACTER.CHESTPLATE));
             } catch (IOException | ClassNotFoundException exception) {
                 plugin.getLogger().log(SEVERE, "Failed to deserialize chestplate", exception);
             }
         }
         ItemStack leggings = null;
-        if (result.get(Tables.CHARACTER.LEGGINGS) != null) {
+        if (result.get(CHARACTER.LEGGINGS) != null) {
             try {
-                leggings = ItemStackUtils.deserializeItemStack(result.get(Tables.CHARACTER.LEGGINGS));
+                leggings = ItemStackUtils.deserializeItemStack(result.get(CHARACTER.LEGGINGS));
             } catch (IOException | ClassNotFoundException exception) {
                 plugin.getLogger().log(SEVERE, "Failed to deserialize leggings", exception);
             }
         }
         ItemStack boots = null;
-        if (result.get(Tables.CHARACTER.BOOTS) != null) {
+        if (result.get(CHARACTER.BOOTS) != null) {
             try {
-                boots = ItemStackUtils.deserializeItemStack(result.get(Tables.CHARACTER.BOOTS));
+                boots = ItemStackUtils.deserializeItemStack(result.get(CHARACTER.BOOTS));
             } catch (IOException | ClassNotFoundException exception) {
                 plugin.getLogger().log(SEVERE, "Failed to deserialize boots", exception);
             }
         }
         ItemStack[] inventoryContents = new ItemStack[36];
-        if (result.get(Tables.CHARACTER.INVENTORY_CONTENTS) != null) {
+        if (result.get(CHARACTER.INVENTORY_CONTENTS) != null) {
             try {
-                ItemStackUtils.deserializeItemStackArray(result.get(Tables.CHARACTER.INVENTORY_CONTENTS));
+                ItemStackUtils.deserializeItemStackArray(result.get(CHARACTER.INVENTORY_CONTENTS));
             } catch (IOException | ClassNotFoundException exception) {
                 plugin.getLogger().log(SEVERE, "Failed to deserialize inventory contents", exception);
             }
         }
         PenRaceService raceService = plugin.getServices().get(PenRaceService.class);
-        String raceName = result.get(Tables.CHARACTER.RACE);
+        String raceName = result.get(CHARACTER.RACE);
         Race race = raceName == null ? null : raceService.getRace(raceName);
         PenCharacter character = new PenCharacter(
                 plugin,
                 id,
-                new PlayerId(result.get(Tables.CHARACTER.PLAYER_ID)),
-                result.get(Tables.CHARACTER.FIRST_NAME),
-                result.get(Tables.CHARACTER.FAMILY_NAME),
-                result.get(Tables.CHARACTER.HEIGHT),
-                result.get(Tables.CHARACTER.WEIGHT),
-                result.get(Tables.CHARACTER.APPEARANCE),
-                result.get(Tables.CHARACTER.PRESENCE),
-                result.get(Tables.CHARACTER.AGE),
-                result.get(Tables.CHARACTER.EXPERIENCE),
-                result.get(Tables.CHARACTER.EXHAUSTION),
+                new PlayerId(result.get(CHARACTER.PLAYER_ID)),
+                result.get(CHARACTER.FIRST_NAME),
+                result.get(CHARACTER.FAMILY_NAME),
+                result.get(CHARACTER.HEIGHT),
+                result.get(CHARACTER.WEIGHT),
+                result.get(CHARACTER.APPEARANCE),
+                result.get(CHARACTER.PRESENCE),
+                result.get(CHARACTER.AGE),
+                result.get(CHARACTER.EXPERIENCE),
+                result.get(CHARACTER.EXHAUSTION),
                 database.getTable(CharacterAbilityScoreTable.class).get(id),
                 database.getTable(CharacterTempAbilityScoreTable.class).get(id),
                 database.getTable(CharacterAbilityScoreChoiceTable.class).get(id),
@@ -398,17 +398,17 @@ public final class CharacterTable implements Table {
                 leggings,
                 boots,
                 inventoryContents,
-                result.get(Tables.CHARACTER.HEALTH),
-                result.get(Tables.CHARACTER.FOOD_LEVEL),
-                (float) (double) result.get(Tables.CHARACTER.SATURATION),
-                (float) (double) result.get(Tables.CHARACTER.FOOD_EXHAUSTION),
+                result.get(CHARACTER.HEALTH),
+                result.get(CHARACTER.FOOD_LEVEL),
+                (float) (double) result.get(CHARACTER.SATURATION),
+                (float) (double) result.get(CHARACTER.FOOD_EXHAUSTION),
                 new Location(
-                        plugin.getServer().getWorld(result.get(Tables.CHARACTER.WORLD)),
-                        result.get(Tables.CHARACTER.X),
-                        result.get(Tables.CHARACTER.Y),
-                        result.get(Tables.CHARACTER.Z),
-                        (float) (double) result.get(Tables.CHARACTER.PITCH),
-                        (float) (double) result.get(Tables.CHARACTER.YAW)
+                        plugin.getServer().getWorld(result.get(CHARACTER.WORLD)),
+                        result.get(CHARACTER.X),
+                        result.get(CHARACTER.Y),
+                        result.get(CHARACTER.Z),
+                        (float) (double) result.get(CHARACTER.PITCH),
+                        (float) (double) result.get(CHARACTER.YAW)
                 )
         );
         cache.put(id.getValue(), character);
@@ -417,13 +417,22 @@ public final class CharacterTable implements Table {
 
     public List<PenCharacter> get(PlayerId playerId) {
         List<? extends Record> results = database.create()
-                .select(Tables.CHARACTER.ID)
-                .from(Tables.CHARACTER)
-                .where(Tables.CHARACTER.PLAYER_ID.eq(playerId.getValue()))
+                .select(CHARACTER.ID)
+                .from(CHARACTER)
+                .where(CHARACTER.PLAYER_ID.eq(playerId.getValue()))
                 .fetch();
         return results.stream()
-                .map(result -> get(new CharacterId(result.get(Tables.CHARACTER.ID))))
+                .map(result -> get(new CharacterId(result.get(CHARACTER.ID))))
                 .collect(Collectors.toList());
+    }
+
+    public void updateExhaustion() {
+        database.create()
+                .update(CHARACTER)
+                .set(CHARACTER.EXHAUSTION, greatest(value(11).minus(CHARACTER.EXHAUSTION.multiply(CHARACTER.EXHAUSTION).divide(value(1000))), value(0)))
+                .where(CHARACTER.EXHAUSTION.greaterThan(0))
+                .execute();
+        cache.clear();
     }
 
 }

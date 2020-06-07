@@ -14,6 +14,7 @@ import net.nyrheim.penandpaper.commands.item.ItemCommand;
 import net.nyrheim.penandpaper.commands.levelup.LevelUpCommand;
 import net.nyrheim.penandpaper.commands.soul.SoulCommand;
 import net.nyrheim.penandpaper.database.Database;
+import net.nyrheim.penandpaper.exhaustion.ExhaustionTask;
 import net.nyrheim.penandpaper.item.PenRecipeService;
 import net.nyrheim.penandpaper.listener.InventoryClickListener;
 import net.nyrheim.penandpaper.listener.PlayerListener;
@@ -34,7 +35,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -44,11 +44,6 @@ Please avoid declaring unnecessary instances of this class, and follow best prac
 API: Spigot 1.14.4.
 30/04/2020
  */
-
-// Empty slots (charSlot, jobID, etc.) are denoted by a value of -1 to make querying the database easier.
-// The default 'Active' character for a player is -2, denoting no active character. This largely applies to new players, or those
-// who have deleted their only character.
-
 public class PenAndPaper extends RPKBukkitPlugin implements Listener {
 
     private Database database;
@@ -85,6 +80,8 @@ public class PenAndPaper extends RPKBukkitPlugin implements Listener {
                 new PenRPKRaceProvider(this),
                 new PenRPKStatProvider()
         });
+
+        startExhaustionTask();
     }
 
     private boolean racesInitialized = false;
@@ -137,17 +134,13 @@ public class PenAndPaper extends RPKBukkitPlugin implements Listener {
         return services;
     }
 
-    public static void addAnswer(Player player, String answer) {
-        if (answers.containsKey(player)) {
-            answers.get(player).add(answer);
-        } else {
-            answers.put(player, new LinkedList<>(Collections.singleton(answer)));
-        }
+    private void startExhaustionTask() {
+        // Run first 30min after server starts, then every 60min after
+        // If the server restarts a lot this means the delay after it's finished restarting will be 30min,
+        // but if it's running constantly 30min is going to be about the average time it _could_ have been.
+        // We could be smarter than this and actually store the last time it ran, and start it back up with the
+        // correct delay each time if we wanted.
+        new ExhaustionTask(this).runTaskTimer(this, 36000L, 72000L);
     }
-
-    public static LinkedList<String> getAnswers(Player player) {
-        return answers.get(player);
-    }
-
 
 }

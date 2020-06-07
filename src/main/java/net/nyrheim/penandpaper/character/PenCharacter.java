@@ -5,18 +5,17 @@ import net.nyrheim.penandpaper.ability.Ability;
 import net.nyrheim.penandpaper.ability.AbilityModifierLookupTable;
 import net.nyrheim.penandpaper.clazz.CharacterClass;
 import net.nyrheim.penandpaper.clazz.PenClass;
-import net.nyrheim.penandpaper.conversations.StartCreate;
 import net.nyrheim.penandpaper.experience.ExperienceLookupTable;
 import net.nyrheim.penandpaper.player.PlayerId;
 import net.nyrheim.penandpaper.race.Race;
 import org.bukkit.Location;
-import org.bukkit.conversations.Conversation;
-import org.bukkit.conversations.ConversationFactory;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 public final class PenCharacter {
 
@@ -149,12 +148,6 @@ public final class PenCharacter {
         );
     }
 
-    private void createConversation(Player player) {
-        ConversationFactory cf = new ConversationFactory(plugin);
-        Conversation conv = cf.withFirstPrompt(new StartCreate()).withLocalEcho(false).buildConversation(player);
-        conv.begin();
-    }
-
     public CharacterId getId() {
         return id;
     }
@@ -244,7 +237,7 @@ public final class PenCharacter {
     }
 
     public void setExhaustion(int exhaustion) {
-        this.exhaustion = exhaustion;
+        this.exhaustion = min(max(exhaustion, 0), 100);
     }
 
     public int getAbilityScore(Ability ability) {
