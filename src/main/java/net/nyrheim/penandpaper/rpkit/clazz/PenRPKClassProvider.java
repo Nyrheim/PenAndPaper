@@ -77,8 +77,9 @@ public final class PenRPKClassProvider implements RPKClassProvider {
                 PenRPKClassWrapper classWrapper = (PenRPKClassWrapper) clazz;
                 PenClass pnpClass = classWrapper.getPnPClass();
                 pnpCharacter.addClass(pnpClass);
+                pnpCharacter.setHP(pnpCharacter.getMaxHP());
                 PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
-                characterService.updateClasses(pnpCharacter);
+                characterService.updateCharacter(pnpCharacter);
             }
         }
     }

@@ -75,6 +75,11 @@ public final class CharacterTable implements Table {
                         constraint("character_pk").primaryKey(CHARACTER.ID)
                 )
                 .execute();
+
+        database.create()
+                .alterTable(CHARACTER)
+                .addColumnIfNotExists(CHARACTER.HP)
+                .execute();
     }
 
     public void insert(PenCharacter character) {
@@ -149,7 +154,8 @@ public final class CharacterTable implements Table {
                         CHARACTER.Y,
                         CHARACTER.Z,
                         CHARACTER.PITCH,
-                        CHARACTER.YAW
+                        CHARACTER.YAW,
+                        CHARACTER.HP
                 )
                 .values(
                         character.getPlayerId().getValue(),
@@ -177,7 +183,8 @@ public final class CharacterTable implements Table {
                         character.getLocation().getY(),
                         character.getLocation().getZ(),
                         character.getLocation().getPitch(),
-                        character.getLocation().getYaw()
+                        character.getLocation().getYaw(),
+                        character.getHP()
                 )
                 .execute();
         int id = database.create().lastID().intValue();
@@ -263,6 +270,7 @@ public final class CharacterTable implements Table {
                 .set(CHARACTER.Z, character.getLocation().getZ())
                 .set(CHARACTER.PITCH, (double) character.getLocation().getPitch())
                 .set(CHARACTER.YAW, (double) character.getLocation().getYaw())
+                .set(CHARACTER.HP, character.getHP())
                 .where(CHARACTER.ID.eq(character.getId().getValue()))
                 .execute();
 
@@ -323,7 +331,8 @@ public final class CharacterTable implements Table {
                         CHARACTER.Y,
                         CHARACTER.Z,
                         CHARACTER.YAW,
-                        CHARACTER.PITCH
+                        CHARACTER.PITCH,
+                        CHARACTER.HP
                 )
                 .from(CHARACTER)
                 .where(CHARACTER.ID.eq(id.getValue()))
@@ -409,7 +418,8 @@ public final class CharacterTable implements Table {
                         result.get(CHARACTER.Z),
                         (float) (double) result.get(CHARACTER.PITCH),
                         (float) (double) result.get(CHARACTER.YAW)
-                )
+                ),
+                result.get(CHARACTER.HP)
         );
         cache.put(id.getValue(), character);
         return character;

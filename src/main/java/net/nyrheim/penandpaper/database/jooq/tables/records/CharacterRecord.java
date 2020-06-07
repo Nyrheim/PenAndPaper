@@ -16,7 +16,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CharacterRecord extends UpdatableRecordImpl<CharacterRecord> {
 
-    private static final long serialVersionUID = 654689369;
+    private static final long serialVersionUID = -1507223215;
 
     /**
      * Setter for <code>nyrheim.character.id</code>.
@@ -396,6 +396,20 @@ public class CharacterRecord extends UpdatableRecordImpl<CharacterRecord> {
         return (Double) get(26);
     }
 
+    /**
+     * Setter for <code>nyrheim.character.hp</code>.
+     */
+    public void setHp(Integer value) {
+        set(27, value);
+    }
+
+    /**
+     * Getter for <code>nyrheim.character.hp</code>.
+     */
+    public Integer getHp() {
+        return (Integer) get(27);
+    }
+
     // -------------------------------------------------------------------------
     // Primary key information
     // -------------------------------------------------------------------------
@@ -419,7 +433,7 @@ public class CharacterRecord extends UpdatableRecordImpl<CharacterRecord> {
     /**
      * Create a detached, initialised CharacterRecord
      */
-    public CharacterRecord(Integer id, Integer playerId, String firstName, String familyName, String height, String weight, String appearance, String presence, Integer age, Integer experience, Integer exhaustion, String race, byte[] helmet, byte[] chestplate, byte[] leggings, byte[] boots, byte[] inventoryContents, Double health, Integer foodLevel, Double saturation, Double foodExhaustion, String world, Double x, Double y, Double z, Double pitch, Double yaw) {
+    public CharacterRecord(Integer id, Integer playerId, String firstName, String familyName, String height, String weight, String appearance, String presence, Integer age, Integer experience, Integer exhaustion, String race, byte[] helmet, byte[] chestplate, byte[] leggings, byte[] boots, byte[] inventoryContents, Double health, Integer foodLevel, Double saturation, Double foodExhaustion, String world, Double x, Double y, Double z, Double pitch, Double yaw, Integer hp) {
         super(Character.CHARACTER);
 
         set(0, id);
@@ -449,5 +463,6 @@ public class CharacterRecord extends UpdatableRecordImpl<CharacterRecord> {
         set(24, z);
         set(25, pitch);
         set(26, yaw);
+        set(27, hp);
     }
 }
