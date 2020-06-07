@@ -12,6 +12,7 @@ import net.nyrheim.penandpaper.commands.clazz.ClassCommand;
 import net.nyrheim.penandpaper.commands.dhp.DHPCommand;
 import net.nyrheim.penandpaper.commands.exp.ExperienceCommand;
 import net.nyrheim.penandpaper.commands.hp.HPCommand;
+import net.nyrheim.penandpaper.commands.ihp.IHPCommand;
 import net.nyrheim.penandpaper.commands.item.ItemCommand;
 import net.nyrheim.penandpaper.commands.levelup.LevelUpCommand;
 import net.nyrheim.penandpaper.commands.soul.SoulCommand;
@@ -46,7 +47,7 @@ Please avoid declaring unnecessary instances of this class, and follow best prac
 API: Spigot 1.14.4.
 30/04/2020
  */
-public class PenAndPaper extends RPKBukkitPlugin implements Listener {
+public final class PenAndPaper extends RPKBukkitPlugin implements Listener {
 
     private Database database;
     private Services services;
@@ -128,6 +129,7 @@ public class PenAndPaper extends RPKBukkitPlugin implements Listener {
         getCommand("item").setExecutor(new ItemCommand());
         getCommand("hp").setExecutor(new HPCommand(this));
         getCommand("dhp").setExecutor(new DHPCommand(this));
+        getCommand("ihp").setExecutor(new IHPCommand(this));
     }
 
     public Database getDatabase() {

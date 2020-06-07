@@ -69,6 +69,11 @@ commands:
   dhp:
     description: Takes damage to your hit points
     usage: /<command> [damage]
+  ihp:
+    description: Heals yourself for the specified amount
+    usage: /<command> [health]
+    aliases:
+    - ahp
 permissions:
   penandpaper.command.exp.add:
     description: Allows adding experience to characters
