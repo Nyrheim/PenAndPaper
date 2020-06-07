@@ -91,7 +91,8 @@ public final class ClassApproveCommand implements CommandExecutor {
             return true;
         }
         character.addClass(clazz);
-        characterService.updateClasses(character);
+        character.setHP(character.getMaxHP());
+        characterService.updateCharacter(character);
         sender.sendMessage(GREEN + "Class approved.");
         target.sendMessage(GREEN + "Your request to multiclass into " + clazz.getName() + " has been approved.");
         return true;

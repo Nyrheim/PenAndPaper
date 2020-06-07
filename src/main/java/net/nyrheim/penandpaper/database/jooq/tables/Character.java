@@ -4,25 +4,15 @@
 package net.nyrheim.penandpaper.database.jooq.tables;
 
 
-import java.util.Arrays;
-import java.util.List;
-
 import net.nyrheim.penandpaper.database.jooq.Keys;
 import net.nyrheim.penandpaper.database.jooq.Nyrheim;
 import net.nyrheim.penandpaper.database.jooq.tables.records.CharacterRecord;
-
-import org.jooq.Field;
-import org.jooq.ForeignKey;
-import org.jooq.Identity;
-import org.jooq.Name;
-import org.jooq.Record;
-import org.jooq.Schema;
-import org.jooq.Table;
-import org.jooq.TableField;
-import org.jooq.TableOptions;
-import org.jooq.UniqueKey;
+import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.jooq.impl.TableImpl;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -31,7 +21,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Character extends TableImpl<CharacterRecord> {
 
-    private static final long serialVersionUID = -625211441;
+    private static final long serialVersionUID = -796640079;
 
     /**
      * The reference instance of <code>nyrheim.character</code>
@@ -180,6 +170,11 @@ public class Character extends TableImpl<CharacterRecord> {
      * The column <code>nyrheim.character.yaw</code>.
      */
     public final TableField<CharacterRecord, Double> YAW = createField(DSL.name("yaw"), org.jooq.impl.SQLDataType.DOUBLE.nullable(false), this, "");
+
+    /**
+     * The column <code>nyrheim.character.hp</code>.
+     */
+    public final TableField<CharacterRecord, Integer> HP = createField(DSL.name("hp"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * Create a <code>nyrheim.character</code> table reference

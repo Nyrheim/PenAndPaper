@@ -63,7 +63,8 @@ public final class AbilitySetCommand implements CommandExecutor {
             return true;
         }
         character.setAbilityScore(ability, score);
-        characterService.updateAbilityScores(character);
+        character.setHP(character.getMaxHP());
+        characterService.updateCharacter(character);
         sender.sendMessage(GREEN + (sender == target ? "Your " : character.getName() + "'s ") + ability.getName() + " score was set to " + score + ".");
         if (sender != target) {
             target.sendMessage(GREEN + "Your " + ability.getName() + " score was set to " + score + ".");

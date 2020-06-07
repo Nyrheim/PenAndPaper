@@ -2,7 +2,6 @@ package net.nyrheim.penandpaper.character;
 
 import net.nyrheim.penandpaper.PenAndPaper;
 import net.nyrheim.penandpaper.ability.Ability;
-import net.nyrheim.penandpaper.ability.AbilityModifierLookupTable;
 import net.nyrheim.penandpaper.clazz.CharacterClass;
 import net.nyrheim.penandpaper.clazz.PenClass;
 import net.nyrheim.penandpaper.experience.ExperienceLookupTable;
@@ -16,6 +15,8 @@ import java.util.stream.Collectors;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+import static net.nyrheim.penandpaper.ability.Ability.CONSTITUTION;
+import static net.nyrheim.penandpaper.ability.AbilityModifierLookupTable.lookupModifier;
 
 public final class PenCharacter {
 
@@ -50,6 +51,7 @@ public final class PenCharacter {
     private float saturation;
     private float foodExhaustion;
     private Location location;
+    private int hp;
 
     public PenCharacter(
             PenAndPaper plugin,
@@ -79,7 +81,8 @@ public final class PenCharacter {
             int foodLevel,
             float saturation,
             float foodExhaustion,
-            Location location
+            Location location,
+            int hp
     ) {
         this.id = id;
         this.plugin = plugin;
@@ -110,6 +113,7 @@ public final class PenCharacter {
         this.saturation = saturation;
         this.foodExhaustion = foodExhaustion;
         this.location = location;
+        this.hp = hp;
     }
 
     public PenCharacter(
@@ -144,7 +148,8 @@ public final class PenCharacter {
                 20,
                 5,
                 0,
-                plugin.getServer().getWorlds().get(0).getSpawnLocation()
+                plugin.getServer().getWorlds().get(0).getSpawnLocation(),
+                1
         );
     }
 
@@ -265,7 +270,7 @@ public final class PenCharacter {
     }
 
     public int getModifier(Ability ability) {
-        return AbilityModifierLookupTable.lookupModifier(getAbilityScore(ability) + getTempScore(ability));
+        return lookupModifier(getAbilityScore(ability) + getTempScore(ability));
     }
 
     public Race getRace() {
@@ -380,4 +385,21 @@ public final class PenCharacter {
     public void setLocation(Location location) {
         this.location = location;
     }
+
+    public int getMaxHP() {
+        return (getFirstClass() != null ? getFirstClass().getBaseHP() : 1)
+                + (lookupModifier(getAbilityScore(CONSTITUTION)) * getLevel())
+                + classes().stream()
+                .map(clazz -> (clazz.getLevel() - 1) * clazz.getClazz().getLevelHP())
+                .reduce(0, Integer::sum);
+    }
+
+    public int getHP() {
+        return hp;
+    }
+
+    public void setHP(int hp) {
+        this.hp = hp;
+    }
+
 }

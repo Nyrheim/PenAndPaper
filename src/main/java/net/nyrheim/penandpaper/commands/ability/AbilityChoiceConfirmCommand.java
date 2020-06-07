@@ -56,7 +56,8 @@ public final class AbilityChoiceConfirmCommand implements CommandExecutor {
         }
         Arrays.stream(Ability.values()).forEach(ability ->
                 character.setAbilityScore(ability, character.getAbilityScoreChoice(ability)));
-        characterService.updateAbilityScores(character);
+        character.setHP(character.getMaxHP());
+        characterService.updateCharacter(character);
         sender.sendMessage(GREEN + "Ability scores locked in.");
         return true;
     }

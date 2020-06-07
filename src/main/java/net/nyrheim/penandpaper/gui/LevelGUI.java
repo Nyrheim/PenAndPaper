@@ -85,6 +85,8 @@ public final class LevelGUI extends GUI {
                 if (character.classes().size() < PenCharacter.MAX_CLASSES) {
                     if (character.classes().isEmpty()) {
                         character.addClass(clazz);
+                        character.setHP(character.getMaxHP());
+                        characterService.updateCharacter(character);
                         characterClass = character.clazz(clazz);
                     } else {
                         if (!character.classes().stream().allMatch(requirementsClass ->
