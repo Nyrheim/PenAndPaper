@@ -4,7 +4,6 @@ import net.nyrheim.penandpaper.ability.Ability;
 import net.nyrheim.penandpaper.character.CharacterId;
 import net.nyrheim.penandpaper.character.PenCharacter;
 import net.nyrheim.penandpaper.database.Database;
-import net.nyrheim.penandpaper.database.jooq.Tables;
 import net.nyrheim.penandpaper.database.jooq.tables.Character;
 import org.ehcache.Cache;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
@@ -14,6 +13,7 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static net.nyrheim.penandpaper.database.jooq.Tables.CHARACTER_TEMP_ABILITY_SCORE;
 import static org.jooq.impl.DSL.constraint;
 
 public final class CharacterTempAbilityScoreTable implements Table {
@@ -31,17 +31,17 @@ public final class CharacterTempAbilityScoreTable implements Table {
     @Override
     public void create() {
         database.create()
-                .createTableIfNotExists(Tables.CHARACTER_TEMP_ABILITY_SCORE)
-                .column(Tables.CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID)
-                .column(Tables.CHARACTER_TEMP_ABILITY_SCORE.ABILITY)
-                .column(Tables.CHARACTER_TEMP_ABILITY_SCORE.SCORE)
+                .createTableIfNotExists(CHARACTER_TEMP_ABILITY_SCORE)
+                .column(CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID)
+                .column(CHARACTER_TEMP_ABILITY_SCORE.ABILITY)
+                .column(CHARACTER_TEMP_ABILITY_SCORE.SCORE)
                 .constraints(
                         constraint("character_temp_ability_score_pk").primaryKey(
-                                Tables.CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID,
-                                Tables.CHARACTER_TEMP_ABILITY_SCORE.ABILITY
+                                CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID,
+                                CHARACTER_TEMP_ABILITY_SCORE.ABILITY
                         ),
                         constraint("character_temp_ability_score_character_id_fk")
-                                .foreignKey(Tables.CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID)
+                                .foreignKey(CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID)
                                 .references(Character.CHARACTER, Character.CHARACTER.ID)
                                 .onDeleteCascade()
                                 .onUpdateCascade()
@@ -55,16 +55,16 @@ public final class CharacterTempAbilityScoreTable implements Table {
         }
         Map<Ability, Integer> abilities = database.create()
                 .select(
-                        Tables.CHARACTER_TEMP_ABILITY_SCORE.ABILITY,
-                        Tables.CHARACTER_TEMP_ABILITY_SCORE.SCORE
+                        CHARACTER_TEMP_ABILITY_SCORE.ABILITY,
+                        CHARACTER_TEMP_ABILITY_SCORE.SCORE
                 )
-                .from(Tables.CHARACTER_TEMP_ABILITY_SCORE)
-                .where(Tables.CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID.eq(characterId.getValue()))
+                .from(CHARACTER_TEMP_ABILITY_SCORE)
+                .where(CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID.eq(characterId.getValue()))
                 .fetch()
                 .stream()
                 .collect(Collectors.toMap(
-                        result -> Ability.getByAbbreviation(result.get(Tables.CHARACTER_TEMP_ABILITY_SCORE.ABILITY)),
-                        result -> result.get(Tables.CHARACTER_TEMP_ABILITY_SCORE.SCORE)
+                        result -> Ability.getByAbbreviation(result.get(CHARACTER_TEMP_ABILITY_SCORE.ABILITY)),
+                        result -> result.get(CHARACTER_TEMP_ABILITY_SCORE.SCORE)
                 ));
         cache.put(characterId.getValue(), abilities);
         return abilities;
@@ -77,10 +77,10 @@ public final class CharacterTempAbilityScoreTable implements Table {
     public void insert(CharacterId characterId, Ability ability, int score) {
         database.create()
                 .insertInto(
-                        Tables.CHARACTER_TEMP_ABILITY_SCORE,
-                        Tables.CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID,
-                        Tables.CHARACTER_TEMP_ABILITY_SCORE.ABILITY,
-                        Tables.CHARACTER_TEMP_ABILITY_SCORE.SCORE
+                        CHARACTER_TEMP_ABILITY_SCORE,
+                        CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID,
+                        CHARACTER_TEMP_ABILITY_SCORE.ABILITY,
+                        CHARACTER_TEMP_ABILITY_SCORE.SCORE
                 )
                 .values(
                         characterId.getValue(),
@@ -96,10 +96,10 @@ public final class CharacterTempAbilityScoreTable implements Table {
 
     public void update(CharacterId characterId, Ability ability, int score) {
         database.create()
-                .update(Tables.CHARACTER_TEMP_ABILITY_SCORE)
-                .set(Tables.CHARACTER_TEMP_ABILITY_SCORE.SCORE, score)
-                .where(Tables.CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID.eq(characterId.getValue()))
-                .and(Tables.CHARACTER_TEMP_ABILITY_SCORE.ABILITY.eq(ability.getAbbreviation()))
+                .update(CHARACTER_TEMP_ABILITY_SCORE)
+                .set(CHARACTER_TEMP_ABILITY_SCORE.SCORE, score)
+                .where(CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID.eq(characterId.getValue()))
+                .and(CHARACTER_TEMP_ABILITY_SCORE.ABILITY.eq(ability.getAbbreviation()))
                 .execute();
         Map<Ability, Integer> abilityScores = cache.get(characterId.getValue());
         if (abilityScores == null) abilityScores = new EnumMap<>(Ability.class);
@@ -109,9 +109,9 @@ public final class CharacterTempAbilityScoreTable implements Table {
 
     public void delete(CharacterId characterId, Ability ability) {
         database.create()
-                .deleteFrom(Tables.CHARACTER_TEMP_ABILITY_SCORE)
-                .where(Tables.CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID.eq(characterId.getValue()))
-                .and(Tables.CHARACTER_TEMP_ABILITY_SCORE.ABILITY.eq(ability.getAbbreviation()))
+                .deleteFrom(CHARACTER_TEMP_ABILITY_SCORE)
+                .where(CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID.eq(characterId.getValue()))
+                .and(CHARACTER_TEMP_ABILITY_SCORE.ABILITY.eq(ability.getAbbreviation()))
                 .execute();
         Map<Ability, Integer> abilities = cache.get(characterId.getValue());
         abilities.remove(ability);
@@ -120,8 +120,8 @@ public final class CharacterTempAbilityScoreTable implements Table {
 
     public void delete(CharacterId characterId) {
         database.create()
-                .deleteFrom(Tables.CHARACTER_TEMP_ABILITY_SCORE)
-                .where(Tables.CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID.eq(characterId.getValue()))
+                .deleteFrom(CHARACTER_TEMP_ABILITY_SCORE)
+                .where(CHARACTER_TEMP_ABILITY_SCORE.CHARACTER_ID.eq(characterId.getValue()))
                 .execute();
         cache.remove(characterId.getValue());
     }

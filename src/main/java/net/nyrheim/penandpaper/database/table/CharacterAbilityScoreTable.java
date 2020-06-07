@@ -13,6 +13,7 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static net.nyrheim.penandpaper.database.jooq.Tables.CHARACTER_ABILITY_SCORE;
 import static org.jooq.impl.DSL.constraint;
 
 public final class CharacterAbilityScoreTable implements Table {
@@ -31,17 +32,17 @@ public final class CharacterAbilityScoreTable implements Table {
     @Override
     public void create() {
         database.create()
-                .createTableIfNotExists(Tables.CHARACTER_ABILITY_SCORE)
-                .column(Tables.CHARACTER_ABILITY_SCORE.CHARACTER_ID)
-                .column(Tables.CHARACTER_ABILITY_SCORE.ABILITY)
-                .column(Tables.CHARACTER_ABILITY_SCORE.SCORE)
+                .createTableIfNotExists(CHARACTER_ABILITY_SCORE)
+                .column(CHARACTER_ABILITY_SCORE.CHARACTER_ID)
+                .column(CHARACTER_ABILITY_SCORE.ABILITY)
+                .column(CHARACTER_ABILITY_SCORE.SCORE)
                 .constraints(
                         constraint("character_ability_score_pk").primaryKey(
-                                Tables.CHARACTER_ABILITY_SCORE.CHARACTER_ID,
-                                Tables.CHARACTER_ABILITY_SCORE.ABILITY
+                                CHARACTER_ABILITY_SCORE.CHARACTER_ID,
+                                CHARACTER_ABILITY_SCORE.ABILITY
                         ),
                         constraint("character_ability_score_character_id_fk")
-                                .foreignKey(Tables.CHARACTER_ABILITY_SCORE.CHARACTER_ID)
+                                .foreignKey(CHARACTER_ABILITY_SCORE.CHARACTER_ID)
                                 .references(Tables.CHARACTER, Tables.CHARACTER.ID)
                                 .onDeleteCascade()
                                 .onUpdateCascade()
@@ -55,16 +56,16 @@ public final class CharacterAbilityScoreTable implements Table {
         }
         Map<Ability, Integer> abilities = database.create()
                 .select(
-                        Tables.CHARACTER_ABILITY_SCORE.ABILITY,
-                        Tables.CHARACTER_ABILITY_SCORE.SCORE
+                        CHARACTER_ABILITY_SCORE.ABILITY,
+                        CHARACTER_ABILITY_SCORE.SCORE
                 )
-                .from(Tables.CHARACTER_ABILITY_SCORE)
-                .where(Tables.CHARACTER_ABILITY_SCORE.CHARACTER_ID.eq(characterId.getValue()))
+                .from(CHARACTER_ABILITY_SCORE)
+                .where(CHARACTER_ABILITY_SCORE.CHARACTER_ID.eq(characterId.getValue()))
                 .fetch()
                 .stream()
                 .collect(Collectors.toMap(
-                        result -> Ability.getByAbbreviation(result.get(Tables.CHARACTER_ABILITY_SCORE.ABILITY)),
-                        result -> result.get(Tables.CHARACTER_ABILITY_SCORE.SCORE)
+                        result -> Ability.getByAbbreviation(result.get(CHARACTER_ABILITY_SCORE.ABILITY)),
+                        result -> result.get(CHARACTER_ABILITY_SCORE.SCORE)
                 ));
         cache.put(characterId.getValue(), abilities);
         return abilities;
@@ -77,10 +78,10 @@ public final class CharacterAbilityScoreTable implements Table {
     public void insert(CharacterId characterId, Ability ability, int score) {
         database.create()
                 .insertInto(
-                        Tables.CHARACTER_ABILITY_SCORE,
-                        Tables.CHARACTER_ABILITY_SCORE.CHARACTER_ID,
-                        Tables.CHARACTER_ABILITY_SCORE.ABILITY,
-                        Tables.CHARACTER_ABILITY_SCORE.SCORE
+                        CHARACTER_ABILITY_SCORE,
+                        CHARACTER_ABILITY_SCORE.CHARACTER_ID,
+                        CHARACTER_ABILITY_SCORE.ABILITY,
+                        CHARACTER_ABILITY_SCORE.SCORE
                 )
                 .values(
                         characterId.getValue(),
@@ -96,10 +97,10 @@ public final class CharacterAbilityScoreTable implements Table {
 
     public void update(CharacterId characterId, Ability ability, int score) {
         database.create()
-                .update(Tables.CHARACTER_ABILITY_SCORE)
-                .set(Tables.CHARACTER_ABILITY_SCORE.SCORE, score)
-                .where(Tables.CHARACTER_ABILITY_SCORE.CHARACTER_ID.eq(characterId.getValue()))
-                .and(Tables.CHARACTER_ABILITY_SCORE.ABILITY.eq(ability.getAbbreviation()))
+                .update(CHARACTER_ABILITY_SCORE)
+                .set(CHARACTER_ABILITY_SCORE.SCORE, score)
+                .where(CHARACTER_ABILITY_SCORE.CHARACTER_ID.eq(characterId.getValue()))
+                .and(CHARACTER_ABILITY_SCORE.ABILITY.eq(ability.getAbbreviation()))
                 .execute();
         Map<Ability, Integer> abilityScores = cache.get(characterId.getValue());
         if (abilityScores == null) abilityScores = new EnumMap<>(Ability.class);
@@ -109,9 +110,9 @@ public final class CharacterAbilityScoreTable implements Table {
 
     public void delete(CharacterId characterId, Ability ability) {
         database.create()
-                .deleteFrom(Tables.CHARACTER_ABILITY_SCORE)
-                .where(Tables.CHARACTER_ABILITY_SCORE.CHARACTER_ID.eq(characterId.getValue()))
-                .and(Tables.CHARACTER_ABILITY_SCORE.ABILITY.eq(ability.getAbbreviation()))
+                .deleteFrom(CHARACTER_ABILITY_SCORE)
+                .where(CHARACTER_ABILITY_SCORE.CHARACTER_ID.eq(characterId.getValue()))
+                .and(CHARACTER_ABILITY_SCORE.ABILITY.eq(ability.getAbbreviation()))
                 .execute();
         Map<Ability, Integer> abilities = cache.get(characterId.getValue());
         abilities.remove(ability);
@@ -120,8 +121,8 @@ public final class CharacterAbilityScoreTable implements Table {
 
     public void delete(CharacterId characterId) {
         database.create()
-                .deleteFrom(Tables.CHARACTER_ABILITY_SCORE)
-                .where(Tables.CHARACTER_ABILITY_SCORE.CHARACTER_ID.eq(characterId.getValue()))
+                .deleteFrom(CHARACTER_ABILITY_SCORE)
+                .where(CHARACTER_ABILITY_SCORE.CHARACTER_ID.eq(characterId.getValue()))
                 .execute();
         cache.remove(characterId.getValue());
     }

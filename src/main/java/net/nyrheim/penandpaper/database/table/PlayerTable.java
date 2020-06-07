@@ -5,7 +5,6 @@ import net.nyrheim.penandpaper.database.Database;
 import net.nyrheim.penandpaper.player.PenPlayer;
 import net.nyrheim.penandpaper.player.PlayerId;
 import net.nyrheim.penandpaper.player.PlayerUUID;
-import net.nyrheim.penandpaper.database.jooq.Tables;
 import org.ehcache.Cache;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
@@ -13,6 +12,7 @@ import org.jooq.Record;
 
 import java.util.UUID;
 
+import static net.nyrheim.penandpaper.database.jooq.Tables.PLAYER;
 import static org.jooq.impl.DSL.constraint;
 
 public final class PlayerTable implements Table {
@@ -40,11 +40,11 @@ public final class PlayerTable implements Table {
     @Override
     public void create() {
         database.create()
-                .createTableIfNotExists(Tables.PLAYER)
-                .column(Tables.PLAYER.ID)
-                .column(Tables.PLAYER.PLAYER_UUID)
+                .createTableIfNotExists(PLAYER)
+                .column(PLAYER.ID)
+                .column(PLAYER.PLAYER_UUID)
                 .constraints(
-                        constraint("player_pk").primaryKey(Tables.PLAYER.ID)
+                        constraint("player_pk").primaryKey(PLAYER.ID)
                 )
                 .execute();
     }
@@ -52,8 +52,8 @@ public final class PlayerTable implements Table {
     public void insert(PenPlayer player) {
         database.create()
                 .insertInto(
-                        Tables.PLAYER,
-                        Tables.PLAYER.PLAYER_UUID
+                        PLAYER,
+                        PLAYER.PLAYER_UUID
                 )
                 .values(
                         player.getPlayerUUID().getValue().toString()
@@ -70,15 +70,15 @@ public final class PlayerTable implements Table {
             return idCache.get(playerId.getValue());
         }
         Record result = database.create()
-                .select(Tables.PLAYER.PLAYER_UUID)
-                .from(Tables.PLAYER)
-                .where(Tables.PLAYER.ID.eq(playerId.getValue()))
+                .select(PLAYER.PLAYER_UUID)
+                .from(PLAYER)
+                .where(PLAYER.ID.eq(playerId.getValue()))
                 .fetchOne();
         if (result == null) return null;
         PenPlayer penPlayer = new PenPlayer(
                 plugin,
                 playerId,
-                new PlayerUUID(UUID.fromString(result.get(Tables.PLAYER.PLAYER_UUID)))
+                new PlayerUUID(UUID.fromString(result.get(PLAYER.PLAYER_UUID)))
         );
         idCache.put(playerId.getValue(), penPlayer);
         uuidCache.put(penPlayer.getPlayerUUID().getValue().toString(), penPlayer);
@@ -90,14 +90,14 @@ public final class PlayerTable implements Table {
             return uuidCache.get(playerUUID.getValue().toString());
         }
         Record result = database.create()
-                .select(Tables.PLAYER.ID)
-                .from(Tables.PLAYER)
-                .where(Tables.PLAYER.PLAYER_UUID.eq(playerUUID.getValue().toString()))
+                .select(PLAYER.ID)
+                .from(PLAYER)
+                .where(PLAYER.PLAYER_UUID.eq(playerUUID.getValue().toString()))
                 .fetchOne();
         if (result == null) return null;
         PenPlayer penPlayer = new PenPlayer(
                 plugin,
-                new PlayerId(result.get(Tables.PLAYER.ID)),
+                new PlayerId(result.get(PLAYER.ID)),
                 playerUUID
         );
         idCache.put(penPlayer.getPlayerId().getValue(), penPlayer);
@@ -107,8 +107,8 @@ public final class PlayerTable implements Table {
 
     public void delete(PenPlayer player) {
         database.create()
-                .deleteFrom(Tables.PLAYER)
-                .where(Tables.PLAYER.ID.eq(player.getPlayerId().getValue()))
+                .deleteFrom(PLAYER)
+                .where(PLAYER.ID.eq(player.getPlayerId().getValue()))
                 .execute();
         idCache.remove(player.getPlayerId().getValue());
         uuidCache.remove(player.getPlayerUUID().getValue().toString());

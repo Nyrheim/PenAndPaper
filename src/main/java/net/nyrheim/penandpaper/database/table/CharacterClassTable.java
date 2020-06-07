@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static net.nyrheim.penandpaper.database.jooq.Tables.CHARACTER_CLASS;
 import static org.jooq.impl.DSL.constraint;
 
 public final class CharacterClassTable implements Table {
@@ -32,17 +33,17 @@ public final class CharacterClassTable implements Table {
     @Override
     public void create() {
         database.create()
-                .createTableIfNotExists(Tables.CHARACTER_CLASS)
-                .column(Tables.CHARACTER_CLASS.CHARACTER_ID)
-                .column(Tables.CHARACTER_CLASS.CLASS_NAME)
-                .column(Tables.CHARACTER_CLASS.LEVEL)
+                .createTableIfNotExists(CHARACTER_CLASS)
+                .column(CHARACTER_CLASS.CHARACTER_ID)
+                .column(CHARACTER_CLASS.CLASS_NAME)
+                .column(CHARACTER_CLASS.LEVEL)
                 .constraints(
                         constraint("character_class_pk").primaryKey(
-                                Tables.CHARACTER_CLASS.CHARACTER_ID,
-                                Tables.CHARACTER_CLASS.CLASS_NAME
+                                CHARACTER_CLASS.CHARACTER_ID,
+                                CHARACTER_CLASS.CLASS_NAME
                         ),
                         constraint("character_class_character_id_fk")
-                                .foreignKey(Tables.CHARACTER_CLASS.CHARACTER_ID)
+                                .foreignKey(CHARACTER_CLASS.CHARACTER_ID)
                                 .references(Tables.CHARACTER, Tables.CHARACTER.ID)
                                 .onDeleteCascade()
                                 .onUpdateCascade()
@@ -56,16 +57,16 @@ public final class CharacterClassTable implements Table {
         }
         List<CharacterClass> classes = database.create()
                 .select(
-                        Tables.CHARACTER_CLASS.CLASS_NAME,
-                        Tables.CHARACTER_CLASS.LEVEL
+                        CHARACTER_CLASS.CLASS_NAME,
+                        CHARACTER_CLASS.LEVEL
                 )
-                .from(Tables.CHARACTER_CLASS)
-                .where(Tables.CHARACTER_CLASS.CHARACTER_ID.eq(characterId.getValue()))
+                .from(CHARACTER_CLASS)
+                .where(CHARACTER_CLASS.CHARACTER_ID.eq(characterId.getValue()))
                 .fetch()
                 .stream()
                 .map(result -> new CharacterClass(
-                        PenClass.getByName(result.get(Tables.CHARACTER_CLASS.CLASS_NAME)),
-                        result.get(Tables.CHARACTER_CLASS.LEVEL)
+                        PenClass.getByName(result.get(CHARACTER_CLASS.CLASS_NAME)),
+                        result.get(CHARACTER_CLASS.LEVEL)
                 ))
                 .collect(Collectors.toList());
         cache.put(characterId.getValue(), classes);
@@ -82,10 +83,10 @@ public final class CharacterClassTable implements Table {
     public void insert(CharacterId characterId, CharacterClass characterClass) {
         database.create()
                 .insertInto(
-                        Tables.CHARACTER_CLASS,
-                        Tables.CHARACTER_CLASS.CHARACTER_ID,
-                        Tables.CHARACTER_CLASS.CLASS_NAME,
-                        Tables.CHARACTER_CLASS.LEVEL
+                        CHARACTER_CLASS,
+                        CHARACTER_CLASS.CHARACTER_ID,
+                        CHARACTER_CLASS.CLASS_NAME,
+                        CHARACTER_CLASS.LEVEL
                 )
                 .values(
                         characterId.getValue(),
@@ -102,10 +103,10 @@ public final class CharacterClassTable implements Table {
 
     public void update(CharacterId characterId, CharacterClass characterClass) {
         database.create()
-                .update(Tables.CHARACTER_CLASS)
-                .set(Tables.CHARACTER_CLASS.LEVEL, characterClass.getLevel())
-                .where(Tables.CHARACTER_CLASS.CHARACTER_ID.eq(characterId.getValue()))
-                .and(Tables.CHARACTER_CLASS.CLASS_NAME.eq(characterClass.getClass().getName()))
+                .update(CHARACTER_CLASS)
+                .set(CHARACTER_CLASS.LEVEL, characterClass.getLevel())
+                .where(CHARACTER_CLASS.CHARACTER_ID.eq(characterId.getValue()))
+                .and(CHARACTER_CLASS.CLASS_NAME.eq(characterClass.getClass().getName()))
                 .execute();
         List<CharacterClass> classes = cache.get(characterId.getValue());
         if (classes == null) classes = new ArrayList<>();
@@ -121,9 +122,9 @@ public final class CharacterClassTable implements Table {
 
     public void delete(CharacterId characterId, CharacterClass characterClass) {
         database.create()
-                .deleteFrom(Tables.CHARACTER_CLASS)
-                .where(Tables.CHARACTER_CLASS.CHARACTER_ID.eq(characterId.getValue()))
-                .and(Tables.CHARACTER_CLASS.CLASS_NAME.eq(characterClass.getClass().getName()))
+                .deleteFrom(CHARACTER_CLASS)
+                .where(CHARACTER_CLASS.CHARACTER_ID.eq(characterId.getValue()))
+                .and(CHARACTER_CLASS.CLASS_NAME.eq(characterClass.getClass().getName()))
                 .execute();
         List<CharacterClass> classes = cache.get(characterId.getValue());
         if (classes == null) classes = new ArrayList<>();
@@ -135,8 +136,8 @@ public final class CharacterClassTable implements Table {
 
     public void delete(CharacterId characterId) {
         database.create()
-                .deleteFrom(Tables.CHARACTER_CLASS)
-                .where(Tables.CHARACTER_CLASS.CHARACTER_ID.eq(characterId.getValue()))
+                .deleteFrom(CHARACTER_CLASS)
+                .where(CHARACTER_CLASS.CHARACTER_ID.eq(characterId.getValue()))
                 .execute();
         cache.remove(characterId.getValue());
     }
