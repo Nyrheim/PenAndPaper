@@ -10,6 +10,7 @@ import net.nyrheim.penandpaper.commands.ability.AbilityCommand;
 import net.nyrheim.penandpaper.commands.character.CharacterCommand;
 import net.nyrheim.penandpaper.commands.clazz.ClassCommand;
 import net.nyrheim.penandpaper.commands.exp.ExperienceCommand;
+import net.nyrheim.penandpaper.commands.hp.HPCommand;
 import net.nyrheim.penandpaper.commands.item.ItemCommand;
 import net.nyrheim.penandpaper.commands.levelup.LevelUpCommand;
 import net.nyrheim.penandpaper.commands.soul.SoulCommand;
@@ -124,6 +125,7 @@ public class PenAndPaper extends RPKBukkitPlugin implements Listener {
         getCommand("ability").setExecutor(new AbilityCommand(this));
         getCommand("class").setExecutor(new ClassCommand(this));
         getCommand("item").setExecutor(new ItemCommand());
+        getCommand("hp").setExecutor(new HPCommand(this));
     }
 
     public Database getDatabase() {
