@@ -22,7 +22,7 @@ public final class CharacterSetRaceCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender,
                              @NotNull Command command,
                              @NotNull String label,
-                             String @NotNull [] args) {
+                             @NotNull String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(RED + "You must be a player to perform this command.");
             return true;

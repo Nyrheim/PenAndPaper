@@ -66,6 +66,9 @@ commands:
   hp:
     description: Shows your current and maximum hit points
     usage: /<command>
+  dhp:
+    description: Takes damage to your hit points
+    usage: /<command> [damage]
 permissions:
   penandpaper.command.exp.add:
     description: Allows adding experience to characters
