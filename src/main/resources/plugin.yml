@@ -77,6 +77,15 @@ commands:
   sethp:
     description: Sets your HP
     usage: /<command> [health]
+  exhaustion:
+    description: |
+      Exhaustion management command
+      /exhaustion add [player] [amount] - Adds an amount of exhaustion to a player
+      /exhaustion remove [player] [amount] - Removes an amount of exhaustion from a player
+      /exhaustion set [player] [amount] - Sets a player's exhaustion
+    usage: /<command> [add|remove|set]
+    aliases:
+    - exh
 permissions:
   penandpaper.command.exp.add:
     description: Allows adding experience to characters
@@ -132,6 +141,15 @@ permissions:
   penandpaper.command.hp.other:
     description: Allows viewing other players'' HP
     default: op
+  penandpaper.command.exhaustion.add:
+    description: Allows you to add exhaustion to players
+    default: op
+  penandpaper.command.exhaustion.remove:
+    description: Allows you to remove exhaustion from players
+    default: op
+  penandpaper.command.exhaustion.set:
+    description: Allows you to set exhaustion for players
+    default: op
   penandpaper.admin:
     description: Allows all admin functionality
     default: op
@@ -154,3 +172,6 @@ permissions:
     - penandpaper.command.ihp.other
     - penandpaper.command.sethp.other
     - penandpaper.command.hp.other
+    - penandpaper.command.exhaustion.add
+    - penandpaper.command.exhaustion.remove
+    - penandpaper.command.exhaustion.set
