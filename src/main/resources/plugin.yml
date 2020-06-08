@@ -129,6 +129,9 @@ permissions:
   penandpaper.command.sethp.other:
     description: Allows setting other player''s HP
     default: op
+  penandpaper.command.hp.other:
+    description: Allows viewing other players'' HP
+    default: op
   penandpaper.admin:
     description: Allows all admin functionality
     default: op
@@ -150,3 +153,4 @@ permissions:
     - penandpaper.command.dhp.other
     - penandpaper.command.ihp.other
     - penandpaper.command.sethp.other
+    - penandpaper.command.hp.other
