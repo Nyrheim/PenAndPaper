@@ -27,20 +27,33 @@ public final class HPCommand implements CommandExecutor {
                              @NotNull Command command,
                              @NotNull String label,
                              @NotNull String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(RED + "You must be a player to perform this command.");
+        Player target = null;
+        if (sender instanceof Player) {
+            target = (Player) sender;
+        }
+        if (args.length > 1) {
+            if (sender.hasPermission("penandpaper.command.hp.other")) {
+                target = plugin.getServer().getPlayer(args[0]);
+                if (target == null) {
+                    if (sender instanceof Player) {
+                        target = (Player) sender;
+                    }
+                }
+            }
+        }
+        if (target == null) {
+            sender.sendMessage(RED + "You must specify a player when running this command from console.");
             return true;
         }
-        Player player = (Player) sender;
         PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
-        PenPlayer penPlayer = playerService.getPlayer(player);
+        PenPlayer penPlayer = playerService.getPlayer(target);
         PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
         PenCharacter character = characterService.getActiveCharacter(penPlayer);
         if (character == null) {
-            sender.sendMessage(RED + "You do not have an active character.");
+            sender.sendMessage(RED + (target == sender ? "You do" : target.getName() + " does") + " not have an active character.");
             return true;
         }
-        sender.sendMessage(GREEN + "Your current HP is: " + character.getHP() + " / " + character.getMaxHP());
+        sender.sendMessage(GREEN + (target == sender ? "Your" : character.getName() + "'s") + " current HP is: " + character.getHP() + " / " + character.getMaxHP());
         return true;
     }
 
