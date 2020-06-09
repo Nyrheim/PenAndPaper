@@ -10,19 +10,6 @@ public class ConnectionPool {
 
     }
 
-    /*
-    Draws values from /resources/application.conf
-
-    Getter method for HikariDataSource, allows us to maintain two connection pools.
-
-    Online documentation I'm referring to talks about separating these into 'OLAP' and 'OLTP' pools.
-    For our purposes, these pools will instead be simplified to "write" and "read".
-
-    Assumption here is that we can leverage read-only optimizations, but I'm not sure.
-
-    This may be over-engineering.
-     */
-
     public static HikariDataSource getDataSourceFromConfig(Config config) {
         HikariConfig jdbcConfig = new HikariConfig();
         jdbcConfig.setPoolName(config.getString("poolName"));

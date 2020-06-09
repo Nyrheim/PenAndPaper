@@ -9,6 +9,7 @@ import net.nyrheim.penandpaper.clazz.PenClass;
 import net.nyrheim.penandpaper.player.PenPlayer;
 import net.nyrheim.penandpaper.player.PenPlayerService;
 import net.md_5.bungee.api.chat.*;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
@@ -45,8 +46,9 @@ public final class LevelGUI extends GUI {
                         i,
                         createGuiItem(
                                 getMaterial(clazz),
-                                clazz.getName(),
-                                characterClass.getLevel() > 0 ? "Lv" + characterClass.getLevel() : "No levels"
+                                getItemNameForClass(clazz),
+                                ChatColor.GOLD + clazz.getName(),
+                                characterClass.getLevel() > 0 ? ChatColor.GOLD + "Lv" + characterClass.getLevel() : "No levels"
                         )
                 );
             } else {
@@ -54,8 +56,9 @@ public final class LevelGUI extends GUI {
                         i,
                         createGuiItem(
                                 getMaterial(clazz),
-                                clazz.getName(),
-                                "No levels"
+                                getItemNameForClass(clazz),
+                                ChatColor.GOLD + clazz.getName(),
+                                ChatColor.GOLD + "No levels"
                         )
                 );
             }
@@ -153,7 +156,7 @@ public final class LevelGUI extends GUI {
             characterService.updateClasses(character);
             player.closeInventory();
             if (characterClass != null) {
-                player.sendMessage(GREEN + "Levelled up " + clazz.getName() + " to lv" + characterClass.getLevel());
+                player.sendMessage(GREEN + "Levelled up " + clazz.getName() + " to level " + characterClass.getLevel() + ".");
             }
         }
     }

@@ -44,7 +44,7 @@ public final class SoulGUI extends GUI {
                 PenCharacter character = characters.get(i);
                 getInventory().setItem(i, createGuiItem(
                         PLAYER_HEAD,
-                        character.getName(),
+                        character.getName() + "(" + character.getId().getValue() + ")",
                         GOLD + (character.getRace() != null ? character.getRace().getName() : "Race not set"),
                         GOLD + character.classes().stream()
                                 .map(characterClass -> characterClass.getClazz().getName() + " "

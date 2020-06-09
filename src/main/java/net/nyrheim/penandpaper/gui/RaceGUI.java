@@ -194,6 +194,7 @@ public final class RaceGUI extends GUI {
                     initializeHalflingSubraceItems();
                     break;
                 case 3:
+                    baseRace = human;
                     setRace(player, characterService, character, human);
                     break;
                 case 4:
@@ -205,6 +206,7 @@ public final class RaceGUI extends GUI {
                     initializeHalfElfSubraceItems();
                     break;
                 case 6:
+                    baseRace = halfOrc;
                     setRace(player, characterService, character, halfOrc);
                     break;
                 case 7:
@@ -212,6 +214,7 @@ public final class RaceGUI extends GUI {
                     initializeTieflingSubraceItems();
                     break;
                 case 8:
+                    baseRace = storaman;
                     setRace(player, characterService, character, storaman);
             }
         } else if (baseRace == dwarf) {
@@ -222,7 +225,7 @@ public final class RaceGUI extends GUI {
             } else if (slot == 1) {
                 setRace(player, characterService, character, shieldDwarf);
             }
-        } else if (baseRace == elf) {
+        }  else if (baseRace == elf) {
             Race woodElf = raceService.getRace("WOOD_ELF");
             Race highElf = raceService.getRace("HIGH_ELF");
             if (slot == 0) {
