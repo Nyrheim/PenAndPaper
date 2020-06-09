@@ -1,15 +1,13 @@
 package net.nyrheim.penandpaper.gui;
 
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.*;
 import net.nyrheim.penandpaper.PenAndPaper;
 import net.nyrheim.penandpaper.character.CharacterId;
 import net.nyrheim.penandpaper.character.PenCharacter;
 import net.nyrheim.penandpaper.character.PenCharacterService;
 import net.nyrheim.penandpaper.player.PenPlayer;
 import net.nyrheim.penandpaper.player.PenPlayerService;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -97,20 +95,12 @@ public final class SoulGUI extends GUI {
                     player.sendMessage("You are about to permanently delete " + character.getName() + ".");
                     TextComponent deleteButton = new TextComponent("Delete " + character.getName());
                     deleteButton.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/char delete " + character.getId().getValue()));
-                    deleteButton.setHoverEvent(new HoverEvent(
-                            HoverEvent.Action.SHOW_TEXT,
-                            new ComponentBuilder()
-                                    .append(new TextComponent("Click here to delete " + character.getName()))
-                                    .create()
-                    ));
-                    player.spigot().sendMessage(
-                            new ComponentBuilder()
-                                .append("Click here to confirm: ")
-                                .color(net.md_5.bungee.api.ChatColor.WHITE)
-                                .append(deleteButton)
-                                .color(net.md_5.bungee.api.ChatColor.RED)
-                                .create()
-                    );
+                    BaseComponent[] built = new ComponentBuilder("").append("Click here to confirm: ")
+                            .color(ChatColor.WHITE)
+                            .append(deleteButton)
+                            .color(ChatColor.RED)
+                            .create();
+                    player.spigot().sendMessage(built);
                 }
             }
         }

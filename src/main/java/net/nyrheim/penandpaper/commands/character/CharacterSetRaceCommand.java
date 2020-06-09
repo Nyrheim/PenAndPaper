@@ -1,7 +1,12 @@
 package net.nyrheim.penandpaper.commands.character;
 
 import net.nyrheim.penandpaper.PenAndPaper;
+import net.nyrheim.penandpaper.character.PenCharacter;
+import net.nyrheim.penandpaper.character.PenCharacterService;
 import net.nyrheim.penandpaper.gui.RaceGUI;
+import net.nyrheim.penandpaper.player.PenPlayer;
+import net.nyrheim.penandpaper.player.PenPlayerService;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,9 +33,21 @@ public final class CharacterSetRaceCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
-        RaceGUI gui = new RaceGUI(plugin);
-        gui.initializeItems(player);
-        gui.openInventory(player);
-        return true;
+        PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
+        PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
+        PenPlayer penPlayer = playerService.getPlayer(player);
+        PenCharacter character = characterService.getActiveCharacter(penPlayer);
+      /*  if (character.getRace() != null) {
+            player.sendMessage(ChatColor.RED + "You have already set your race.");
+            return true;
+        }
+        else {
+
+       */
+            RaceGUI gui = new RaceGUI(plugin);
+            gui.initializeItems(player);
+            gui.openInventory(player);
+            return true;
+     //   }
     }
 }
