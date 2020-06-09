@@ -100,6 +100,7 @@ public final class PenAndPaper extends RPKBukkitPlugin implements Listener {
     @EventHandler
     public void onServiceReady(RPKBukkitServiceProviderReadyEvent event) {
         if (racesInitialized) return;
+        if (!(event.getServiceProvider() instanceof RPKLanguageProvider)) return;
         attemptRaceInitialization();
     }
 
