@@ -95,7 +95,11 @@ public final class SoulGUI extends GUI {
                     player.sendMessage("You are about to permanently delete " + character.getName() + ".");
                     TextComponent deleteButton = new TextComponent("Delete " + character.getName());
                     deleteButton.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/char delete " + character.getId().getValue()));
-                    BaseComponent[] built = new ComponentBuilder("").append("Click here to confirm: ")
+                    deleteButton.setHoverEvent(new HoverEvent(
+                            HoverEvent.Action.SHOW_TEXT,
+                            new ComponentBuilder("Click here to delete " + character.getName()).create()
+                    ));
+                    BaseComponent[] built = new ComponentBuilder("Click here to confirm: ")
                             .color(ChatColor.WHITE)
                             .append(deleteButton)
                             .color(ChatColor.RED)

@@ -4,7 +4,7 @@ authors:
 - LiamVI
 - alyphen
 main: net.nyrheim.penandpaper.PenAndPaper
-api-version: 1.13
+api-version: 1.14
 depend:
 - rpk-core-bukkit
 - rpk-player-lib-bukkit

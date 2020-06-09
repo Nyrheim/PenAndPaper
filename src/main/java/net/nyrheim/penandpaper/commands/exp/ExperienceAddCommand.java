@@ -79,9 +79,8 @@ public class ExperienceAddCommand implements CommandExecutor {
             TextComponent levelUpButton = new TextComponent("Click here");
             levelUpButton.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/levelup"));
             levelUpButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                    new ComponentBuilder().append("Click here to choose which class to level up").create()));
-            target.spigot().sendMessage(new ComponentBuilder()
-                    .append("Choose which class to level up: ")
+                    new ComponentBuilder("Click here to choose which class to level up").create()));
+            target.spigot().sendMessage(new ComponentBuilder("Choose which class to level up: ")
                     .color(net.md_5.bungee.api.ChatColor.GREEN)
                     .append(levelUpButton)
                     .color(net.md_5.bungee.api.ChatColor.YELLOW)

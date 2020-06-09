@@ -118,9 +118,8 @@ public final class LevelGUI extends GUI {
                         TextComponent approveButton = new TextComponent("Approve");
                         approveButton.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/class approve " + player.getName() + " " + clazz.getName()));
                         approveButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                                new ComponentBuilder().append("Click here to approve multiclassing combination").create()));
-                        BaseComponent[] approvalMessage = new ComponentBuilder()
-                                .append(approveButton)
+                                new ComponentBuilder("Click here to approve multiclassing combination").create()));
+                        BaseComponent[] approvalMessage = new ComponentBuilder(approveButton)
                                 .color(net.md_5.bungee.api.ChatColor.GREEN)
                                 .create();
                         List<Player> approvers = plugin.getServer().getOnlinePlayers()
