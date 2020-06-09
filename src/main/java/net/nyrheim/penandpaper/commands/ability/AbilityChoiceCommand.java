@@ -80,8 +80,7 @@ public final class AbilityChoiceCommand implements CommandExecutor {
 
     public void sendAbilityChoices(CommandSender sender, PenCharacter character) {
         for (Ability ability : Ability.values()) {
-            ComponentBuilder abilityLineBuilder = new ComponentBuilder()
-                    .append(ability.getAbbreviation())
+            ComponentBuilder abilityLineBuilder = new ComponentBuilder(ability.getAbbreviation())
                     .color(net.md_5.bungee.api.ChatColor.WHITE);
             int[] scores = { 8, 9, 10, 11, 12, 13, 14, 15 };
             Arrays.stream(scores).forEach(score -> {
@@ -102,10 +101,10 @@ public final class AbilityChoiceCommand implements CommandExecutor {
                 if (color == net.md_5.bungee.api.ChatColor.GRAY) {
                     scoreComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ability choice set " + ability.getAbbreviation() + " " + score));
                     scoreComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                            new ComponentBuilder().append("Click here to set your " + ability.getName() + " score to " + score + ".").create()));
+                            new ComponentBuilder("Click here to set your " + ability.getName() + " score to " + score + ".").create()));
                 } else if (color == net.md_5.bungee.api.ChatColor.DARK_GRAY) {
                     scoreComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                            new ComponentBuilder().append("Decrease your other stats if you wish to choose this option.").create()));
+                            new ComponentBuilder("Decrease your other stats if you wish to choose this option.").create()));
                 }
                 abilityLineBuilder.append(" - ")
                         .color(net.md_5.bungee.api.ChatColor.WHITE)
@@ -120,8 +119,7 @@ public final class AbilityChoiceCommand implements CommandExecutor {
             TextComponent confirmButton = new TextComponent("Confirm");
             confirmButton.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ability choice confirm"));
             confirmButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                    new ComponentBuilder()
-                            .append("Click here to lock in your ability score choices. ")
+                    new ComponentBuilder("Click here to lock in your ability score choices. ")
                             .color(net.md_5.bungee.api.ChatColor.WHITE)
                             .append("WARNING: PERMANENT!")
                             .color(net.md_5.bungee.api.ChatColor.RED)
