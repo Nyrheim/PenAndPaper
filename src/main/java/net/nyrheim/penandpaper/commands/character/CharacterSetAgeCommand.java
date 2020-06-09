@@ -5,6 +5,7 @@ import net.nyrheim.penandpaper.character.PenCharacter;
 import net.nyrheim.penandpaper.character.PenCharacterService;
 import net.nyrheim.penandpaper.player.PenPlayer;
 import net.nyrheim.penandpaper.player.PenPlayerService;
+import net.nyrheim.penandpaper.race.Race;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -76,6 +77,26 @@ public final class CharacterSetAgeCommand implements CommandExecutor {
             sender.sendMessage(RED + (sender == target ? "You" : character.getName()) + " may not be over 2000 years old.");
             return true;
         }
+
+        Race race = character.getRace();
+
+        if (race == null){
+            sender.sendMessage(RED + "You must set your race first before deciding your age.");
+            return true;
+        }
+
+        if (age < race.getMinimumAge()) {
+            sender.sendMessage(RED + (sender == target ? "You've" : character.getName() + " has") + " not reached adulthood yet. "
+                    + race.getName() + "'s reach adulthood at " + race.getMinimumAge() + " years old.");
+            return true;
+        }
+
+        if (age > race.getMaximumAge()){
+            sender.sendMessage(RED + (sender == target ? "You're" : character.getName() + " is") +
+                    " too old, " + race.getName() + "'s can live to " + race.getMaximumAge() + " years young.");
+            return true;
+        }
+
         character.setAge(age);
         characterService.updateCharacter(character);
         sender.sendMessage(GREEN + (sender == target ? "Your" : (character.getName() + "'s")) + " age is now " + age + ".");
