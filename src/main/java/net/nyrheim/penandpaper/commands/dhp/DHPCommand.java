@@ -71,11 +71,23 @@ public final class DHPCommand implements CommandExecutor {
             sender.sendMessage(RED + (target == sender ? "You do" : target.getName() + " does") + " not currently have an active character.");
             return true;
         }
-        character.setHP(character.getHP() - damage);
+        int remainingDamage = damage;
+        if (character.getTempHP() > 0) {
+            if (damage >= character.getTempHP()) {
+                remainingDamage = damage - character.getTempHP();
+                character.setTempHP(0);
+            } else {
+                remainingDamage = 0;
+                character.setTempHP(character.getTempHP() - damage);
+            }
+        }
+        character.setHP(character.getHP() - remainingDamage);
         characterService.updateCharacter(character);
-        target.sendMessage(GREEN + "Took " + damage + " damage.");
+        target.sendMessage(GREEN + "Took " + damage + " damage"
+                + (damage != remainingDamage ? " (" + (damage - remainingDamage) + " absorbed by temp HP)" : "") + ".");
         if (target != sender) {
-            sender.sendMessage(GREEN + "Dealt " + damage + " damage to " + character.getName() + ".");
+            sender.sendMessage(GREEN + "Dealt " + damage + " damage to " + character.getName()
+                    + (damage != remainingDamage ? " (" + (damage - remainingDamage) + " absorbed by temp HP)" : "") + ".");
         }
         return true;
     }

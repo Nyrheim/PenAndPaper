@@ -18,6 +18,7 @@ import net.nyrheim.penandpaper.commands.item.ItemCommand;
 import net.nyrheim.penandpaper.commands.levelup.LevelUpCommand;
 import net.nyrheim.penandpaper.commands.sethp.SetHPCommand;
 import net.nyrheim.penandpaper.commands.soul.SoulCommand;
+import net.nyrheim.penandpaper.commands.temphp.TempHPCommand;
 import net.nyrheim.penandpaper.database.Database;
 import net.nyrheim.penandpaper.exhaustion.ExhaustionTask;
 import net.nyrheim.penandpaper.item.PenRecipeService;
@@ -135,6 +136,7 @@ public final class PenAndPaper extends RPKBukkitPlugin implements Listener {
         getCommand("ihp").setExecutor(new IHPCommand(this));
         getCommand("sethp").setExecutor(new SetHPCommand(this));
         getCommand("exhaustion").setExecutor(new ExhaustionCommand(this));
+        getCommand("temphp").setExecutor(new TempHPCommand(this));
     }
 
     public Database getDatabase() {
