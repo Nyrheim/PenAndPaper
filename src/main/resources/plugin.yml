@@ -86,6 +86,11 @@ commands:
     usage: /<command> [add|remove|set]
     aliases:
     - exh
+  temphp:
+    description: Displays your temp HP
+    usage: /<command>
+    aliases:
+    - thp
 permissions:
   penandpaper.command.exp.add:
     description: Allows adding experience to characters

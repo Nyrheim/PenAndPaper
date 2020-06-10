@@ -52,6 +52,7 @@ public final class PenCharacter {
     private float foodExhaustion;
     private Location location;
     private int hp;
+    private int tempHP;
 
     public PenCharacter(
             PenAndPaper plugin,
@@ -82,7 +83,8 @@ public final class PenCharacter {
             float saturation,
             float foodExhaustion,
             Location location,
-            int hp
+            int hp,
+            int tempHP
     ) {
         this.id = id;
         this.plugin = plugin;
@@ -114,6 +116,7 @@ public final class PenCharacter {
         this.foodExhaustion = foodExhaustion;
         this.location = location;
         this.hp = hp;
+        this.tempHP = tempHP;
     }
 
     public PenCharacter(
@@ -149,7 +152,8 @@ public final class PenCharacter {
                 5,
                 0,
                 plugin.getServer().getWorlds().get(0).getSpawnLocation(),
-                1
+                1,
+                0
         );
     }
 
@@ -402,4 +406,11 @@ public final class PenCharacter {
         this.hp = hp;
     }
 
+    public int getTempHP() {
+        return tempHP;
+    }
+
+    public void setTempHP(int tempHP) {
+        this.tempHP = tempHP;
+    }
 }
