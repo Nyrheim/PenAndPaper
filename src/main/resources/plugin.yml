@@ -116,6 +116,9 @@ permissions:
   penandpaper.command.character.set.presence.other:
     description: Allows setting the presence of other players'' characters
     default: op
+  penandpaper.command.character.set.race.other:
+    description: Allows setting the race of other players'' characters
+    default: op
   penandpaper.command.character.add.appearance.other:
     description: Allows extending the appearance of other players'' characters
     default: op
