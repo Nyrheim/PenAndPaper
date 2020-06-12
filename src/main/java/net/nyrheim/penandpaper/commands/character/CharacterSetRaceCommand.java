@@ -33,17 +33,38 @@ public final class CharacterSetRaceCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
-        PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
-        PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
-        PenPlayer penPlayer = playerService.getPlayer(player);
-        PenCharacter character = characterService.getActiveCharacter(penPlayer);
-        if (character.getRace() != null) {
-            player.sendMessage(ChatColor.RED + "You have already set your race.");
-        } else {
-            RaceGUI gui = new RaceGUI(plugin);
-            gui.initializeItems(player);
-            gui.openInventory(player);
+        if (args.length == 0) {
+            PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
+            PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
+            PenPlayer penPlayer = playerService.getPlayer(player);
+            PenCharacter character = characterService.getActiveCharacter(penPlayer);
+            if (character.getRace() != null) {
+                player.sendMessage(ChatColor.RED + "You have already set your race.");
+                return true;
+            } else {
+                RaceGUI gui = new RaceGUI(plugin);
+                gui.initializeItems(player);
+                gui.openInventory(player);
+                return true;
+            }
         }
+        if (args.length == 1) {
+            if (player.hasPermission("penandpaper.command.character.set.race.other")) {
+                Player target = plugin.getServer().getPlayer(args[0]);
+                if (target != null) {
+                    RaceGUI gui = new RaceGUI(plugin);
+                    gui.initializeItems(target);
+                    gui.openInventory(target);
+                    return true;
+                }
+                else {
+                    player.sendMessage(ChatColor.RED + "That player does not exist or is offline!");
+                    return true;
+                }
+            }
+            return true;
+        }
+        player.sendMessage("You must specify a player.");
         return true;
     }
 }
