@@ -101,7 +101,7 @@ public final class Roll {
         Pattern literalPattern = Pattern.compile("([+\\-]\\d+)(?!d)");
         Matcher literalMatcher = literalPattern.matcher(rollStringWithoutDice);
         while (literalMatcher.find()) {
-            int amount = Integer.parseInt(literalMatcher.group(2));
+            int amount = Integer.parseInt(literalMatcher.group(1));
             parts.add(new Modifier(amount));
         }
         return new Roll(parts.toArray(new RollPart[0]));
@@ -117,4 +117,5 @@ public final class Roll {
         else
             return roll;
     }
+
 }

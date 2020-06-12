@@ -15,4 +15,18 @@ public final class RollPartResult {
         this.individualResults = results;
         this.result = results.stream().reduce(0, Integer::sum);
     }
+
+    @Override
+    public String toString() {
+        return "(" + individualResults
+                .stream()
+                .map(result -> Integer.toString(result))
+                .reduce((a, b) -> a+"+"+b)
+                .orElse("Invalid roll.")
+                + ")";
+    }
+
+    public Integer getResult() {
+        return result;
+    }
 }
