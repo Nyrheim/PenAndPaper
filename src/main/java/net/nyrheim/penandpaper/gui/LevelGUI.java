@@ -160,7 +160,7 @@ public final class LevelGUI extends GUI {
             characterService.updateClasses(character);
             player.closeInventory();
             if (characterClass != null) {
-                player.sendMessage(GREEN + "Levelled up " + clazz.getName() + " to level " + characterClass.getLevel() + ".");
+                player.sendMessage(GREEN + "Leveled up " + clazz.getName() + " to level " + characterClass.getLevel() + ".");
             }
         }
     }

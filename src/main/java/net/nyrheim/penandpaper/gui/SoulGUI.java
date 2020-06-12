@@ -6,16 +6,20 @@ import net.nyrheim.penandpaper.PenAndPaper;
 import net.nyrheim.penandpaper.character.CharacterId;
 import net.nyrheim.penandpaper.character.PenCharacter;
 import net.nyrheim.penandpaper.character.PenCharacterService;
+import net.nyrheim.penandpaper.item.PenItemStack;
 import net.nyrheim.penandpaper.player.PenPlayer;
 import net.nyrheim.penandpaper.player.PenPlayerService;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static net.md_5.bungee.api.ChatColor.DARK_AQUA;
+import static net.nyrheim.penandpaper.item.adventuringgear.AdventuringGearType.*;
 import static org.bukkit.ChatColor.GOLD;
 import static org.bukkit.ChatColor.WHITE;
 import static org.bukkit.Material.*;
@@ -77,6 +81,15 @@ public final class SoulGUI extends GUI {
             );
             characterService.addCharacter(character);
             characterService.setActiveCharacter(penPlayer, character);
+            List<String> purse = new ArrayList<>();
+            purse.add("A purse of foreign currency, brought with you from a foreign shore.");
+            purse.add("There's just about enough money in it to rent a house,");
+            purse.add("or you could go to the bank and exchange it.");
+            purse.add("[Contact a GM to interact.]");
+            purse.add(DARK_AQUA + "[Soulbound to " + penPlayer.getPlayer().getName() + " with ID: " + character.getId().toString() + "]");
+            player.getInventory().addItem(new PenItemStack(COMMON_CLOTHES, 1).toItemStack());
+            player.getInventory().addItem(new PenItemStack(RATIONS, 20).toItemStack());
+            player.getInventory().addItem(new PenItemStack(PURSE_OF_FOREIGN_CURRENCY, 1).toLoredItemStack(character, purse));
         } else if (clickedItem.getType() == PLAYER_HEAD) {
             player.closeInventory();
             if (slotCharacters.containsKey(slot)) {

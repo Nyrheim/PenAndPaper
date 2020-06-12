@@ -124,6 +124,12 @@ public enum AdventuringGearType implements ItemType {
             new Weight(5, LB),
             SHULKER_BOX
     ),
+    PURSE_OF_FOREIGN_CURRENCY(
+            "Purse of Foreign Currency",
+            new Money(0, CP),
+            new Weight(0.5, LB),
+            MAGMA_CREAM
+    ),
     BALL_BEARINGS(
             "Ball bearings (pack of 1000)",
             new Money(1, GP),
@@ -233,25 +239,25 @@ public enum AdventuringGearType implements ItemType {
             Material.STRING
     ),
     COMMON_CLOTHES(
-            "Clothes, common",
+            "Commoner's Clothes",
             new Money(25, SP),
             new Weight(3, LB),
             LEATHER_CHESTPLATE
     ),
     COSTUME_CLOTHES(
-            "Clothes, costume",
+            "Costume",
             new Money(5, GP),
             new Weight(4, LB),
             LEATHER_CHESTPLATE
     ),
     FINE_CLOTHES(
-            "Clothes, fine",
+            "Fine Clothes",
             new Money(15, GP),
             new Weight(6, LB),
             LEATHER_CHESTPLATE
     ),
     TRAVELERS_CLOTHES(
-            "Clothes, traveler's",
+            "Traveller's Clothes",
             new Money(2, GP),
             new Weight(4, LB),
             LEATHER_CHESTPLATE
@@ -946,6 +952,7 @@ public enum AdventuringGearType implements ItemType {
                 (amount) -> new ItemStack(minecraftType, amount)
         );
     }
+
 
     @Override
     public String getName() {
