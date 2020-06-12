@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 import static net.nyrheim.penandpaper.item.weapon.WeaponCategory.*;
 import static net.nyrheim.penandpaper.weight.WeightUnit.LB;
 import static org.bukkit.ChatColor.WHITE;
+import static org.bukkit.ChatColor.GRAY;
 import static org.bukkit.Material.*;
 
 public enum WeaponType implements ItemType {
@@ -640,11 +641,11 @@ public enum WeaponType implements ItemType {
     @Override
     public List<String> createLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(WHITE + "Weight: " + getWeight().toString());
-        lore.add(WHITE + "Category: " + getCategory().getName());
-        lore.add(WHITE + "Damage: " + getDamage().getRoll().toString() + " " + getDamage().getDamageType().getName());
-        lore.add(WHITE + "Properties: ");
-        lore.addAll(getProperties().stream().map(property -> WHITE + "\u2022 " + property.toString()).collect(Collectors.toList()));
+        lore.add(GRAY + "" + getDamage().getRoll().toString() + " " + getDamage().getDamageType().getName() + ", " + getCategory().getName());
+        lore.add(GRAY + "" + getProperties().stream().map(property -> GRAY + property.toString())
+                .collect(Collectors.toList())
+        );
+        lore.add(GRAY + "Weight: " + getWeight().toString());
         return lore;
     }
 

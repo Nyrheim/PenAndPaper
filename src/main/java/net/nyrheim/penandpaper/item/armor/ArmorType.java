@@ -8,6 +8,7 @@ import net.nyrheim.penandpaper.item.ItemType;
 import net.nyrheim.penandpaper.money.Currency;
 import net.nyrheim.penandpaper.money.Money;
 import net.nyrheim.penandpaper.weight.Weight;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -17,13 +18,14 @@ import java.util.List;
 
 import static net.nyrheim.penandpaper.item.armor.ArmorCategory.*;
 import static net.nyrheim.penandpaper.weight.WeightUnit.LB;
+import static org.bukkit.ChatColor.GRAY;
 import static org.bukkit.ChatColor.WHITE;
 import static org.bukkit.Material.*;
 
 public enum ArmorType implements ItemType {
 
     PADDED(
-            "Padded",
+            "Padded Armor",
             LIGHT_ARMOR,
             new Money(5, Currency.GP),
             new ArmorClassCalculation(
@@ -37,7 +39,7 @@ public enum ArmorType implements ItemType {
             LEATHER_CHESTPLATE
     ),
     LEATHER(
-            "Leather",
+            "Leather Armor",
             LIGHT_ARMOR,
             new Money(10, Currency.GP),
             new ArmorClassCalculation(
@@ -51,7 +53,7 @@ public enum ArmorType implements ItemType {
             LEATHER_CHESTPLATE
     ),
     STUDDED_LEATHER(
-            "Studded leather",
+            "Studded Leather Armor",
             LIGHT_ARMOR,
             new Money(45, Currency.GP),
             new ArmorClassCalculation(
@@ -65,7 +67,7 @@ public enum ArmorType implements ItemType {
             LEATHER_CHESTPLATE
     ),
     HIDE(
-            "Hide",
+            "Hide Armor",
             MEDIUM_ARMOR,
             new Money(10, Currency.GP),
             new ArmorClassCalculation(
@@ -79,7 +81,7 @@ public enum ArmorType implements ItemType {
             LEATHER_CHESTPLATE
     ),
     CHAIN_SHIRT(
-            "Chain shirt",
+            "Chain Shirt",
             MEDIUM_ARMOR,
             new Money(50, Currency.GP),
             new ArmorClassCalculation(
@@ -93,7 +95,7 @@ public enum ArmorType implements ItemType {
             CHAINMAIL_CHESTPLATE
     ),
     SCALE_MAIL(
-            "Scale mail",
+            "Scale Mail",
             MEDIUM_ARMOR,
             new Money(50, Currency.GP),
             new ArmorClassCalculation(
@@ -121,7 +123,7 @@ public enum ArmorType implements ItemType {
             IRON_CHESTPLATE
     ),
     HALF_PLATE(
-            "Half plate",
+            "Half Plate",
             MEDIUM_ARMOR,
             new Money(750, Currency.GP),
             new ArmorClassCalculation(
@@ -135,7 +137,7 @@ public enum ArmorType implements ItemType {
             IRON_CHESTPLATE
     ),
     RING_MAIL(
-            "Ring mail",
+            "Ring Mail",
             HEAVY_ARMOR,
             new Money(30, Currency.GP),
             new ArmorClassCalculation(
@@ -148,7 +150,7 @@ public enum ArmorType implements ItemType {
             CHAINMAIL_CHESTPLATE
     ),
     CHAIN_MAIL(
-            "Chain mail",
+            "Chain Mail",
             HEAVY_ARMOR,
             new Money(75, Currency.GP),
             new ArmorClassCalculation(
@@ -161,7 +163,7 @@ public enum ArmorType implements ItemType {
             CHAINMAIL_CHESTPLATE
     ),
     SPLINT(
-            "Splint",
+            "Splint Mail",
             HEAVY_ARMOR,
             new Money(200, Currency.GP),
             new ArmorClassCalculation(
@@ -174,7 +176,7 @@ public enum ArmorType implements ItemType {
             CHAINMAIL_CHESTPLATE
     ),
     PLATE(
-            "Plate",
+            "Plate Mail",
             HEAVY_ARMOR,
             new Money(1500, Currency.GP),
             new ArmorClassCalculation(
@@ -297,13 +299,11 @@ public enum ArmorType implements ItemType {
     @Override
     public List<String> createLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(WHITE + "Weight: " + getWeight().toString());
-        lore.add(WHITE + "Category: " + getCategory().getName());
+        lore.add(GRAY + "Category: " + getCategory().getName() + ", " + "Metallic: " + (isMetal() ? "Yes" : "No"));
+        lore.add(GRAY + "Weight: " + getWeight().toString());
         if (getStrengthRequirement() != null) {
-            lore.add(WHITE + "Strength requirement: " + getStrengthRequirement().toString());
+            lore.add(GRAY + "Strength requirement: " + getStrengthRequirement().toString());
         }
-        lore.add(WHITE + "Disadvantage to stealth checks: " + (isDisadvantageToStealthChecks() ? "Yes" : "No"));
-        lore.add(WHITE + "Is metal: " + (isMetal() ? "Yes" : "No"));
         return lore;
     }
 

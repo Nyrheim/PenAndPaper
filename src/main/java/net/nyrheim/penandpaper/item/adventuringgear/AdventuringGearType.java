@@ -958,7 +958,7 @@ public enum AdventuringGearType implements ItemType {
     @Override
     public List<String> createLore() {
         return Collections.singletonList(
-                ChatColor.WHITE + "Weight: " + getWeight().toString()
+                ChatColor.GRAY + "Weight: " + getWeight().toString()
         );
     }
 

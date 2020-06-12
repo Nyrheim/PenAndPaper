@@ -2,10 +2,10 @@ package net.nyrheim.penandpaper.item.weapon;
 
 public enum WeaponCategory {
 
-    SIMPLE_MELEE("Simple melee", true, false, true, false),
-    SIMPLE_RANGED("Simple ranged", true, false, false, true),
-    MARTIAL_MELEE("Martial melee", false, true, true, false),
-    MARTIAL_RANGED("Martial ranged", false, true, false, true);
+    SIMPLE_MELEE("Simple Weapon", true, false, true, false),
+    SIMPLE_RANGED("Simple Weapon", true, false, false, true),
+    MARTIAL_MELEE("Martial Weapon", false, true, true, false),
+    MARTIAL_RANGED("Martial Weapon", false, true, false, true);
 
     private final String name;
     private final boolean isSimple;
