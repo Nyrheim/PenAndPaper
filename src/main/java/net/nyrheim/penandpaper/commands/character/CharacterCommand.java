@@ -1,5 +1,9 @@
 package net.nyrheim.penandpaper.commands.character;
 
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.nyrheim.penandpaper.PenAndPaper;
 import net.nyrheim.penandpaper.character.PenCharacter;
 import net.nyrheim.penandpaper.character.PenCharacterService;
@@ -87,13 +91,34 @@ public final class CharacterCommand implements CommandExecutor {
             sender.sendMessage(RED + (target == sender ? "You do" : (target.getName() + " does")) + " not currently have an active character.");
             return true;
         }
-        sender.sendMessage(GOLD + character.getName());
-        sender.sendMessage(AQUA + "Age: " + WHITE + (character.getAge() < 0 ? "Empty" : character.getAge()));
+        TextComponent firstName = new TextComponent(GOLD + character.getFirstName());
+        firstName.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/char set firstname"));
+        firstName.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click me to change your character's first name!").create()));
+        TextComponent familyName = new TextComponent(GOLD + " " + character.getFamilyName());
+        familyName.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/char set familyname"));
+        familyName.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click me to change your character's family name!").create()));
+        sender.spigot().sendMessage(firstName, familyName);
+        TextComponent age = new TextComponent(AQUA + "Age: " + WHITE + (character.getAge() < 0 ? "Empty" : character.getAge()));
+        age.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/char set age"));
+        age.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click me to change your character's age!").create()));
+        sender.spigot().sendMessage(age);
         sender.sendMessage(AQUA + "Race: " + WHITE + (character.getRace() == null ? "Empty" : character.getRace().getName()));
-        sender.sendMessage(AQUA + "Height: " + WHITE + (character.getHeight().isEmpty() ? "Empty" : character.getHeight()));
-        sender.sendMessage(AQUA + "Weight: " + WHITE + (character.getWeight().isEmpty() ? "Empty" : character.getWeight()));
-        sender.sendMessage(AQUA + "Appearance: " + WHITE + (character.getAppearance().isEmpty() ? "Empty" : character.getAppearance()));
-        sender.sendMessage(AQUA + "Presence: " + WHITE + (character.getPresence().isEmpty() ? "Empty" : character.getPresence()));
+        TextComponent height = new TextComponent(AQUA + "Height: " + WHITE + (character.getHeight().isEmpty() ? "Empty" : character.getHeight()));
+        height.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/char set height"));
+        height.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click me to change your character's height!").create()));
+        sender.spigot().sendMessage(height);
+        TextComponent weight = new TextComponent(AQUA + "Weight: " + WHITE + (character.getWeight().isEmpty() ? "Empty" : character.getWeight()));
+        weight.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/char set weight"));
+        weight.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click me to change your character's weight!").create()));
+        sender.spigot().sendMessage(weight);
+        TextComponent appearance = new TextComponent(AQUA + "Appearance: " + WHITE + (character.getAppearance().isEmpty() ? "Empty" : character.getAppearance()));
+        appearance.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/char set appearance"));
+        appearance.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click me to change your character's appearance!").create()));
+        sender.spigot().sendMessage(appearance);
+        TextComponent presence = new TextComponent(AQUA + "Presence: " + WHITE + (character.getPresence().isEmpty() ? "Empty" : character.getPresence()));
+        presence.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/char set presence"));
+        presence.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click me to change your character's presence!").create()));
+        sender.spigot().sendMessage(presence);
         sender.sendMessage(AQUA + "Player: " + WHITE + target.getName());
         return true;
     }
