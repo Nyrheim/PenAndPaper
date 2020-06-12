@@ -6,6 +6,7 @@ import net.nyrheim.penandpaper.character.PenCharacterService;
 import net.nyrheim.penandpaper.clazz.CharacterClass;
 import net.nyrheim.penandpaper.clazz.MulticlassingRequirement;
 import net.nyrheim.penandpaper.clazz.PenClass;
+import net.nyrheim.penandpaper.item.PenItemStack;
 import net.nyrheim.penandpaper.player.PenPlayer;
 import net.nyrheim.penandpaper.player.PenPlayerService;
 import net.md_5.bungee.api.chat.*;
@@ -91,6 +92,10 @@ public final class LevelGUI extends GUI {
                         character.setHP(character.getMaxHP());
                         characterService.updateCharacter(character);
                         characterClass = character.clazz(clazz);
+                        List<PenItemStack> starterItems = clazz.getStarterItems();
+                        for (int i = 0; i < starterItems.size(); i++) {
+                            player.getInventory().addItem(starterItems.get(i).toItemStack());
+                        }
                     } else {
                         if (!character.classes().stream().allMatch(requirementsClass ->
                                 requirementsClass.getClazz().getMulticlassingRequirement().meets(character))

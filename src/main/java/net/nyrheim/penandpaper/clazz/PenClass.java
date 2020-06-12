@@ -3,6 +3,7 @@ package net.nyrheim.penandpaper.clazz;
 import net.nyrheim.penandpaper.ability.Ability;
 import net.nyrheim.penandpaper.dice.Roll;
 import net.nyrheim.penandpaper.dice.Roll.Die;
+import net.nyrheim.penandpaper.item.PenItemStack;
 import net.nyrheim.penandpaper.item.armor.ArmorCategory;
 import net.nyrheim.penandpaper.item.armor.ArmorType;
 import net.nyrheim.penandpaper.item.weapon.WeaponType;
@@ -11,6 +12,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static net.nyrheim.penandpaper.item.adventuringgear.AdventuringGearType.*;
+import static net.nyrheim.penandpaper.item.armor.ArmorType.*;
+import static net.nyrheim.penandpaper.item.weapon.WeaponType.*;
 
 public final class PenClass {
 
@@ -33,7 +38,10 @@ public final class PenClass {
             Arrays.asList(WeaponType.values()),
             12,
             7,
-            new MulticlassingRequirement.AbilityRequirement(Ability.STRENGTH, 13)
+            new MulticlassingRequirement.AbilityRequirement(Ability.STRENGTH, 13),
+            Arrays.asList (
+                    new PenItemStack(BATTLEAXE, 1)
+            )
     );
 
     public static final PenClass BARD = new PenClass(
@@ -54,12 +62,17 @@ public final class PenClass {
                                 || weaponType == WeaponType.HAND_CROSSBOW
                                 || weaponType == WeaponType.LONGSWORD
                                 || weaponType == WeaponType.RAPIER
-                                || weaponType == WeaponType.SHORTSWORD
+                                || weaponType == SHORTSWORD
                     )
                     .collect(Collectors.toList()),
             8,
             5,
-            new MulticlassingRequirement.AbilityRequirement(Ability.CHARISMA, 13)
+            new MulticlassingRequirement.AbilityRequirement(Ability.CHARISMA, 13),
+            Arrays.asList(
+                    new PenItemStack(DAGGER, 1),
+                    new PenItemStack(INSTRUMENT, 1),
+                    new PenItemStack(LEATHER, 1)
+            )
     );
 
     public static final PenClass CLERIC = new PenClass(
@@ -82,7 +95,13 @@ public final class PenClass {
                     .collect(Collectors.toList()),
             8,
             5,
-            new MulticlassingRequirement.AbilityRequirement(Ability.WISDOM, 13)
+            new MulticlassingRequirement.AbilityRequirement(Ability.WISDOM, 13),
+            Arrays.asList(
+                    new PenItemStack(MACE, 1),
+                    new PenItemStack(CHAIN_SHIRT, 1),
+                    new PenItemStack(SHIELD, 1),
+                    new PenItemStack(HOLY_SYMBOL, 1)
+            )
     );
 
     public static final PenClass DRUID = new PenClass(
@@ -116,7 +135,11 @@ public final class PenClass {
             ),
             8,
             5,
-            new MulticlassingRequirement.AbilityRequirement(Ability.WISDOM, 13)
+            new MulticlassingRequirement.AbilityRequirement(Ability.WISDOM, 13),
+            Arrays.asList(
+                    new PenItemStack(STAFF, 1),
+                    new PenItemStack(LEATHER, 1)
+            )
     );
 
     public static final PenClass FIGHTER = new PenClass(
@@ -135,6 +158,11 @@ public final class PenClass {
             new MulticlassingRequirement.AnyRequirement(
                     new MulticlassingRequirement.AbilityRequirement(Ability.STRENGTH, 13),
                     new MulticlassingRequirement.AbilityRequirement(Ability.DEXTERITY, 13)
+            ),
+            Arrays.asList(
+                    new PenItemStack(SPEAR, 1),
+                    new PenItemStack(CHAIN_SHIRT, 1),
+                    new PenItemStack(SHIELD, 1)
             )
     );
 
@@ -152,7 +180,7 @@ public final class PenClass {
             Arrays.stream(WeaponType.values())
                     .filter(weaponType ->
                             weaponType.getCategory().isSimple()
-                                || weaponType == WeaponType.SHORTSWORD
+                                || weaponType == SHORTSWORD
                     )
                     .collect(Collectors.toList()),
             8,
@@ -160,6 +188,9 @@ public final class PenClass {
             new MulticlassingRequirement.AllRequirement(
                     new MulticlassingRequirement.AbilityRequirement(Ability.DEXTERITY, 13),
                     new MulticlassingRequirement.AbilityRequirement(Ability.WISDOM, 13)
+            ),
+            Arrays.asList(
+                    new PenItemStack(QUARTERSTAFF, 1)
             )
     );
 
@@ -179,6 +210,12 @@ public final class PenClass {
             new MulticlassingRequirement.AllRequirement(
                     new MulticlassingRequirement.AbilityRequirement(Ability.STRENGTH, 13),
                     new MulticlassingRequirement.AbilityRequirement(Ability.CHARISMA, 13)
+            ),
+            Arrays.asList(
+                    new PenItemStack(MACE, 1),
+                    new PenItemStack(CHAIN_SHIRT, 1),
+                    new PenItemStack(SHIELD, 1),
+                    new PenItemStack(HOLY_SYMBOL, 1)
             )
     );
 
@@ -205,6 +242,11 @@ public final class PenClass {
             new MulticlassingRequirement.AllRequirement(
                     new MulticlassingRequirement.AbilityRequirement(Ability.DEXTERITY, 13),
                     new MulticlassingRequirement.AbilityRequirement(Ability.WISDOM, 13)
+            ),
+            Arrays.asList(
+                    new PenItemStack(SHORTBOW, 1),
+                    new PenItemStack(SHORTSWORD, 1),
+                    new PenItemStack(LEATHER, 1)
             )
     );
 
@@ -226,12 +268,17 @@ public final class PenClass {
                                 || weaponType == WeaponType.HAND_CROSSBOW
                                 || weaponType == WeaponType.LONGSWORD
                                 || weaponType == WeaponType.RAPIER
-                                || weaponType == WeaponType.SHORTSWORD
+                                || weaponType == SHORTSWORD
                     )
                     .collect(Collectors.toList()),
             8,
             5,
-            new MulticlassingRequirement.AbilityRequirement(Ability.DEXTERITY, 13)
+            new MulticlassingRequirement.AbilityRequirement(Ability.DEXTERITY, 13),
+            Arrays.asList(
+                    new PenItemStack(SHORTBOW, 1),
+                    new PenItemStack(SHORTSWORD, 1),
+                    new PenItemStack(LEATHER, 1)
+            )
     );
 
     public static final PenClass SORCERER = new PenClass(
@@ -253,7 +300,10 @@ public final class PenClass {
             ),
             6,
             4,
-            new MulticlassingRequirement.AbilityRequirement(Ability.CHARISMA, 13)
+            new MulticlassingRequirement.AbilityRequirement(Ability.CHARISMA, 13),
+            Arrays.asList(
+                    new PenItemStack(SOAP, 1)
+            )
     );
 
     public static final PenClass WARLOCK = new PenClass(
@@ -273,7 +323,12 @@ public final class PenClass {
                     .collect(Collectors.toList()),
             8,
             5,
-            new MulticlassingRequirement.AbilityRequirement(Ability.CHARISMA, 13)
+            new MulticlassingRequirement.AbilityRequirement(Ability.CHARISMA, 13),
+            Arrays.asList(
+                    new PenItemStack(DAGGER, 1),
+                    new PenItemStack(ORB, 1),
+                    new PenItemStack(LEATHER, 1)
+            )
     );
 
     public static final PenClass WIZARD = new PenClass(
@@ -295,7 +350,10 @@ public final class PenClass {
             ),
             6,
             4,
-            new MulticlassingRequirement.AbilityRequirement(Ability.INTELLIGENCE, 13)
+            new MulticlassingRequirement.AbilityRequirement(Ability.INTELLIGENCE, 13),
+            Arrays.asList(
+                    new PenItemStack(STAFF, 1)
+            )
     );
 
     public static PenClass valueOf(String name) {
@@ -350,6 +408,7 @@ public final class PenClass {
     private final int baseHP;
     private final int levelHP;
     private final MulticlassingRequirement multiclassingRequirement;
+    private final List<PenItemStack> starterItems;
 
     private PenClass(
             String name,
@@ -361,7 +420,8 @@ public final class PenClass {
             List<WeaponType> weaponProficiencies,
             int baseHP,
             int levelHP,
-            MulticlassingRequirement multiclassingRequirement
+            MulticlassingRequirement multiclassingRequirement,
+            List<PenItemStack> starterItems
     ) {
         this.name = name;
         this.description = description;
@@ -373,6 +433,7 @@ public final class PenClass {
         this.baseHP = baseHP;
         this.levelHP = levelHP;
         this.multiclassingRequirement = multiclassingRequirement;
+        this.starterItems = starterItems;
     }
 
     public String getName() {
@@ -417,5 +478,9 @@ public final class PenClass {
 
     public MulticlassingRequirement getMulticlassingRequirement() {
         return multiclassingRequirement;
+    }
+
+    public List<PenItemStack> getStarterItems() {
+        return starterItems;
     }
 }

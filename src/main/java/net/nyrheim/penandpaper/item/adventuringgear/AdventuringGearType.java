@@ -374,6 +374,12 @@ public enum AdventuringGearType implements ItemType {
             new Weight(1, LB),
             POTION
     ),
+    HOLY_SYMBOL(
+            "Holy Symbol",
+            new Money(50, CP),
+            new Weight(1, LB),
+            CLOCK
+    ),
     HOURGLASS(
             "Hourglass",
             new Money(25, GP),
@@ -906,6 +912,12 @@ public enum AdventuringGearType implements ItemType {
             new Money(0, CP),
             new Weight(10, LB),
             SCAFFOLDING
+    ),
+    INSTRUMENT(
+            "Instrument",
+            new Money(0, CP),
+            new Weight(1, LB),
+            MUSIC_DISC_MALL
     ),
     DIVING_TOOLS(
             "Diving Tools",
