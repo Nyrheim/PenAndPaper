@@ -86,6 +86,9 @@ commands:
     usage: /<command> [add|remove|set]
     aliases:
     - exh
+  roll:
+    description: Rolls the number of die specified
+    usage: /<command> [XdN+Y]
   temphp:
     description: Displays your temp HP
     usage: /<command>
