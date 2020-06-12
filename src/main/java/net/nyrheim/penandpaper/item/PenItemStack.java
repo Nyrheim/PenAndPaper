@@ -1,8 +1,17 @@
 package net.nyrheim.penandpaper.item;
 
+import net.nyrheim.penandpaper.PenAndPaper;
+import net.nyrheim.penandpaper.character.PenCharacter;
+import net.nyrheim.penandpaper.character.PenCharacterService;
+import net.nyrheim.penandpaper.player.PenPlayer;
+import net.nyrheim.penandpaper.player.PenPlayerService;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.bukkit.ChatColor.DARK_AQUA;
 import static org.bukkit.ChatColor.WHITE;
 import static org.bukkit.inventory.ItemFlag.*;
 
@@ -10,10 +19,12 @@ public final class PenItemStack {
 
     private final ItemType type;
     private final int amount;
+    private final List<String> lore;
 
     public PenItemStack(ItemType type, int amount) {
         this.type = type;
         this.amount = amount;
+        this.lore = null;
     }
 
     public ItemType getType() {
@@ -31,6 +42,26 @@ public final class PenItemStack {
             meta.setDisplayName(WHITE + getType().getName());
             meta.setLore(getType().createLore());
             meta.setUnbreakable(true);
+            meta.addItemFlags(HIDE_ATTRIBUTES);
+            meta.addItemFlags(HIDE_UNBREAKABLE);
+            meta.addItemFlags(HIDE_PLACED_ON);
+            stack.setItemMeta(meta);
+        }
+        return stack;
+    }
+
+    public ItemStack toLoredItemStack(PenCharacter character, List<String> lore) {
+        ItemStack stack = getType().createItemStack(getAmount());
+        ItemMeta meta = stack.getItemMeta();
+        if (meta != null) {
+            meta.setDisplayName(WHITE + getType().getName());
+            meta.setLore(getType().createLore());
+            meta.setUnbreakable(true);
+            List<String> itemLore = meta.getLore();
+            if (itemLore != null) {
+                itemLore.addAll(lore);
+                meta.setLore(lore);
+            }
             meta.addItemFlags(HIDE_ATTRIBUTES);
             meta.addItemFlags(HIDE_UNBREAKABLE);
             meta.addItemFlags(HIDE_PLACED_ON);
