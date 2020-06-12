@@ -35,7 +35,7 @@ public class ExhaustionPlayerCheckCommand implements CommandExecutor {
         }
         int exhaustion = character.getExhaustion();
         if (exhaustion <= 20) {
-            target.sendMessage(GREEN + "You feel energized."); 
+            target.sendMessage(GREEN + "You feel energized.");
         }
         if (exhaustion > 20 && exhaustion <= 40) {
             target.sendMessage(DARK_AQUA + "You feel fine.");
