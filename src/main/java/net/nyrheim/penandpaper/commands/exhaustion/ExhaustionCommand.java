@@ -15,11 +15,13 @@ public final class ExhaustionCommand implements CommandExecutor {
     private final ExhaustionAddCommand exhaustionAddCommand;
     private final ExhaustionRemoveCommand exhaustionRemoveCommand;
     private final ExhaustionSetCommand exhaustionSetCommand;
+    private final ExhaustionPlayerCheckCommand exhaustionPlayerCheckCommand;
 
     public ExhaustionCommand(PenAndPaper plugin) {
         exhaustionAddCommand = new ExhaustionAddCommand(plugin);
         exhaustionRemoveCommand = new ExhaustionRemoveCommand(plugin);
         exhaustionSetCommand = new ExhaustionSetCommand(plugin);
+        exhaustionPlayerCheckCommand = new ExhaustionPlayerCheckCommand(plugin);
     }
 
     @Override
@@ -27,7 +29,14 @@ public final class ExhaustionCommand implements CommandExecutor {
                              @NotNull Command command,
                              @NotNull String label,
                              @NotNull String[] args) {
-        if (args.length > 0) {
+        if (args.length == 0) {
+            return exhaustionPlayerCheckCommand.onCommand(
+                    sender,
+                    command,
+                    label,
+                    Arrays.stream(args).skip(1).toArray(String[]::new));
+        }
+        if (args.length >= 1) {
             switch (args[0].toLowerCase()) {
                 case "add": case "a":
                     return exhaustionAddCommand.onCommand(
