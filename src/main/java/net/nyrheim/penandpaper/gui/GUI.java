@@ -88,8 +88,32 @@ public abstract class GUI implements InventoryHolder {
         });
     }
 
+    protected ItemStack stealFaceForGuiItem(String value, String id, String name, String... lore) {
+        ItemStack skull = new ItemStack(PLAYER_HEAD);
+        Bukkit.getUnsafe().modifyItemStack(skull,
+                "{SkullOwner:{Id:\"" + id + "\",Properties:{textures:[{Value:\"" + value + "\"}]}}}");
+        ItemMeta skullMeta = skull.getItemMeta();
+        skullMeta.setDisplayName(name);
+        skullMeta.setLore(Arrays.asList(lore));
+        return createGuiItem(skull, (meta) -> {
+            meta.setDisplayName(name);
+            meta.setLore(Arrays.asList(lore));
+            return meta;
+        });
+    }
+
     protected ItemStack createGuiItem(Material material, ItemMetaInitializer initializer) {
         ItemStack item = new ItemStack(material);
+        ItemMeta meta = item.getItemMeta();
+        if (meta != null) {
+            meta = initializer.invoke(meta);
+            meta.addItemFlags(HIDE_ATTRIBUTES);
+        }
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    protected ItemStack createGuiItem(ItemStack item, ItemMetaInitializer initializer) {
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
             meta = initializer.invoke(meta);
