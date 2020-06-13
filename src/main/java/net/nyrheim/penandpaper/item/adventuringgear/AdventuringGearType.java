@@ -88,7 +88,18 @@ public enum AdventuringGearType implements ItemType {
             "Antitoxin (vial)",
             new Money(50, GP),
             new Weight(0, LB),
-            MILK_BUCKET
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.MUNDANE));
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
     ),
     CRYSTAL(
             "Crystal",
@@ -643,7 +654,7 @@ public enum AdventuringGearType implements ItemType {
             "Signet ring",
             new Money(5, GP),
             new Weight(0, LB),
-            GOLD_INGOT
+            Material.GOLD_INGOT
     ),
     SOAP(
             "Soap",
@@ -1059,23 +1070,6 @@ public enum AdventuringGearType implements ItemType {
                 return stack;
             }
     ),
-    ANTITOXIN(
-            "Antitoxin",
-            new Money(50, GP),
-            new Weight(0.5, LB),
-            (amount) -> {
-                ItemStack stack = new ItemStack(POTION, amount);
-                ItemMeta meta = stack.getItemMeta();
-                if (meta != null) {
-                    if (meta instanceof PotionMeta) {
-                        PotionMeta potionMeta = (PotionMeta) meta;
-                        potionMeta.setBasePotionData(new PotionData(PotionType.MUNDANE));
-                        stack.setItemMeta(potionMeta);
-                    }
-                }
-                return stack;
-            }
-    ),
     HILLCAT_BANE(
             "Hillcat Bane",
             new Money(50, GP),
@@ -1114,24 +1108,6 @@ public enum AdventuringGearType implements ItemType {
     ),
     HEMOPHILE(
             "Hemophile",
-            new Money(50, GP),
-            new Weight(0.5, LB),
-            (amount) -> {
-                ItemStack stack = new ItemStack(POTION, amount);
-                ItemMeta meta = stack.getItemMeta();
-                if (meta != null) {
-                    if (meta instanceof PotionMeta) {
-                        PotionMeta potionMeta = (PotionMeta) meta;
-                        potionMeta.setBasePotionData(new PotionData(PotionType.POISON));
-                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.POISON, 1200, 0, true), true);
-                        stack.setItemMeta(potionMeta);
-                    }
-                }
-                return stack;
-            }
-    ),
-    ACID(
-            "Acid",
             new Money(50, GP),
             new Weight(0.5, LB),
             (amount) -> {
@@ -1374,19 +1350,19 @@ public enum AdventuringGearType implements ItemType {
             "Bit and Bridle",
             new Money(0, CP),
             new Weight(0, LB),
-            SADDLE
+            Material.SADDLE
     ),
     EXOTIC_SADDLE(
             "Exotic saddle",
             new Money(0, CP),
             new Weight(0, LB),
-            SADDLE
+            Material.SADDLE
     ),
     PACK_SADDLE(
             "Pack saddle",
             new Money(0, CP),
             new Weight(0, LB),
-            SADDLE
+            Material.SADDLE
     ),
     WARM_CLOTHES(
             "Clothes, warm",
@@ -1520,6 +1496,42 @@ public enum AdventuringGearType implements ItemType {
             new Weight(0, LB),
             RED_DYE
     ),
+    WOOL(
+            "Wool",
+            new Money(0, CP),
+            new Weight(0, LB),
+            WHITE_WOOL
+    ),
+    SKELTIE(
+            "Skeltie",
+            new Money(0, CP),
+            new Weight(0, LB),
+            GLOWSTONE_DUST
+    ),
+    GOLD_INGOT(
+            "Gold ingot",
+            new Money(0, CP),
+            new Weight(0, LB),
+            Material.GOLD_INGOT
+    ),
+    CANDETINE(
+            "Candetine",
+            new Money(0, CP),
+            new Weight(0, LB),
+            GLOWSTONE_DUST
+    ),
+    HILLCAT_BLOOD(
+            "Hillcat blood",
+            new Money(0, CP),
+            new Weight(0, LB),
+            REDSTONE
+    ),
+    SADDLE(
+            "Saddle",
+            new Money(0, CP),
+            new Weight(0, LB),
+            Material.SADDLE
+    ),
     SMITHS_TOOLS(
             "Smith's Tools",
             new Money(0, CP),
@@ -1573,6 +1585,12 @@ public enum AdventuringGearType implements ItemType {
             new Money(0, CP),
             new Weight(10, LB),
             SHEARS
+    ),
+    CHEFS_TOOLS(
+            "Chef's Tools",
+            new Money(0, CP),
+            new Weight(10, LB),
+            IRON_SHOVEL
     ),
     HUNTERS_TOOLS(
             "Hunter's Tools",
