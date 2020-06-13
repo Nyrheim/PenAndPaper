@@ -61,7 +61,7 @@ public final class CharacterStatsCommand implements CommandExecutor {
         sender.sendMessage(AQUA + "Level: " + WHITE + character.getLevel());
         sender.sendMessage(GOLD + "Proficiency Bonus: " + WHITE + "+" + proficiencyBonusLookup(character.getLevel()));
         Arrays.stream(Ability.values()).forEach(ability ->
-                sender.sendMessage(GOLD + ability.getAbbreviation() + ": " + WHITE + character.getAbilityScore(ability)
+                sender.sendMessage(GOLD + ability.getAbbreviation() + ": " + WHITE + (character.getAbilityScore(ability) + character.getRace().getAbilityScoreModifier(ability))
                         + " (" + character.getModifier(ability) + ")"
                         + (character.getTempScore(ability) != 0 ? (" (Temporary: " + character.getTempScore(ability) + ")") : ""))
         );
