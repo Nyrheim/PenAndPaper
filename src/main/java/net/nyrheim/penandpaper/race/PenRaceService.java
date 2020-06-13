@@ -44,10 +44,6 @@ public final class PenRaceService {
                 .maximumWeight(new Weight(226, LB))
                 .minimumAge(50)
                 .maximumAge(200)
-                .languages(
-                        languageProvider.getLanguage("Common"),
-                        languageProvider.getLanguage("Dwarvish")
-                )
                 .speed(new Distance(25, DistanceUnit.FEET))
                 .abilityScoreModifier(CONSTITUTION, 2)
                 .darkVision(new Distance(60, DistanceUnit.FEET))
@@ -104,10 +100,6 @@ public final class PenRaceService {
                 .maximumWeight(new Weight(165, LB))
                 .minimumAge(110)
                 .maximumAge(750)
-                .languages(
-                        languageProvider.getLanguage("Common"),
-                        languageProvider.getLanguage("Elvish")
-                )
                 .speed(new Distance(30, DistanceUnit.FEET))
                 .abilityScoreModifier(DEXTERITY, 2)
                 .darkVision(new Distance(60, DistanceUnit.FEET))
@@ -178,10 +170,6 @@ public final class PenRaceService {
                 .maximumWeight(new Weight(38, LB))
                 .minimumAge(20)
                 .maximumAge(150)
-                .languages(
-                        languageProvider.getLanguage("Common"),
-                        languageProvider.getLanguage("Halfling")
-                )
                 .speed(new Distance(25, DistanceUnit.FEET))
                 .abilityScoreModifier(DEXTERITY, 2)
                 .traits(
@@ -242,9 +230,6 @@ public final class PenRaceService {
                 .maximumWeight(new Weight(200, LB))
                 .minimumAge(18)
                 .maximumAge(90)
-                .languages(
-                        languageProvider.getLanguage("Common")
-                )
                 .speed(new Distance(30, DistanceUnit.FEET))
                 .traits(
                         new RaceTrait("Ability Score Increase", "Two different ability scores of " +
@@ -265,10 +250,6 @@ public final class PenRaceService {
                 .maximumWeight(new Weight(48, LB))
                 .minimumAge(40)
                 .maximumAge(500)
-                .languages(
-                        languageProvider.getLanguage("Common"),
-                        languageProvider.getLanguage("Gnomish")
-                )
                 .speed(new Distance(25, DistanceUnit.FEET))
                 .abilityScoreModifier(INTELLIGENCE, 2)
                 .darkVision(new Distance(60, DistanceUnit.FEET))
@@ -306,10 +287,6 @@ public final class PenRaceService {
                 .maximumWeight(new Weight(180, LB))
                 .minimumAge(20)
                 .maximumAge(190)
-                .languages(
-                        languageProvider.getLanguage("Common"),
-                        languageProvider.getLanguage("Elvish")
-                )
                 .speed(new Distance(30, DistanceUnit.FEET))
                 .abilityScoreModifier(CHARISMA, 1)
                 .darkVision(new Distance(60, DistanceUnit.FEET))
@@ -384,10 +361,6 @@ public final class PenRaceService {
                 .maximumWeight(new Weight(342, LB))
                 .minimumAge(14)
                 .maximumAge(80)
-                .languages(
-                        languageProvider.getLanguage("Common"),
-                        languageProvider.getLanguage("Orcish")
-                )
                 .speed(new Distance(30, DistanceUnit.FEET))
                 .abilityScoreModifier(STRENGTH, 2)
                 .abilityScoreModifier(CONSTITUTION, 1)
@@ -414,11 +387,6 @@ public final class PenRaceService {
                 .maximumWeight(new Weight(220, LB))
                 .minimumAge(20)
                 .maximumAge(120)
-                .languages(
-                        languageProvider.getLanguage("Storan"),
-                        languageProvider.getLanguage("Common"),
-                        languageProvider.getLanguage("Dwarvish")
-                )
                 .speed(new Distance(30, DistanceUnit.FEET))
                 .abilityScoreModifier(CONSTITUTION, 1)
                 .abilityScoreModifier(WISDOM, 1)
@@ -443,9 +411,6 @@ public final class PenRaceService {
                 .maximumWeight(new Weight(280, LB))
                 .minimumAge(18)
                 .maximumAge(90)
-                .languages(
-                        languageProvider.getLanguage("Common")
-                )
                 .speed(new Distance(30, DistanceUnit.FEET))
                 .abilityScoreModifier(CHARISMA, 2)
                 .darkVision(new Distance(60, DistanceUnit.FEET))
@@ -463,9 +428,6 @@ public final class PenRaceService {
                                 "they finish a long rest (3 IRL hours). Charisma is their spellcasting ability for " +
                                 "these spells.")
                 )
-                .languages(
-                        languageProvider.getLanguage("Infernal")
-                )
                 .build();
 
         races.add(infernalAsmodeusTiefling);
@@ -479,9 +441,6 @@ public final class PenRaceService {
                                 "rest. When you reach 5th level, you can cast the crown of madness spell once with " +
                                 "this trait and regain the ability to do so when you finish a long rest. Charisma " +
                                 "is your spellcasting ability for these spells.")
-                )
-                .languages(
-                        languageProvider.getLanguage("Infernal")
                 )
                 .build();
 
@@ -497,9 +456,6 @@ public final class PenRaceService {
                                 "ability to do so when you finish a long rest. Charisma is your spellcasting ability " +
                                 "for these spells.")
                 )
-                .languages(
-                        languageProvider.getLanguage("Infernal")
-                )
                 .build();
 
         races.add(infernalDispaterTiefling);
@@ -513,9 +469,6 @@ public final class PenRaceService {
                                 "you reach 5th level, you can cast the suggestion spell once with this trait and " +
                                 "regain the ability to do so when you finish a long rest. Charisma is your " +
                                 "spellcasting ability for these spells.")
-                )
-                .languages(
-                        languageProvider.getLanguage("Infernal")
                 )
                 .build();
 
@@ -531,9 +484,6 @@ public final class PenRaceService {
                                 "the ability to do so when you finish a long rest. Charisma is your spellcasting " +
                                 "ability for these spells.")
                 )
-                .languages(
-                        languageProvider.getLanguage("Infernal")
-                )
                 .build();
 
         races.add(infernalGlasyaTiefling);
@@ -547,9 +497,6 @@ public final class PenRaceService {
                                 "When you reach 5th level, you can cast the darkness spell once with this trait and " +
                                 "regain the ability to do so when you finish a long rest. Charisma is your " +
                                 "spellcasting ability for these spells.")
-                )
-                .languages(
-                        languageProvider.getLanguage("Infernal")
                 )
                 .build();
 
@@ -565,9 +512,6 @@ public final class PenRaceService {
                                 "requiring no material component, and regain the ability to do so when you finish " +
                                 "a long rest. Charisma is your spellcasting ability for these spells.")
                 )
-                .languages(
-                        languageProvider.getLanguage("Infernal")
-                )
                 .build();
 
         races.add(infernalMammonTiefling);
@@ -582,9 +526,6 @@ public final class PenRaceService {
                                 "regain the ability to do so when you finish a long rest. Charisma is your " +
                                 "spellcasting ability for these spells.")
                 )
-                .languages(
-                        languageProvider.getLanguage("Infernal")
-                )
                 .build();
 
         races.add(infernalMephistophelesTiefling);
@@ -598,9 +539,6 @@ public final class PenRaceService {
                                 "When you reach 5th level, you can cast the branding smite spell once with this " +
                                 "trait and regain the ability to do so when you finish a long rest. Charisma is " +
                                 "your spellcasting ability for these spells.")
-                )
-                .languages(
-                        languageProvider.getLanguage("Infernal")
                 )
                 .build();
 
@@ -620,9 +558,6 @@ public final class PenRaceService {
                                 "slot of 2nd level is used as well. After Abyssal Tieflings use this feature to " +
                                 "cast a spell, they can’t use it again until they finish a long rest. Charisma is " +
                                 "their spellcasting ability for them. (This replaces Infernal Legacy)")
-                )
-                .languages(
-                        languageProvider.getLanguage("Abyssal")
                 )
                 .build();
 

@@ -166,6 +166,44 @@ public final class RaceGUI extends GUI {
                 GOLD + "arcane magic and are distrustful of any Wizards, ",
                 GOLD + "Bards and Sorcerors who find their way to Nyrheim."
         ));
+        getInventory().setItem(9, stealFaceForGuiItem(
+                "ewogICJ0aW1lc3RhbXAiIDogMTU5MjA2ODI5MzA4NSwKICAicHJvZmlsZUlkIiA6ICI3NTE0NDQ4MTkxZTY0NTQ2OGM5NzM5YTZlMzk1N2JlYiIsCiAgInByb2ZpbGVOYW1lIiA6ICJUaGFua3NNb2phbmciLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTZiMmEyNzQzNjM1ZGQzYjU3YWZhMTcxOTdhMWQ1MTI1MGZmZGQxOGNjOTIzZGVlYTg2N2IyYTE2ZDBhMDgwOCIKICAgIH0KICB9Cn0=",
+                "2cde8c44-ba6e-4d4d-bdaa-d5d09d2db588",
+                WHITE + "Firbolg",
+                GOLD + "Advanced Race."
+        ));
+        getInventory().setItem(10, stealFaceForGuiItem(
+                "ewogICJ0aW1lc3RhbXAiIDogMTU5MTk5ODQxMDYwNywKICAicHJvZmlsZUlkIiA6ICJlZDUzZGQ4MTRmOWQ0YTNjYjRlYjY1MWRjYmE3N2U2NiIsCiAgInByb2ZpbGVOYW1lIiA6ICIwMTAwMDExMDAxMDAwMDExIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzIxMGY1OGMzYjQyMjY0NWRmMzc1OGVjZDU4Y2Q0YTQ3NmQxMjEyYzYxOTdiNjQ5ZmU2Mzk1ZmJhMGU2ZDYwODciCiAgICB9CiAgfQp9",
+                "c94e3741-6551-4acc-95ec-7630e2bd7fde",
+                WHITE + "Goliath",
+                GOLD + "Advanced Race."
+        ));
+        getInventory().setItem(11, stealFaceForGuiItem(
+                "ewogICJ0aW1lc3RhbXAiIDogMTU5MjA2OTA0MTI0NywKICAicHJvZmlsZUlkIiA6ICI5MWYwNGZlOTBmMzY0M2I1OGYyMGUzMzc1Zjg2ZDM5ZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJTdG9ybVN0b3JteSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS80ZjFlYTgwNDc4ZGI2YTU0YTFlZWI2MTg2Nzg2NGIyYjA2NGVhYWU2YWQ0MTVhNzhiODVlZDU5MmJlZDYyNDkiCiAgICB9CiAgfQp9",
+                "2ace5598-50d6-4192-a934-8974898e0289",
+                WHITE + "Aasimar",
+                GOLD + "Advanced Race."
+        ));
+        getInventory().setItem(12, stealFaceForGuiItem(
+                "ewogICJ0aW1lc3RhbXAiIDogMTU5MjA2OTA4NzE1NCwKICAicHJvZmlsZUlkIiA6ICJkNjBmMzQ3MzZhMTI0N2EyOWI4MmNjNzE1YjAwNDhkYiIsCiAgInByb2ZpbGVOYW1lIiA6ICJCSl9EYW5pZWwiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNThkNmZkYjM2ODhlMzUyMzgxNzA2MTUyYjg5ZWY2M2I4MDNlNWZiZWI2MDNlYjM3Mzg5NjczZjk2MDFjODY3YSIKICAgIH0KICB9Cn0=",
+                "c6c19455-9fbc-4332-9839-e54b779f0e3b",
+                WHITE + "Dragonborn",
+                GOLD + "Advanced Race."
+        ));
+        getInventory().setItem(13, stealFaceForGuiItem(
+                "ewogICJ0aW1lc3RhbXAiIDogMTU5MjA2OTE3NDU4MCwKICAicHJvZmlsZUlkIiA6ICJlM2I0NDVjODQ3ZjU0OGZiOGM4ZmEzZjFmN2VmYmE4ZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJNaW5pRGlnZ2VyVGVzdCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS81ODQ2NGRkZWFhNjU1ODYyZjdlYWQyZDQ0MjJmMDIzZGM0ZjhhYTJmY2E0ODU1MmE1OTUwZTFjMjg0NTkwYjYiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ==",
+                "f8aebc7f-4ca2-46d5-8fad-84e313c4f53e",
+                WHITE + "Orc",
+                GOLD + "Advanced Race."
+        ));
+        getInventory().setItem(14, stealFaceForGuiItem(
+                "ewogICJ0aW1lc3RhbXAiIDogMTU5MTk5ODcyOTEyNCwKICAicHJvZmlsZUlkIiA6ICJiNzQ3OWJhZTI5YzQ0YjIzYmE1NjI4MzM3OGYwZTNjNiIsCiAgInByb2ZpbGVOYW1lIiA6ICJTeWxlZXgiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU4NTc2NDFjZTcyZWM1NzQ2MDUxNWRjN2ZjMTZjYmNlNjAwNDQxMjY1MDg3YzVkMTlhMzYxMTVjYzQxZWQwZSIKICAgIH0KICB9Cn0=",
+                "7e2153ea-f0b5-4341-9910-7903531f1ee2",
+                WHITE + "Genasi",
+                GOLD + "Advanced Race."
+        ));
+
+
     }
 
     @Override
@@ -180,6 +218,12 @@ public final class RaceGUI extends GUI {
         Race halfOrc = raceService.getRace("HALF-ORC");
         Race tiefling = raceService.getRace("TIEFLING");
         Race storaman = raceService.getRace("STORAMAN");
+        Race aasimar = raceService.getRace("AASIMAR");
+        Race goliath = raceService.getRace("GOLIATH");
+        Race firbolg = raceService.getRace("FIRBOLG");
+        Race genasi = raceService.getRace("GENASI");
+        Race dragonborn = raceService.getRace("DRAGONBORN");
+        Race orc = raceService.getRace("ORC");
         PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
         PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
         PenPlayer penPlayer = playerService.getPlayer(player);
@@ -226,6 +270,31 @@ public final class RaceGUI extends GUI {
                 case 8:
                     baseRace = storaman;
                     setRace(player, characterService, character, storaman);
+                    break;
+                case 9:
+                    baseRace = firbolg;
+                    setRace(player, characterService, character, firbolg);
+                    break;
+                case 10:
+                    baseRace = goliath;
+                    setRace(player, characterService, character, goliath);
+                    break;
+                case 11:
+                    baseRace = aasimar;
+                    initializeAasimarSubraceItems();
+                    break;
+                case 12:
+                    baseRace = dragonborn;
+                    setRace(player, characterService, character, dragonborn);
+                    break;
+                case 13:
+                    baseRace = orc;
+                    setRace(player, characterService, character, orc);
+                    break;
+                case 14:
+                    baseRace = genasi;
+                    initializeGenasiSubraceItems();
+                    break;
             }
         } else if (baseRace == dwarf) {
             Race goldDwarf = raceService.getRace("GOLD_DWARF");
@@ -261,6 +330,32 @@ public final class RaceGUI extends GUI {
                 setRace(player, characterService, character, forestGnome);
             } else if (slot == 1) {
                 setRace(player, characterService, character, rockGnome);
+            }
+        } else if (baseRace == genasi) {
+            Race fireGenasi = raceService.getRace("FIRE_GENASI");
+            Race airGenasi = raceService.getRace("AIR_GENASI");
+            Race waterGenasi = raceService.getRace("WATER_GENASI");
+            Race earthGenasi = raceService.getRace("EARTH_GENASI");
+            if (slot == 0) {
+                setRace(player, characterService, character, fireGenasi);
+            } else if (slot == 1) {
+                setRace(player, characterService, character, airGenasi);
+            } else if (slot == 2) {
+                setRace(player, characterService, character, waterGenasi);
+            } else if (slot == 3) {
+                setRace(player, characterService, character, earthGenasi);
+            }
+
+        } else if (baseRace == aasimar) {
+            Race protectorAasimar = raceService.getRace("PROTECTOR_AASIMAR");
+            Race fallenAasimar = raceService.getRace("FALLEN_AASIMAR");
+            Race scourgeAasimar = raceService.getRace("SCOURGE_AASIMAR");
+            if (slot == 0) {
+                setRace(player, characterService, character, protectorAasimar);
+            } else if (slot == 1) {
+                setRace(player, characterService, character, fallenAasimar);
+            } else if (slot == 2) {
+                setRace(player, characterService, character, scourgeAasimar);
             }
         } else if (baseRace == halfElf) {
             Race halfMoonElf = raceService.getRace("HALF_MOON_ELF");
@@ -403,6 +498,49 @@ public final class RaceGUI extends GUI {
                 "ewogICJ0aW1lc3RhbXAiIDogMTU5MjAwMDk0NzA3MCwKICAicHJvZmlsZUlkIiA6ICI1NjY3NWIyMjMyZjA0ZWUwODkxNzllOWM5MjA2Y2ZlOCIsCiAgInByb2ZpbGVOYW1lIiA6ICJUaGVJbmRyYSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8xZTFlZDFjNjQ4MzczZjM1NDYzNDFkNTcwOWVlYzU4ODE5YzFlNTIyZjAyMTIxZWIwZDUzYzNhM2JiYjFmOTQxIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0=",
                 "e0cb1069-9dee-4d07-ac28-92bb4d1acdd0",
                 WHITE + "Half-Wood-Elf"
+        ));
+    }
+
+    private void initializeAasimarSubraceItems() {
+        getInventory().clear();
+        getInventory().setItem(0, stealFaceForGuiItem(
+                "ewogICJ0aW1lc3RhbXAiIDogMTU5MjA2OTA0MTI0NywKICAicHJvZmlsZUlkIiA6ICI5MWYwNGZlOTBmMzY0M2I1OGYyMGUzMzc1Zjg2ZDM5ZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJTdG9ybVN0b3JteSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS80ZjFlYTgwNDc4ZGI2YTU0YTFlZWI2MTg2Nzg2NGIyYjA2NGVhYWU2YWQ0MTVhNzhiODVlZDU5MmJlZDYyNDkiCiAgICB9CiAgfQp9",
+                "2ace5598-50d6-4192-a934-8974898e0289",
+                WHITE + "Protector Aasimar"
+        ));
+        getInventory().setItem(1, stealFaceForGuiItem(
+                "ewogICJ0aW1lc3RhbXAiIDogMTU5MjA2OTA0MTI0NywKICAicHJvZmlsZUlkIiA6ICI5MWYwNGZlOTBmMzY0M2I1OGYyMGUzMzc1Zjg2ZDM5ZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJTdG9ybVN0b3JteSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS80ZjFlYTgwNDc4ZGI2YTU0YTFlZWI2MTg2Nzg2NGIyYjA2NGVhYWU2YWQ0MTVhNzhiODVlZDU5MmJlZDYyNDkiCiAgICB9CiAgfQp9",
+                "2ace5598-50d6-4192-a934-8974898e0289",
+                WHITE + "Fallen Aasimar"
+        ));
+        getInventory().setItem(2, stealFaceForGuiItem(
+                "ewogICJ0aW1lc3RhbXAiIDogMTU5MjA2OTA0MTI0NywKICAicHJvZmlsZUlkIiA6ICI5MWYwNGZlOTBmMzY0M2I1OGYyMGUzMzc1Zjg2ZDM5ZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJTdG9ybVN0b3JteSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS80ZjFlYTgwNDc4ZGI2YTU0YTFlZWI2MTg2Nzg2NGIyYjA2NGVhYWU2YWQ0MTVhNzhiODVlZDU5MmJlZDYyNDkiCiAgICB9CiAgfQp9",
+                "2ace5598-50d6-4192-a934-8974898e0289",
+                WHITE + "Scourge Aasimar"
+        ));
+    }
+
+    private void initializeGenasiSubraceItems() {
+        getInventory().clear();
+        getInventory().setItem(0, stealFaceForGuiItem(
+                "ewogICJ0aW1lc3RhbXAiIDogMTU5MTk5ODcyOTEyNCwKICAicHJvZmlsZUlkIiA6ICJiNzQ3OWJhZTI5YzQ0YjIzYmE1NjI4MzM3OGYwZTNjNiIsCiAgInByb2ZpbGVOYW1lIiA6ICJTeWxlZXgiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU4NTc2NDFjZTcyZWM1NzQ2MDUxNWRjN2ZjMTZjYmNlNjAwNDQxMjY1MDg3YzVkMTlhMzYxMTVjYzQxZWQwZSIKICAgIH0KICB9Cn0=",
+                "7e2153ea-f0b5-4341-9910-7903531f1ee2",
+                WHITE + "Fire Genasi"
+        ));
+        getInventory().setItem(1, stealFaceForGuiItem(
+                "ewogICJ0aW1lc3RhbXAiIDogMTU5MTk5ODcyOTEyNCwKICAicHJvZmlsZUlkIiA6ICJiNzQ3OWJhZTI5YzQ0YjIzYmE1NjI4MzM3OGYwZTNjNiIsCiAgInByb2ZpbGVOYW1lIiA6ICJTeWxlZXgiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU4NTc2NDFjZTcyZWM1NzQ2MDUxNWRjN2ZjMTZjYmNlNjAwNDQxMjY1MDg3YzVkMTlhMzYxMTVjYzQxZWQwZSIKICAgIH0KICB9Cn0=",
+                "7e2153ea-f0b5-4341-9910-7903531f1ee2",
+                WHITE + "Air Genasi"
+        ));
+        getInventory().setItem(2, stealFaceForGuiItem(
+                "ewogICJ0aW1lc3RhbXAiIDogMTU5MTk5ODcyOTEyNCwKICAicHJvZmlsZUlkIiA6ICJiNzQ3OWJhZTI5YzQ0YjIzYmE1NjI4MzM3OGYwZTNjNiIsCiAgInByb2ZpbGVOYW1lIiA6ICJTeWxlZXgiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU4NTc2NDFjZTcyZWM1NzQ2MDUxNWRjN2ZjMTZjYmNlNjAwNDQxMjY1MDg3YzVkMTlhMzYxMTVjYzQxZWQwZSIKICAgIH0KICB9Cn0=",
+                "7e2153ea-f0b5-4341-9910-7903531f1ee2",
+                WHITE + "Water Genasi"
+        ));
+        getInventory().setItem(3, stealFaceForGuiItem(
+                "ewogICJ0aW1lc3RhbXAiIDogMTU5MTk5ODcyOTEyNCwKICAicHJvZmlsZUlkIiA6ICJiNzQ3OWJhZTI5YzQ0YjIzYmE1NjI4MzM3OGYwZTNjNiIsCiAgInByb2ZpbGVOYW1lIiA6ICJTeWxlZXgiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU4NTc2NDFjZTcyZWM1NzQ2MDUxNWRjN2ZjMTZjYmNlNjAwNDQxMjY1MDg3YzVkMTlhMzYxMTVjYzQxZWQwZSIKICAgIH0KICB9Cn0=",
+                "7e2153ea-f0b5-4341-9910-7903531f1ee2",
+                WHITE + "Earth Genasi"
         ));
     }
 
