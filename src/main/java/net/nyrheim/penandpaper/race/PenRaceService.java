@@ -562,6 +562,130 @@ public final class PenRaceService {
                 .build();
 
         races.add(abyssalTiefling);
+
+        Race firbolg = new BaseRace.Builder("Firbolg")
+                .minimumHeight(new Distance(53, DistanceUnit.INCHES))
+                .maximumHeight(new Distance(78, DistanceUnit.INCHES))
+                .minimumWeight(new Weight(85, LB))
+                .maximumWeight(new Weight(280, LB))
+                .minimumAge(18)
+                .maximumAge(90)
+                .speed(new Distance(30, DistanceUnit.FEET))
+                .abilityScoreModifier(WISDOM, 2)
+                .abilityScoreModifier(STRENGTH, 1)
+                .darkVision(new Distance(60, DistanceUnit.FEET))
+                .build();
+
+        races.add(firbolg);
+
+        Race dragonborn = new BaseRace.Builder("Dragonborn")
+                .minimumHeight(new Distance(53, DistanceUnit.INCHES))
+                .maximumHeight(new Distance(78, DistanceUnit.INCHES))
+                .minimumWeight(new Weight(85, LB))
+                .maximumWeight(new Weight(280, LB))
+                .minimumAge(18)
+                .maximumAge(90)
+                .speed(new Distance(30, DistanceUnit.FEET))
+                .abilityScoreModifier(STRENGTH, 2)
+                .abilityScoreModifier(CONSTITUTION, 1)
+                .darkVision(new Distance(60, DistanceUnit.FEET))
+                .build();
+
+        races.add(dragonborn);
+
+        Race orc = new BaseRace.Builder("Orc")
+                .minimumHeight(new Distance(53, DistanceUnit.INCHES))
+                .maximumHeight(new Distance(78, DistanceUnit.INCHES))
+                .minimumWeight(new Weight(85, LB))
+                .maximumWeight(new Weight(280, LB))
+                .minimumAge(18)
+                .maximumAge(90)
+                .speed(new Distance(30, DistanceUnit.FEET))
+                .abilityScoreModifier(STRENGTH, 2)
+                .abilityScoreModifier(CONSTITUTION, 1)
+                .abilityScoreModifier(INTELLIGENCE, -2)
+                .darkVision(new Distance(60, DistanceUnit.FEET))
+                .build();
+
+        races.add(orc);
+
+        Race genasi = new BaseRace.Builder("Genasi")
+                .minimumHeight(new Distance(53, DistanceUnit.INCHES))
+                .maximumHeight(new Distance(78, DistanceUnit.INCHES))
+                .minimumWeight(new Weight(85, LB))
+                .maximumWeight(new Weight(280, LB))
+                .minimumAge(18)
+                .maximumAge(90)
+                .speed(new Distance(30, DistanceUnit.FEET))
+                .abilityScoreModifier(CONSTITUTION, 2)
+                .darkVision(new Distance(60, DistanceUnit.FEET))
+                .build();
+
+        races.add(genasi);
+
+        Race fireGenasi = new Subrace.Builder(genasi, "Fire Genasi")
+                .abilityScoreModifier(CONSTITUTION, 1)
+                .build();
+        races.add(fireGenasi);
+
+        Race waterGenasi = new Subrace.Builder(genasi, "Water Genasi")
+                .abilityScoreModifier(WISDOM, 1)
+                .build();
+        races.add(waterGenasi);
+
+        Race airGenasi = new Subrace.Builder(genasi, "Air Genasi")
+                .abilityScoreModifier(DEXTERITY, 1)
+                .build();
+        races.add(airGenasi);
+
+        Race earthGenasi = new Subrace.Builder(genasi, "Earth Genasi")
+                .abilityScoreModifier(STRENGTH, 1)
+                .build();
+        races.add(earthGenasi);
+
+        Race aasimar = new BaseRace.Builder("Aasimar")
+                .minimumHeight(new Distance(53, DistanceUnit.INCHES))
+                .maximumHeight(new Distance(78, DistanceUnit.INCHES))
+                .minimumWeight(new Weight(85, LB))
+                .maximumWeight(new Weight(280, LB))
+                .minimumAge(18)
+                .maximumAge(90)
+                .speed(new Distance(30, DistanceUnit.FEET))
+                .abilityScoreModifier(CHARISMA, 2)
+                .darkVision(new Distance(60, DistanceUnit.FEET))
+                .build();
+
+        races.add(aasimar);
+
+        Race protectorAasimar = new Subrace.Builder(aasimar, "Protector Aasimar")
+                .abilityScoreModifier(WISDOM, 1)
+                .build();
+        races.add(protectorAasimar);
+
+        Race fallenAasimar = new Subrace.Builder(aasimar, "Fallen Aasimar")
+                .abilityScoreModifier(STRENGTH, 1)
+                .build();
+        races.add(fallenAasimar);
+
+        Race scourgeAasimar = new Subrace.Builder(aasimar, "Scourge Aasimar")
+                .abilityScoreModifier(CONSTITUTION, 1)
+                .build();
+        races.add(scourgeAasimar);
+
+        Race goliath = new BaseRace.Builder("Goliath")
+                .minimumHeight(new Distance(53, DistanceUnit.INCHES))
+                .maximumHeight(new Distance(78, DistanceUnit.INCHES))
+                .minimumWeight(new Weight(85, LB))
+                .maximumWeight(new Weight(280, LB))
+                .minimumAge(18)
+                .maximumAge(90)
+                .speed(new Distance(30, DistanceUnit.FEET))
+                .abilityScoreModifier(STRENGTH, 2)
+                .abilityScoreModifier(CONSTITUTION, 1)
+                .darkVision(new Distance(60, DistanceUnit.FEET))
+                .build();
+
+        races.add(goliath);
     }
 
     public List<Race> getRaces() {
@@ -571,23 +695,23 @@ public final class PenRaceService {
     public Race getRace(String name) {
         return races.stream()
                 .filter(race -> race.getName()
-                        .replace('-', ' ')
-                        .replace('_', ' ')
-                        .replace(":", "")
-                        .equalsIgnoreCase(
-                                name.replace('-', ' ')
+                                .replace('-', ' ')
+                                .replace('_', ' ')
+                                .replace(":", "")
+                                .equalsIgnoreCase(
+                                        name.replace('-', ' ')
+                                                .replace('_', ' ')
+                                                .replace(":", "")
+                                )
+                                || race.getAliases().stream().anyMatch(alias ->
+                                alias.replace('-', ' ')
                                         .replace('_', ' ')
                                         .replace(":", "")
-                        )
-                        || race.getAliases().stream().anyMatch(alias ->
-                            alias.replace('-', ' ')
-                                    .replace('_', ' ')
-                                    .replace(":", "")
-                                    .equalsIgnoreCase(
-                                            name.replace('-', ' ')
-                                                    .replace('_', ' ')
-                                                    .replace(":", "")
-                                    )
+                                        .equalsIgnoreCase(
+                                                name.replace('-', ' ')
+                                                        .replace('_', ' ')
+                                                        .replace(":", "")
+                                        )
                         )
                 )
                 .findFirst()
