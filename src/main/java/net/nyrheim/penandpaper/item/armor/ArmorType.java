@@ -5,7 +5,6 @@ import net.nyrheim.penandpaper.ability.StrengthRequirement;
 import net.nyrheim.penandpaper.armorclass.ArmorClassCalculation;
 import net.nyrheim.penandpaper.item.ItemStackInitializer;
 import net.nyrheim.penandpaper.item.ItemType;
-import net.nyrheim.penandpaper.money.Currency;
 import net.nyrheim.penandpaper.money.Money;
 import net.nyrheim.penandpaper.weight.Weight;
 import org.bukkit.ChatColor;
@@ -17,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static net.nyrheim.penandpaper.item.armor.ArmorCategory.*;
+import static net.nyrheim.penandpaper.money.Currency.GP;
 import static net.nyrheim.penandpaper.weight.WeightUnit.LB;
 import static org.bukkit.ChatColor.GRAY;
 import static org.bukkit.ChatColor.WHITE;
@@ -27,7 +27,7 @@ public enum ArmorType implements ItemType {
     PADDED(
             "Padded Armor",
             LIGHT_ARMOR,
-            new Money(5, Currency.GP),
+            new Money(5, GP),
             new ArmorClassCalculation(
                     new ArmorClassCalculation.BaseArmorClassComponent(5),
                     new ArmorClassCalculation.AbilityModifierArmorClassComponent(Ability.DEXTERITY)
@@ -41,7 +41,7 @@ public enum ArmorType implements ItemType {
     LEATHER(
             "Leather Armor",
             LIGHT_ARMOR,
-            new Money(10, Currency.GP),
+            new Money(10, GP),
             new ArmorClassCalculation(
                     new ArmorClassCalculation.BaseArmorClassComponent(11),
                     new ArmorClassCalculation.AbilityModifierArmorClassComponent(Ability.DEXTERITY)
@@ -55,7 +55,7 @@ public enum ArmorType implements ItemType {
     STUDDED_LEATHER(
             "Studded Leather Armor",
             LIGHT_ARMOR,
-            new Money(45, Currency.GP),
+            new Money(45, GP),
             new ArmorClassCalculation(
                     new ArmorClassCalculation.BaseArmorClassComponent(12),
                     new ArmorClassCalculation.AbilityModifierArmorClassComponent(Ability.DEXTERITY)
@@ -69,7 +69,7 @@ public enum ArmorType implements ItemType {
     HIDE(
             "Hide Armor",
             MEDIUM_ARMOR,
-            new Money(10, Currency.GP),
+            new Money(10, GP),
             new ArmorClassCalculation(
                     new ArmorClassCalculation.BaseArmorClassComponent(12),
                     new ArmorClassCalculation.CappedAbilityModifierArmorClassComponent(Ability.DEXTERITY, 2)
@@ -83,7 +83,7 @@ public enum ArmorType implements ItemType {
     CHAIN_SHIRT(
             "Chain Shirt",
             MEDIUM_ARMOR,
-            new Money(50, Currency.GP),
+            new Money(50, GP),
             new ArmorClassCalculation(
                     new ArmorClassCalculation.BaseArmorClassComponent(13),
                     new ArmorClassCalculation.CappedAbilityModifierArmorClassComponent(Ability.DEXTERITY, 2)
@@ -97,7 +97,7 @@ public enum ArmorType implements ItemType {
     SCALE_MAIL(
             "Scale Mail",
             MEDIUM_ARMOR,
-            new Money(50, Currency.GP),
+            new Money(50, GP),
             new ArmorClassCalculation(
                     new ArmorClassCalculation.BaseArmorClassComponent(14),
                     new ArmorClassCalculation.CappedAbilityModifierArmorClassComponent(Ability.DEXTERITY, 2)
@@ -111,7 +111,7 @@ public enum ArmorType implements ItemType {
     BREASTPLATE(
             "Breastplate",
             MEDIUM_ARMOR,
-            new Money(400, Currency.GP),
+            new Money(400, GP),
             new ArmorClassCalculation(
                     new ArmorClassCalculation.BaseArmorClassComponent(14),
                     new ArmorClassCalculation.CappedAbilityModifierArmorClassComponent(Ability.DEXTERITY, 2)
@@ -125,7 +125,7 @@ public enum ArmorType implements ItemType {
     HALF_PLATE(
             "Half Plate",
             MEDIUM_ARMOR,
-            new Money(750, Currency.GP),
+            new Money(750, GP),
             new ArmorClassCalculation(
                     new ArmorClassCalculation.BaseArmorClassComponent(15),
                     new ArmorClassCalculation.CappedAbilityModifierArmorClassComponent(Ability.DEXTERITY, 2)
@@ -139,7 +139,7 @@ public enum ArmorType implements ItemType {
     RING_MAIL(
             "Ring Mail",
             HEAVY_ARMOR,
-            new Money(30, Currency.GP),
+            new Money(30, GP),
             new ArmorClassCalculation(
                     new ArmorClassCalculation.BaseArmorClassComponent(14)
             ),
@@ -152,7 +152,7 @@ public enum ArmorType implements ItemType {
     CHAIN_MAIL(
             "Chain Mail",
             HEAVY_ARMOR,
-            new Money(75, Currency.GP),
+            new Money(75, GP),
             new ArmorClassCalculation(
                     new ArmorClassCalculation.BaseArmorClassComponent(16)
             ),
@@ -165,7 +165,7 @@ public enum ArmorType implements ItemType {
     SPLINT(
             "Splint Mail",
             HEAVY_ARMOR,
-            new Money(200, Currency.GP),
+            new Money(200, GP),
             new ArmorClassCalculation(
                     new ArmorClassCalculation.BaseArmorClassComponent(17)
             ),
@@ -178,7 +178,7 @@ public enum ArmorType implements ItemType {
     PLATE(
             "Plate Mail",
             HEAVY_ARMOR,
-            new Money(1500, Currency.GP),
+            new Money(1500, GP),
             new ArmorClassCalculation(
                     new ArmorClassCalculation.BaseArmorClassComponent(18)
             ),
@@ -191,7 +191,20 @@ public enum ArmorType implements ItemType {
     SHIELD(
             "Shield",
             ArmorCategory.SHIELD,
-            new Money(10, Currency.GP),
+            new Money(10, GP),
+            new ArmorClassCalculation(
+                    new ArmorClassCalculation.BaseArmorClassComponent(1)
+            ),
+            null,
+            false,
+            new Weight(6, LB),
+            false,
+            Material.SHIELD
+    ),
+    REINFORCED_SHIELD(
+            "Reinforced shield",
+            ArmorCategory.SHIELD,
+            new Money(10, GP),
             new ArmorClassCalculation(
                     new ArmorClassCalculation.BaseArmorClassComponent(2)
             ),
