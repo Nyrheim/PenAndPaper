@@ -30,11 +30,11 @@ public final class PlayerTable implements Table {
         this.idCache = database.getCacheManager()
                 .createCache("penandpaper.player.id",
                         CacheConfigurationBuilder.newCacheConfigurationBuilder(Integer.class, PenPlayer.class,
-                                ResourcePoolsBuilder.heap(25L)));
+                                ResourcePoolsBuilder.heap(60)));
         this.uuidCache = database.getCacheManager()
                 .createCache("penandpaper.player.uuid",
                         CacheConfigurationBuilder.newCacheConfigurationBuilder(String.class, PenPlayer.class,
-                                ResourcePoolsBuilder.heap(25L)));
+                                ResourcePoolsBuilder.heap(60)));
     }
 
     @Override
