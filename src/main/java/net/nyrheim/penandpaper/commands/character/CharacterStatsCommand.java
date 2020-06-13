@@ -60,6 +60,10 @@ public final class CharacterStatsCommand implements CommandExecutor {
         );
         sender.sendMessage(AQUA + "Level: " + WHITE + character.getLevel());
         sender.sendMessage(GOLD + "Proficiency Bonus: " + WHITE + "+" + proficiencyBonusLookup(character.getLevel()));
+        if(character.getRace() == null) {
+            sender.sendMessage(RED + "You must set your character's race first.");
+            return true;
+        }
         Arrays.stream(Ability.values()).forEach(ability ->
                 sender.sendMessage(GOLD + ability.getAbbreviation() + ": " + WHITE + (character.getAbilityScore(ability) + character.getRace().getAbilityScoreModifier(ability))
                         + " (" + character.getModifier(ability) + ")"
