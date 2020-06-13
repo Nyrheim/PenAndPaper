@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
-import static net.nyrheim.penandpaper.ability.Ability.CONSTITUTION;
+import static net.nyrheim.penandpaper.ability.Ability.*;
 import static net.nyrheim.penandpaper.ability.AbilityModifierLookupTable.lookupModifier;
 
 public final class PenCharacter {
@@ -267,6 +267,11 @@ public final class PenCharacter {
 
     public int getAbilityScoreChoice(Ability ability) {
         return abilityScoreChoices.getOrDefault(ability, 0);
+    }
+
+    public void updateAbilityScore(int score, Ability ability) {
+        int currentScore = abilityScores.get(ability);
+        abilityScores.replace(ability, currentScore + score);
     }
 
     public void setAbilityScoreChoice(Ability ability, int score) {
