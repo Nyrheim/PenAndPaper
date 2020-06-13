@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 
+import static net.nyrheim.penandpaper.ability.ProficiencyBonusLookupTable.proficiencyBonusLookup;
 import static org.bukkit.ChatColor.*;
 
 public final class CharacterStatsCommand implements CommandExecutor {
@@ -58,6 +59,7 @@ public final class CharacterStatsCommand implements CommandExecutor {
                 .orElse("No classes yet")
         );
         sender.sendMessage(AQUA + "Level: " + WHITE + character.getLevel());
+        sender.sendMessage(GOLD + "Proficiency Bonus: " + WHITE + "+" + proficiencyBonusLookup(character.getLevel()));
         Arrays.stream(Ability.values()).forEach(ability ->
                 sender.sendMessage(GOLD + ability.getAbbreviation() + ": " + WHITE + character.getAbilityScore(ability)
                         + " (" + character.getModifier(ability) + ")"
