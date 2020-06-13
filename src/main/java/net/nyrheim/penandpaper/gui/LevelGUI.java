@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static net.nyrheim.penandpaper.clazz.PenClass.WARLOCK;
 import static org.bukkit.ChatColor.*;
 
 public final class LevelGUI extends GUI {
@@ -87,6 +88,11 @@ public final class LevelGUI extends GUI {
             CharacterClass characterClass = character.clazz(clazz);
             if (characterClass == null) {
                 if (character.classes().size() < PenCharacter.MAX_CLASSES) {
+                    if (clazz == WARLOCK && !player.hasPermission("penandpaper.warlock")) {
+                        player.closeInventory();
+                        player.sendMessage(ChatColor.RED + "You have not been approved to play Warlock.");
+                        return;
+                    }
                     if (character.classes().isEmpty()) {
                         character.addClass(clazz);
                         character.setHP(character.getMaxHP());
