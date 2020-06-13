@@ -69,8 +69,15 @@ public final class SoulGUI extends GUI {
         if (clickedItem == null || clickedItem.getType() == Material.AIR || clickedItem.getType() == Material.PAPER) {
             return;
         }
-
         if (clickedItem.getType() == WRITABLE_BOOK) {
+            if (slot == 1 && !player.hasPermission("penandpaper.2slot")) {
+                player.sendMessage(ChatColor.RED + "You don't have permission to create a character in Slot 2.");
+                return;
+            }
+            if (slot == 2 && !player.hasPermission("penandpaper.3slot")) {
+                player.sendMessage(ChatColor.RED + "You don't have permission to create a character in Slot 3.");
+                return;
+            }
             player.closeInventory();
             PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
             PenPlayer penPlayer = playerService.getPlayer(player);
