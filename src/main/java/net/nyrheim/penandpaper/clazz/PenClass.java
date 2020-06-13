@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 import static net.nyrheim.penandpaper.item.adventuringgear.AdventuringGearType.*;
 import static net.nyrheim.penandpaper.item.armor.ArmorType.*;
+import static net.nyrheim.penandpaper.item.armor.ArmorType.LEATHER;
 import static net.nyrheim.penandpaper.item.weapon.WeaponType.*;
 
 public final class PenClass {
