@@ -89,11 +89,11 @@ public final class SoulGUI extends GUI {
             characterService.addCharacter(character);
             characterService.setActiveCharacter(penPlayer, character);
             List<String> purse = new ArrayList<>();
-            purse.add("A purse of foreign currency, brought with you from a foreign shore.");
-            purse.add("There's just about enough money in it to rent a house,");
-            purse.add("or you could go to the bank and exchange it.");
-            purse.add("[Contact a GM to interact.]");
-            purse.add(DARK_AQUA + "[Soulbound to " + penPlayer.getPlayer().getName() + " with ID: " + character.getId().toString() + "]");
+            purse.add(WHITE + "A purse of foreign currency, brought with you from a foreign shore.");
+            purse.add(WHITE + "There's just about enough money in it to rent a house,");
+            purse.add(WHITE + "or you could go to the bank and exchange it.");
+            purse.add(DARK_AQUA + "[Contact a GM to interact.]");
+            purse.add(DARK_AQUA + "[Soulbound to " + penPlayer.getPlayer().getName() + " with ID: " + character.getId().getValue() + "]");
             player.getInventory().addItem(new PenItemStack(COMMON_CLOTHES, 1).toItemStack());
             player.getInventory().addItem(new PenItemStack(RATIONS, 20).toItemStack());
             player.getInventory().addItem(new PenItemStack(PURSE_OF_FOREIGN_CURRENCY, 1).toLoredItemStack(character, purse));
