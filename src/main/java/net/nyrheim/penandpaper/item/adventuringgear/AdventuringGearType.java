@@ -12,8 +12,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -492,7 +494,19 @@ public enum AdventuringGearType implements ItemType {
             "Perfume (vial)",
             new Money(5, GP),
             new Weight(0, LB),
-            POTION
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.STRENGTH));
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1200, 0, true), true);
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
     ),
     MINERS_PICK(
             "Pick, miner's",
@@ -545,6 +559,7 @@ public enum AdventuringGearType implements ItemType {
                 if (meta != null) {
                     if (meta instanceof PotionMeta) {
                         PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.INSTANT_HEAL));
                         potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.HEAL, 1200, 0, true), true);
                         stack.setItemMeta(potionMeta);
                     }
@@ -556,7 +571,7 @@ public enum AdventuringGearType implements ItemType {
             "Pouch",
             new Money(5, SP),
             new Weight(1, LB),
-            LEATHER
+            Material.LEATHER
     ),
     QUIVER(
             "Quiver",
@@ -574,7 +589,7 @@ public enum AdventuringGearType implements ItemType {
             "Rations (1 day)",
             new Money(5, SP),
             new Weight(2, LB),
-            BREAD
+            Material.BREAD
     ),
     ROBES(
             "Robes",
@@ -682,7 +697,7 @@ public enum AdventuringGearType implements ItemType {
             "Waterskin",
             new Money(2, SP),
             new Weight(5, LB),
-            LEATHER
+            Material.LEATHER
     ),
     WHETSTONE(
             "Whetstone",
@@ -745,6 +760,42 @@ public enum AdventuringGearType implements ItemType {
             new Weight(0, LB),
             IRON_NUGGET
     ),
+    ARMOR_PLATE(
+            "Armor plate",
+            new Money(0, CP),
+            new Weight(0, LB),
+            IRON_NUGGET
+    ),
+    CHAIN_RINGS(
+            "Chain rings",
+            new Money(0, CP),
+            new Weight(0, LB),
+            Material.IRON_INGOT
+    ),
+    BARDING(
+            "Barding",
+            new Money(0, CP),
+            new Weight(0, LB),
+            LEATHER_HORSE_ARMOR
+    ),
+    IRON_BARDING(
+            "Iron barding",
+            new Money(0, CP),
+            new Weight(0, LB),
+            IRON_HORSE_ARMOR
+    ),
+    BARKING_BOX(
+            "Barking box",
+            new Money(0, CP),
+            new Weight(0, LB),
+            NOTE_BLOCK
+    ),
+    LOCKPICK(
+            "Lockpick",
+            new Money(0, CP),
+            new Weight(0, LB),
+            TRIPWIRE_HOOK
+    ),
     HANDLE(
             "Handle",
             new Money(0, CP),
@@ -797,7 +848,7 @@ public enum AdventuringGearType implements ItemType {
             "Trinket",
             new Money(0, CP),
             new Weight(0, LB),
-            BRICK
+            TOTEM_OF_UNDYING
     ),
     FISHING_ROD(
             "Fishing rod",
@@ -820,20 +871,38 @@ public enum AdventuringGearType implements ItemType {
     LUMBER(
             "Lumber",
             new Money(0, CP),
-            new Weight(0, LB),
+            new Weight(3, LB),
             OAK_LOG
     ),
     LEATHER_STRAP(
             "Leather strap",
             new Money(0, CP),
             new Weight(0, LB),
-            LEATHER
+            Material.LEATHER
     ),
     LONGERBOW(
             "Longerbow",
             new Money(0, CP),
             new Weight(0, LB),
             BOW
+    ),
+    FLUX(
+            "Flux",
+            new Money(0, CP),
+            new Weight(0, LB),
+            BLAZE_POWDER
+    ),
+    POTASH(
+            "Potash",
+            new Money(0, CP),
+            new Weight(0, LB),
+            BRICK
+    ),
+    FINE_SAND(
+            "Fine sand",
+            new Money(0, CP),
+            new Weight(0, LB),
+            GLOWSTONE_DUST
     ),
     GLUE(
             "Glue",
@@ -846,6 +915,610 @@ public enum AdventuringGearType implements ItemType {
             new Money(0, CP),
             new Weight(0, LB),
             Material.GLASS
+    ),
+    POTION_OF_GREATER_HEALING(
+            "Potion of greater healing",
+            new Money(50, GP),
+            new Weight(0.5, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.INSTANT_HEAL));
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.HEAL, 1200, 1, true), true);
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    POTION_OF_NUMBED_PAIN(
+            "Potion of numbed pain",
+            new Money(50, GP),
+            new Weight(0.5, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.WEAKNESS));
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.WEAKNESS, 1200, 0, true), true);
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    POTION_OF_REGENERATION(
+            "Potion of regeneration",
+            new Money(50, GP),
+            new Weight(0.5, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.REGEN));
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.REGENERATION, 1200, 0, true), true);
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    POTION_OF_GIANTS_LUNG(
+            "Potion of giant's lung",
+            new Money(50, GP),
+            new Weight(0.5, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.WATER_BREATHING));
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 1200, 0, true), true);
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    POTION_OF_WARMTH(
+            "Potion of warmth",
+            new Money(50, GP),
+            new Weight(0.5, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.FIRE_RESISTANCE));
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1200, 0, true), true);
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    POTION_OF_MEMORY(
+            "Potion of memory",
+            new Money(50, GP),
+            new Weight(0.5, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.NIGHT_VISION));
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1200, 0, true), true);
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    POTION_OF_SIGHT(
+            "Potion of sight",
+            new Money(50, GP),
+            new Weight(0.5, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.NIGHT_VISION));
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 1200, 0, true), true);
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    POTION_OF_MANLINESS(
+            "Potion of manliness",
+            new Money(50, GP),
+            new Weight(0.5, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.AWKWARD));
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    ANTITOXIN(
+            "Antitoxin",
+            new Money(50, GP),
+            new Weight(0.5, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.MUNDANE));
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    HILLCAT_BANE(
+            "Hillcat Bane",
+            new Money(50, GP),
+            new Weight(0.5, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.POISON));
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.POISON, 1200, 0, true), true);
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    ASSASSINS_BLOOD(
+            "Assassin's blood",
+            new Money(50, GP),
+            new Weight(0.5, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.POISON));
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.POISON, 1200, 0, true), true);
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    HEMOPHILE(
+            "Hemophile",
+            new Money(50, GP),
+            new Weight(0.5, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.POISON));
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.POISON, 1200, 0, true), true);
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    ACID(
+            "Acid",
+            new Money(50, GP),
+            new Weight(0.5, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.POISON));
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.POISON, 1200, 0, true), true);
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    SKINSBANE(
+            "Skinsbane",
+            new Money(50, GP),
+            new Weight(0.5, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.POISON));
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.POISON, 1200, 0, true), true);
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    MIND_MELT(
+            "Mind melt",
+            new Money(50, GP),
+            new Weight(0.5, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.POISON));
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.POISON, 1200, 0, true), true);
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    MALICE(
+            "Malice",
+            new Money(50, GP),
+            new Weight(0.5, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.POISON));
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.POISON, 1200, 0, true), true);
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    BLASTING_POWDER(
+            "Blasting powder",
+            new Money(0, CP),
+            new Weight(0, LB),
+            GUNPOWDER
+    ),
+    BOMB(
+            "Bomb",
+            new Money(0, CP),
+            new Weight(0, LB),
+            TNT
+    ),
+    TANGLER_GRENADE(
+            "Tangler grenade",
+            new Money(0, CP),
+            new Weight(0, LB),
+            TNT
+    ),
+    ALCHEMISTS_FIRE(
+            "Alchemist's fire",
+            new Money(0, CP),
+            new Weight(0, LB),
+            FIRE_CHARGE
+    ),
+    SUGAR(
+            "Sugar",
+            new Money(0, CP),
+            new Weight(0, LB),
+            Material.SUGAR
+    ),
+    FLOUR(
+            "Flour",
+            new Money(0, CP),
+            new Weight(0, LB),
+            Material.SUGAR
+    ),
+    BREAD(
+            "Bread",
+            new Money(0, CP),
+            new Weight(0, LB),
+            Material.BREAD
+    ),
+    SMOKED_FISH(
+            "Smoked fish",
+            new Money(0, CP),
+            new Weight(0, LB),
+            COOKED_SALMON
+    ),
+    GRILLED_MEAT(
+            "Grilled meat",
+            new Money(0, CP),
+            new Weight(0, LB),
+            COOKED_BEEF
+    ),
+    BAKED_SNEIP(
+            "Baked Snèip",
+            new Money(0, CP),
+            new Weight(0, LB),
+            BEETROOT
+    ),
+    CHEESE(
+            "Cheese",
+            new Money(0, CP),
+            new Weight(0, LB),
+            SPONGE
+    ),
+    BUTTER(
+            "Butter",
+            new Money(0, CP),
+            new Weight(0, LB),
+            YELLOW_CONCRETE
+    ),
+    STEW(
+            "Stew",
+            new Money(0, CP),
+            new Weight(0, LB),
+            RABBIT_STEW
+    ),
+    SWEET_BREAD(
+            "Sweet bread",
+            new Money(0, CP),
+            new Weight(0, LB),
+            Material.BREAD
+    ),
+    ROASTED_DINNER(
+            "Roasted Dinner",
+            new Money(0, CP),
+            new Weight(0, LB),
+            COOKED_CHICKEN
+    ),
+    ALE(
+            "Ale",
+            new Money(0, CP),
+            new Weight(0, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.FIRE_RESISTANCE));
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1200, 0, true), true);
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    LIQUOR(
+            "Liquor",
+            new Money(0, CP),
+            new Weight(0, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.SLOW_FALLING));
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 1200, 0, true), true);
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    WINE(
+            "Wine",
+            new Money(0, CP),
+            new Weight(0, LB),
+            (amount) -> {
+                ItemStack stack = new ItemStack(POTION, amount);
+                ItemMeta meta = stack.getItemMeta();
+                if (meta != null) {
+                    if (meta instanceof PotionMeta) {
+                        PotionMeta potionMeta = (PotionMeta) meta;
+                        potionMeta.setBasePotionData(new PotionData(PotionType.STRENGTH));
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1200, 0, true), true);
+                        stack.setItemMeta(potionMeta);
+                    }
+                }
+                return stack;
+            }
+    ),
+    SPRINGBERRY_JAM(
+            "Springberry jam",
+            new Money(0, CP),
+            new Weight(0, LB),
+            FLOWER_POT
+    ),
+    SPRINGBERRY_PIE(
+            "Springberry pie",
+            new Money(0, CP),
+            new Weight(0, LB),
+            PUMPKIN_PIE
+    ),
+    GOURD_BOTTLE(
+            "Gourd bottle",
+            new Money(0, CP),
+            new Weight(0, LB),
+            Material.GLASS
+    ),
+    LEATHER(
+            "Leather",
+            new Money(0, CP),
+            new Weight(0, LB),
+            Material.LEATHER
+    ),
+    BIT_AND_BRIDLE(
+            "Bit and Bridle",
+            new Money(0, CP),
+            new Weight(0, LB),
+            SADDLE
+    ),
+    EXOTIC_SADDLE(
+            "Exotic saddle",
+            new Money(0, CP),
+            new Weight(0, LB),
+            SADDLE
+    ),
+    PACK_SADDLE(
+            "Pack saddle",
+            new Money(0, CP),
+            new Weight(0, LB),
+            SADDLE
+    ),
+    WARM_CLOTHES(
+            "Clothes, warm",
+            new Money(15, GP),
+            new Weight(6, LB),
+            LEATHER_CHESTPLATE
+    ),
+    IRON_ORE(
+            "Iron ore",
+            new Money(0, GP),
+            new Weight(3, LB),
+            Material.IRON_ORE
+    ),
+    STONE(
+            "Stone",
+            new Money(0, CP),
+            new Weight(3, LB),
+            STONE_BUTTON
+    ),
+    SALT(
+            "Salt",
+            new Money(0, CP),
+            new Weight(3, LB),
+            Material.SUGAR
+    ),
+    SINEW(
+            "Sinew",
+            new Money(0, CP),
+            new Weight(2, LB),
+            Material.STRING
+    ),
+    HIDE(
+            "Hide",
+            new Money(0, CP),
+            new Weight(3, LB),
+            RABBIT_HIDE
+    ),
+    MEAT(
+            "Meat",
+            new Money(0, CP),
+            new Weight(2, LB),
+            MUTTON
+    ),
+    RABBITS_EYE(
+            "Rabbit's eye",
+            new Money(0, CP),
+            new Weight(0, LB),
+            ENDER_PEARL
+    ),
+    FISH(
+            "Fish",
+            new Money(0, CP),
+            new Weight(2, LB),
+            COD
+    ),
+    PEARL(
+            "Pearl",
+            new Money(0, CP),
+            new Weight(0, LB),
+            ENDER_PEARL
+    ),
+    HAIRBEET(
+            "Hairbeet",
+            new Money(0, CP),
+            new Weight(1, LB),
+            BEETROOT
+    ),
+    REEDGRAIN(
+            "Reedgrain",
+            new Money(0, CP),
+            new Weight(1, LB),
+            WHEAT
+    ),
+    SNEIP(
+            "Sneip",
+            new Money(0, CP),
+            new Weight(1, LB),
+            CARROT
+    ),
+    MILK(
+            "Milk",
+            new Money(0, CP),
+            new Weight(2, LB),
+            MILK_BUCKET
+    ),
+    EGG(
+            "Egg",
+            new Money(0, CP),
+            new Weight(0, LB),
+            Material.EGG
+    ),
+    SPRINGBERRIES(
+            "Springberries",
+            new Money(0, CP),
+            new Weight(0, LB),
+            SWEET_BERRIES
+    ),
+    HEMP(
+            "Hemp",
+            new Money(0, CP),
+            new Weight(2, LB),
+            SUGAR_CANE
+    ),
+    AMARELL(
+            "Amarell",
+            new Money(0, CP),
+            new Weight(0, LB),
+            DARK_OAK_SAPLING
+    ),
+    GIANTS_ROOT(
+            "Giant's Root",
+            new Money(0, CP),
+            new Weight(2, LB),
+            ACACIA_SAPLING
+    ),
+    ASHBLOOM(
+            "Ashbloom",
+            new Money(0, CP),
+            new Weight(0, LB),
+            WITHER_ROSE
+    ),
+    GILLIWEED(
+            "Gilliweed",
+            new Money(0, CP),
+            new Weight(0, LB),
+            LILY_OF_THE_VALLEY
+    ),
+    WOOLEN_BLOOD(
+            "Woolen blood",
+            new Money(0, CP),
+            new Weight(0, LB),
+            RED_DYE
     ),
     SMITHS_TOOLS(
             "Smith's Tools",
