@@ -225,6 +225,7 @@ public final class BaseRace extends Race {
         return abilityScoreModifiers.getOrDefault(ability, 0);
     }
 
+
     @Override
     public int getMinimumAge() {
         return minimumAge;
