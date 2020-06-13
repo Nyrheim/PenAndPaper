@@ -22,10 +22,10 @@ public final class ActiveCharacterTable implements Table {
         this.database = database;
         this.playerIdCache = database.getCacheManager().createCache("penandpaper.active_character.player_id",
                 CacheConfigurationBuilder.newCacheConfigurationBuilder(Integer.class, CharacterId.class,
-                        ResourcePoolsBuilder.heap(25)));
+                        ResourcePoolsBuilder.heap(60)));
         this.characterIdCache = database.getCacheManager().createCache("penandpaper.active_character.character_id",
                 CacheConfigurationBuilder.newCacheConfigurationBuilder(Integer.class, PlayerId.class,
-                        ResourcePoolsBuilder.heap(25)));
+                        ResourcePoolsBuilder.heap(60)));
     }
 
     @Override

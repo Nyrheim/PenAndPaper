@@ -26,7 +26,7 @@ public final class CharacterAbilityScoreTable implements Table {
         this.database = database;
         this.cache = database.getCacheManager().createCache("penandpaper.character_ability_score.character_id",
                 CacheConfigurationBuilder.newCacheConfigurationBuilder(Integer.class, Map.class,
-                        ResourcePoolsBuilder.heap(25)));
+                        ResourcePoolsBuilder.heap(60)));
     }
 
     @Override

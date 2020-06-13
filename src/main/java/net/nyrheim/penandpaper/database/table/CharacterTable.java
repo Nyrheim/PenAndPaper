@@ -37,7 +37,7 @@ public final class CharacterTable implements Table {
         this.database = database;
         cache = database.getCacheManager().createCache("penandpaper.character.id",
                 CacheConfigurationBuilder.newCacheConfigurationBuilder(Integer.class, PenCharacter.class,
-                        ResourcePoolsBuilder.heap(25)));
+                        ResourcePoolsBuilder.heap(60)));
     }
 
     @Override
