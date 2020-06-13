@@ -320,22 +320,6 @@ public final class RaceGUI extends GUI {
     }
 
     private void setRace(Player player, PenCharacterService characterService, PenCharacter character, Race race) {
-        if (character.getRace() != null) {
-            character.updateAbilityScore(-character.getRace().getAbilityScoreModifier(Ability.STRENGTH), Ability.STRENGTH);
-            character.updateAbilityScore(-character.getRace().getAbilityScoreModifier(Ability.DEXTERITY), Ability.DEXTERITY);
-            character.updateAbilityScore(-character.getRace().getAbilityScoreModifier(Ability.CONSTITUTION), Ability.CONSTITUTION);
-            character.updateAbilityScore(-character.getRace().getAbilityScoreModifier(Ability.INTELLIGENCE), Ability.INTELLIGENCE);
-            character.updateAbilityScore(-character.getRace().getAbilityScoreModifier(Ability.WISDOM), Ability.WISDOM);
-            character.updateAbilityScore(-character.getRace().getAbilityScoreModifier(Ability.CHARISMA), Ability.CHARISMA);
-        }
-        else {
-            character.updateAbilityScore(race.getAbilityScoreModifier(Ability.STRENGTH), Ability.STRENGTH);
-            character.updateAbilityScore(race.getAbilityScoreModifier(Ability.DEXTERITY), Ability.DEXTERITY);
-            character.updateAbilityScore(race.getAbilityScoreModifier(Ability.CONSTITUTION), Ability.CONSTITUTION);
-            character.updateAbilityScore(race.getAbilityScoreModifier(Ability.INTELLIGENCE), Ability.INTELLIGENCE);
-            character.updateAbilityScore(race.getAbilityScoreModifier(Ability.WISDOM), Ability.WISDOM);
-            character.updateAbilityScore(race.getAbilityScoreModifier(Ability.CHARISMA), Ability.CHARISMA);
-        }
         character.setRace(race);
         characterService.updateCharacter(character);
         player.closeInventory();

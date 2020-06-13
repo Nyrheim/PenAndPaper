@@ -38,6 +38,10 @@ public final class CharacterSetRaceCommand implements CommandExecutor {
             PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
             PenPlayer penPlayer = playerService.getPlayer(player);
             PenCharacter character = characterService.getActiveCharacter(penPlayer);
+            if (character == null) {
+                player.sendMessage(ChatColor.RED + "You do not have an active character.");
+                return true;
+            }
             if (character.getRace() != null) {
                 player.sendMessage(ChatColor.RED + "You have already set your race.");
                 return true;

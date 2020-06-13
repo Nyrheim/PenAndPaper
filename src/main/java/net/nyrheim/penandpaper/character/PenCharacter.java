@@ -269,11 +269,6 @@ public final class PenCharacter {
         return abilityScoreChoices.getOrDefault(ability, 0);
     }
 
-    public void updateAbilityScore(int score, Ability ability) {
-        int currentScore = abilityScores.get(ability);
-        abilityScores.replace(ability, currentScore + score);
-    }
-
     public void setAbilityScoreChoice(Ability ability, int score) {
         abilityScoreChoices.put(ability, score);
     }
