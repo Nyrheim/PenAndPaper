@@ -357,6 +357,31 @@ public final class PenClass {
             )
     );
 
+    public static final PenClass CITIZEN = new PenClass(
+            "Citizen",
+            "A citizen of the realm, concerned for his family and lifestyle.",
+            new Roll(new Die(1, 6)),
+            Ability.CONSTITUTION,
+            Arrays.asList(
+                    Ability.CONSTITUTION,
+                    Ability.DEXTERITY
+            ),
+            Collections.emptyList(),
+            Arrays.asList(
+                    WeaponType.DAGGER,
+                    WeaponType.DART,
+                    WeaponType.SLING,
+                    WeaponType.QUARTERSTAFF,
+                    WeaponType.LIGHT_CROSSBOW
+            ),
+            4,
+            2,
+            new MulticlassingRequirement.AbilityRequirement(Ability.CONSTITUTION, 8),
+            Arrays.asList(
+                    new PenItemStack(RATIONS, 20)
+            )
+    );
+
     public static PenClass valueOf(String name) {
         switch (name) {
             case "BARBARIAN": return BARBARIAN;
@@ -371,6 +396,7 @@ public final class PenClass {
             case "SORCERER": return SORCERER;
             case "WARLOCK": return WARLOCK;
             case "WIZARD": return WIZARD;
+            case "CITIZEN": return CITIZEN;
             default: return null;
         }
     }
@@ -395,7 +421,8 @@ public final class PenClass {
                 ROGUE,
                 SORCERER,
                 WARLOCK,
-                WIZARD
+                WIZARD,
+                CITIZEN
         };
     }
 

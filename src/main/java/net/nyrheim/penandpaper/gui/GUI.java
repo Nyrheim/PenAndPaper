@@ -44,6 +44,7 @@ public abstract class GUI implements InventoryHolder {
         if (clazz == PenClass.DRUID) return SUNFLOWER;
         if (clazz == PenClass.PALADIN) return CHAINMAIL_CHESTPLATE;
         if (clazz == PenClass.CLERIC) return IRON_CHESTPLATE;
+        if (clazz == PenClass.CITIZEN) return IRON_PICKAXE;
         return PAPER;
     }
 
@@ -60,6 +61,7 @@ public abstract class GUI implements InventoryHolder {
         if (clazz == PenClass.DRUID) return "Nature's Blessing";
         if (clazz == PenClass.CLERIC) return "Basic Chainmail";
         if (clazz == PenClass.PALADIN) return "English Knight";
+        if (clazz == PenClass.CITIZEN) return "Tools";
         return null;
     }
 
