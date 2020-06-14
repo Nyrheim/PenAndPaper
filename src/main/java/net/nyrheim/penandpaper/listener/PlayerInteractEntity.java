@@ -12,7 +12,7 @@ public class PlayerInteractEntity implements Listener {
         Player player = event.getPlayer();
         if (player.isSneaking() && event.getRightClicked() instanceof Player) {
             Player target = (Player) event.getRightClicked();
-            player.performCommand("/char " + target.getName());
+            player.performCommand("char " + target.getName());
         }
     }
     
