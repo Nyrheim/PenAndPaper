@@ -47,20 +47,46 @@ public final class PlayerTable implements Table {
                         constraint("player_pk").primaryKey(PLAYER.ID)
                 )
                 .execute();
+
+        database.create()
+                .alterTable(PLAYER)
+                .addColumnIfNotExists(PLAYER.PASSWORD_HASH)
+                .execute();
+
+        database.create()
+                .alterTable(PLAYER)
+                .addColumnIfNotExists(PLAYER.PASSWORD_SALT)
+                .execute();
     }
 
     public void insert(PenPlayer player) {
         database.create()
                 .insertInto(
                         PLAYER,
-                        PLAYER.PLAYER_UUID
+                        PLAYER.PLAYER_UUID,
+                        PLAYER.PASSWORD_HASH,
+                        PLAYER.PASSWORD_SALT
                 )
                 .values(
-                        player.getPlayerUUID().getValue().toString()
+                        player.getPlayerUUID().getValue().toString(),
+                        player.getPasswordHash(),
+                        player.getPasswordSalt()
                 )
                 .execute();
         int id = database.create().lastID().intValue();
         player.setPlayerId(new PlayerId(id));
+        idCache.put(player.getPlayerId().getValue(), player);
+        uuidCache.put(player.getPlayerUUID().getValue().toString(), player);
+    }
+
+    public void update(PenPlayer player) {
+        database.create()
+                .update(PLAYER)
+                .set(PLAYER.PLAYER_UUID, player.getPlayerUUID().getValue().toString())
+                .set(PLAYER.PASSWORD_HASH, player.getPasswordHash())
+                .set(PLAYER.PASSWORD_SALT, player.getPasswordSalt())
+                .where(PLAYER.ID.eq(player.getPlayerId().getValue()))
+                .execute();
         idCache.put(player.getPlayerId().getValue(), player);
         uuidCache.put(player.getPlayerUUID().getValue().toString(), player);
     }
@@ -70,7 +96,11 @@ public final class PlayerTable implements Table {
             return idCache.get(playerId.getValue());
         }
         Record result = database.create()
-                .select(PLAYER.PLAYER_UUID)
+                .select(
+                        PLAYER.PLAYER_UUID,
+                        PLAYER.PASSWORD_HASH,
+                        PLAYER.PASSWORD_SALT
+                )
                 .from(PLAYER)
                 .where(PLAYER.ID.eq(playerId.getValue()))
                 .fetchOne();
@@ -78,7 +108,9 @@ public final class PlayerTable implements Table {
         PenPlayer penPlayer = new PenPlayer(
                 plugin,
                 playerId,
-                new PlayerUUID(UUID.fromString(result.get(PLAYER.PLAYER_UUID)))
+                new PlayerUUID(UUID.fromString(result.get(PLAYER.PLAYER_UUID))),
+                result.get(PLAYER.PASSWORD_HASH),
+                result.get(PLAYER.PASSWORD_SALT)
         );
         idCache.put(playerId.getValue(), penPlayer);
         uuidCache.put(penPlayer.getPlayerUUID().getValue().toString(), penPlayer);
@@ -90,7 +122,11 @@ public final class PlayerTable implements Table {
             return uuidCache.get(playerUUID.getValue().toString());
         }
         Record result = database.create()
-                .select(PLAYER.ID)
+                .select(
+                        PLAYER.ID,
+                        PLAYER.PASSWORD_HASH,
+                        PLAYER.PASSWORD_SALT
+                )
                 .from(PLAYER)
                 .where(PLAYER.PLAYER_UUID.eq(playerUUID.getValue().toString()))
                 .fetchOne();
@@ -98,7 +134,9 @@ public final class PlayerTable implements Table {
         PenPlayer penPlayer = new PenPlayer(
                 plugin,
                 new PlayerId(result.get(PLAYER.ID)),
-                playerUUID
+                playerUUID,
+                result.get(PLAYER.PASSWORD_HASH),
+                result.get(PLAYER.PASSWORD_SALT)
         );
         idCache.put(penPlayer.getPlayerId().getValue(), penPlayer);
         uuidCache.put(playerUUID.getValue().toString(), penPlayer);

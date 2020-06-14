@@ -94,6 +94,9 @@ commands:
     usage: /<command>
     aliases:
     - thp
+  password:
+    description: Sets your password for login to web apps etc
+    usage: /<command>
 permissions:
   penandpaper.command.exp.add:
     description: Allows adding experience to characters
