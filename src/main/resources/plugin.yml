@@ -161,6 +161,21 @@ permissions:
   penandpaper.command.exhaustion.set:
     description: Allows you to set exhaustion for players
     default: op
+  penandpaper.warlock:
+    description: Allows you to select the Warlock class
+    default: op
+  penandpaper.2slot:
+    description: Allows you to use a second character slot
+    default: op
+  penandpaper.3slot:
+    description: Allows you to use a third character slot
+    default: op
+  penandpaper.dungeonmaster:
+    description: Allows all dungeon master functionality
+    default: op
+  penandpaper.gamemaster:
+    description: Allows all game master functionality.
+    default: op
   penandpaper.admin:
     description: Allows all admin functionality
     default: op
@@ -174,6 +189,7 @@ permissions:
     - penandpaper.command.character.set.presence.other
     - penandpaper.command.character.add.appearance.other
     - penandpaper.command.character.add.presence.other
+    - penandpaper.command.character.set.race.other
     - penandpaper.command.ability.set
     - penandpaper.multiclassapproval
     - penandpaper.command.class.approve

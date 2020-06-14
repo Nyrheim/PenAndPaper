@@ -1,6 +1,8 @@
 package net.nyrheim.penandpaper.listener;
 
 import net.nyrheim.penandpaper.PenAndPaper;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -13,6 +15,16 @@ public class PlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        if (player.hasPermission("penandpaper.dungeonmaster")) {
+            player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());
+        }
+        else if (player.hasPermission("penandpaper.gamemaster")) {
+            player.setPlayerListName(ChatColor.BLUE + player.getName());
+        }
+        else if (player.hasPermission("penandpaper.admin")) {
+            player.setPlayerListName(ChatColor.RED + player.getName());
+        }
     }
 
     @EventHandler
