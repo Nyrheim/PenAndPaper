@@ -24,6 +24,7 @@ import net.nyrheim.penandpaper.database.Database;
 import net.nyrheim.penandpaper.exhaustion.ExhaustionTask;
 import net.nyrheim.penandpaper.item.PenRecipeService;
 import net.nyrheim.penandpaper.listener.InventoryClickListener;
+import net.nyrheim.penandpaper.listener.PlayerInteractEntity;
 import net.nyrheim.penandpaper.listener.PlayerListener;
 import net.nyrheim.penandpaper.player.PenPlayerService;
 import net.nyrheim.penandpaper.race.PenRaceService;
@@ -119,6 +120,7 @@ public final class PenAndPaper extends RPKBukkitPlugin implements Listener {
         registerListeners(
                 new InventoryClickListener(this),
                 new PlayerListener(),
+                new PlayerInteractEntity(),
                 this
         );
     }
