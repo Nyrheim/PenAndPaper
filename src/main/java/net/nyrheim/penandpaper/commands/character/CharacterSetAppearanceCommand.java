@@ -30,7 +30,7 @@ public final class CharacterSetAppearanceCommand implements CommandExecutor {
             target = (Player) sender;
         }
         int argOffset = 0;
-        if (args.length > 1) {
+  /*      if (args.length > 1) {
             if (sender.hasPermission("penandpaper.command.character.set.appearance.other")) {
                 target = plugin.getServer().getPlayer(args[0]);
                 if (target != null) {
@@ -42,10 +42,13 @@ public final class CharacterSetAppearanceCommand implements CommandExecutor {
                 }
             }
         }
+
+   */
         if (target == null) {
             sender.sendMessage(RED + "You must specify a player when running this command from console.");
             return true;
         }
+
         PenPlayerService playerService = plugin.getServices().get(PenPlayerService.class);
         PenPlayer penPlayer = playerService.getPlayer(target);
         PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
