@@ -1,6 +1,7 @@
 package net.nyrheim.penandpaper.player;
 
 import net.nyrheim.penandpaper.PenAndPaper;
+import net.nyrheim.penandpaper.database.jooq.tables.Player;
 import net.nyrheim.penandpaper.database.table.PlayerTable;
 import org.bukkit.OfflinePlayer;
 
@@ -29,6 +30,10 @@ public final class PenPlayerService {
 
     public PenPlayer getPlayer(OfflinePlayer bukkitPlayer) {
         return getPlayer(new PlayerUUID(bukkitPlayer.getUniqueId()));
+    }
+
+    public void updatePlayer(PenPlayer player) {
+        plugin.getDatabase().getTable(PlayerTable.class).update(player);
     }
 
 }
