@@ -16,6 +16,7 @@ import net.nyrheim.penandpaper.commands.hp.HPCommand;
 import net.nyrheim.penandpaper.commands.ihp.IHPCommand;
 import net.nyrheim.penandpaper.commands.item.ItemCommand;
 import net.nyrheim.penandpaper.commands.levelup.LevelUpCommand;
+import net.nyrheim.penandpaper.commands.password.PasswordCommand;
 import net.nyrheim.penandpaper.commands.roll.RollCommand;
 import net.nyrheim.penandpaper.commands.sethp.SetHPCommand;
 import net.nyrheim.penandpaper.commands.soul.SoulCommand;
@@ -141,6 +142,7 @@ public final class PenAndPaper extends RPKBukkitPlugin implements Listener {
         getCommand("exhaustion").setExecutor(new ExhaustionCommand(this));
         getCommand("roll").setExecutor(new RollCommand(this));
         getCommand("temphp").setExecutor(new TempHPCommand(this));
+        getCommand("password").setExecutor(new PasswordCommand(this));
     }
 
     public Database getDatabase() {
