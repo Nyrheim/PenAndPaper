@@ -274,7 +274,7 @@ public final class PenCharacter {
     }
 
     public int getModifier(Ability ability) {
-        return lookupModifier(getAbilityScore(ability) + getTempScore(ability));
+        return lookupModifier(getAbilityScore(ability) + getTempScore(ability) + getRace().getAbilityScoreModifier(ability));
     }
 
     public Race getRace() {
