@@ -122,10 +122,30 @@ public final class PenRaceService {
 
         Race highElf = new Subrace.Builder(elf, "High Elf")
                 .aliases(
-                        "Eladrin",
                         "Moon Elf",
                         "Sun Elf"
                 )
+                .abilityScoreModifier(INTELLIGENCE, 1)
+                .traits(
+                        new RaceTrait("Cantrips", "Moon Elves/Sun Elves know one cantrip of their" +
+                                " choice from the wizard spell list. Intelligence is their spellcasting ability for it.")
+                )
+                .build();
+
+        races.add(highElf);
+
+        Race woodElf = new Subrace.Builder(elf, "Wood Elf")
+                .abilityScoreModifier(WISDOM, 1)
+                .traits(
+                        new RaceTrait("Mask of the Wild", "Wood Elves can attempt to hide even when " +
+                                "they are only lightly obscured by foliage, heavy rain, falling snow, mist and " +
+                                "other natural phenomena.")
+                )
+                .build();
+
+        races.add(woodElf);
+
+        Race eladrin = new Subrace.Builder(elf, "Eladrin")
                 .abilityScoreModifier(CHARISMA, 1)
                 .traits(
                         new RaceTrait("Seasonal Folk", "When finishing a long rest, any eladrin can " +
@@ -150,18 +170,7 @@ public final class PenRaceService {
                 )
                 .build();
 
-        races.add(highElf);
-
-        Race woodElf = new Subrace.Builder(elf, "Wood Elf")
-                .abilityScoreModifier(WISDOM, 1)
-                .traits(
-                        new RaceTrait("Mask of the Wild", "Wood Elves can attempt to hide even when " +
-                                "they are only lightly obscured by foliage, heavy rain, falling snow, mist and " +
-                                "other natural phenomena.")
-                )
-                .build();
-
-        races.add(woodElf);
+        races.add(eladrin);
 
         Race halfling = new BaseRace.Builder("Halfling")
                 .minimumHeight(new Distance(30, DistanceUnit.INCHES))
@@ -288,7 +297,7 @@ public final class PenRaceService {
                 .minimumAge(20)
                 .maximumAge(190)
                 .speed(new Distance(30, DistanceUnit.FEET))
-                .abilityScoreModifier(CHARISMA, 1)
+                .abilityScoreModifier(CHARISMA, 2)
                 .darkVision(new Distance(60, DistanceUnit.FEET))
                 .traits(
                         new RaceTrait("Ability Score Increase", "Two ability scores of your choice " +
@@ -447,7 +456,7 @@ public final class PenRaceService {
         races.add(infernalBaalzebulTiefling);
 
         Race infernalDispaterTiefling = new Subrace.Builder(tiefling, "Infernal Tiefling: Dispater")
-                .abilityScoreModifier(INTELLIGENCE, 1)
+                .abilityScoreModifier(DEXTERITY, 1)
                 .traits(
                         new RaceTrait("Legacy of Dis", "You know the thaumaturgy cantrip. When " +
                                 "you reach 3rd level, you can cast the disguise self spell once with this trait " +

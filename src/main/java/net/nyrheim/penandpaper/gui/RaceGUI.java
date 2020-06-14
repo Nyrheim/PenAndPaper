@@ -307,10 +307,13 @@ public final class RaceGUI extends GUI {
         }  else if (baseRace == elf) {
             Race woodElf = raceService.getRace("WOOD_ELF");
             Race highElf = raceService.getRace("HIGH_ELF");
+            Race eladrin = raceService.getRace("ELADRIN");
             if (slot == 0) {
                 setRace(player, characterService, character, woodElf);
             } else if (slot == 1) {
                 setRace(player, characterService, character, highElf);
+            } else if (slot == 2) {
+                setRace(player, characterService, character, eladrin);
             }
         } else if (baseRace == halfling) {
             Race lightfootHalfling = raceService.getRace("LIGHTFOOT_HALFLING");
@@ -446,6 +449,11 @@ public final class RaceGUI extends GUI {
                 "ewogICJ0aW1lc3RhbXAiIDogMTU5MTk5ODAzMzY2OSwKICAicHJvZmlsZUlkIiA6ICI3M2ZkNzU2NWJkZTY0MGQzYWE4MGUxMWUwMTMwMjc3OCIsCiAgInByb2ZpbGVOYW1lIiA6ICJHYUJySWVMVnR6IiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzY2NjRkZjdmYjg1ZWFkMzM2ZDRlNzZkM2NjMmRjYjI0Zjg5NmY2OTAzMWJlYjE1NDY4ZGJjNzViM2JiMTEzMiIKICAgIH0KICB9Cn0=",
                 "bff869f0-49d3-4e8e-946b-d8f4acc5b369",
                 WHITE + "High Elf"
+        ));
+        getInventory().setItem(2, stealFaceForGuiItem(
+                "ewogICJ0aW1lc3RhbXAiIDogMTU5MjE0ODU4NTYwOCwKICAicHJvZmlsZUlkIiA6ICI3M2ZkNzU2NWJkZTY0MGQzYWE4MGUxMWUwMTMwMjc3OCIsCiAgInByb2ZpbGVOYW1lIiA6ICJHYUJySWVMVnR6IiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2RkZGU4ZmY2NzNlMGI5OTg1NzFkZDdjY2Q5NDdiOTQzZTcxMjJkN2JmYzdiYmFkZjE0N2YxM2ZhZTk0ODkzMDAiCiAgICB9CiAgfQp9",
+                "1c59235b-ceae-4887-b466-155ba230b046",
+                WHITE + "Eladrin"
         ));
     }
 
