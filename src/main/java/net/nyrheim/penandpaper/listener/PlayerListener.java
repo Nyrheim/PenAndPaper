@@ -16,7 +16,22 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if (player.hasPermission("penandpaper.dungeonmaster")) {
+        player.setPlayerListHeader(ChatColor.GOLD + "<< << " + ChatColor.RED + "Welcome to Chronicles of Nyrheim " + ChatColor.GOLD + ">> >>" );
+        player.setPlayerListFooter(ChatColor.RED + "Visit the website at: " + ChatColor.GOLD + "https://nyrheim.net/\n"
+                + ChatColor.GRAY + "Use " + ChatColor.WHITE + "/soul" + ChatColor.GRAY + " to set up your character.");
+        if (player.hasPermission("penandpaper.copper")) {
+            player.setPlayerListName(ChatColor.DARK_GREEN + player.getName());
+        }
+        if (player.hasPermission("penandpaper.silver")) {
+            player.setPlayerListName(ChatColor.GRAY + player.getName());
+        }
+        if (player.hasPermission("penandpaper.gold")) {
+            player.setPlayerListName(ChatColor.GOLD + player.getName());
+        }
+        if (player.hasPermission("penandpaper.platinum")) {
+            player.setPlayerListName(ChatColor.WHITE + "" + ChatColor.BOLD + player.getName());
+        }
+        else if (player.hasPermission("penandpaper.dungeonmaster")) {
             player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());
         }
         else if (player.hasPermission("penandpaper.gamemaster")) {
@@ -25,6 +40,7 @@ public class PlayerListener implements Listener {
         else if (player.hasPermission("penandpaper.admin")) {
             player.setPlayerListName(ChatColor.RED + player.getName());
         }
+
     }
 
     @EventHandler

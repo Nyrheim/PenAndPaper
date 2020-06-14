@@ -170,6 +170,17 @@ permissions:
   penandpaper.3slot:
     description: Allows you to use a third character slot
     default: op
+  penandpaper.copper:
+    description: Allows all Copper donator functionality.
+    default: op
+  penandpaper.silver:
+    description: Allows all Silver donator functionality.
+  penandpaper.gold:
+    description: Allows all Gold donator functionality.
+    default: op
+  penandpaper.platinum:
+    description: Allows all Platinum donator functionality.
+    default: op
   penandpaper.dungeonmaster:
     description: Allows all dungeon master functionality
     default: op
