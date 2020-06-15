@@ -381,10 +381,10 @@ public final class CharacterTable implements Table {
                 plugin.getLogger().log(SEVERE, "Failed to deserialize boots", exception);
             }
         }
-        ItemStack[] inventoryContents = new ItemStack[36];
+        ItemStack[] inventoryContents = new ItemStack[41];
         if (result.get(CHARACTER.INVENTORY_CONTENTS) != null) {
             try {
-                ItemStackUtils.deserializeItemStackArray(result.get(CHARACTER.INVENTORY_CONTENTS));
+                inventoryContents = ItemStackUtils.deserializeItemStackArray(result.get(CHARACTER.INVENTORY_CONTENTS));
             } catch (IOException | ClassNotFoundException exception) {
                 plugin.getLogger().log(SEVERE, "Failed to deserialize inventory contents", exception);
             }
