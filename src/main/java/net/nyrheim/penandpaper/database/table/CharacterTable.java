@@ -449,7 +449,7 @@ public final class CharacterTable implements Table {
     public void updateExhaustion() {
         database.create()
                 .update(CHARACTER)
-                .set(CHARACTER.EXHAUSTION, greatest(value(11).minus(CHARACTER.EXHAUSTION.multiply(CHARACTER.EXHAUSTION).divide(value(1000))), value(0)))
+                .set(CHARACTER.EXHAUSTION, greatest(CHARACTER.EXHAUSTION.minus(value(11).minus(CHARACTER.EXHAUSTION.multiply(CHARACTER.EXHAUSTION).divide(value(1000)))), value(0)))
                 .where(CHARACTER.EXHAUSTION.greaterThan(0))
                 .execute();
         cache.clear();
