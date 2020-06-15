@@ -7,7 +7,6 @@ import net.nyrheim.penandpaper.item.ItemStackInitializer;
 import net.nyrheim.penandpaper.item.ItemType;
 import net.nyrheim.penandpaper.money.Money;
 import net.nyrheim.penandpaper.weight.Weight;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -19,12 +18,11 @@ import static net.nyrheim.penandpaper.item.armor.ArmorCategory.*;
 import static net.nyrheim.penandpaper.money.Currency.GP;
 import static net.nyrheim.penandpaper.weight.WeightUnit.LB;
 import static org.bukkit.ChatColor.GRAY;
-import static org.bukkit.ChatColor.WHITE;
 import static org.bukkit.Material.*;
 
 public enum ArmorType implements ItemType {
 
-    PADDED(
+    PADDED_ARMOR(
             "Padded Armor",
             LIGHT_ARMOR,
             new Money(5, GP),
@@ -38,7 +36,7 @@ public enum ArmorType implements ItemType {
             false,
             LEATHER_CHESTPLATE
     ),
-    LEATHER(
+    LEATHER_ARMOR(
             "Leather Armor",
             LIGHT_ARMOR,
             new Money(10, GP),
@@ -52,7 +50,7 @@ public enum ArmorType implements ItemType {
             false,
             LEATHER_CHESTPLATE
     ),
-    STUDDED_LEATHER(
+    STUDDED_LEATHER_ARMOR(
             "Studded Leather Armor",
             LIGHT_ARMOR,
             new Money(45, GP),
@@ -66,7 +64,7 @@ public enum ArmorType implements ItemType {
             false,
             LEATHER_CHESTPLATE
     ),
-    HIDE(
+    HIDE_ARMOR(
             "Hide Armor",
             MEDIUM_ARMOR,
             new Money(10, GP),
@@ -162,7 +160,7 @@ public enum ArmorType implements ItemType {
             true,
             CHAINMAIL_CHESTPLATE
     ),
-    SPLINT(
+    SPLINT_MAIL(
             "Splint Mail",
             HEAVY_ARMOR,
             new Money(200, GP),
@@ -175,7 +173,7 @@ public enum ArmorType implements ItemType {
             true,
             CHAINMAIL_CHESTPLATE
     ),
-    PLATE(
+    PLATE_MAIL(
             "Plate Mail",
             HEAVY_ARMOR,
             new Money(1500, GP),

@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import static net.nyrheim.penandpaper.item.adventuringgear.AdventuringGearType.*;
 import static net.nyrheim.penandpaper.item.armor.ArmorType.*;
-import static net.nyrheim.penandpaper.item.armor.ArmorType.LEATHER;
+import static net.nyrheim.penandpaper.item.armor.ArmorType.LEATHER_ARMOR;
 import static net.nyrheim.penandpaper.item.weapon.WeaponType.*;
 
 public final class PenClass {
@@ -72,7 +72,7 @@ public final class PenClass {
             Arrays.asList(
                     new PenItemStack(DAGGER, 1),
                     new PenItemStack(INSTRUMENT, 1),
-                    new PenItemStack(LEATHER, 1)
+                    new PenItemStack(LEATHER_ARMOR, 1)
             )
     );
 
@@ -139,7 +139,7 @@ public final class PenClass {
             new MulticlassingRequirement.AbilityRequirement(Ability.WISDOM, 13),
             Arrays.asList(
                     new PenItemStack(STAFF, 1),
-                    new PenItemStack(LEATHER, 1)
+                    new PenItemStack(LEATHER_ARMOR, 1)
             )
     );
 
@@ -247,7 +247,7 @@ public final class PenClass {
             Arrays.asList(
                     new PenItemStack(SHORTBOW, 1),
                     new PenItemStack(SHORTSWORD, 1),
-                    new PenItemStack(LEATHER, 1)
+                    new PenItemStack(LEATHER_ARMOR, 1)
             )
     );
 
@@ -278,7 +278,7 @@ public final class PenClass {
             Arrays.asList(
                     new PenItemStack(SHORTBOW, 1),
                     new PenItemStack(SHORTSWORD, 1),
-                    new PenItemStack(LEATHER, 1)
+                    new PenItemStack(LEATHER_ARMOR, 1)
             )
     );
 
@@ -328,7 +328,7 @@ public final class PenClass {
             Arrays.asList(
                     new PenItemStack(DAGGER, 1),
                     new PenItemStack(ORB, 1),
-                    new PenItemStack(LEATHER, 1)
+                    new PenItemStack(LEATHER_ARMOR, 1)
             )
     );
 
