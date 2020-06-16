@@ -43,4 +43,11 @@ public enum ArmorCategory {
         return name;
     }
 
+    public Duration getDonTime() {
+        return donTime;
+    }
+
+    public Duration getDoffTime() {
+        return doffTime;
+    }
 }
