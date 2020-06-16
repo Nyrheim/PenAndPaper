@@ -31,6 +31,11 @@ public final class ArmorClassCalculation {
             return value;
         }
 
+        @Override
+        public String toString() {
+            return Integer.toString(value);
+        }
+
     }
 
     public static final class AbilityModifierArmorClassComponent implements Component {
@@ -44,6 +49,11 @@ public final class ArmorClassCalculation {
         @Override
         public int calculateValue(PenCharacter character) {
             return character.getModifier(ability);
+        }
+
+        @Override
+        public String toString() {
+            return ability.getAbbreviation() + " modifier";
         }
 
     }
@@ -63,12 +73,22 @@ public final class ArmorClassCalculation {
             return Math.min(cap, character.getModifier(ability));
         }
 
+        @Override
+        public String toString() {
+            return ability.getAbbreviation() + " modifier (max " + cap + ")";
+        }
+
     }
 
     public ArmorClass calculate(PenCharacter character) {
         return new ArmorClass(components.stream()
                 .map(component -> component.calculateValue(character))
                 .reduce(0, Integer::sum));
+    }
+
+    @Override
+    public String toString() {
+        return components.stream().map(Component::toString).reduce((a, b) -> a + " + " + b).orElse("0");
     }
 
 }
