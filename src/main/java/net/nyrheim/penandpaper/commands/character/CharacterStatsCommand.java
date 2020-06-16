@@ -30,7 +30,7 @@ public final class CharacterStatsCommand implements CommandExecutor {
         if (sender instanceof Player) {
             target = (Player) sender;
         }
-        if (args.length > 1) {
+        if (args.length == 1) {
             if (sender.hasPermission("penandpaper.command.character.stats.other")) {
                 target = plugin.getServer().getPlayer(args[0]);
                 if (target == null) {

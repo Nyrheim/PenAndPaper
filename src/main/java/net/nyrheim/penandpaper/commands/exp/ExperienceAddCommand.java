@@ -28,7 +28,7 @@ public class ExperienceAddCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission("penandpaper.command.exo.add")) {
+        if (!sender.hasPermission("penandpaper.command.exp.add")) {
             sender.sendMessage(RED + "You do not have permission.");
             return true;
         }
