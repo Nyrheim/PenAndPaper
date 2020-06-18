@@ -91,13 +91,10 @@ public final class CharacterCommand implements CommandExecutor {
             sender.sendMessage(RED + (target == sender ? "You do" : (target.getName() + " does")) + " not currently have an active character.");
             return true;
         }
-        TextComponent firstName = new TextComponent(GOLD + character.getFirstName());
-        firstName.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/char set firstname"));
-        firstName.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click me to change your character's first name!").create()));
-        TextComponent familyName = new TextComponent(GOLD + " " + character.getFamilyName());
-        familyName.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/char set familyname"));
-        familyName.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click me to change your character's family name!").create()));
-        sender.spigot().sendMessage(firstName, familyName);
+        TextComponent name = new TextComponent(GOLD + character.getName());
+        name.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/char set name"));
+        name.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click me to change your character's name!").create()));
+        sender.spigot().sendMessage(name);
         TextComponent age = new TextComponent(AQUA + "Age: " + WHITE + (character.getAge() < 0 ? "Empty" : character.getAge()));
         age.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/char set age"));
         age.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click me to change your character's age!").create()));

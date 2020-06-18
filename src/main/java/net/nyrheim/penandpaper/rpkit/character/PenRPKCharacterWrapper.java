@@ -283,13 +283,7 @@ public final class PenRPKCharacterWrapper implements RPKCharacter {
 
     @Override
     public void setName(@NotNull String name) {
-        String[] nameParts = name.split(" ");
-        if (nameParts.length > 0) {
-            pnpCharacter.setFirstName(nameParts[0]);
-        }
-        if (nameParts.length > 1) {
-            pnpCharacter.setFamilyName(nameParts[1]);
-        }
+        pnpCharacter.setName(name);
     }
 
     @Nullable

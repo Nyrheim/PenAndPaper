@@ -16,7 +16,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CharacterRecord extends UpdatableRecordImpl<CharacterRecord> {
 
-    private static final long serialVersionUID = 755430786;
+    private static final long serialVersionUID = 1286812857;
 
     /**
      * Setter for <code>nyrheim.character.id</code>.
@@ -47,381 +47,367 @@ public class CharacterRecord extends UpdatableRecordImpl<CharacterRecord> {
     }
 
     /**
-     * Setter for <code>nyrheim.character.first_name</code>.
+     * Setter for <code>nyrheim.character.name</code>.
      */
-    public void setFirstName(String value) {
+    public void setName(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>nyrheim.character.first_name</code>.
+     * Getter for <code>nyrheim.character.name</code>.
      */
-    public String getFirstName() {
+    public String getName() {
         return (String) get(2);
-    }
-
-    /**
-     * Setter for <code>nyrheim.character.family_name</code>.
-     */
-    public void setFamilyName(String value) {
-        set(3, value);
-    }
-
-    /**
-     * Getter for <code>nyrheim.character.family_name</code>.
-     */
-    public String getFamilyName() {
-        return (String) get(3);
     }
 
     /**
      * Setter for <code>nyrheim.character.height</code>.
      */
     public void setHeight(String value) {
-        set(4, value);
+        set(3, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.height</code>.
      */
     public String getHeight() {
-        return (String) get(4);
+        return (String) get(3);
     }
 
     /**
      * Setter for <code>nyrheim.character.weight</code>.
      */
     public void setWeight(String value) {
-        set(5, value);
+        set(4, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.weight</code>.
      */
     public String getWeight() {
-        return (String) get(5);
+        return (String) get(4);
     }
 
     /**
      * Setter for <code>nyrheim.character.appearance</code>.
      */
     public void setAppearance(String value) {
-        set(6, value);
+        set(5, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.appearance</code>.
      */
     public String getAppearance() {
-        return (String) get(6);
+        return (String) get(5);
     }
 
     /**
      * Setter for <code>nyrheim.character.presence</code>.
      */
     public void setPresence(String value) {
-        set(7, value);
+        set(6, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.presence</code>.
      */
     public String getPresence() {
-        return (String) get(7);
+        return (String) get(6);
     }
 
     /**
      * Setter for <code>nyrheim.character.age</code>.
      */
     public void setAge(Integer value) {
-        set(8, value);
+        set(7, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.age</code>.
      */
     public Integer getAge() {
-        return (Integer) get(8);
+        return (Integer) get(7);
     }
 
     /**
      * Setter for <code>nyrheim.character.experience</code>.
      */
     public void setExperience(Integer value) {
-        set(9, value);
+        set(8, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.experience</code>.
      */
     public Integer getExperience() {
-        return (Integer) get(9);
+        return (Integer) get(8);
     }
 
     /**
      * Setter for <code>nyrheim.character.exhaustion</code>.
      */
     public void setExhaustion(Integer value) {
-        set(10, value);
+        set(9, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.exhaustion</code>.
      */
     public Integer getExhaustion() {
-        return (Integer) get(10);
+        return (Integer) get(9);
     }
 
     /**
      * Setter for <code>nyrheim.character.race</code>.
      */
     public void setRace(String value) {
-        set(11, value);
+        set(10, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.race</code>.
      */
     public String getRace() {
-        return (String) get(11);
+        return (String) get(10);
     }
 
     /**
      * Setter for <code>nyrheim.character.helmet</code>.
      */
     public void setHelmet(byte[] value) {
-        set(12, value);
+        set(11, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.helmet</code>.
      */
     public byte[] getHelmet() {
-        return (byte[]) get(12);
+        return (byte[]) get(11);
     }
 
     /**
      * Setter for <code>nyrheim.character.chestplate</code>.
      */
     public void setChestplate(byte[] value) {
-        set(13, value);
+        set(12, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.chestplate</code>.
      */
     public byte[] getChestplate() {
-        return (byte[]) get(13);
+        return (byte[]) get(12);
     }
 
     /**
      * Setter for <code>nyrheim.character.leggings</code>.
      */
     public void setLeggings(byte[] value) {
-        set(14, value);
+        set(13, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.leggings</code>.
      */
     public byte[] getLeggings() {
-        return (byte[]) get(14);
+        return (byte[]) get(13);
     }
 
     /**
      * Setter for <code>nyrheim.character.boots</code>.
      */
     public void setBoots(byte[] value) {
-        set(15, value);
+        set(14, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.boots</code>.
      */
     public byte[] getBoots() {
-        return (byte[]) get(15);
+        return (byte[]) get(14);
     }
 
     /**
      * Setter for <code>nyrheim.character.inventory_contents</code>.
      */
     public void setInventoryContents(byte[] value) {
-        set(16, value);
+        set(15, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.inventory_contents</code>.
      */
     public byte[] getInventoryContents() {
-        return (byte[]) get(16);
+        return (byte[]) get(15);
     }
 
     /**
      * Setter for <code>nyrheim.character.health</code>.
      */
     public void setHealth(Double value) {
-        set(17, value);
+        set(16, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.health</code>.
      */
     public Double getHealth() {
-        return (Double) get(17);
+        return (Double) get(16);
     }
 
     /**
      * Setter for <code>nyrheim.character.food_level</code>.
      */
     public void setFoodLevel(Integer value) {
-        set(18, value);
+        set(17, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.food_level</code>.
      */
     public Integer getFoodLevel() {
-        return (Integer) get(18);
+        return (Integer) get(17);
     }
 
     /**
      * Setter for <code>nyrheim.character.saturation</code>.
      */
     public void setSaturation(Double value) {
-        set(19, value);
+        set(18, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.saturation</code>.
      */
     public Double getSaturation() {
-        return (Double) get(19);
+        return (Double) get(18);
     }
 
     /**
      * Setter for <code>nyrheim.character.food_exhaustion</code>.
      */
     public void setFoodExhaustion(Double value) {
-        set(20, value);
+        set(19, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.food_exhaustion</code>.
      */
     public Double getFoodExhaustion() {
-        return (Double) get(20);
+        return (Double) get(19);
     }
 
     /**
      * Setter for <code>nyrheim.character.world</code>.
      */
     public void setWorld(String value) {
-        set(21, value);
+        set(20, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.world</code>.
      */
     public String getWorld() {
-        return (String) get(21);
+        return (String) get(20);
     }
 
     /**
      * Setter for <code>nyrheim.character.x</code>.
      */
     public void setX(Double value) {
-        set(22, value);
+        set(21, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.x</code>.
      */
     public Double getX() {
-        return (Double) get(22);
+        return (Double) get(21);
     }
 
     /**
      * Setter for <code>nyrheim.character.y</code>.
      */
     public void setY(Double value) {
-        set(23, value);
+        set(22, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.y</code>.
      */
     public Double getY() {
-        return (Double) get(23);
+        return (Double) get(22);
     }
 
     /**
      * Setter for <code>nyrheim.character.z</code>.
      */
     public void setZ(Double value) {
-        set(24, value);
+        set(23, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.z</code>.
      */
     public Double getZ() {
-        return (Double) get(24);
+        return (Double) get(23);
     }
 
     /**
      * Setter for <code>nyrheim.character.pitch</code>.
      */
     public void setPitch(Double value) {
-        set(25, value);
+        set(24, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.pitch</code>.
      */
     public Double getPitch() {
-        return (Double) get(25);
+        return (Double) get(24);
     }
 
     /**
      * Setter for <code>nyrheim.character.yaw</code>.
      */
     public void setYaw(Double value) {
-        set(26, value);
+        set(25, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.yaw</code>.
      */
     public Double getYaw() {
-        return (Double) get(26);
+        return (Double) get(25);
     }
 
     /**
      * Setter for <code>nyrheim.character.hp</code>.
      */
     public void setHp(Integer value) {
-        set(27, value);
+        set(26, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.hp</code>.
      */
     public Integer getHp() {
-        return (Integer) get(27);
+        return (Integer) get(26);
     }
 
     /**
      * Setter for <code>nyrheim.character.temp_hp</code>.
      */
     public void setTempHp(Integer value) {
-        set(28, value);
+        set(27, value);
     }
 
     /**
      * Getter for <code>nyrheim.character.temp_hp</code>.
      */
     public Integer getTempHp() {
-        return (Integer) get(28);
+        return (Integer) get(27);
     }
 
     // -------------------------------------------------------------------------
@@ -447,37 +433,36 @@ public class CharacterRecord extends UpdatableRecordImpl<CharacterRecord> {
     /**
      * Create a detached, initialised CharacterRecord
      */
-    public CharacterRecord(Integer id, Integer playerId, String firstName, String familyName, String height, String weight, String appearance, String presence, Integer age, Integer experience, Integer exhaustion, String race, byte[] helmet, byte[] chestplate, byte[] leggings, byte[] boots, byte[] inventoryContents, Double health, Integer foodLevel, Double saturation, Double foodExhaustion, String world, Double x, Double y, Double z, Double pitch, Double yaw, Integer hp, Integer tempHp) {
+    public CharacterRecord(Integer id, Integer playerId, String name, String height, String weight, String appearance, String presence, Integer age, Integer experience, Integer exhaustion, String race, byte[] helmet, byte[] chestplate, byte[] leggings, byte[] boots, byte[] inventoryContents, Double health, Integer foodLevel, Double saturation, Double foodExhaustion, String world, Double x, Double y, Double z, Double pitch, Double yaw, Integer hp, Integer tempHp) {
         super(Character.CHARACTER);
 
         set(0, id);
         set(1, playerId);
-        set(2, firstName);
-        set(3, familyName);
-        set(4, height);
-        set(5, weight);
-        set(6, appearance);
-        set(7, presence);
-        set(8, age);
-        set(9, experience);
-        set(10, exhaustion);
-        set(11, race);
-        set(12, helmet);
-        set(13, chestplate);
-        set(14, leggings);
-        set(15, boots);
-        set(16, inventoryContents);
-        set(17, health);
-        set(18, foodLevel);
-        set(19, saturation);
-        set(20, foodExhaustion);
-        set(21, world);
-        set(22, x);
-        set(23, y);
-        set(24, z);
-        set(25, pitch);
-        set(26, yaw);
-        set(27, hp);
-        set(28, tempHp);
+        set(2, name);
+        set(3, height);
+        set(4, weight);
+        set(5, appearance);
+        set(6, presence);
+        set(7, age);
+        set(8, experience);
+        set(9, exhaustion);
+        set(10, race);
+        set(11, helmet);
+        set(12, chestplate);
+        set(13, leggings);
+        set(14, boots);
+        set(15, inventoryContents);
+        set(16, health);
+        set(17, foodLevel);
+        set(18, saturation);
+        set(19, foodExhaustion);
+        set(20, world);
+        set(21, x);
+        set(22, y);
+        set(23, z);
+        set(24, pitch);
+        set(25, yaw);
+        set(26, hp);
+        set(27, tempHp);
     }
 }

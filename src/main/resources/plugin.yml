@@ -21,6 +21,7 @@ commands:
       /char - Displays your character card
       /char [player] - Displays the character card of the specified player
       /char stats - Displays your stats
+      /char set name [name] - Sets your name
       /char set age [age] - Sets your age
       /char set height [height] - Sets your height
       /char set weight [weight] - Sets your weight
@@ -109,6 +110,9 @@ permissions:
     default: op
   penandpaper.command.exp.other:
     description: Allows viewing other players'' characters'' experience
+    default: op
+  penandpaper.command.character.set.name.other:
+    description: Allows setting the name of other players'' characters
     default: op
   penandpaper.command.character.set.age.other:
     description: Allows setting the age of other players'' characters
@@ -204,6 +208,7 @@ permissions:
     - penandpaper.command.exp.set
     - penandpaper.command.exp
     - penandpaper.command.exp.other
+    - penandpaper.command.character.set.name.other
     - penandpaper.command.character.set.age.other
     - penandpaper.command.character.set.height.other
     - penandpaper.command.character.set.weight.other
