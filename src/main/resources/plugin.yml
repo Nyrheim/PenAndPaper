@@ -12,7 +12,6 @@ depend:
 - rpk-skill-lib-bukkit
 - rpk-class-lib-bukkit
 - rpk-experience-lib-bukkit
-- rpk-economy-lib-bukkit
 - rpk-stat-lib-bukkit
 - rpk-language-lib-bukkit
 commands:
