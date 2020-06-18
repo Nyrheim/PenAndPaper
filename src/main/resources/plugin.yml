@@ -37,6 +37,7 @@ commands:
       Experience management commands
       /exp add [player] [experience] - Gives the player's active character the given amount of experience
       /exp set [player] [experience] - Sets the player's active character's experience to the given value
+      /exp - Shows your experience
     usage: /<command>
     aliases:
     - exp
@@ -102,6 +103,12 @@ permissions:
     default: op
   penandpaper.command.exp.set:
     description: Allows setting experience for characters
+    default: op
+  penandpaper.command.exp:
+    description: Allows viewing your experience
+    default: op
+  penandpaper.command.exp.other:
+    description: Allows viewing other players'' characters'' experience
     default: op
   penandpaper.command.character.set.age.other:
     description: Allows setting the age of other players'' characters
@@ -195,6 +202,8 @@ permissions:
     children:
     - penandpaper.command.exp.add
     - penandpaper.command.exp.set
+    - penandpaper.command.exp
+    - penandpaper.command.exp.other
     - penandpaper.command.character.set.age.other
     - penandpaper.command.character.set.height.other
     - penandpaper.command.character.set.weight.other
