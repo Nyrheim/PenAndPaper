@@ -31,8 +31,6 @@ import net.nyrheim.penandpaper.player.PenPlayerService;
 import net.nyrheim.penandpaper.race.PenRaceService;
 import net.nyrheim.penandpaper.rpkit.character.PenRPKCharacterProvider;
 import net.nyrheim.penandpaper.rpkit.clazz.PenRPKClassProvider;
-import net.nyrheim.penandpaper.rpkit.economy.PenRPKCurrencyProvider;
-import net.nyrheim.penandpaper.rpkit.economy.PenRPKEconomyProvider;
 import net.nyrheim.penandpaper.rpkit.experience.PenRPKExperienceProvider;
 import net.nyrheim.penandpaper.rpkit.player.PenRPKPlayerProvider;
 import net.nyrheim.penandpaper.rpkit.profile.PenRPKMinecraftProfileProvider;
@@ -80,8 +78,6 @@ public final class PenAndPaper extends RPKBukkitPlugin implements Listener {
         setServiceProviders(new ServiceProvider[] {
                 new PenRPKCharacterProvider(this),
                 new PenRPKClassProvider(this),
-                new PenRPKCurrencyProvider(),
-                new PenRPKEconomyProvider(),
                 new PenRPKExperienceProvider(this),
                 new PenRPKPlayerProvider(this),
                 new PenRPKMinecraftProfileProvider(this),

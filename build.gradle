@@ -39,7 +39,6 @@ dependencies {
     implementation group: "com.rpkit", name: "rpk-skill-lib-bukkit", version: "1.9.0"
     implementation group: "com.rpkit", name: "rpk-class-lib-bukkit", version: "1.9.0"
     implementation group: "com.rpkit", name: "rpk-experience-lib-bukkit", version: "1.9.0"
-    implementation group: "com.rpkit", name: "rpk-economy-lib-bukkit", version: "1.9.0"
     implementation group: "com.rpkit", name: "rpk-stat-lib-bukkit", version: "1.9.0"
     implementation group: "com.rpkit", name: "rpk-language-lib-bukkit", version: "1.9.0"
 }
