@@ -26,8 +26,7 @@ public final class PenCharacter {
 
     private CharacterId id;
     private final PlayerId playerId;
-    private String firstName;
-    private String familyName;
+    private String name;
     private String height;
     private String weight;
     private String appearance;
@@ -58,8 +57,7 @@ public final class PenCharacter {
             PenAndPaper plugin,
             CharacterId id,
             PlayerId playerId,
-            String firstName,
-            String familyName,
+            String name,
             String height,
             String weight,
             String appearance,
@@ -89,8 +87,7 @@ public final class PenCharacter {
         this.id = id;
         this.plugin = plugin;
         this.playerId = playerId;
-        this.firstName = firstName;
-        this.familyName = familyName;
+        this.name = name;
         this.height = height;
         this.weight = weight;
         this.appearance = appearance;
@@ -132,7 +129,6 @@ public final class PenCharacter {
                 "",
                 "",
                 "",
-                "",
                 20,
                 0,
                 0,
@@ -169,28 +165,16 @@ public final class PenCharacter {
         return playerId;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getFamilyName() {
-        return familyName;
-    }
-
     public String getName() {
-        return getFirstName() + " " + getFamilyName();
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getAge() {
         return age;
-    }
-
-    public void setFirstName(String fName) {
-        this.firstName = fName;
-    }
-
-    public void setFamilyName(String fName) {
-        this.familyName = fName;
     }
 
     public void setAge(int age) {

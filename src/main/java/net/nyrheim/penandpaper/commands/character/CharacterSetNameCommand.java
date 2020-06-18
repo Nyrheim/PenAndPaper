@@ -15,11 +15,11 @@ import java.util.Arrays;
 import static org.bukkit.ChatColor.GREEN;
 import static org.bukkit.ChatColor.RED;
 
-public class CharacterSetFamilyNameCommand implements CommandExecutor {
+public class CharacterSetNameCommand implements CommandExecutor {
 
     private final PenAndPaper plugin;
 
-    public CharacterSetFamilyNameCommand(PenAndPaper plugin) {
+    public CharacterSetNameCommand(PenAndPaper plugin) {
         this.plugin = plugin;
     }
 
@@ -31,8 +31,8 @@ public class CharacterSetFamilyNameCommand implements CommandExecutor {
         }
         int argOffset = 0;
         if (args.length > 1) {
-            if (sender.hasPermission("penandpaper.command.character.set.firstname.other")) {
-                target = plugin.getServer().getPlayer(args[0]);
+            if (sender.hasPermission("penandpaper.command.character.set.name.other")) {
+                target = plugin.getServer().getPlayerExact(args[0]);
                 if (target != null) {
                     argOffset = 1;
                 } else {
@@ -55,19 +55,19 @@ public class CharacterSetFamilyNameCommand implements CommandExecutor {
             return true;
         }
         if (args.length < 1) {
-            sender.sendMessage(RED + "You must specify your family name.");
+            sender.sendMessage(RED + "You must specify the name you wish to use.");
             return true;
         }
-        String familyName = Arrays.stream(args).skip(argOffset).reduce((a, b) -> a + " " + b).orElse("");
-        if (familyName.length() > 64) {
-            sender.sendMessage(RED + (sender == target ? "Your" : (character.getName() + "'s")) + " family name may be at most 64 characters long.");
+        String name = Arrays.stream(args).skip(argOffset).reduce((a, b) -> a + " " + b).orElse("");
+        if (name.length() > 128) {
+            sender.sendMessage(RED + (sender == target ? "Your" : (character.getName() + "'s")) + " name may be at most 128 characters long.");
             return true;
         }
-        character.setFamilyName(familyName);
+        character.setName(name);
         characterService.updateCharacter(character);
-        sender.sendMessage(GREEN + (sender == target ? "Your" : (character.getName() + "'s")) + " family name is now " + familyName + ".");
+        sender.sendMessage(GREEN + (sender == target ? "Your" : (character.getName() + "'s")) + " name is now " + name + ".");
         if (sender != target) {
-            target.sendMessage(GREEN + "Your family name is now " + familyName + ".");
+            target.sendMessage(GREEN + "Your name is now " + name + ".");
         }
         return true;
     }

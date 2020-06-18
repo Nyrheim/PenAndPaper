@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 import static java.util.logging.Level.SEVERE;
 import static net.nyrheim.penandpaper.database.jooq.Tables.CHARACTER;
 import static org.jooq.impl.DSL.*;
+import static org.jooq.impl.SQLDataType.VARCHAR;
 
 public final class CharacterTable implements Table {
 
@@ -46,8 +47,7 @@ public final class CharacterTable implements Table {
                 .createTableIfNotExists(CHARACTER)
                 .column(CHARACTER.ID)
                 .column(CHARACTER.PLAYER_ID)
-                .column(CHARACTER.FIRST_NAME)
-                .column(CHARACTER.FAMILY_NAME)
+                .column(CHARACTER.NAME)
                 .column(CHARACTER.HEIGHT)
                 .column(CHARACTER.WEIGHT)
                 .column(CHARACTER.APPEARANCE)
@@ -71,6 +71,8 @@ public final class CharacterTable implements Table {
                 .column(CHARACTER.Z)
                 .column(CHARACTER.PITCH)
                 .column(CHARACTER.YAW)
+                .column(CHARACTER.HP)
+                .column(CHARACTER.TEMP_HP)
                 .constraints(
                         constraint("character_pk").primaryKey(CHARACTER.ID)
                 )
@@ -84,6 +86,24 @@ public final class CharacterTable implements Table {
         database.create()
                 .alterTable(CHARACTER)
                 .addColumnIfNotExists(CHARACTER.TEMP_HP)
+                .execute();
+
+        database.create()
+                .alterTable(CHARACTER)
+                .addColumnIfNotExists(CHARACTER.NAME)
+                .after(CHARACTER.PLAYER_ID)
+                .execute();
+
+        database.create()
+                .update(CHARACTER)
+                .set(CHARACTER.NAME,
+                        field("first_name", VARCHAR(64))
+                                .concat(
+                                        value(" "),
+                                        field("family_name", VARCHAR(64))
+                                )
+                )
+                .where(CHARACTER.NAME.eq(""))
                 .execute();
     }
 
@@ -135,8 +155,7 @@ public final class CharacterTable implements Table {
                 .insertInto(
                         CHARACTER,
                         CHARACTER.PLAYER_ID,
-                        CHARACTER.FIRST_NAME,
-                        CHARACTER.FAMILY_NAME,
+                        CHARACTER.NAME,
                         CHARACTER.HEIGHT,
                         CHARACTER.WEIGHT,
                         CHARACTER.APPEARANCE,
@@ -165,8 +184,7 @@ public final class CharacterTable implements Table {
                 )
                 .values(
                         character.getPlayerId().getValue(),
-                        character.getFirstName(),
-                        character.getFamilyName(),
+                        character.getName(),
                         character.getHeight(),
                         character.getWeight(),
                         character.getAppearance(),
@@ -252,8 +270,7 @@ public final class CharacterTable implements Table {
         database.create()
                 .update(CHARACTER)
                 .set(CHARACTER.PLAYER_ID, character.getPlayerId().getValue())
-                .set(CHARACTER.FIRST_NAME, character.getFirstName())
-                .set(CHARACTER.FAMILY_NAME, character.getFamilyName())
+                .set(CHARACTER.NAME, character.getName())
                 .set(CHARACTER.HEIGHT, character.getHeight())
                 .set(CHARACTER.WEIGHT, character.getWeight())
                 .set(CHARACTER.APPEARANCE, character.getAppearance())
@@ -315,8 +332,7 @@ public final class CharacterTable implements Table {
         Record result = database.create()
                 .select(
                         CHARACTER.PLAYER_ID,
-                        CHARACTER.FIRST_NAME,
-                        CHARACTER.FAMILY_NAME,
+                        CHARACTER.NAME,
                         CHARACTER.HEIGHT,
                         CHARACTER.WEIGHT,
                         CHARACTER.APPEARANCE,
@@ -396,8 +412,7 @@ public final class CharacterTable implements Table {
                 plugin,
                 id,
                 new PlayerId(result.get(CHARACTER.PLAYER_ID)),
-                result.get(CHARACTER.FIRST_NAME),
-                result.get(CHARACTER.FAMILY_NAME),
+                result.get(CHARACTER.NAME),
                 result.get(CHARACTER.HEIGHT),
                 result.get(CHARACTER.WEIGHT),
                 result.get(CHARACTER.APPEARANCE),

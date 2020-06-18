@@ -4,25 +4,15 @@
 package net.nyrheim.penandpaper.database.jooq.tables;
 
 
-import java.util.Arrays;
-import java.util.List;
-
 import net.nyrheim.penandpaper.database.jooq.Keys;
 import net.nyrheim.penandpaper.database.jooq.Nyrheim;
 import net.nyrheim.penandpaper.database.jooq.tables.records.CharacterRecord;
-
-import org.jooq.Field;
-import org.jooq.ForeignKey;
-import org.jooq.Identity;
-import org.jooq.Name;
-import org.jooq.Record;
-import org.jooq.Schema;
-import org.jooq.Table;
-import org.jooq.TableField;
-import org.jooq.TableOptions;
-import org.jooq.UniqueKey;
+import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.jooq.impl.TableImpl;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -31,7 +21,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Character extends TableImpl<CharacterRecord> {
 
-    private static final long serialVersionUID = 219093704;
+    private static final long serialVersionUID = 1832991683;
 
     /**
      * The reference instance of <code>nyrheim.character</code>
@@ -57,14 +47,9 @@ public class Character extends TableImpl<CharacterRecord> {
     public final TableField<CharacterRecord, Integer> PLAYER_ID = createField(DSL.name("player_id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>nyrheim.character.first_name</code>.
+     * The column <code>nyrheim.character.name</code>.
      */
-    public final TableField<CharacterRecord, String> FIRST_NAME = createField(DSL.name("first_name"), org.jooq.impl.SQLDataType.VARCHAR(64).nullable(false), this, "");
-
-    /**
-     * The column <code>nyrheim.character.family_name</code>.
-     */
-    public final TableField<CharacterRecord, String> FAMILY_NAME = createField(DSL.name("family_name"), org.jooq.impl.SQLDataType.VARCHAR(64).nullable(false), this, "");
+    public final TableField<CharacterRecord, String> NAME = createField(DSL.name("name"), org.jooq.impl.SQLDataType.VARCHAR(128).nullable(false), this, "");
 
     /**
      * The column <code>nyrheim.character.height</code>.
