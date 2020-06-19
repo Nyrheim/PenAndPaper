@@ -14,6 +14,9 @@ repositories {
     mavenCentral()
     maven { url "https://hub.spigotmc.org/nexus/content/groups/public/" }
     maven { url "https://repo.rpkit.com/repository/maven-public/" }
+    maven { url "https://repo.frostalf.net"}
+    maven { url "https://repo.dmulloy2.net/nexus/repository/public/" }
+    maven { url "https://repo.aikar.co/content/groups/aikar/"}
 }
 
 dependencies {
@@ -24,7 +27,6 @@ dependencies {
     implementation group: "org.jooq", name: "jooq", version: "3.13.2"
     implementation group: "org.slf4j", name: "slf4j-jdk14", version: "1.7.30"
     implementation group: "org.ehcache", name: "ehcache", version: "3.8.1"
-
     implementation group: "org.jetbrains", name: "annotations", version: "19.0.0"
     implementation group: "org.eclipse.jetty", name: "jetty-server", version: "9.4.29.v20200521"
     implementation group: "org.eclipse.jetty", name: "jetty-servlet", version: "9.4.29.v20200521"
@@ -41,6 +43,10 @@ dependencies {
     implementation group: "com.rpkit", name: "rpk-experience-lib-bukkit", version: "1.9.0"
     implementation group: "com.rpkit", name: "rpk-stat-lib-bukkit", version: "1.9.0"
     implementation group: "com.rpkit", name: "rpk-language-lib-bukkit", version: "1.9.0"
+    compileOnly group: "net.iso2013.peapi", name: "PacketEntityAPI", version: "1.2.3-SNAPSHOT"
+    compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.5.0"
+    compile "co.aikar:taskchain-bukkit:3.6.0"
+    compile "net.iso2013.mlapi:MultiLineAPI:2.1.2-SNAPSHOT"
 }
 import org.apache.tools.ant.filters.ReplaceTokens
 
