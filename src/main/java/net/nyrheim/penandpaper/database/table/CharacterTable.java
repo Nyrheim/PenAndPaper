@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 import static java.util.logging.Level.SEVERE;
 import static net.nyrheim.penandpaper.database.jooq.Tables.CHARACTER;
 import static org.jooq.impl.DSL.*;
-import static org.jooq.impl.SQLDataType.VARCHAR;
 
 public final class CharacterTable implements Table {
 
@@ -95,15 +94,13 @@ public final class CharacterTable implements Table {
                 .execute();
 
         database.create()
-                .update(CHARACTER)
-                .set(CHARACTER.NAME,
-                        field("first_name", VARCHAR(64))
-                                .concat(
-                                        value(" "),
-                                        field("family_name", VARCHAR(64))
-                                )
-                )
-                .where(CHARACTER.NAME.eq(""))
+                .alterTable(CHARACTER)
+                .dropColumnIfExists(field("first_name"))
+                .execute();
+
+        database.create()
+                .alterTable(CHARACTER)
+                .dropColumnIfExists(field("family_name"))
                 .execute();
     }
 
