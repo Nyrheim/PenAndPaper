@@ -376,7 +376,7 @@ public final class PenCharacter {
 
     public int getMaxHP() {
         return (getFirstClass() != null ? getFirstClass().getBaseHP() : 1)
-                + (lookupModifier(getAbilityScore(CONSTITUTION)) * getLevel())
+                + (getModifier(CONSTITUTION) * getLevel())
                 + classes().stream()
                 .map(clazz -> (clazz.getLevel() - 1) * clazz.getClazz().getLevelHP())
                 .reduce(0, Integer::sum);
