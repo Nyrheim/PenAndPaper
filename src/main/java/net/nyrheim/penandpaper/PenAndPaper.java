@@ -5,7 +5,9 @@ import com.rpkit.core.bukkit.plugin.RPKBukkitPlugin;
 import com.rpkit.core.exception.UnregisteredServiceException;
 import com.rpkit.core.service.ServiceProvider;
 import com.rpkit.languages.bukkit.language.RPKLanguageProvider;
+import net.iso2013.mlapi.api.MultiLineAPI;
 import net.nyrheim.penandpaper.character.PenCharacterService;
+import net.nyrheim.penandpaper.character.ITagController;
 import net.nyrheim.penandpaper.commands.ability.AbilityCommand;
 import net.nyrheim.penandpaper.commands.character.CharacterCommand;
 import net.nyrheim.penandpaper.commands.clazz.ClassCommand;
@@ -40,6 +42,7 @@ import net.nyrheim.penandpaper.rpkit.profile.PenRPKProfileProvider;
 import net.nyrheim.penandpaper.rpkit.race.PenRPKRaceProvider;
 import net.nyrheim.penandpaper.rpkit.stat.PenRPKStatProvider;
 import net.nyrheim.penandpaper.service.Services;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -57,12 +60,18 @@ public final class PenAndPaper extends RPKBukkitPlugin implements Listener {
 
     private Database database;
     private Services services;
+    private MultiLineAPI lineAPI;
 
     public static Map<Player, LinkedList<String>> answers = new HashMap<>();
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        lineAPI = (MultiLineAPI) Bukkit.getPluginManager().getPlugin("MultiLineAPI");
+        if (lineAPI == null) {
+            throw new IllegalStateException("Failed to start demo plugin! MultiLineAPI could not be found!");
+        }
+        lineAPI.addDefaultTagController(new ITagController(this));
 
         database = new Database(
                 this,
@@ -120,7 +129,7 @@ public final class PenAndPaper extends RPKBukkitPlugin implements Listener {
     public void registerListeners() {
         registerListeners(
                 new InventoryClickListener(this),
-                new PlayerListener(),
+                new PlayerListener(this),
                 new PlayerInteractEntity(),
                 this
         );
@@ -152,6 +161,8 @@ public final class PenAndPaper extends RPKBukkitPlugin implements Listener {
     public Services getServices() {
         return services;
     }
+
+    public MultiLineAPI getLineAPI() { return lineAPI; }
 
     private void startExhaustionTask() {
         // Run first 30min after server starts, then every 60min after

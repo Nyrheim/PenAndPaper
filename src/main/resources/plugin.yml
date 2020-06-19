@@ -15,6 +15,7 @@ depend:
 - rpk-economy-lib-bukkit
 - rpk-stat-lib-bukkit
 - rpk-language-lib-bukkit
+- MultiLineAPI
 commands:
   character:
     description: |
