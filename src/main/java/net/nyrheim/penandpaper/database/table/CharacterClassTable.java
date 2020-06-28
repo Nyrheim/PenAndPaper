@@ -106,7 +106,7 @@ public final class CharacterClassTable implements Table {
                 .update(CHARACTER_CLASS)
                 .set(CHARACTER_CLASS.LEVEL, characterClass.getLevel())
                 .where(CHARACTER_CLASS.CHARACTER_ID.eq(characterId.getValue()))
-                .and(CHARACTER_CLASS.CLASS_NAME.eq(characterClass.getClass().getName()))
+                .and(CHARACTER_CLASS.CLASS_NAME.eq(characterClass.getClazz().getName()))
                 .execute();
         List<CharacterClass> classes = cache.get(characterId.getValue());
         if (classes == null) classes = new ArrayList<>();
