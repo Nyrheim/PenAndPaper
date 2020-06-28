@@ -1,7 +1,6 @@
 package net.nyrheim.penandpaper.gui;
 
 import net.nyrheim.penandpaper.PenAndPaper;
-import net.nyrheim.penandpaper.ability.Ability;
 import net.nyrheim.penandpaper.character.PenCharacter;
 import net.nyrheim.penandpaper.character.PenCharacterService;
 import net.nyrheim.penandpaper.player.PenPlayer;
@@ -9,8 +8,6 @@ import net.nyrheim.penandpaper.player.PenPlayerService;
 import net.nyrheim.penandpaper.race.PenRaceService;
 import net.nyrheim.penandpaper.race.Race;
 import org.bukkit.entity.Player;
-
-import java.util.UUID;
 
 import static org.bukkit.ChatColor.*;
 
@@ -419,6 +416,7 @@ public final class RaceGUI extends GUI {
 
     private void setRace(Player player, PenCharacterService characterService, PenCharacter character, Race race) {
         character.setRace(race);
+        character.setHP(character.getMaxHP());
         characterService.updateCharacter(character);
         player.closeInventory();
         player.sendMessage(GREEN + "Race set to " + race.getName() + ".");

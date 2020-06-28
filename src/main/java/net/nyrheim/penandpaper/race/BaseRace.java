@@ -6,7 +6,6 @@ import net.nyrheim.penandpaper.item.armor.ArmorType;
 import net.nyrheim.penandpaper.item.weapon.WeaponType;
 import net.nyrheim.penandpaper.skill.Skill;
 import net.nyrheim.penandpaper.weight.Weight;
-import com.rpkit.languages.bukkit.language.RPKLanguage;
 
 import java.util.*;
 
@@ -18,7 +17,6 @@ public final class BaseRace extends Race {
     private final int minimumAge;
     private final int maximumAge;
     private final Distance speed;
-    private final List<RPKLanguage> languages = new ArrayList<>();
     private final List<WeaponType> weaponProficiencies = new ArrayList<>();
     private final List<ArmorType> armorProficiencies = new ArrayList<>();
     private final Distance minimumHeight;
@@ -28,30 +26,30 @@ public final class BaseRace extends Race {
     private final Distance darkVision;
     private final List<Skill> skillProficiencies = new ArrayList<>();
     private final List<RaceTrait> traits = new ArrayList<>();
+    private final HPBonusFunction hpBonusFunction;
 
     private BaseRace(String name,
-                List<String> aliases,
-                Map<Ability, Integer> abilityScoreModifiers,
-                int minimumAge,
-                int maximumAge,
-                Distance speed,
-                Collection<RPKLanguage> languages,
-                Collection<WeaponType> weaponProficiencies,
-                Collection<ArmorType> armorProficiencies,
-                Distance minimumHeight,
-                Distance maximumHeight,
-                Weight minimumWeight,
-                Weight maximumWeight,
-                Distance darkVision,
-                Collection<Skill> skillProficiencies,
-                Collection<RaceTrait> traits) {
+                     List<String> aliases,
+                     Map<Ability, Integer> abilityScoreModifiers,
+                     int minimumAge,
+                     int maximumAge,
+                     Distance speed,
+                     Collection<WeaponType> weaponProficiencies,
+                     Collection<ArmorType> armorProficiencies,
+                     Distance minimumHeight,
+                     Distance maximumHeight,
+                     Weight minimumWeight,
+                     Weight maximumWeight,
+                     Distance darkVision,
+                     Collection<Skill> skillProficiencies,
+                     Collection<RaceTrait> traits,
+                     HPBonusFunction hpBonusFunction) {
         this.name = name;
         this.aliases.addAll(aliases);
         this.abilityScoreModifiers.putAll(abilityScoreModifiers);
         this.minimumAge = minimumAge;
         this.maximumAge = maximumAge;
         this.speed = speed;
-        this.languages.addAll(languages);
         this.weaponProficiencies.addAll(weaponProficiencies);
         this.armorProficiencies.addAll(armorProficiencies);
         this.minimumHeight = minimumHeight;
@@ -61,6 +59,7 @@ public final class BaseRace extends Race {
         this.darkVision = darkVision;
         this.skillProficiencies.addAll(skillProficiencies);
         this.traits.addAll(traits);
+        this.hpBonusFunction = hpBonusFunction;
     }
 
     static class Builder {
@@ -70,7 +69,6 @@ public final class BaseRace extends Race {
         private int minimumAge = -1;
         private int maximumAge = -1;
         private Distance speed = null;
-        private final List<RPKLanguage> languages = new ArrayList<>();
         private final List<WeaponType> weaponProficiencies = new ArrayList<>();
         private final List<ArmorType> armorProficiencies = new ArrayList<>();
         private Distance minimumHeight = null;
@@ -80,6 +78,7 @@ public final class BaseRace extends Race {
         private Distance darkVision = null;
         private final List<Skill> skillProficiencies = new ArrayList<>();
         private final List<RaceTrait> traits = new ArrayList<>();
+        private HPBonusFunction hpBonusFunction = level -> 0;
 
         public Builder(String name) {
             this.name = name;
@@ -112,16 +111,6 @@ public final class BaseRace extends Race {
 
         public Builder speed(Distance speed) {
             this.speed = speed;
-            return this;
-        }
-
-        public Builder language(RPKLanguage language) {
-            languages.add(language);
-            return this;
-        }
-
-        public Builder languages(RPKLanguage... languages) {
-            this.languages.addAll(Arrays.asList(languages));
             return this;
         }
 
@@ -190,6 +179,11 @@ public final class BaseRace extends Race {
             return this;
         }
 
+        public Builder hpBonus(HPBonusFunction hpBonusFunction) {
+            this.hpBonusFunction = hpBonusFunction;
+            return this;
+        }
+
         public BaseRace build() {
             return new BaseRace(
                     name,
@@ -198,7 +192,6 @@ public final class BaseRace extends Race {
                     minimumAge,
                     maximumAge,
                     speed,
-                    languages,
                     weaponProficiencies,
                     armorProficiencies,
                     minimumHeight,
@@ -207,7 +200,8 @@ public final class BaseRace extends Race {
                     maximumWeight,
                     darkVision,
                     skillProficiencies,
-                    traits
+                    traits,
+                    hpBonusFunction
             );
         }
     }
@@ -239,11 +233,6 @@ public final class BaseRace extends Race {
     @Override
     public Distance getSpeed() {
         return speed;
-    }
-
-    @Override
-    public List<RPKLanguage> getLanguages() {
-        return languages;
     }
 
     @Override
@@ -289,6 +278,11 @@ public final class BaseRace extends Race {
     @Override
     public List<RaceTrait> getTraits() {
         return traits;
+    }
+
+    @Override
+    public int getHPBonus(int level) {
+        return hpBonusFunction.getHPBonus(level);
     }
 
 }

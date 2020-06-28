@@ -4,6 +4,7 @@ import net.nyrheim.penandpaper.PenAndPaper;
 import net.nyrheim.penandpaper.character.PenCharacter;
 import net.nyrheim.penandpaper.clazz.PenClass;
 import net.nyrheim.penandpaper.player.PlayerId;
+import net.nyrheim.penandpaper.race.PenRaceService;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
+import static net.nyrheim.penandpaper.ability.Ability.CONSTITUTION;
 import static net.nyrheim.penandpaper.experience.ExperienceLookupTable.getExperienceRequiredForLevel;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -33,6 +35,16 @@ public class PenCharacterTests {
         character.addClass(PenClass.BARBARIAN);
         character.addClass(PenClass.BARD);
         assertEquals(17, character.getMaxHP());
+    }
+
+    @Test
+    public void testGetMaxHPRacialBonus() {
+        PenRaceService raceService = new PenRaceService();
+        PenCharacter character = createCharacter();
+        character.setAbilityScore(CONSTITUTION, 8);
+        character.setRace(raceService.getRace("GOLD_DWARF"));
+        character.setExperience(getExperienceRequiredForLevel(5));
+        assertEquals(6, character.getMaxHP());
     }
 
     @NotNull

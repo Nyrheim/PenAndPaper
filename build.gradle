@@ -42,7 +42,6 @@ dependencies {
     implementation group: "com.rpkit", name: "rpk-class-lib-bukkit", version: "1.9.0"
     implementation group: "com.rpkit", name: "rpk-experience-lib-bukkit", version: "1.9.0"
     implementation group: "com.rpkit", name: "rpk-stat-lib-bukkit", version: "1.9.0"
-    implementation group: "com.rpkit", name: "rpk-language-lib-bukkit", version: "1.9.0"
     compileOnly group: "net.iso2013.peapi", name: "PacketEntityAPI", version: "1.2.3-SNAPSHOT"
     compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.5.0"
     compileOnly group: "co.aikar", name: "taskchain-bukkit", version: "3.6.0"

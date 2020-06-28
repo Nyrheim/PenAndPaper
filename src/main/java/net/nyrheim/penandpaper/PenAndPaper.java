@@ -1,10 +1,7 @@
 package net.nyrheim.penandpaper;
 
-import com.rpkit.core.bukkit.event.provider.RPKBukkitServiceProviderReadyEvent;
 import com.rpkit.core.bukkit.plugin.RPKBukkitPlugin;
-import com.rpkit.core.exception.UnregisteredServiceException;
 import com.rpkit.core.service.ServiceProvider;
-import com.rpkit.languages.bukkit.language.RPKLanguageProvider;
 import net.iso2013.mlapi.api.MultiLineAPI;
 import net.nyrheim.penandpaper.character.ITagController;
 import net.nyrheim.penandpaper.character.PenCharacterService;
@@ -41,7 +38,6 @@ import net.nyrheim.penandpaper.rpkit.race.PenRPKRaceProvider;
 import net.nyrheim.penandpaper.rpkit.stat.PenRPKStatProvider;
 import net.nyrheim.penandpaper.service.Services;
 import org.bukkit.Bukkit;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 /* Pen and Paper's main class.
@@ -74,7 +70,7 @@ public class PenAndPaper extends RPKBukkitPlugin implements Listener {
         services = new Services(this);
         services.register(PenPlayerService.class, new PenPlayerService(this));
         services.register(PenCharacterService.class, new PenCharacterService(this));
-        services.register(PenRaceService.class, new PenRaceService(this));
+        services.register(PenRaceService.class, new PenRaceService());
         services.register(PenRecipeService.class, new PenRecipeService(this));
 
         setServiceProviders(new ServiceProvider[] {
@@ -89,29 +85,6 @@ public class PenAndPaper extends RPKBukkitPlugin implements Listener {
         });
 
         startExhaustionTask();
-    }
-
-    private boolean racesInitialized = false;
-
-    @Override
-    public void onPostEnable() {
-        if (racesInitialized) return;
-        attemptRaceInitialization();
-    }
-
-    @EventHandler
-    public void onServiceReady(RPKBukkitServiceProviderReadyEvent event) {
-        if (racesInitialized) return;
-        if (!(event.getServiceProvider() instanceof RPKLanguageProvider)) return;
-        attemptRaceInitialization();
-    }
-
-    private void attemptRaceInitialization() {
-        try {
-            core.getServiceManager().getServiceProvider(RPKLanguageProvider.class);
-            getServices().get(PenRaceService.class).initializeRaces();
-            racesInitialized = true;
-        } catch (UnregisteredServiceException ignored) {}
     }
 
     @Override

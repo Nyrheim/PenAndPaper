@@ -13,7 +13,6 @@ depend:
 - rpk-class-lib-bukkit
 - rpk-experience-lib-bukkit
 - rpk-stat-lib-bukkit
-- rpk-language-lib-bukkit
 - MultiLineAPI
 commands:
   character:

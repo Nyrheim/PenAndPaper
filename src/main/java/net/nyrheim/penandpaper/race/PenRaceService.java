@@ -1,8 +1,5 @@
 package net.nyrheim.penandpaper.race;
 
-import com.rpkit.core.exception.UnregisteredServiceException;
-import com.rpkit.languages.bukkit.language.RPKLanguageProvider;
-import net.nyrheim.penandpaper.PenAndPaper;
 import net.nyrheim.penandpaper.distance.Distance;
 import net.nyrheim.penandpaper.distance.DistanceUnit;
 import net.nyrheim.penandpaper.item.armor.ArmorType;
@@ -12,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.lang.Math.max;
 import static net.nyrheim.penandpaper.ability.Ability.*;
 import static net.nyrheim.penandpaper.item.armor.ArmorCategory.LIGHT_ARMOR;
 import static net.nyrheim.penandpaper.item.armor.ArmorCategory.MEDIUM_ARMOR;
@@ -21,22 +19,9 @@ import static net.nyrheim.penandpaper.weight.WeightUnit.LB;
 
 public final class PenRaceService {
 
-    private final PenAndPaper plugin;
-
     private final List<Race> races = new ArrayList<>();
 
-    public PenRaceService(PenAndPaper plugin) {
-        this.plugin = plugin;
-    }
-
-    public void initializeRaces() {
-        RPKLanguageProvider languageProvider;
-        try {
-            languageProvider = plugin.core.getServiceManager().getServiceProvider(RPKLanguageProvider.class);
-        } catch (UnregisteredServiceException exception) {
-            throw new RuntimeException("No language provider available", exception);
-        }
-
+    public PenRaceService() {
         Race dwarf = new BaseRace.Builder("Dwarf")
                 .minimumHeight(new Distance(43, DistanceUnit.INCHES))
                 .maximumHeight(new Distance(5, DistanceUnit.FEET))
@@ -73,10 +58,7 @@ public final class PenRaceService {
         Race goldDwarf = new Subrace.Builder(dwarf, "Gold Dwarf")
                 .alias("Hill Dwarf")
                 .abilityScoreModifier(WISDOM, 1)
-                .traits(
-                        new RaceTrait("Dwarven Toughness", "Your hit point maximum increases by 1, " +
-                                "and it increases by 1 every time you gain a level.")
-                )
+                .hpBonus(level -> level)
                 .build();
 
         races.add(goldDwarf);
@@ -556,8 +538,6 @@ public final class PenRaceService {
         Race abyssalTiefling = new Subrace.Builder(tiefling, "Abyssal Tiefling")
                 .abilityScoreModifier(CONSTITUTION, 1)
                 .traits(
-                        new RaceTrait("Abyssal Fortitude", "Abyssal Tieflings have their hit point " +
-                                "maximum increase by half of their level (minimum of 1)."),
                         new RaceTrait("Abyssal Arcana", "Each time Abyssal Tieflings finish a long " +
                                 "rest, you gain the ability to cast cantrips and spells randomly determined from a " +
                                 "short list. At 1st level, they can cast a cantrip. At 3rd level, they can cast a " +
@@ -568,6 +548,7 @@ public final class PenRaceService {
                                 "cast a spell, they can’t use it again until they finish a long rest. Charisma is " +
                                 "their spellcasting ability for them. (This replaces Infernal Legacy)")
                 )
+                .hpBonus(level -> max(level / 2, 1))
                 .build();
 
         races.add(abyssalTiefling);

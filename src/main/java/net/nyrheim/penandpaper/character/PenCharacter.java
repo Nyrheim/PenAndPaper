@@ -23,8 +23,6 @@ public final class PenCharacter {
 
     public static final int MAX_CLASSES = 4;
 
-    private PenAndPaper plugin;
-
     private CharacterId id;
     private final PlayerId playerId;
     private String name;
@@ -55,7 +53,6 @@ public final class PenCharacter {
     private int tempHP;
 
     public PenCharacter(
-            PenAndPaper plugin,
             CharacterId id,
             PlayerId playerId,
             String name,
@@ -86,7 +83,6 @@ public final class PenCharacter {
             int tempHP
     ) {
         this.id = id;
-        this.plugin = plugin;
         this.playerId = playerId;
         this.name = name;
         this.height = height;
@@ -122,7 +118,6 @@ public final class PenCharacter {
             PlayerId playerId
     ) {
         this(
-                plugin,
                 new CharacterId(-1),
                 playerId,
                 "",
@@ -386,7 +381,8 @@ public final class PenCharacter {
                 + (getModifier(CONSTITUTION) * getLevel())
                 + classes().stream()
                 .map(clazz -> (clazz.getLevel() - (clazz.getClazz() == getFirstClass() ? 1 : 0)) * clazz.getClazz().getLevelHP())
-                .reduce(0, Integer::sum);
+                .reduce(0, Integer::sum)
+                + (getRace() != null ? getRace().getHPBonus(getLevel()) : 0);
     }
 
     public int getHP() {
