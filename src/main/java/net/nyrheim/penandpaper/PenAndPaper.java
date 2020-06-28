@@ -6,8 +6,8 @@ import com.rpkit.core.exception.UnregisteredServiceException;
 import com.rpkit.core.service.ServiceProvider;
 import com.rpkit.languages.bukkit.language.RPKLanguageProvider;
 import net.iso2013.mlapi.api.MultiLineAPI;
-import net.nyrheim.penandpaper.character.PenCharacterService;
 import net.nyrheim.penandpaper.character.ITagController;
+import net.nyrheim.penandpaper.character.PenCharacterService;
 import net.nyrheim.penandpaper.commands.ability.AbilityCommand;
 import net.nyrheim.penandpaper.commands.character.CharacterCommand;
 import net.nyrheim.penandpaper.commands.clazz.ClassCommand;
@@ -41,26 +41,19 @@ import net.nyrheim.penandpaper.rpkit.race.PenRPKRaceProvider;
 import net.nyrheim.penandpaper.rpkit.stat.PenRPKStatProvider;
 import net.nyrheim.penandpaper.service.Services;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
 
 /* Pen and Paper's main class.
 Please avoid declaring unnecessary instances of this class, and follow best practice wherever possible throughout.
 API: Spigot 1.14.4.
 30/04/2020
  */
-public final class PenAndPaper extends RPKBukkitPlugin implements Listener {
+public class PenAndPaper extends RPKBukkitPlugin implements Listener {
 
     private Database database;
     private Services services;
     private MultiLineAPI lineAPI;
-
-    public static Map<Player, LinkedList<String>> answers = new HashMap<>();
 
     @Override
     public void onEnable() {

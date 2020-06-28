@@ -5,16 +5,16 @@ import net.nyrheim.penandpaper.player.PenPlayer;
 import net.nyrheim.penandpaper.player.PlayerUUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
 import java.util.UUID;
 
-public final class PlayerTests {
+import static org.mockito.Mockito.mock;
 
-    @Mock private PenAndPaper plugin;
+public final class PenPlayerTests {
 
     @Test
     public void testCheckPasswordNoPasswordSet() {
+        PenAndPaper plugin = mock(PenAndPaper.class);
         PenPlayer player = new PenPlayer(
                 plugin,
                 new PlayerUUID(UUID.fromString("00000000-0000-0000-0000-000000000000"))
@@ -24,6 +24,7 @@ public final class PlayerTests {
 
     @Test
     public void testCheckPasswordHappyPath() {
+        PenAndPaper plugin = mock(PenAndPaper.class);
         PenPlayer player = new PenPlayer(
                 plugin,
                 new PlayerUUID(UUID.fromString("00000000-0000-0000-0000-000000000000"))
@@ -34,6 +35,7 @@ public final class PlayerTests {
 
     @Test
     public void testCheckPasswordIncorrectPassword() {
+        PenAndPaper plugin = mock(PenAndPaper.class);
         PenPlayer player = new PenPlayer(
                 plugin,
                 new PlayerUUID(UUID.fromString("00000000-0000-0000-0000-000000000000"))

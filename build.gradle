@@ -46,7 +46,7 @@ dependencies {
     compileOnly group: "net.iso2013.peapi", name: "PacketEntityAPI", version: "1.2.3-SNAPSHOT"
     compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.5.0"
     compileOnly group: "co.aikar", name: "taskchain-bukkit", version: "3.6.0"
-    compileOnly group: "net.iso2013.mlapi", name: "MultiLineAPI", version: "2.1.2-SNAPSHOT"
+    implementation group: "net.iso2013.mlapi", name: "MultiLineAPI", version: "2.1.2-SNAPSHOT"
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
     testImplementation("org.mockito:mockito-core:3.3.3")
