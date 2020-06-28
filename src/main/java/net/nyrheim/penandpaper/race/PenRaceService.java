@@ -1,16 +1,16 @@
 package net.nyrheim.penandpaper.race;
 
-import com.rpkit.characters.bukkit.race.RPKRaceProvider;
-import net.nyrheim.penandpaper.PenAndPaper;
-import net.nyrheim.penandpaper.distance.Distance;
-import net.nyrheim.penandpaper.item.armor.ArmorType;
-import net.nyrheim.penandpaper.rpkit.race.PenRPKRaceProvider;
-import net.nyrheim.penandpaper.weight.Weight;
 import com.rpkit.core.exception.UnregisteredServiceException;
 import com.rpkit.languages.bukkit.language.RPKLanguageProvider;
+import net.nyrheim.penandpaper.PenAndPaper;
+import net.nyrheim.penandpaper.distance.Distance;
 import net.nyrheim.penandpaper.distance.DistanceUnit;
+import net.nyrheim.penandpaper.item.armor.ArmorType;
+import net.nyrheim.penandpaper.weight.Weight;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static net.nyrheim.penandpaper.ability.Ability.*;
 import static net.nyrheim.penandpaper.item.armor.ArmorCategory.LIGHT_ARMOR;

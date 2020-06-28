@@ -9,6 +9,7 @@ import net.nyrheim.penandpaper.player.PlayerId;
 import net.nyrheim.penandpaper.race.Race;
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -258,14 +259,20 @@ public final class PenCharacter {
     }
 
     public int getModifier(Ability ability) {
-        return lookupModifier(getAbilityScore(ability) + getTempScore(ability) + getRace().getAbilityScoreModifier(ability));
+        Race race = getRace();
+        return lookupModifier(
+                getAbilityScore(ability)
+                        + getTempScore(ability)
+                        + (race != null ? race.getAbilityScoreModifier(ability) : 0)
+        );
     }
 
+    @Nullable
     public Race getRace() {
         return race;
     }
 
-    public void setRace(Race race) {
+    public void setRace(@Nullable Race race) {
         this.race = race;
     }
 
@@ -378,7 +385,7 @@ public final class PenCharacter {
         return (getFirstClass() != null ? getFirstClass().getBaseHP() : 1)
                 + (getModifier(CONSTITUTION) * getLevel())
                 + classes().stream()
-                .map(clazz -> (clazz.getLevel() - 1) * clazz.getClazz().getLevelHP())
+                .map(clazz -> (clazz.getLevel() - (clazz.getClazz() == getFirstClass() ? 1 : 0)) * clazz.getClazz().getLevelHP())
                 .reduce(0, Integer::sum);
     }
 
