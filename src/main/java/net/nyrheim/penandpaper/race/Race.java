@@ -6,7 +6,6 @@ import net.nyrheim.penandpaper.item.armor.ArmorType;
 import net.nyrheim.penandpaper.item.weapon.WeaponType;
 import net.nyrheim.penandpaper.skill.Skill;
 import net.nyrheim.penandpaper.weight.Weight;
-import com.rpkit.languages.bukkit.language.RPKLanguage;
 
 import java.util.List;
 
@@ -18,7 +17,6 @@ public abstract class Race {
     public abstract int getMinimumAge();
     public abstract int getMaximumAge();
     public abstract Distance getSpeed();
-    public abstract List<RPKLanguage> getLanguages();
     public abstract List<WeaponType> getWeaponProficiencies();
     public abstract List<ArmorType> getArmorProficiencies();
     public abstract Distance getMinimumHeight();
@@ -28,5 +26,6 @@ public abstract class Race {
     public abstract Distance getDarkVision();
     public abstract List<Skill> getSkillProficiencies();
     public abstract List<RaceTrait> getTraits();
+    public abstract int getHPBonus(int level);
 
 }

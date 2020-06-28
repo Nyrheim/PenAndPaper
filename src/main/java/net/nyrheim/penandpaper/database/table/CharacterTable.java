@@ -406,7 +406,6 @@ public final class CharacterTable implements Table {
         String raceName = result.get(CHARACTER.RACE);
         Race race = raceName == null ? null : raceService.getRace(raceName);
         PenCharacter character = new PenCharacter(
-                plugin,
                 id,
                 new PlayerId(result.get(CHARACTER.PLAYER_ID)),
                 result.get(CHARACTER.NAME),

@@ -6,7 +6,6 @@ import net.nyrheim.penandpaper.item.armor.ArmorType;
 import net.nyrheim.penandpaper.item.weapon.WeaponType;
 import net.nyrheim.penandpaper.skill.Skill;
 import net.nyrheim.penandpaper.weight.Weight;
-import com.rpkit.languages.bukkit.language.RPKLanguage;
 
 import java.util.*;
 
@@ -19,7 +18,6 @@ public final class Subrace extends Race {
     private final int minimumAge;
     private final int maximumAge;
     private final Distance speed;
-    private final List<RPKLanguage> languages = new ArrayList<>();
     private final List<WeaponType> weaponProficiencies = new ArrayList<>();
     private final List<ArmorType> armorProficiencies = new ArrayList<>();
     private final Distance minimumHeight;
@@ -29,24 +27,25 @@ public final class Subrace extends Race {
     private final Distance darkVision;
     private final List<Skill> skillProficiencies = new ArrayList<>();
     private final List<RaceTrait> traits = new ArrayList<>();
+    private final HPBonusFunction hpBonusFunction;
 
     private Subrace(Race baseRace,
-                   String name,
-                   List<String> aliases,
-                   Map<Ability, Integer> abilityScoreModifiers,
-                   int minimumAge,
-                   int maximumAge,
-                   Distance speed,
-                   Collection<RPKLanguage> languages,
-                   Collection<WeaponType> weaponProficiencies,
-                   Collection<ArmorType> armorProficiencies,
-                   Distance minimumHeight,
-                   Distance maximumHeight,
-                   Weight minimumWeight,
-                   Weight maximumWeight,
-                   Distance darkVision,
-                   Collection<Skill> skillProficiencies,
-                   Collection<RaceTrait> traits) {
+                    String name,
+                    List<String> aliases,
+                    Map<Ability, Integer> abilityScoreModifiers,
+                    int minimumAge,
+                    int maximumAge,
+                    Distance speed,
+                    Collection<WeaponType> weaponProficiencies,
+                    Collection<ArmorType> armorProficiencies,
+                    Distance minimumHeight,
+                    Distance maximumHeight,
+                    Weight minimumWeight,
+                    Weight maximumWeight,
+                    Distance darkVision,
+                    Collection<Skill> skillProficiencies,
+                    Collection<RaceTrait> traits,
+                    HPBonusFunction hpBonusFunction) {
         this.baseRace = baseRace;
         this.name = name;
         this.aliases.addAll(aliases);
@@ -54,7 +53,6 @@ public final class Subrace extends Race {
         this.minimumAge = minimumAge;
         this.maximumAge = maximumAge;
         this.speed = speed;
-        this.languages.addAll(languages);
         this.weaponProficiencies.addAll(weaponProficiencies);
         this.armorProficiencies.addAll(armorProficiencies);
         this.minimumHeight = minimumHeight;
@@ -64,6 +62,7 @@ public final class Subrace extends Race {
         this.darkVision = darkVision;
         this.skillProficiencies.addAll(skillProficiencies);
         this.traits.addAll(traits);
+        this.hpBonusFunction = hpBonusFunction;
     }
 
     static class Builder {
@@ -74,7 +73,6 @@ public final class Subrace extends Race {
         private int minimumAge = -1;
         private int maximumAge = -1;
         private Distance speed = null;
-        private final List<RPKLanguage> languages = new ArrayList<>();
         private final List<WeaponType> weaponProficiencies = new ArrayList<>();
         private final List<ArmorType> armorProficiencies = new ArrayList<>();
         private Distance minimumHeight = null;
@@ -84,6 +82,7 @@ public final class Subrace extends Race {
         private Distance darkVision = null;
         private final List<Skill> skillProficiencies = new ArrayList<>();
         private final List<RaceTrait> traits = new ArrayList<>();
+        private HPBonusFunction hpBonusFunction;
 
         public Builder(Race baseRace, String name) {
             this.baseRace = baseRace;
@@ -117,16 +116,6 @@ public final class Subrace extends Race {
 
         public Builder speed(Distance speed) {
             this.speed = speed;
-            return this;
-        }
-
-        public Builder language(RPKLanguage language) {
-            languages.add(language);
-            return this;
-        }
-
-        public Builder languages(RPKLanguage... languages) {
-            this.languages.addAll(Arrays.asList(languages));
             return this;
         }
 
@@ -195,6 +184,11 @@ public final class Subrace extends Race {
             return this;
         }
 
+        public Builder hpBonus(HPBonusFunction hpBonusFunction) {
+            this.hpBonusFunction = hpBonusFunction;
+            return this;
+        }
+
         public Subrace build() {
             return new Subrace(
                     baseRace,
@@ -204,7 +198,6 @@ public final class Subrace extends Race {
                     minimumAge,
                     maximumAge,
                     speed,
-                    languages,
                     weaponProficiencies,
                     armorProficiencies,
                     minimumHeight,
@@ -213,7 +206,8 @@ public final class Subrace extends Race {
                     maximumWeight,
                     darkVision,
                     skillProficiencies,
-                    traits
+                    traits,
+                    hpBonusFunction
             );
         }
     }
@@ -252,11 +246,6 @@ public final class Subrace extends Race {
     public Distance getSpeed() {
         if (speed != null) return speed;
         return getBaseRace().getSpeed();
-    }
-
-    @Override
-    public List<RPKLanguage> getLanguages() {
-        return languages;
     }
 
     @Override
@@ -319,5 +308,11 @@ public final class Subrace extends Race {
         traits.addAll(getBaseRace().getTraits());
         traits.addAll(this.traits);
         return traits;
+    }
+
+    @Override
+    public int getHPBonus(int level) {
+        if (hpBonusFunction != null) return hpBonusFunction.getHPBonus(level);
+        return getBaseRace().getHPBonus(level);
     }
 }
