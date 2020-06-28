@@ -45,9 +45,18 @@ dependencies {
     implementation group: "com.rpkit", name: "rpk-language-lib-bukkit", version: "1.9.0"
     compileOnly group: "net.iso2013.peapi", name: "PacketEntityAPI", version: "1.2.3-SNAPSHOT"
     compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.5.0"
-    compile "co.aikar:taskchain-bukkit:3.6.0"
-    compile "net.iso2013.mlapi:MultiLineAPI:2.1.2-SNAPSHOT"
+    compileOnly group: "co.aikar", name: "taskchain-bukkit", version: "3.6.0"
+    compileOnly group: "net.iso2013.mlapi", name: "MultiLineAPI", version: "2.1.2-SNAPSHOT"
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
+    testImplementation("org.mockito:mockito-core:3.3.3")
+    testImplementation("org.mockito:mockito-inline:3.3.3")
 }
+
+test {
+    useJUnitPlatform()
+}
+
 import org.apache.tools.ant.filters.ReplaceTokens
 
 processResources {

@@ -93,6 +93,7 @@ public final class PenPlayer {
     }
 
     public boolean checkPassword(String password) {
+        if (passwordHash == null || passwordSalt == null) return false;
         PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), passwordSalt, 65536, 128);
         SecretKeyFactory factory;
         try {
