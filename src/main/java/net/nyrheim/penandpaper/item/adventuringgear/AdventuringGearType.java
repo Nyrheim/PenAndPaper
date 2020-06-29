@@ -600,6 +600,7 @@ public enum AdventuringGearType implements ItemType {
             "Rations (1 day)",
             new Money(5, SP),
             new Weight(2, LB),
+            5,
             Material.BREAD
     ),
     ROBES(
@@ -1218,54 +1219,63 @@ public enum AdventuringGearType implements ItemType {
             "Bread",
             new Money(0, CP),
             new Weight(0, LB),
+            5,
             Material.BREAD
     ),
     SMOKED_FISH(
             "Smoked fish",
             new Money(0, CP),
             new Weight(0, LB),
+            6,
             COOKED_SALMON
     ),
     GRILLED_MEAT(
             "Grilled meat",
             new Money(0, CP),
             new Weight(0, LB),
+            6,
             COOKED_BEEF
     ),
     BAKED_SNEIP(
             "Baked Snèip",
             new Money(0, CP),
             new Weight(0, LB),
+            5,
             BEETROOT
     ),
     CHEESE(
             "Cheese",
             new Money(0, CP),
             new Weight(0, LB),
+            3,
             SPONGE
     ),
     BUTTER(
             "Butter",
             new Money(0, CP),
             new Weight(0, LB),
+            1,
             YELLOW_CONCRETE
     ),
     STEW(
             "Stew",
             new Money(0, CP),
             new Weight(0, LB),
+            8,
             RABBIT_STEW
     ),
     SWEET_BREAD(
             "Sweet bread",
             new Money(0, CP),
             new Weight(0, LB),
+            10,
             Material.BREAD
     ),
     ROASTED_DINNER(
             "Roasted Dinner",
             new Money(0, CP),
             new Weight(0, LB),
+            12,
             COOKED_CHICKEN
     ),
     ALE(
@@ -1326,12 +1336,14 @@ public enum AdventuringGearType implements ItemType {
             "Springberry jam",
             new Money(0, CP),
             new Weight(0, LB),
+            1,
             FLOWER_POT
     ),
     SPRINGBERRY_PIE(
             "Springberry pie",
             new Money(0, CP),
             new Weight(0, LB),
+            6,
             PUMPKIN_PIE
     ),
     GOURD_BOTTLE(
@@ -1404,6 +1416,7 @@ public enum AdventuringGearType implements ItemType {
             "Meat",
             new Money(0, CP),
             new Weight(2, LB),
+            2,
             MUTTON
     ),
     RABBITS_EYE(
@@ -1416,6 +1429,7 @@ public enum AdventuringGearType implements ItemType {
             "Fish",
             new Money(0, CP),
             new Weight(2, LB),
+            2,
             COD
     ),
     PEARL(
@@ -1440,6 +1454,7 @@ public enum AdventuringGearType implements ItemType {
             "Sneip",
             new Money(0, CP),
             new Weight(1, LB),
+            2,
             CARROT
     ),
     MILK(
@@ -1458,6 +1473,7 @@ public enum AdventuringGearType implements ItemType {
             "Springberries",
             new Money(0, CP),
             new Weight(0, LB),
+            2,
             SWEET_BERRIES
     ),
     HEMP(
@@ -1626,13 +1642,25 @@ public enum AdventuringGearType implements ItemType {
     private final String name;
     private final Money cost;
     private final Weight weight;
+    private final int hunger;
     private final ItemStackInitializer itemStackInitializer;
 
-    AdventuringGearType(String name, Money cost, Weight weight, ItemStackInitializer itemStackInitializer) {
+    AdventuringGearType(String name, Money cost, Weight weight, int hunger, ItemStackInitializer itemStackInitializer) {
         this.name = name;
         this.cost = cost;
         this.weight = weight;
+        this.hunger = hunger;
         this.itemStackInitializer = itemStackInitializer;
+    }
+
+    AdventuringGearType(String name, Money cost, Weight weight, ItemStackInitializer itemStackInitializer) {
+        this(
+                name,
+                cost,
+                weight,
+                0,
+                itemStackInitializer
+        );
     }
 
     AdventuringGearType(String name, Money cost, Weight weight, Material minecraftType) {
@@ -1640,6 +1668,16 @@ public enum AdventuringGearType implements ItemType {
                 name,
                 cost,
                 weight,
+                (amount) -> new ItemStack(minecraftType, amount)
+        );
+    }
+
+    AdventuringGearType(String name, Money cost, Weight weight, int hunger, Material minecraftType) {
+        this(
+                name,
+                cost,
+                weight,
+                hunger,
                 (amount) -> new ItemStack(minecraftType, amount)
         );
     }
@@ -1658,6 +1696,10 @@ public enum AdventuringGearType implements ItemType {
     @Override
     public Weight getWeight() {
         return weight;
+    }
+
+    public int getHunger() {
+        return hunger;
     }
 
     @Override
