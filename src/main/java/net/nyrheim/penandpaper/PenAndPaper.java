@@ -22,6 +22,8 @@ import net.nyrheim.penandpaper.commands.soul.SoulCommand;
 import net.nyrheim.penandpaper.commands.temphp.TempHPCommand;
 import net.nyrheim.penandpaper.database.Database;
 import net.nyrheim.penandpaper.exhaustion.ExhaustionTask;
+import net.nyrheim.penandpaper.hunger.HungerFoodLevelChangeListener;
+import net.nyrheim.penandpaper.hunger.HungerPlayerInteractListener;
 import net.nyrheim.penandpaper.listener.InventoryClickListener;
 import net.nyrheim.penandpaper.listener.PlayerInteractEntity;
 import net.nyrheim.penandpaper.listener.PlayerListener;
@@ -37,14 +39,8 @@ import net.nyrheim.penandpaper.rpkit.race.PenRPKRaceProvider;
 import net.nyrheim.penandpaper.rpkit.stat.PenRPKStatProvider;
 import net.nyrheim.penandpaper.service.Services;
 import org.bukkit.Bukkit;
-import org.bukkit.event.Listener;
 
-/* Pen and Paper's main class.
-Please avoid declaring unnecessary instances of this class, and follow best practice wherever possible throughout.
-API: Spigot 1.14.4.
-30/04/2020
- */
-public class PenAndPaper extends RPKBukkitPlugin implements Listener {
+public class PenAndPaper extends RPKBukkitPlugin {
 
     private Database database;
     private Services services;
@@ -91,7 +87,8 @@ public class PenAndPaper extends RPKBukkitPlugin implements Listener {
                 new InventoryClickListener(this),
                 new PlayerListener(this),
                 new PlayerInteractEntity(),
-                this
+                new HungerFoodLevelChangeListener(),
+                new HungerPlayerInteractListener()
         );
     }
 
