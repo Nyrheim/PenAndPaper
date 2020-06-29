@@ -3,6 +3,7 @@ package net.nyrheim.penandpaper.commands.exhaustion;
 import net.nyrheim.penandpaper.PenAndPaper;
 import net.nyrheim.penandpaper.character.PenCharacter;
 import net.nyrheim.penandpaper.character.PenCharacterService;
+import net.nyrheim.penandpaper.exhaustion.ExhaustionTier;
 import net.nyrheim.penandpaper.player.PenPlayer;
 import net.nyrheim.penandpaper.player.PenPlayerService;
 import org.bukkit.command.Command;
@@ -11,8 +12,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import static org.bukkit.ChatColor.RED;
 import static org.bukkit.ChatColor.GREEN;
+import static org.bukkit.ChatColor.RED;
 
 public final class ExhaustionAddCommand implements CommandExecutor {
 
@@ -55,9 +56,19 @@ public final class ExhaustionAddCommand implements CommandExecutor {
             sender.sendMessage(RED + "That player does not currently have an active character.");
             return true;
         }
+        int oldExhaustion = character.getExhaustion();
         character.setExhaustion(character.getExhaustion() + amount);
         characterService.updateCharacter(character);
+        int newExhaustion = character.getExhaustion();
         sender.sendMessage(GREEN + "Exhaustion increased.");
+        ExhaustionTier oldExhaustionTier = ExhaustionTier.forExhaustionValue(oldExhaustion);
+        ExhaustionTier newExhaustionTier = ExhaustionTier.forExhaustionValue(newExhaustion);
+        if (oldExhaustionTier != newExhaustionTier) {
+            target.sendMessage(newExhaustionTier.getMessageSelf());
+            if (sender != target) {
+                sender.sendMessage(newExhaustionTier.getMessageOther(character));
+            }
+        }
         return true;
     }
 }

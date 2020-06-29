@@ -22,7 +22,6 @@ import net.nyrheim.penandpaper.commands.soul.SoulCommand;
 import net.nyrheim.penandpaper.commands.temphp.TempHPCommand;
 import net.nyrheim.penandpaper.database.Database;
 import net.nyrheim.penandpaper.exhaustion.ExhaustionTask;
-import net.nyrheim.penandpaper.item.PenRecipeService;
 import net.nyrheim.penandpaper.listener.InventoryClickListener;
 import net.nyrheim.penandpaper.listener.PlayerInteractEntity;
 import net.nyrheim.penandpaper.listener.PlayerListener;
@@ -71,7 +70,6 @@ public class PenAndPaper extends RPKBukkitPlugin implements Listener {
         services.register(PenPlayerService.class, new PenPlayerService(this));
         services.register(PenCharacterService.class, new PenCharacterService(this));
         services.register(PenRaceService.class, new PenRaceService());
-        services.register(PenRecipeService.class, new PenRecipeService(this));
 
         setServiceProviders(new ServiceProvider[] {
                 new PenRPKCharacterProvider(this),

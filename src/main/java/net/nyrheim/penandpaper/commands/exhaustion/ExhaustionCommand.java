@@ -29,13 +29,6 @@ public final class ExhaustionCommand implements CommandExecutor {
                              @NotNull Command command,
                              @NotNull String label,
                              @NotNull String[] args) {
-        if (args.length == 0) {
-            return exhaustionPlayerCheckCommand.onCommand(
-                    sender,
-                    command,
-                    label,
-                    Arrays.stream(args).skip(1).toArray(String[]::new));
-        }
         if (args.length >= 1) {
             switch (args[0].toLowerCase()) {
                 case "add": case "a":
@@ -64,8 +57,12 @@ public final class ExhaustionCommand implements CommandExecutor {
                     return true;
             }
         } else {
-            sender.sendMessage(RED + "Usage: /" + label + " [add|remove|set]");
+            return exhaustionPlayerCheckCommand.onCommand(
+                    sender,
+                    command,
+                    label,
+                    new String[0]
+            );
         }
-        return true;
     }
 }
