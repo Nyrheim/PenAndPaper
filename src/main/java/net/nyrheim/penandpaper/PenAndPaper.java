@@ -16,6 +16,7 @@ import net.nyrheim.penandpaper.commands.ihp.IHPCommand;
 import net.nyrheim.penandpaper.commands.item.ItemCommand;
 import net.nyrheim.penandpaper.commands.levelup.LevelUpCommand;
 import net.nyrheim.penandpaper.commands.password.PasswordCommand;
+import net.nyrheim.penandpaper.commands.race.RaceCommand;
 import net.nyrheim.penandpaper.commands.roll.RollCommand;
 import net.nyrheim.penandpaper.commands.sethp.SetHPCommand;
 import net.nyrheim.penandpaper.commands.soul.SoulCommand;
@@ -109,6 +110,7 @@ public class PenAndPaper extends RPKBukkitPlugin {
         getCommand("roll").setExecutor(new RollCommand(this));
         getCommand("temphp").setExecutor(new TempHPCommand(this));
         getCommand("password").setExecutor(new PasswordCommand(this));
+        getCommand("race").setExecutor(new RaceCommand(this));
     }
 
     public Database getDatabase() {

@@ -98,6 +98,12 @@ commands:
   password:
     description: Sets your password for login to web apps etc
     usage: /<command>
+  race:
+    description: |
+      Race management command
+      /race traits - Lists your races traits
+      /race traits [player] - Lists a player's race traits
+    usage: /<command> [traits]
 permissions:
   penandpaper.command.exp.add:
     description: Allows adding experience to characters
