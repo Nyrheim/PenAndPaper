@@ -17,6 +17,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import static org.bukkit.ChatColor.RED;
+
 public class RollCommand  implements CommandExecutor {
 
     private final PenAndPaper plugin;
@@ -31,6 +33,10 @@ public class RollCommand  implements CommandExecutor {
         PenPlayer penPlayer = playerService.getPlayer(commandSender);
         PenCharacterService characterService = plugin.getServices().get(PenCharacterService.class);
         PenCharacter character = characterService.getActiveCharacter(penPlayer);
+        if (character == null) {
+            sender.sendMessage(RED + "You do not currently have an active character.");
+            return true;
+        }
         if (args.length == 1) {
             try {
                 Roll input = Roll.parse(args[0]);
@@ -40,7 +46,7 @@ public class RollCommand  implements CommandExecutor {
                         int result = partResultList.stream()
                                 .mapToInt(RollPartResult::getResult)
                                 .sum();
-                        player.sendMessage(ChatColor.GOLD + character.getName() + ChatColor.WHITE +  " rolled " + args[0]);
+                        player.sendMessage(ChatColor.GOLD + character.getName() + ChatColor.WHITE +  " rolled " + input.toString());
                         player.sendMessage(ChatColor.GOLD + "Result: " +
                                 partResultList.stream()
                                 .map(RollPartResult::toString)
@@ -51,12 +57,12 @@ public class RollCommand  implements CommandExecutor {
                 }
                 return true;
             } catch (NumberFormatException e) {
-                sender.sendMessage(ChatColor.RED + "Please enter your dice rolls in the following example format: 1d10+3d10+5.");
+                sender.sendMessage(RED + "Please enter your dice rolls in the following example format: 1d10+3d10+5.");
                 return true;
             }
         }
         else {
-            sender.sendMessage(ChatColor.RED + "Please enter your dice rolls in the following example format: 1d10+3d10+5.");
+            sender.sendMessage(RED + "Please enter your dice rolls in the following example format: 1d10+3d10+5.");
             return true;
         }
 

@@ -46,7 +46,7 @@ public final class Roll {
 
         @Override
         public String toString() {
-            return (Math.signum(multiplier) == -1 ? "-" : "+") + rolls + "d" + sides;
+            return (Math.signum(multiplier) == -1 ? "-" : "") + rolls + "d" + sides;
         }
     }
 
@@ -111,7 +111,7 @@ public final class Roll {
     public String toString() {
         String roll = parts.stream()
                 .map(RollPart::toString)
-                .reduce("", (a, b) -> a + b);
+                .reduce("", (a, b) -> a + (b.startsWith("-") ? "" : "+") + b);
         if (roll.startsWith("+"))
             return roll.substring(1);
         else
