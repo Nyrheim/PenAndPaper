@@ -246,7 +246,7 @@ public final class RaceGUI extends GUI {
                     break;
                 case 3:
                     baseRace = human;
-                    setRace(player, characterService, character, human);
+                    initializeHumanSubraceItems();
                     break;
                 case 4:
                     baseRace = gnome;
@@ -322,6 +322,14 @@ public final class RaceGUI extends GUI {
                 setRace(player, characterService, character, stoutHalfling);
             } else if (slot == 2) {
                 setRace(player, characterService, character, ghostwiseHalfling);
+            }
+        } else if (baseRace == human) {
+            Race baseHuman = raceService.getRace("BASE_HUMAN");
+            Race variantHuman = raceService.getRace("VARIANT_HUMAN");
+            if (slot == 0) {
+                setRace(player, characterService, character, baseHuman);
+            } else if (slot == 1) {
+                setRace(player, characterService, character, variantHuman);
             }
         } else if (baseRace == gnome) {
             Race forestGnome = raceService.getRace("FOREST_GNOME");
@@ -471,6 +479,20 @@ public final class RaceGUI extends GUI {
                 "ewogICJ0aW1lc3RhbXAiIDogMTU5MjAwMTEyNjg5MSwKICAicHJvZmlsZUlkIiA6ICI3M2ZkNzU2NWJkZTY0MGQzYWE4MGUxMWUwMTMwMjc3OCIsCiAgInByb2ZpbGVOYW1lIiA6ICJHYUJySWVMVnR6IiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2U0YzQ3NjQ5OGUwODk5NWE0YzE5ZjM1ZDdmMDVlMjJkZDdiYWExYTc4MDgwMjY5NGViM2RlYWE4YjRmYmU3N2EiCiAgICB9CiAgfQp9",
                 "fff66771-faad-477a-9264-eef5481ab924",
                 WHITE + "Ghostwise Halfling"
+        ));
+    }
+
+    private void initializeHumanSubraceItems() {
+        getInventory().clear();
+        getInventory().setItem(0, stealFaceForGuiItem(
+                "ewogICJ0aW1lc3RhbXAiIDogMTU5MTk5ODIwMTcwOCwKICAicHJvZmlsZUlkIiA6ICI5MWZlMTk2ODdjOTA0NjU2YWExZmMwNTk4NmRkM2ZlNyIsCiAgInByb2ZpbGVOYW1lIiA6ICJoaGphYnJpcyIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9lZTk5ZDllYTQ2Mzc3MWNkZWE2NzQ4YTI0ZDI0OWIzODRmNWExNjAyNjBhMWU0ZWUzNTgzYTQyMzY2NGM0ZDNlIgogICAgfQogIH0KfQ==",
+                "3c676e28-5d87-461e-8abd-169730c65003",
+                WHITE + "Base Human"
+        ));
+        getInventory().setItem(1, stealFaceForGuiItem(
+                "ewogICJ0aW1lc3RhbXAiIDogMTU5MTk5ODIwMTcwOCwKICAicHJvZmlsZUlkIiA6ICI5MWZlMTk2ODdjOTA0NjU2YWExZmMwNTk4NmRkM2ZlNyIsCiAgInByb2ZpbGVOYW1lIiA6ICJoaGphYnJpcyIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9lZTk5ZDllYTQ2Mzc3MWNkZWE2NzQ4YTI0ZDI0OWIzODRmNWExNjAyNjBhMWU0ZWUzNTgzYTQyMzY2NGM0ZDNlIgogICAgfQogIH0KfQ==",
+                "3c676e28-5d87-461e-8abd-169730c65003",
+                WHITE + "Variant Human"
         ));
     }
 

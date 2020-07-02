@@ -6,6 +6,8 @@ import net.nyrheim.penandpaper.character.PenCharacterService;
 import net.nyrheim.penandpaper.gui.RaceGUI;
 import net.nyrheim.penandpaper.player.PenPlayer;
 import net.nyrheim.penandpaper.player.PenPlayerService;
+import net.nyrheim.penandpaper.race.PenRaceService;
+import net.nyrheim.penandpaper.race.Race;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -42,12 +44,17 @@ public final class CharacterSetRaceCommand implements CommandExecutor {
                 player.sendMessage(ChatColor.RED + "You do not have an active character.");
                 return true;
             }
-            if (character.getRace() != null) {
+            PenRaceService raceService = plugin.getServices().get(PenRaceService.class);
+            Race human = raceService.getRace("HUMAN");
+            if (character.getRace() != null && character.getRace() != human) {
                 player.sendMessage(ChatColor.RED + "You have already set your race.");
                 return true;
             } else {
                 RaceGUI gui = new RaceGUI(plugin);
                 gui.initializeItems(player);
+                if (character.getRace() == human) {
+                    gui.onClick(player, 3);
+                }
                 gui.openInventory(player);
                 return true;
             }

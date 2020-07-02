@@ -222,17 +222,35 @@ public final class PenRaceService {
                 .minimumAge(18)
                 .maximumAge(90)
                 .speed(new Distance(30, DistanceUnit.FEET))
+                .build();
+
+        races.add(human);
+
+        Race baseHuman = new Subrace.Builder(human, "Base Human")
+                .abilityScoreModifier(STRENGTH, 1)
+                .abilityScoreModifier(DEXTERITY, 1)
+                .abilityScoreModifier(CONSTITUTION, 1)
+                .abilityScoreModifier(INTELLIGENCE, 1)
+                .abilityScoreModifier(WISDOM, 1)
+                .abilityScoreModifier(CHARISMA, 1)
+                .traits(
+                        new RaceTrait("Skill Versatility", "Humans gain proficiency in any " +
+                                "combination of three skills or languages of their choice.")
+                )
+                .build();
+
+        races.add(baseHuman);
+
+        Race variantHuman = new Subrace.Builder(human, "Variant Human")
                 .traits(
                         new RaceTrait("Ability Score Increase", "Two different ability scores of " +
                                 "your choice increase by 1."),
-                        new RaceTrait("Skill Versatility", "You gain proficiency in any combination " +
-                                "of three skills, tools, or languages of your choice."),
                         new RaceTrait("Human Specialization", "Gain one feat of your choice from " +
                                 "the feat list.")
                 )
                 .build();
 
-        races.add(human);
+        races.add(variantHuman);
 
         Race gnome = new BaseRace.Builder("Gnome")
                 .minimumHeight(new Distance(34, DistanceUnit.INCHES))
