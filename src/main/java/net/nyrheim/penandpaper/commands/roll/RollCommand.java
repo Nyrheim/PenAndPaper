@@ -9,7 +9,6 @@ import net.nyrheim.penandpaper.dice.Roll.Modifier;
 import net.nyrheim.penandpaper.dice.RollPartResult;
 import net.nyrheim.penandpaper.player.PenPlayer;
 import net.nyrheim.penandpaper.player.PenPlayerService;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -43,26 +42,26 @@ public class RollCommand  implements CommandExecutor {
             try {
                 Roll input = Roll.parse(args[0]);
                 List<RollPartResult> partResultList = input.roll();
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    if (player.getLocation().distance(commandSender.getLocation()) < 20) {
+                for (Player player : commandSender.getWorld().getPlayers()) {
+                    if (player.getLocation().distanceSquared(commandSender.getLocation()) <= 400) {
                         int result = partResultList.stream()
                                 .mapToInt(RollPartResult::getResult)
                                 .sum();
-                        player.sendMessage(ChatColor.GOLD + character.getName() + ChatColor.WHITE +  " rolled " + input.toDisplayString());
+                        player.sendMessage(ChatColor.GOLD + character.getName() + ChatColor.WHITE + " rolled " + input.toDisplayString());
                         player.sendMessage(ChatColor.GOLD + "Result: " +
                                 partResultList.stream()
-                                .map(rollPartResult -> {
-                                    if (rollPartResult.getRollPart() instanceof Die) {
-                                        return AQUA + rollPartResult.toString() + WHITE;
-                                    } else if (rollPartResult.getRollPart() instanceof Modifier) {
-                                        return YELLOW + rollPartResult.toString() + WHITE;
-                                    } else {
-                                        return rollPartResult.toString();
-                                    }
-                                })
-                                .reduce((a, b) -> a + "+" + b)
-                                .orElse("")
-                        + " = " + result);
+                                        .map(rollPartResult -> {
+                                            if (rollPartResult.getRollPart() instanceof Die) {
+                                                return AQUA + rollPartResult.toString() + WHITE;
+                                            } else if (rollPartResult.getRollPart() instanceof Modifier) {
+                                                return YELLOW + rollPartResult.toString() + WHITE;
+                                            } else {
+                                                return rollPartResult.toString();
+                                            }
+                                        })
+                                        .reduce((a, b) -> a + "+" + b)
+                                        .orElse("")
+                                + " = " + result);
                     }
                 }
                 return true;
