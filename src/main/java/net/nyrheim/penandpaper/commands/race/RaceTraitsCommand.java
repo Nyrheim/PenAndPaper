@@ -31,7 +31,7 @@ public final class RaceTraitsCommand implements CommandExecutor {
         if (sender instanceof Player) {
             target = (Player) sender;
         }
-        if (args.length > 1) {
+        if (args.length > 0) {
             target = plugin.getServer().getPlayerExact(args[0]);
             if (target == null) {
                 if (sender instanceof Player) {
