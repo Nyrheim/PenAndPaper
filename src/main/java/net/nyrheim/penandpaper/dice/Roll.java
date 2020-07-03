@@ -1,5 +1,7 @@
 package net.nyrheim.penandpaper.dice;
 
+import org.bukkit.ChatColor;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,6 +9,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import static org.bukkit.ChatColor.*;
 
 public final class Roll {
 
@@ -116,6 +120,25 @@ public final class Roll {
             return roll.substring(1);
         else
             return roll;
+    }
+
+    public String toDisplayString() {
+        String roll = parts.stream()
+                .map(rollPart -> {
+                    if (rollPart instanceof Die) {
+                        return AQUA + rollPart.toString() + WHITE;
+                    } else if (rollPart instanceof Modifier) {
+                        return YELLOW + rollPart.toString() + WHITE;
+                    } else {
+                        return rollPart.toString();
+                    }
+                })
+                .reduce("", (a, b) -> a + (ChatColor.stripColor(b).startsWith("-") ? "" : "+") + b);
+        if (ChatColor.stripColor(roll).startsWith("+")) {
+            return roll.replaceFirst("\\+", "");
+        } else {
+            return roll;
+        }
     }
 
 }

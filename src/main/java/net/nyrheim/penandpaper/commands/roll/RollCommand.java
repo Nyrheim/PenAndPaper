@@ -4,6 +4,8 @@ import net.nyrheim.penandpaper.PenAndPaper;
 import net.nyrheim.penandpaper.character.PenCharacter;
 import net.nyrheim.penandpaper.character.PenCharacterService;
 import net.nyrheim.penandpaper.dice.Roll;
+import net.nyrheim.penandpaper.dice.Roll.Die;
+import net.nyrheim.penandpaper.dice.Roll.Modifier;
 import net.nyrheim.penandpaper.dice.RollPartResult;
 import net.nyrheim.penandpaper.player.PenPlayer;
 import net.nyrheim.penandpaper.player.PenPlayerService;
@@ -17,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static org.bukkit.ChatColor.RED;
+import static org.bukkit.ChatColor.*;
 
 public class RollCommand  implements CommandExecutor {
 
@@ -46,11 +48,19 @@ public class RollCommand  implements CommandExecutor {
                         int result = partResultList.stream()
                                 .mapToInt(RollPartResult::getResult)
                                 .sum();
-                        player.sendMessage(ChatColor.GOLD + character.getName() + ChatColor.WHITE +  " rolled " + input.toString());
+                        player.sendMessage(ChatColor.GOLD + character.getName() + ChatColor.WHITE +  " rolled " + input.toDisplayString());
                         player.sendMessage(ChatColor.GOLD + "Result: " +
                                 partResultList.stream()
-                                .map(RollPartResult::toString)
-                                .reduce((a, b) -> a+"+"+b)
+                                .map(rollPartResult -> {
+                                    if (rollPartResult.getRollPart() instanceof Die) {
+                                        return AQUA + rollPartResult.toString() + WHITE;
+                                    } else if (rollPartResult.getRollPart() instanceof Modifier) {
+                                        return YELLOW + rollPartResult.toString() + WHITE;
+                                    } else {
+                                        return rollPartResult.toString();
+                                    }
+                                })
+                                .reduce((a, b) -> a + "+" + b)
                                 .orElse("")
                         + " = " + result);
                     }

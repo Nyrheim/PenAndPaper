@@ -21,9 +21,13 @@ public final class RollPartResult {
         return "(" + individualResults
                 .stream()
                 .map(result -> Integer.toString(result))
-                .reduce((a, b) -> a+"+"+b)
+                .reduce((a, b) -> a + (b.startsWith("-") ? "" : "+") + b)
                 .orElse("Invalid roll.")
                 + ")";
+    }
+
+    public RollPart getRollPart() {
+        return rollPart;
     }
 
     public Integer getResult() {
