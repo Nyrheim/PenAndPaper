@@ -315,7 +315,11 @@ public final class PenRPKCharacterWrapper implements RPKCharacter {
     @Nullable
     @Override
     public RPKRace getRace() {
-        return new PenRPKRaceWrapper(pnpCharacter.getRace());
+        if (pnpCharacter.getRace() == null) {
+            return null;
+        } else {
+            return new PenRPKRaceWrapper(pnpCharacter.getRace());
+        }
     }
 
     @Override
